@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6D1055A0-93A7-C1D9-1CC3-430CCD52138F" name="Gym_equipment">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>AAAF21B3-67AF-5283-4E09-7666987E6B13</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Gym_equipment_id" id="07CC0764-9231-683B-20B7-19FC4F889FF2">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>AB9B143B-5554-74FF-92D5-F78383A097A6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_id" id="8B67FF81-5B05-6A80-5753-EBF1244B28E5">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>E21A5966-59B5-3AAF-6B6E-FE13513D4A94</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F9CE202B-A0C5-D357-0E4F-28CCDE63AA59" referredColumn="8D92AF83-5A16-6F8D-2176-1A7915D958AF"/>
+</associations>
+</Column>
+<Column name="Equipment_id" id="C8164953-974B-86E5-8B3D-D88CC2855DCC">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>49AEAF44-B499-90A9-D540-F139F8A81F13</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DA0307AC-EBD0-DE2E-4457-E8527037B382" referredColumn="B9E67C37-1006-DA26-9376-4C2BAA8B1ADD"/>
+</associations>
+</Column>
+<Column name="Purchase_date" id="7B83E797-BD76-62EA-05CE-947F0EA9EE5A">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>64AB118E-0DE9-0DF5-01AC-6020C280F2F1</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6E666EC4-2050-000C-B6D8-C956F53C2F79" name="Gym_equipment_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>8BC52F22-D362-D18F-3751-D86225493BB4</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="07CC0764-9231-683B-20B7-19FC4F889FF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B28C1589-A97E-2565-9E49-A5236602FF09" name="Gym_equipment_Equipment_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>05D18EA0-14E3-C5D0-6013-21A6E0AFE716</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C8164953-974B-86E5-8B3D-D88CC2855DCC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="25DBCE91-3293-E40C-5C3C-2EEB6429F648" name="Gym_equipment_Gym_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>E2D4D240-D9D2-88C8-BB50-331B738E5F0A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8B67FF81-5B05-6A80-5753-EBF1244B28E5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

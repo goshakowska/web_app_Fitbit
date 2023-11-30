@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AEC4C462-024A-0A4C-5ACF-BC73F0CE2A19" name="Gym_ticket_history">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>55B81471-5009-D915-26B3-3C70E2EBB992</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Gym_ticket_history_id" id="4A66A494-9A3C-1755-AA35-0F67C2CD32D7">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>D16E5B3E-5F16-BFDE-FFFE-2EA7625BB780</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Purchase_date" id="A23E21FF-720C-2445-9631-2E702448236E">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>FE6C6DCA-9B1B-F439-970F-9FC6F643F4CB</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Activation_date" id="2523C552-1238-8AC0-98E3-3003AE46A73A">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>BC66FBA6-E216-26A1-1C3B-F6620C020C75</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_ticket_offer_id" id="F800713E-97EA-3ED6-B5D0-7AB6F694DF39">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>BD20F31A-BB0F-F58E-3C49-5FBB2610B0A0</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5B0EAEE5-B50D-C834-1824-1DD82811C59F" referredColumn="D16CD249-46ED-E93C-6303-7AA45B3FD27E"/>
+</associations>
+</Column>
+<Column name="Discount_id" id="682A5510-D407-0602-2B2D-D37AFF747060">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>F86A4CC8-4CA3-CC62-01BB-63B2123E4ECB</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="48699948-640B-F322-E386-7489BD9B6297" referredColumn="DC48ABC3-F50F-7FD8-D493-4C39BC2FD7E2"/>
+</associations>
+</Column>
+<Column name="Client_id" id="7F654D16-4513-9089-F134-2976F3ECF20B">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>9226B9A0-A33B-D510-A498-1E1359376D74</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7B6F8FCE-3133-8141-B1C6-987829D20DEA" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="66C27FEF-CC1B-6C5E-CB44-5F1171BB2341" name="Ticket_history_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>E928E346-2A7E-9295-F9A5-8E099FB20451</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A66A494-9A3C-1755-AA35-0F67C2CD32D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="40223223-56B7-6900-DA1B-BD7F823F6737" name="Gym_ticket_history_Gym_ticket_offer_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>64DE30EF-72E0-005A-EEE3-C27088D6AE5F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F800713E-97EA-3ED6-B5D0-7AB6F694DF39"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="58D99BFE-E3F0-657B-19EF-E05305461840" name="Gym_ticket_history_Discount_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>8CD207C8-A4C4-FC48-55D6-4A7A48698314</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="682A5510-D407-0602-2B2D-D37AFF747060"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA6220D5-4B94-C470-D081-3B59D8072B09" name="Gym_ticket_history_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>10E303BA-AD35-3271-CFF3-A1262103195F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7F654D16-4513-9089-F134-2976F3ECF20B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,210 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F1E32370-5D91-486B-4B0F-5901B4B96EFA" name="Exercise_history">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>904B3B82-5DE8-2232-2957-7F83EF0DB47D</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Exercise_history_id" id="50C09D87-D621-1E74-3B58-F12A9E087A4E">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>427BC6C9-BF88-A2BA-EB27-7602A7B6194C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Date" id="392AF59A-346E-BAEB-74A6-61E084623C17">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>BE6E52FF-91FC-155F-C511-1272044392F5</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Duration" id="9E04A75E-9105-2393-7F17-B4F755B81A60">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>D1B2BA6B-C954-D4A4-0AAD-F896EC716985</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Repetitions_number" id="AFD4B8E8-DD11-40B3-1830-35A823A50541">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>A96D0673-4543-E1EF-83A9-C2A77727342E</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Comment" id="8531733E-E97C-C116-05A7-7C394C819585">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>2A30363D-6AC3-F3CA-AEF0-6EDD642EC9D1</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_id" id="171A1F9A-08C6-7096-AC83-8EFDA4D7BDE9">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>0A2C5A77-7556-354B-F401-D70D6D78EB75</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="82F0CCAC-E5DD-2250-7B42-D86EDFF5CB55" referredColumn="8D92AF83-5A16-6F8D-2176-1A7915D958AF"/>
+</associations>
+</Column>
+<Column name="Exercise_id" id="F3DBCEF3-442A-0878-C87D-DC2DB45384A3">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>C4E208C0-322B-AC1E-6601-ACA06E5476CA</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="46CB19B8-8F0A-D1A4-5857-592209389FC1" referredColumn="E1CBA78A-D2C4-36A0-C015-7D9D3D3CD7A8"/>
+</associations>
+</Column>
+<Column name="Trainer_id" id="FF825219-BBB0-64BE-E74A-27DE3AB0A080">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6B603982-E1C7-750B-4541-B9B2EA659A4B</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6C7045B6-77C8-BB80-D800-1C64282E6F09" referredColumn="7697C6F0-3E5D-5B0B-08F7-164F96C1C4E2"/>
+</associations>
+</Column>
+<Column name="Client_id" id="A790764C-CA64-6AE2-2B72-2F2B23978608">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>590A6CEE-A474-4498-FF21-E65B7A7615D4</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1BC2E445-1E8A-98AE-8B9E-41F169B62E40" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+<Column name="Pulse" id="51FC7DDE-503A-0E35-550D-1C900B849C97">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-30 10:19:59 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Blood_oxygen_level" id="627F254F-092E-EF6F-3F4C-A76E5E68A9B0">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-30 10:21:17 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D0D13C6D-D4F9-A072-DA10-57E48E0B0C3F" name="Exercise_history_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6E8F9159-278C-08F6-566E-78D046FA738D</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="50C09D87-D621-1E74-3B58-F12A9E087A4E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6345D447-4667-48CF-6FF1-872FBEF87AE8" name="Exercise_history_Exercise_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>38A1A4B5-2002-C8FA-CB41-2C9612A80D39</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F3DBCEF3-442A-0878-C87D-DC2DB45384A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0E3CC7BA-09CD-7AB1-0CA4-E6255D4D7871" name="Exercise_history_Gym_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>A0413DC7-DA1A-4507-B49C-CA72BE74A326</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="171A1F9A-08C6-7096-AC83-8EFDA4D7BDE9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="49E45304-33C1-DE4B-C2C4-C5F1191902B4" name="Exercise_history_Trainer_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>471A2DBC-265D-BF30-3148-7EDD7DE1E523</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FF825219-BBB0-64BE-E74A-27DE3AB0A080"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="841F5855-47AB-6FC3-D390-A279C49C4FDE" name="Exercise_history_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>F932AC1A-86AF-3F2B-A82F-49BC6803E600</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A790764C-CA64-6AE2-2B72-2F2B23978608"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

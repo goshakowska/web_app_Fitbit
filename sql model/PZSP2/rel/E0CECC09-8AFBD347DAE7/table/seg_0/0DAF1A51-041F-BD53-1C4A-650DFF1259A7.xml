@@ -1,0 +1,352 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0DAF1A51-041F-BD53-1C4A-650DFF1259A7" name="Gym">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>CCA51BA4-C7CB-EB86-037E-C35B9D2FB46B</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Gym_id" id="8D92AF83-5A16-6F8D-2176-1A7915D958AF">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>ECD27653-6B55-F818-CF84-6FEC457416A9</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Name" id="14E6BEDB-79B5-2C08-E2DD-AC4CB2766EC4">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>1CDF4C7E-98DE-AC3D-9156-4808410C1376</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Phone_number" id="669FF157-1BAB-8AD6-8F31-48B9C33EB4E4">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>9E8CFD7C-728E-7FB2-937A-FD2DC3BE0971</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Address_id" id="4547B963-FC8F-87F0-BDC7-B3B27277FE8C">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>69FCF518-4DDA-DA5E-4791-AF956281261D</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Opening_hours_id" id="505E0D42-7104-EEDB-05E7-D5477B13B308">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>00B84367-36BA-4249-B144-56C38340AE2E</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="City" id="590B7D9F-3693-4272-CB62-02092AB0F641">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>CB01C689-177A-1062-BCF2-8D6783EB5570</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Street" id="E0DB99E0-64E0-DC7B-D86A-C639D1E380D1">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>7C6AB855-D3DB-BB6D-EEBF-487CB89A81C6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="House_number" id="DD875289-8090-581C-76D6-95F6AC3F7285">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>25492CD6-7421-4413-DBD9-574D23B42DA0</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT037</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="County" id="7D4631B2-8973-BF15-9207-9163A99A590F">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>3B3461DA-90C1-2733-BEF6-CB9A80980904</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Zip_code" id="A76145D2-D23E-136C-34AB-2650F2EC3079">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>D45363C3-0B98-7ABA-0B86-E683FAAED88D</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>13</dataTypeSize>
+<ownDataTypeParameters>13,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Monday_opening" id="DFB4F1F3-E2A4-380C-982E-ECF2A0391580">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>948BFEC4-EB1F-9F9C-62FE-093DF2E89494</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Monday_closing" id="A9117D1C-7217-3F27-44D6-B30FC31E5AD7">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>BC50C6BC-4F07-8AD9-E21B-63259907CC26</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Tuesday_opening" id="F35176A8-6386-759F-972F-074908A540DD">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>3D2567CF-35A3-ABF7-F919-F56BEA3432F8</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Tuesday_closing" id="67E5FEEA-CD32-6924-B1BA-DE916CB1B261">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>AAB1EC86-CB35-8564-81E8-ED337925781A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Wednesday_opening" id="FD9D1DB7-4B3E-A05D-959D-E11B1C94816B">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>FFE3F65E-907B-6D2F-A04A-9B8B3E221F92</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Wednesday_closing" id="DCAAA550-1AE3-6438-04A2-4FA8AAC8C564">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>4CB3F962-F913-E15C-345F-4630CAADE976</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Thursday_opening" id="E6FE93E6-395D-44AD-3039-5676C1828D8A">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>9F594B7B-8876-5987-9C8D-F1E3CFE5589C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Thursday_closing" id="D45C243D-3614-F3E5-93AD-EF05F11030BA">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>ABBA9D9E-8A2A-4EA2-4F5C-127F14E8CC4C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Friday_opening" id="633A9862-DD0D-1E65-87CD-295526B5B1CC">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>A7300234-D1EF-E17B-DE1F-DCC653625173</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Friday_closing" id="2D892101-7104-5278-52CE-4EFFC8B510A6">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>CB676CFF-10F1-3E7F-DD5C-D40B6C4E3BF8</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Saturday_opening" id="23744E4B-4236-5632-BAB8-00068CC6D3A9">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>AB04B8BD-0A1B-B9EC-B5BE-02444B3F604F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Saturday_closing" id="2DA63E59-8A10-8C8A-AC24-8C423362A50F">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>948BCC53-76D7-B209-45BE-746FBE387ACE</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Sunday_opening" id="D789D68A-C47C-B09B-F200-74F7EDA8060B">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>67881EEC-C475-9265-D655-E21CB33E0885</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Sunday_closing" id="179ADBD1-0977-FD6E-186F-19B554D1632C">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>AF0DFC06-1416-EE8B-5893-9B38EB05880F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2614306C-B539-2DED-B55E-058B9B013CFE" name="Gym_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6DB4F38C-9593-6398-E995-E591E9C38738</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8D92AF83-5A16-6F8D-2176-1A7915D958AF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6C6D32FE-6392-DDF5-102D-391DF79E04D2" name="Gym__IDX">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>D8D1971B-5E52-3A58-6E7C-9BEBB4F596AD</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="4547B963-FC8F-87F0-BDC7-B3B27277FE8C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E23A977C-A1D1-39E4-B3DA-42C11B15EF8C" name="Gym__IDX">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>4465BACF-9821-9C44-4E54-609ABE84663C</relationGeneratorID>
+</ind_PK_UK>
+</indexes>
+</Table>

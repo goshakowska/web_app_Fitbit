@@ -1,0 +1,118 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="843461AC-6D00-C824-6C47-23D9955F9F96" name="Discount">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:03:38 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Discount_id" id="27037CD4-F91B-73A2-868F-C13E4B13BAFF">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:03:45 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Name" id="394ACAF8-3DB7-2C5E-22D2-055987B1FD0A">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:04:33 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Start_date" id="7CD55B54-B09E-EE50-5316-E94DB75D7ECF">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:05:55 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Stop_date" id="02173D4D-F567-6410-DDC7-C6413C520098">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:06:12 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Discount_percentages" id="EB6CC9E4-5A99-B52D-9FB6-1A3CFEFDBDD4">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:06:15 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Gym_ticket_offer_id" id="09EA7EDE-8947-49F3-C074-A67D5D299E83">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:39:31 UTC</createdTime>
+<generatorID>AC6E955E-42BE-987B-6A06-39903498B368</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>835489BB-3417-8D98-B52B-6390074DDD78</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="C71FCFA5-900B-8DD1-0E81-9C67EF4407D6" name="Discount PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:40:15 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>27037CD4-F91B-73A2-868F-C13E4B13BAFF</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

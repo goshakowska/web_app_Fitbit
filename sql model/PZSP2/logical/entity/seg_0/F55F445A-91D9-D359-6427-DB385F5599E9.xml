@@ -1,0 +1,103 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F55F445A-91D9-D359-6427-DB385F5599E9" name="Gym_ticket_offer">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:01:57 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Gym_ticket_offer_id" id="835489BB-3417-8D98-B52B-6390074DDD78">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:02:11 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Name" id="B9B82680-9BC9-AC53-3B45-2645F7C729B5">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:02:39 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Duration" id="66CA6178-6220-F663-BB2D-583F0620A580">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:02:45 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Price" id="E54E3AF0-CEAC-402C-53EC-FC20400C7FF5">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 14:08:54 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Type" id="B810BC9D-1AE6-70AD-67B5-6485E91BD2BE">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 14:27:48 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="EE4BDBCF-EE8B-4348-C032-8F9953368A66" name="Gym_ticket PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:36:32 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>835489BB-3417-8D98-B52B-6390074DDD78</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

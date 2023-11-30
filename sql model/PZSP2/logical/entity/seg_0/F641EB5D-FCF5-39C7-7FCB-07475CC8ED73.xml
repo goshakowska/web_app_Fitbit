@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F641EB5D-FCF5-39C7-7FCB-07475CC8ED73" name="Ordered_schedule">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 15:55:33 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Ordered_schedule_id" id="A4200C79-2900-0B7F-1ED0-2BC54D33F243">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 15:57:12 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Date" id="DD61FEF2-F247-1B9B-84D5-3653CADD2547">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 15:58:05 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Payment_date" id="8E49BF10-7C47-BCC4-762B-8501D67CA265">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:29:51 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Week_schedule_id" id="ED5905D0-5D10-1E28-38F9-4A59AC7F7ADD">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:47:33 UTC</createdTime>
+<generatorID>EC5AC577-234E-5951-A20C-5324A09D8C89</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>4A974935-4009-801E-EF9F-A04E2F280058</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="User_id" id="6A345904-A1D2-C171-1721-6DCCCF8B3038">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 19:56:24 UTC</createdTime>
+<generatorID>72D5E6E1-F739-873E-19E9-E3A261112CD0</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>DA20190F-CAC2-77B3-B33C-986F60444614</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="4F17A901-232F-F4D9-7DBA-3E98D0919FA2" name="Ordered_schedule PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:41:20 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A4200C79-2900-0B7F-1ED0-2BC54D33F243</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

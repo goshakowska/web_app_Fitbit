@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A973265-B191-FD46-CF16-5EEC1C6E9526" name="Client_illness">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>916E84D5-AC52-6843-36E7-7E14F0C6F97C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Illness_id" id="97DB8432-C459-A660-BB0B-B2715BAF2022">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>9716606C-310C-B78D-E6E5-6A4A23647274</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0F49B31F-835D-1D36-DB77-365795309F60" referredColumn="D77880AC-3939-768B-D8A8-7E42DBB6BA33"/>
+</associations>
+</Column>
+<Column name="Client_id" id="4860B8B6-2AAC-6D2A-638B-AE198BCE227D">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>220641A7-0063-0AA0-3F6D-92C09E873EAC</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="73159628-ADD2-4118-4CC8-1837E6A14215" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B24F283F-CEB9-24EE-3123-CAEF4561C82D" name="Client_illness_PK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-16 08:19:34 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="97DB8432-C459-A660-BB0B-B2715BAF2022"/>
+<colUsage columnID="4860B8B6-2AAC-6D2A-638B-AE198BCE227D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="584B925D-146F-82D0-7DE8-B834A3416F02" name="Client_illness_Illness_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>891894AE-6D2C-85A0-86BF-7A7C57C95EE3</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="97DB8432-C459-A660-BB0B-B2715BAF2022"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A0EA5938-38BA-0A4F-1EF9-B6D4C7CCD656" name="Client_illness_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>8B14AEA8-C337-187C-9CA8-D6FDE62FF6D5</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4860B8B6-2AAC-6D2A-638B-AE198BCE227D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

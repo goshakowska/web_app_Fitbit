@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CDD3F87F-744A-08F3-E59A-2CB2D8D80F37" name="Standard_parameter_value">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>D9DF31BF-CCB5-3B6F-C297-60B8F32A4738</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Standard_parameter_value_id" id="62D7EEF6-56A0-D18A-EE31-2B549045DAA6">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>D2B9C24B-53C1-B65F-D0E7-C7E6DC7926C4</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Value" id="F9C5B4B0-55C6-F2E0-3AD3-F57B6FF6390D">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6C80F321-486B-5D31-7CCC-95AC08089D1C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Parameter_id" id="BB7071A4-1E75-F285-29E9-2AB6A00C0C59">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>80CBE527-5800-C23C-6CC5-BD1B1317BF52</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CAEB174A-B802-E907-1F0C-5558702F7CA4" referredColumn="E5DEEBAE-FA94-3C3E-F27C-1460D1D5204C"/>
+</associations>
+</Column>
+<Column name="Exercise_id" id="06A3AC66-88C8-EC16-9C11-19290C24D901">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>FB6A1D4E-8AC8-21C8-F126-7C4525237FFD</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4B3F5B9C-9B16-99A2-DEC6-8DB9EB2F6FE0" referredColumn="E1CBA78A-D2C4-36A0-C015-7D9D3D3CD7A8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1DCD3E7C-1C35-72EE-EE71-0D70BC6BBA92" name="Standard_parameter_value_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>CED4C812-7FE3-B91C-72BD-46A66FD34DFA</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="62D7EEF6-56A0-D18A-EE31-2B549045DAA6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CB53CAB8-6023-0D87-3BED-2A2E5F26EB0E" name="Standard_parameter_value_Parameter_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>0D48683E-398C-67E3-F241-3D11381CB805</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BB7071A4-1E75-F285-29E9-2AB6A00C0C59"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D7C48386-3C2C-F30E-6E25-58BCD8B75807" name="Standard_parameter_value_Exercise_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>A29CCB36-F667-5CD0-7954-3037B42FCF2E</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06A3AC66-88C8-EC16-9C11-19290C24D901"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="D9DF31BF-CCB5-3B6F-C297-60B8F32A4738" name="Standard_parameter_value">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 18:36:02 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Standard_parameter_value_id" id="D2B9C24B-53C1-B65F-D0E7-C7E6DC7926C4">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 18:36:19 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Value" id="6C80F321-486B-5D31-7CCC-95AC08089D1C">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 18:36:31 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Parameter_id" id="80CBE527-5800-C23C-6CC5-BD1B1317BF52">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:24:47 UTC</createdTime>
+<generatorID>0D48683E-398C-67E3-F241-3D11381CB805</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>99A61436-3F4F-355C-2947-585BCC280CB3</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Exercise_id" id="FB6A1D4E-8AC8-21C8-F126-7C4525237FFD">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:27:25 UTC</createdTime>
+<generatorID>A29CCB36-F667-5CD0-7954-3037B42FCF2E</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>7D5A7949-3D61-8044-4AB3-5F59C2722EBE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CED4C812-7FE3-B91C-72BD-46A66FD34DFA" name="Standard_parameter_value PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:24:56 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="6F812166-AA9B-9EA3-9525-1F84A5E4CF51" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D2B9C24B-53C1-B65F-D0E7-C7E6DC7926C4</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

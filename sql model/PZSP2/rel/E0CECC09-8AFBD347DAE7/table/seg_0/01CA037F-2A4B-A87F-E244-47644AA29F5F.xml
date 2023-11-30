@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="01CA037F-2A4B-A87F-E244-47644AA29F5F" name="Client_data_history">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>452AD2C1-1830-DE61-D823-3359350D2AA7</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Client_data_history_id" id="67CCCDDA-056B-A9F7-25FD-EDE94A4CA7CB">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>A58F451B-849A-CC3E-D1EB-B517A2BE243E</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Weight" id="3B9FAC0D-DF54-10C1-D652-8800C2783C10">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6D76C25F-43A1-2008-F13F-B6ED48BCEEFF</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Fat_body_level" id="A04CE982-EE3E-CFE9-197B-0A8A3FFFFB9C">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-30 10:34:15 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Measurement_date" id="FD3B2DF7-E680-2449-816A-72CC16437D50">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>DD3E97E3-D5B5-7351-8C77-536B0FFB0CC6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Client_User_id" id="D15C2EA5-9D5C-7F19-86C4-04F9060016F6">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>650172D8-C225-23FE-7A14-1C336AD58035</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CADCCB70-9884-4CBF-8CEA-886642B17BC6" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="63864F5C-E8F1-5060-4864-B4295C0AA3D7" name="Client_data_history_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>306B293B-6C93-575F-B14C-ECD888184E93</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="67CCCDDA-056B-A9F7-25FD-EDE94A4CA7CB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="81237A39-C7A0-6692-8043-96AF6182F02C" name="Client_data_history_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>2E9A1D8E-C2CB-0184-9D01-10EFA3CFB4CA</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D15C2EA5-9D5C-7F19-86C4-04F9060016F6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

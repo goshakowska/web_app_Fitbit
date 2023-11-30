@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="915F1442-1F76-40ED-54FE-973579AB0184" containerWithKeyObject="FB25E157-238F-B55E-4121-43FC14FB63BF" localFKIndex="463204AF-E5A6-CE6D-61F0-BDC328039882" name="Week_schedule_Gym_classe_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>98A5BAEF-899B-9C81-F19A-C4F784A63FC6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Gym_classe</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>95FFBC3F-D722-4D89-256A-621F078141C3</referredTableID>
+<keyObject>BA966EA8-D2E1-1EE2-CEC3-F439794C0B89</keyObject>
+<referredKeyID>BA966EA8-D2E1-1EE2-CEC3-F439794C0B89</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Gym_classe_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

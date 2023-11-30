@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="734BAE57-3064-EF36-E215-DDEF135E8690" name="Locker">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 14:44:06 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Locker_id" id="875C3383-8B1D-49E2-1D06-7D28AA3919D0">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 14:46:25 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Locker_number" id="89DC4F6C-394D-B83F-15A6-13E26664622C">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 14:51:50 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Gym_id" id="0A6DBEB9-CD70-967D-D88C-C554CA1C8153">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 14:57:04 UTC</createdTime>
+<generatorID>B1EF0A64-C9F2-425D-B96B-AF334DD9D23C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>ECD27653-6B55-F818-CF84-6FEC457416A9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="User_id" id="370F8C15-2243-969C-D818-E0802DDBC458">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 15:00:40 UTC</createdTime>
+<generatorID>933AB132-7A9A-1607-215A-CEDCE707D193</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>DA20190F-CAC2-77B3-B33C-986F60444614</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="64B0577D-7D26-0BC8-0C44-DFA2EC428D2D" name="Locker PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-16 14:46:43 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>875C3383-8B1D-49E2-1D06-7D28AA3919D0</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

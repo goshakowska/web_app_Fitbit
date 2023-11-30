@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="ABBE60C6-E814-708D-19B6-BEF28B8A4D4F" containerWithKeyObject="DB0307B2-53D5-F9AC-9224-F2E79C14E0C6" localFKIndex="72BE8D1E-F1C8-9055-7C52-C7EEE42E1A3A" name="Exercise_illness_Illness_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>268CB116-50A0-8340-BD34-52CABD9CF019</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Illness</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6B1C9E4E-339C-5CFA-1DAB-D4723F02ACF6</referredTableID>
+<keyObject>3BA7D42E-08C7-4125-7D6F-4DAD9AB993D8</keyObject>
+<referredKeyID>3BA7D42E-08C7-4125-7D6F-4DAD9AB993D8</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Illness_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

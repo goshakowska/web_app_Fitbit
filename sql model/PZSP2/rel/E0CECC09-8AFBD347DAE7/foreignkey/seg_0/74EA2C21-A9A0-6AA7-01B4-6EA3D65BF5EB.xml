@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="74EA2C21-A9A0-6AA7-01B4-6EA3D65BF5EB" containerWithKeyObject="7410E314-6A0C-2EC4-8BCD-9E98005AF710" localFKIndex="5A141A66-33A7-BC04-0782-42B89132BC40" name="Ordered_schedule_Week_schedule_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>EC5AC577-234E-5951-A20C-5324A09D8C89</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Week_schedule</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>FB25E157-238F-B55E-4121-43FC14FB63BF</referredTableID>
+<keyObject>D8B7D580-FBE0-46EE-23AD-4E11D84E4B2F</keyObject>
+<referredKeyID>D8B7D580-FBE0-46EE-23AD-4E11D84E4B2F</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Week_schedule_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="55B81471-5009-D915-26B3-3C70E2EBB992" name="Gym_ticket_history">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 15:59:02 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Gym_ticket_history_id" id="D16E5B3E-5F16-BFDE-FFFE-2EA7625BB780">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:01:03 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Purchase_date" id="FE6C6DCA-9B1B-F439-970F-9FC6F643F4CB">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 16:00:54 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Activation_date" id="BC66FBA6-E216-26A1-1C3B-F6620C020C75">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 14:51:38 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Gym_ticket_offer_id" id="BD20F31A-BB0F-F58E-3C49-5FBB2610B0A0">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:39:31 UTC</createdTime>
+<generatorID>64DE30EF-72E0-005A-EEE3-C27088D6AE5F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>835489BB-3417-8D98-B52B-6390074DDD78</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Discount_id" id="F86A4CC8-4CA3-CC62-01BB-63B2123E4ECB">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:41:10 UTC</createdTime>
+<generatorID>8CD207C8-A4C4-FC48-55D6-4A7A48698314</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>27037CD4-F91B-73A2-868F-C13E4B13BAFF</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="User_id" id="9226B9A0-A33B-D510-A498-1E1359376D74">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 19:44:16 UTC</createdTime>
+<generatorID>10E303BA-AD35-3271-CFF3-A1262103195F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>DA20190F-CAC2-77B3-B33C-986F60444614</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E928E346-2A7E-9295-F9A5-8E099FB20451" name="Ticket_history PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:35:41 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="14BAFAD7-FAA1-28EC-62C6-050EEEF2952A" value="true"/>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D16E5B3E-5F16-BFDE-FFFE-2EA7625BB780</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

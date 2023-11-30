@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="AAAF21B3-67AF-5283-4E09-7666987E6B13" name="Gym_equipment">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-12 15:45:19 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Gym_equipment_id" id="AB9B143B-5554-74FF-92D5-F78383A097A6">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-14 18:02:02 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Purchase_date" id="64AB118E-0DE9-0DF5-01AC-6020C280F2F1">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-18 17:28:20 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Gym_id" id="E21A5966-59B5-3AAF-6B6E-FE13513D4A94">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:20:48 UTC</createdTime>
+<generatorID>E2D4D240-D9D2-88C8-BB50-331B738E5F0A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>ECD27653-6B55-F818-CF84-6FEC457416A9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Equipment_id" id="49AEAF44-B499-90A9-D540-F139F8A81F13">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:29:39 UTC</createdTime>
+<generatorID>05D18EA0-14E3-C5D0-6013-21A6E0AFE716</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<referedAttribute>7036A1F7-ACF9-A05F-3429-36B361A82C1E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="8BC52F22-D362-D18F-3751-D86225493BB4" name="Gym_equipment PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 17:32:52 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>AB9B143B-5554-74FF-92D5-F78383A097A6</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EB86E606-DA91-45D2-B64A-3AD3D262895E" containerWithKeyObject="6D1C25A8-7B78-B859-2352-2E1B4DF43A3A" localFKIndex="9AFFEE7E-09D8-A636-4965-35C6787C80A6" name="Exercise_position_value_Parameter_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>A38EF327-89E9-032E-BD69-48CE9DD72354</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Parameter</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>9717002C-3578-9B4F-861A-57517621BC03</referredTableID>
+<keyObject>CAEAD3CD-1260-DB6F-23F3-50D1AA1F094E</keyObject>
+<referredKeyID>CAEAD3CD-1260-DB6F-23F3-50D1AA1F094E</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Parameter_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

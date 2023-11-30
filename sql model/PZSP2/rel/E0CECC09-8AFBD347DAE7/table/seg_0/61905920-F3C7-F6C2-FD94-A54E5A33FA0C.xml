@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="61905920-F3C7-F6C2-FD94-A54E5A33FA0C" name="Exercise_history_param_value">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>D0C30D2D-487C-1E5D-7E0F-CA49C1B838BA</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Param_value_id" id="3283CC37-DA74-FF07-45AA-D000836EBAFD">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>A8EC5468-68B5-65E4-5DEC-98D73A2CB57B</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Value" id="C1D1E4CB-1F8A-6C87-2791-EA3E8FE7019B">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>862224E6-AA0D-B0B0-028E-E4D91581AC20</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Parameter_id" id="8E0C8606-0A36-09B3-B2B1-9EA55CE5171E">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>E5DE4304-6139-DA02-7EE9-24E54F23EB41</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="85A93545-A637-1D08-3497-CC5CDCFDDFEF" referredColumn="E5DEEBAE-FA94-3C3E-F27C-1460D1D5204C"/>
+</associations>
+</Column>
+<Column name="Exercise_history_id" id="889651F2-6C69-458F-FAF3-91073F8E4BD2">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>AE7D6026-666B-A755-D69D-78A099CD8A6B</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2CE35A76-57D6-D231-E97B-1218D425F344" referredColumn="50C09D87-D621-1E74-3B58-F12A9E087A4E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B7DD2870-60B2-BE1D-53C4-3C1D5D8E16D6" name="Exercise_history_param_value_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>24B1E572-0020-6671-1B8B-D9E78ADB582C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3283CC37-DA74-FF07-45AA-D000836EBAFD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="26F9C2AE-43CF-0167-CE10-03ECF5DC2AC3" name="Exercise_history_param_value_Exercise_history_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>222C3C40-C2BC-5330-2EFD-2199BB279E44</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="889651F2-6C69-458F-FAF3-91073F8E4BD2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DB9254CB-4F70-313A-DF2E-F89701659B54" name="Exercise_history_param_value_Parameter_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>84F343AD-A446-E34E-41B6-3BF07C6F59B9</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8E0C8606-0A36-09B3-B2B1-9EA55CE5171E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

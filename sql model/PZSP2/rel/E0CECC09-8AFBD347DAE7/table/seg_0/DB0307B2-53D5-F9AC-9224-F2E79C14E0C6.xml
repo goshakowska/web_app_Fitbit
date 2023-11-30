@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DB0307B2-53D5-F9AC-9224-F2E79C14E0C6" name="Exercise_illness">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>3BE4D5A0-08E6-FAB3-717B-3460440D4DD4</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Exercise_Exercise_id" id="F7430AE6-011C-97D1-1784-1105C8430251">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>FD44CB3B-3C96-A8D5-CB62-8BE0B7F97FAA</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="573B7713-5C64-0B7B-1379-A2C72E68739C" referredColumn="E1CBA78A-D2C4-36A0-C015-7D9D3D3CD7A8"/>
+</associations>
+</Column>
+<Column name="Illness_Illness_id" id="B4939522-9BB8-6FBA-A00D-70F9F27EC1CB">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>A34702C5-6B92-25CC-24C8-8D80F4B04E3B</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ABBE60C6-E814-708D-19B6-BEF28B8A4D4F" referredColumn="D77880AC-3939-768B-D8A8-7E42DBB6BA33"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="369E0FE8-F0F4-10D6-A685-C85699C34135" name="Exercise_illness_PK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-16 08:21:01 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F7430AE6-011C-97D1-1784-1105C8430251"/>
+<colUsage columnID="B4939522-9BB8-6FBA-A00D-70F9F27EC1CB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="29F7BED4-0BBA-F5E4-73FF-146C504BEA95" name="Exercise_illness_Exercise_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>56226C62-831C-B419-2945-58E6AF2992F5</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F7430AE6-011C-97D1-1784-1105C8430251"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="72BE8D1E-F1C8-9055-7C52-C7EEE42E1A3A" name="Exercise_illness_Illness_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>268CB116-50A0-8340-BD34-52CABD9CF019</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B4939522-9BB8-6FBA-A00D-70F9F27EC1CB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

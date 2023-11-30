@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3BCEF4C2-9EC7-1971-A755-E31A04D7E5E5" name="Gym_visit">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>C0B0A20B-1B4E-3DE6-6EC8-872DE201A78A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Gym_visit_id" id="F94A6F7C-3764-D73A-C52C-284C872E1092">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>554CF8C2-1747-FDF1-B9F9-675ECF327058</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Entry_time" id="631DC922-2A8D-4156-BCEC-5425BFD6E9FF">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6DAD7903-6504-205D-DDFD-560491FB57B5</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Departure_time" id="CF5D54B3-4F69-5DF5-EF61-4665A2FDD3FB">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>6AEE5EDE-A1DB-5E7D-2F7A-F9BC1531B4A2</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_Gym_id" id="7C82EA96-1524-5975-A566-B53B17FBFC25">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>1BAC0FDE-7E1B-3B8C-07B1-A2E761A7742F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="34E7E176-2B8C-41CF-0527-D2CB2433C6B5" referredColumn="8D92AF83-5A16-6F8D-2176-1A7915D958AF"/>
+</associations>
+</Column>
+<Column name="Client_User_id" id="28601C6D-EB03-7B15-CB35-3523C42CDB39">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>9EE931DD-3DC4-C680-9F92-CE4CC8033110</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AE791150-06A9-5B53-E6E9-2F3851CA75A7" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+<Column name="Locker_Locker_id" id="243C0C0B-6917-6458-EFED-0848736349C2">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>F864DCE5-D855-AB3D-9D4E-93DD69CC2F84</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8E79D3C6-250F-C8D7-BC2B-129D6AC3219E" referredColumn="396229FC-52F9-DF44-C803-795137FC0AE2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DC2F087E-9C76-8365-7EA4-038DE3F7000F" name="Gym_visit_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>2545DEA0-0CE6-95FC-AB22-70A6BA01CE43</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F94A6F7C-3764-D73A-C52C-284C872E1092"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="952099BC-4E92-41FF-460A-1C072E8A27A3" name="Gym_visit_Gym_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>F3F56818-A263-5592-4B05-0861F5B349F6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7C82EA96-1524-5975-A566-B53B17FBFC25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1700EE8B-93E2-4BD1-E3AE-6D39DA2EB744" name="Gym_visit_Locker_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>3209BA45-11B9-1191-B4A0-9E84A04CA525</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="243C0C0B-6917-6458-EFED-0848736349C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="19297962-7B44-99F7-C7EB-29DEFF8D8B2E" name="Gym_visit_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>0D4549BF-C7B3-FACB-27BF-D2EFDD7FAEFD</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28601C6D-EB03-7B15-CB35-3523C42CDB39"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

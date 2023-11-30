@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D6CE3A74-822D-11D3-2DD6-97315A6538D1" name="Exercise_plan">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>ED93B967-0390-26EB-5467-8536C52FF81A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Exercise_plan_id" id="8F5D9112-65D6-EBE8-D4F0-9EF3BBD3628C">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>FB578B90-81F7-885C-A4DD-EC3977F7259D</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Created_date" id="47E9A7FF-C153-4B92-6CA2-19C86243AC14">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>C5A42BEC-AB4F-1E12-81D3-70A21F327E63</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Done" id="D23654E9-4138-3FBD-5C80-C3CDB28C150A">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>EF774EC9-22D1-0AEB-BF91-B675D1277F60</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Trainer_id" id="AD1350FB-3988-8448-0031-0D9517F5AFCD">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>A2B81C4A-0B8D-2B0A-CF96-CBBE69C302EE</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3914E3EE-8681-DA01-8686-60CE0182F940" referredColumn="7697C6F0-3E5D-5B0B-08F7-164F96C1C4E2"/>
+</associations>
+</Column>
+<Column name="Client_id" id="CBECE9B6-C809-7D6B-8934-3C6EDA904820">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>98E27D08-596E-ACE3-E4CF-BB9C220D04F3</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EA17BCB0-D529-304C-C1EC-890E03AF702E" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FBAD1C32-402A-9311-3AFD-77A2719F1832" name="Exercise_plan_PK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>B28B6AE7-B4D5-27A3-0E2F-0359C9F4525C</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8F5D9112-65D6-EBE8-D4F0-9EF3BBD3628C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BFD39E80-1704-7928-AE68-EC65864C2683" name="Exercise_plan_Trainer_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>0084F9AE-DB75-99C8-0D18-3D6D9C381442</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AD1350FB-3988-8448-0031-0D9517F5AFCD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CCAB6BAB-20E8-7A2D-EC4C-1680BB85AB0D" name="Exercise_plan_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:58:01 UTC</createdTime>
+<generatorID>F16D1178-8EE0-2BA3-EB63-BDC3756ECAD5</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CBECE9B6-C809-7D6B-8934-3C6EDA904820"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

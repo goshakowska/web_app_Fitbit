@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="48699948-640B-F322-E386-7489BD9B6297" containerWithKeyObject="AEC4C462-024A-0A4C-5ACF-BC73F0CE2A19" localFKIndex="58D99BFE-E3F0-657B-19EF-E05305461840" name="Gym_ticket_history_Discount_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>8CD207C8-A4C4-FC48-55D6-4A7A48698314</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Discount</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>22DEBE0D-CEF7-F8D2-A495-5BF6DB8F31CC</referredTableID>
+<keyObject>6D2F3349-FD9C-BBCE-E313-9B448CFAE569</keyObject>
+<referredKeyID>6D2F3349-FD9C-BBCE-E313-9B448CFAE569</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>Discount_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,113 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FB25E157-238F-B55E-4121-43FC14FB63BF" name="Week_schedule">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>33CDBCEA-78F7-B18C-9AA8-76407F26D3AE</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Week_schedule_id" id="EEC105C9-462A-8190-35A0-27AD5F7BE8C5">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>4A974935-4009-801E-EF9F-A04E2F280058</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Week_day" id="CA749C25-60F6-B043-0659-442E54E32A80">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>E42B0174-43D1-2F26-B6E1-6CB6271C2CC6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Start_time" id="83C5680B-9DE2-85A8-A2EE-A01E3A899E29">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>933DEFC0-9BA0-DE76-06FE-BB042AA6E037</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_classe_id" id="EC3CBAFE-F0E1-5247-013B-4A49922C070F">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>25D2C8D4-944B-4D4A-F9C1-60A13F681754</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="915F1442-1F76-40ED-54FE-973579AB0184" referredColumn="1BBE1C17-50A4-FDF7-A2C8-EDD1341859EE"/>
+</associations>
+</Column>
+<Column name="Trainer_id" id="C7005225-FAF0-6237-8F0E-D93CC33FCC9E">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>F93ABB8E-175B-714D-80CD-55847260DBD7</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5B061906-576F-8C92-F9A8-37632F6256D7" referredColumn="7697C6F0-3E5D-5B0B-08F7-164F96C1C4E2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D8B7D580-FBE0-46EE-23AD-4E11D84E4B2F" name="Schedule_PK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>632EF781-C57C-FF3C-9434-D98A6419F8B6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EEC105C9-462A-8190-35A0-27AD5F7BE8C5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="463204AF-E5A6-CE6D-61F0-BDC328039882" name="Week_schedule_Gym_classe_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>98A5BAEF-899B-9C81-F19A-C4F784A63FC6</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC3CBAFE-F0E1-5247-013B-4A49922C070F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="09E9287B-5EB9-FDFF-CBD7-816E3D3264B7" name="Week_schedule_Trainer_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>F8C3DCD8-74C9-A721-A6AC-CD7564148C7A</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C7005225-FAF0-6237-8F0E-D93CC33FCC9E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

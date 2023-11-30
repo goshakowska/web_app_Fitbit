@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="21FD164A-185E-8589-1D83-B887D8ABC9BB" containerWithKeyObject="80ABF11D-9CC9-A129-3DEE-C6DB43CD9020" localFKIndex="AB848FFD-077A-07D0-7C5F-19DF1928FC8A" name="Employee_Locker_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 20:11:11 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Locker</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>6223926D-9203-BB22-4F9A-623913C62D40</referredTableID>
+<keyObject>F38963AD-E0D3-43BB-07B8-A8538888076B</keyObject>
+<referredKeyID>F38963AD-E0D3-43BB-07B8-A8538888076B</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Locker_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

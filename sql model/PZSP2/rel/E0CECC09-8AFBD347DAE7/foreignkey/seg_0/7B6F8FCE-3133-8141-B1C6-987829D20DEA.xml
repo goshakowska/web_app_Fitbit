@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7B6F8FCE-3133-8141-B1C6-987829D20DEA" containerWithKeyObject="AEC4C462-024A-0A4C-5ACF-BC73F0CE2A19" localFKIndex="CA6220D5-4B94-C470-D081-3B59D8072B09" name="Gym_ticket_history_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>10E303BA-AD35-3271-CFF3-A1262103195F</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<referredTableLongName>Client</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>8E9ADD26-214C-0933-8F46-C38C4EAE835F</referredTableID>
+<keyObject>86EABDFD-A0D1-599E-3E42-5BB4CBB97D69</keyObject>
+<referredKeyID>86EABDFD-A0D1-599E-3E42-5BB4CBB97D69</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Client_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

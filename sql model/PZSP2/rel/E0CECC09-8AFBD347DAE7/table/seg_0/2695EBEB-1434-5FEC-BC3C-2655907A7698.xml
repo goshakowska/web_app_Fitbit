@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2695EBEB-1434-5FEC-BC3C-2655907A7698" name="Favourite_exercises">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>4525086B-8CC2-E3EC-AF3B-23B9F1D62329</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Exercise_id" id="783418A4-3780-62AD-BAF1-F9BCC6F65DB9">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>77778BE8-1EF8-851B-15F5-1214DE4848A2</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FD9961DB-55E8-A46C-6C91-9B7D0DCA88BA" referredColumn="E1CBA78A-D2C4-36A0-C015-7D9D3D3CD7A8"/>
+</associations>
+</Column>
+<Column name="Client_id" id="7CD9359C-AB59-2C41-4A2C-2E989C9FB9C7">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:13 UTC</createdTime>
+<generatorID>74709D78-BA1C-4EB8-7169-7B948F14ACAB</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CC115BD0-6AC2-3843-7802-CD10FAC73A24" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9BC58AF0-8AAA-353C-C025-BF02DD6C7D86" name="Favourite_exercises_PK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-16 08:19:43 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="783418A4-3780-62AD-BAF1-F9BCC6F65DB9"/>
+<colUsage columnID="7CD9359C-AB59-2C41-4A2C-2E989C9FB9C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="08B82AB5-E797-AED5-84EB-5940F8B1ED36" name="Favourite_exercises_Exercise_FK">
+<createdBy>Marta</createdBy>
+<createdTime>2023-11-15 22:35:14 UTC</createdTime>
+<generatorID>B2E4B554-5B43-24FC-3FCD-28B70C8B3414</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="783418A4-3780-62AD-BAF1-F9BCC6F65DB9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D73F318F-B849-F71D-A69F-F860FC09C8F8" name="Favourite_exercises_Client_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2023-11-21 19:59:19 UTC</createdTime>
+<generatorID>43ED4565-2A13-C827-3269-92247B4F38D4</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7CD9359C-AB59-2C41-4A2C-2E989C9FB9C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
