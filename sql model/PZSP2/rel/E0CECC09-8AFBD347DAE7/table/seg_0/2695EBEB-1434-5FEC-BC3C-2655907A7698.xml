@@ -52,7 +52,7 @@
 <colUsage columnID="7CD9359C-AB59-2C41-4A2C-2E989C9FB9C7"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="08B82AB5-E797-AED5-84EB-5940F8B1ED36" name="Favourite_exercises_Exercise_FK">
+<ind_PK_UK id="08B82AB5-E797-AED5-84EB-5940F8B1ED36" name="Fe_Exercise_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>B2E4B554-5B43-24FC-3FCD-28B70C8B3414</generatorID>
@@ -63,7 +63,7 @@
 <colUsage columnID="783418A4-3780-62AD-BAF1-F9BCC6F65DB9"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D73F318F-B849-F71D-A69F-F860FC09C8F8" name="Favourite_exercises_Client_FK">
+<ind_PK_UK id="D73F318F-B849-F71D-A69F-F860FC09C8F8" name="Fe_Client_FK">
 <createdBy>Marysia</createdBy>
 <createdTime>2023-11-21 19:59:19 UTC</createdTime>
 <generatorID>43ED4565-2A13-C827-3269-92247B4F38D4</generatorID>

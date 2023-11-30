@@ -51,7 +51,7 @@
 <colUsage columnID="7BF5EA28-D3C3-A10D-C476-C7B3C275D1BF"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="5258E415-271B-7AD5-1E21-3C287B50CAD0" name="Excercise_muscle_Muscle_groups_FK">
+<ind_PK_UK id="5258E415-271B-7AD5-1E21-3C287B50CAD0" name="Em_Muscle_groups_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>6FA34159-70AB-C324-C3FD-2CE60EDE80B8</generatorID>
@@ -62,7 +62,7 @@
 <colUsage columnID="7BF5EA28-D3C3-A10D-C476-C7B3C275D1BF"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="ACC2785C-957B-5DCF-53A3-30CA493D19B6" name="Excercise_muscle_Exercise_FK">
+<ind_PK_UK id="ACC2785C-957B-5DCF-53A3-30CA493D19B6" name="Em_Exercise_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>D6E4ABC6-6B9F-465C-45AA-1701A2BCCD19</generatorID>

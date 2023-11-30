@@ -102,7 +102,7 @@
 <colUsage columnID="4A66A494-9A3C-1755-AA35-0F67C2CD32D7"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="40223223-56B7-6900-DA1B-BD7F823F6737" name="Gym_ticket_history_Gym_ticket_offer_FK">
+<ind_PK_UK id="40223223-56B7-6900-DA1B-BD7F823F6737" name="Gth_Gym_ticket_offer_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>64DE30EF-72E0-005A-EEE3-C27088D6AE5F</generatorID>

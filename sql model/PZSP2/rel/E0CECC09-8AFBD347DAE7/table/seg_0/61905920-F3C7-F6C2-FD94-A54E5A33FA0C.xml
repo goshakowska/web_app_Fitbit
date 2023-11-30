@@ -63,7 +63,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="B7DD2870-60B2-BE1D-53C4-3C1D5D8E16D6" name="Exercise_history_param_value_PK">
+<ind_PK_UK id="B7DD2870-60B2-BE1D-53C4-3C1D5D8E16D6" name="Ehpv_PK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:13 UTC</createdTime>
 <generatorID>24B1E572-0020-6671-1B8B-D9E78ADB582C</generatorID>
@@ -75,7 +75,7 @@
 <colUsage columnID="3283CC37-DA74-FF07-45AA-D000836EBAFD"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="26F9C2AE-43CF-0167-CE10-03ECF5DC2AC3" name="Exercise_history_param_value_Exercise_history_FK">
+<ind_PK_UK id="26F9C2AE-43CF-0167-CE10-03ECF5DC2AC3" name="Ehpv_Exercise_history_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>222C3C40-C2BC-5330-2EFD-2199BB279E44</generatorID>
@@ -86,7 +86,7 @@
 <colUsage columnID="889651F2-6C69-458F-FAF3-91073F8E4BD2"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="DB9254CB-4F70-313A-DF2E-F89701659B54" name="Exercise_history_param_value_Parameter_FK">
+<ind_PK_UK id="DB9254CB-4F70-313A-DF2E-F89701659B54" name="Ehpv_Parameter_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>84F343AD-A446-E34E-41B6-3BF07C6F59B9</generatorID>

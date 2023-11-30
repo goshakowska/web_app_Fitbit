@@ -134,32 +134,6 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Pulse" id="2CAEEE7C-719A-2932-02B0-38C67F61FA4C">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-30 10:12:57 UTC</createdTime>
-<ownerDesignName>PZSP2</ownerDesignName>
-<engineerTo>
-<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="blood_oxygen_level" id="A3F24DA6-CEF0-E0BC-6B93-18B305A8254A">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-30 10:15:34 UTC</createdTime>
-<ownerDesignName>PZSP2</ownerDesignName>
-<engineerTo>
-<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
-</engineerTo>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="6E8F9159-278C-08F6-566E-78D046FA738D" name="Exercise_history PK">

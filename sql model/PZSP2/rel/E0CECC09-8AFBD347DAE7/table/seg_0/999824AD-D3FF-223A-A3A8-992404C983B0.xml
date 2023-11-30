@@ -110,7 +110,7 @@
 <colUsage columnID="AE01F5F2-F3E4-CEDB-2375-E9A14F39AAD4"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="E896552D-5CE6-E018-264A-6883C1AAE455" name="Exercise_plan_position_Exercise_FK">
+<ind_PK_UK id="E896552D-5CE6-E018-264A-6883C1AAE455" name="Epp_Exercise_FK">
 <createdBy>Marysia</createdBy>
 <createdTime>2023-11-21 19:58:01 UTC</createdTime>
 <generatorID>C200941C-4C7C-087B-CE5D-4CF4478BAB15</generatorID>
@@ -121,7 +121,7 @@
 <colUsage columnID="42007540-6EB1-7F47-E335-5E82239B6442"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="AC58DBA6-3B27-B23A-98CA-9D3F28F60975" name="Exercise_plan_position_Exercise_plan_FK">
+<ind_PK_UK id="AC58DBA6-3B27-B23A-98CA-9D3F28F60975" name="Epp_Exercise_plan_FK">
 <createdBy>Marysia</createdBy>
 <createdTime>2023-11-21 19:58:01 UTC</createdTime>
 <generatorID>9EDE791B-CD87-7FC7-30A8-773D830CDD11</generatorID>

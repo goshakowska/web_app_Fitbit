@@ -86,7 +86,7 @@
 <colUsage columnID="18935B4D-5868-2A27-6EB5-50C312D900F5"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="5A141A66-33A7-BC04-0782-42B89132BC40" name="Ordered_schedule_Week_schedule_FK">
+<ind_PK_UK id="5A141A66-33A7-BC04-0782-42B89132BC40" name="Os_Week_schedule_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>EC5AC577-234E-5951-A20C-5324A09D8C89</generatorID>

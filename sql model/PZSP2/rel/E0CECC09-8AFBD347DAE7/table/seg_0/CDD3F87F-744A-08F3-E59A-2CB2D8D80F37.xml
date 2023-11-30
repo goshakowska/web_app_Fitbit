@@ -74,7 +74,7 @@
 <colUsage columnID="62D7EEF6-56A0-D18A-EE31-2B549045DAA6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="CB53CAB8-6023-0D87-3BED-2A2E5F26EB0E" name="Standard_parameter_value_Parameter_FK">
+<ind_PK_UK id="CB53CAB8-6023-0D87-3BED-2A2E5F26EB0E" name="Spv_Parameter_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>0D48683E-398C-67E3-F241-3D11381CB805</generatorID>
@@ -85,7 +85,7 @@
 <colUsage columnID="BB7071A4-1E75-F285-29E9-2AB6A00C0C59"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="D7C48386-3C2C-F30E-6E25-58BCD8B75807" name="Standard_parameter_value_Exercise_FK">
+<ind_PK_UK id="D7C48386-3C2C-F30E-6E25-58BCD8B75807" name="Spv_Exercise_FK">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-15 22:35:14 UTC</createdTime>
 <generatorID>A29CCB36-F667-5CD0-7954-3037B42FCF2E</generatorID>

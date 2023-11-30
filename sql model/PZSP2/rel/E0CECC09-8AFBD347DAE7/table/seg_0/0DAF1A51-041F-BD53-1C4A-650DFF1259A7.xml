@@ -329,24 +329,5 @@
 <colUsage columnID="8D92AF83-5A16-6F8D-2176-1A7915D958AF"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="6C6D32FE-6392-DDF5-102D-391DF79E04D2" name="Gym__IDX">
-<createdBy>Marta</createdBy>
-<createdTime>2023-11-15 22:35:14 UTC</createdTime>
-<ownerDesignName>PZSP2</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<relationGeneratorID>D8D1971B-5E52-3A58-6E7C-9BEBB4F596AD</relationGeneratorID>
-<indexColumnUsage>
-<colUsage columnID="4547B963-FC8F-87F0-BDC7-B3B27277FE8C"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="E23A977C-A1D1-39E4-B3DA-42C11B15EF8C" name="Gym__IDX">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<ownerDesignName>PZSP2</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<relationGeneratorID>4465BACF-9821-9C44-4E54-609ABE84663C</relationGeneratorID>
-</ind_PK_UK>
 </indexes>
 </Table>
