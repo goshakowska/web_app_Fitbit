@@ -1,5 +1,11 @@
 FROM  python:3.8.13-bullseye
 
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
+WORKDIR /app/backend
+
+
 # Instalacja Oracle Instant Client
 RUN apt-get update && apt-get install -y libaio1 wget unzip \
     && mkdir -p /opt/oracle \
@@ -12,12 +18,8 @@ RUN apt-get update && apt-get install -y libaio1 wget unzip \
 # Ustawienie zmiennej środowiskowej LD_LIBRARY_PATH
 ENV LD_LIBRARY_PATH=/opt/oracle/instantclient_19_19:$LD_LIBRARY_PATH
 
-ENV PYTHONUNBUFFERED=1
+RUN pip install django django-cors-headers cx_Oracle djangorestframework
 
-WORKDIR /django_backend
+COPY . /app/backend/
 
-RUN pip install django django-cors-headers cx_Oracle
-
-COPY . .
-
-EXPOSE 8000
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

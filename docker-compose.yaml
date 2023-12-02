@@ -1,18 +1,27 @@
+version: '3.9'
+
 services:
-  api:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/backend:cached
-    command: bash -c "python django_backend/manage.py runserver localhost:8000"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
 
-
-  web:
-    build: ./frontend
     ports:
-      - "3000:3000"
+      - '3000:3000'
+
     volumes:
-      - ./frontend:/frontend:cached
-      - /frontend/node_modules
-    command: bash -c "npm start"
+      - ./frontend:/app/frontend
+
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend/django_backend
+      dockerfile: Dockerfile
+
+    ports:
+      - '8000:8000'
+
+    volumes:
+      - ./backend/django_backend:/app/backend
