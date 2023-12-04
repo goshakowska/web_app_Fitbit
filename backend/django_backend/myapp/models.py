@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Client(models.Model):
-    client_id = models.BigIntegerField(primary_key=True)
+    client_id = models.AutoField(primary_key=True)
     login = models.CharField(max_length=25, blank=True, null=True)
     password_hash = models.CharField(max_length=25)
     email = models.CharField(max_length=30)
