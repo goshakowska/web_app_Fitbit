@@ -62,3 +62,11 @@ def registration(request):
         return JsonResponse({'login': login})
     else:
         return JsonResponse({'error': 'Invalid request method'})
+
+@csrf_exempt
+def client_login(request):
+    data = json.loads(request.body.decode('utf-8'))
+    id = data.get('id', 1)
+    client_by_id = Client.objects.get(client_id=id)
+    login = client_by_id.login
+    return JsonResponse({'login':login})

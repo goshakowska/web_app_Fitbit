@@ -18,12 +18,12 @@ import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
 
     const handleSendNumber = async () => {
       try {
-        const response = await fetch('http://localhost:8000/modify_number/', {
+        const response = await fetch('http://localhost:8000/client_login/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ number: originalNumber }),
+          body: JSON.stringify({ id: 1 }),
         });
 
         if (!response.ok) {
@@ -31,7 +31,7 @@ import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
         }
 
         const data = await response.json();
-        setModifiedNumber(data.result);
+        setModifiedNumber(data.login);
       } catch (error) {
         console.error('Error:', error);
       }
