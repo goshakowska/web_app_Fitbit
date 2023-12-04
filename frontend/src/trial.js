@@ -32,3 +32,25 @@ const handleSendNumber = async () => {
       console.error('Error:', error);
     }
   };
+
+
+  const handleSendNumber1 = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/client_login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: 1 }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setModifiedNumber(data.login);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
