@@ -5,14 +5,14 @@ if tables already exist
 DECLARE
     v_count  INT;
     v_name VARCHAR2(40);
-    TYPE namesarray IS VARRAY(31) OF VARCHAR2(30);   -- ta pierwsza liczba to liczba tabelek
+    TYPE namesarray IS VARRAY(30) OF VARCHAR2(30);   -- ta pierwsza liczba to liczba tabelek
     names    namesarray;
 BEGIN
     names := namesarray('client', 'client_data_history', 'client_illness', 'discount', 'employee', 'equipment',
     'exercise_muscle', 'exercise', 'exercise_history', 'exercise_history_param_value', 'exercise_illness', 
     'exercise_plan', 'exercise_plan_position', 'exercise_position_value', 'favourite_exercises', 'gym', 'gym_classe',
     'gym_equipment', 'gym_ticket_history', 'gym_ticket_offer', 'gym_visit', 'illness', 'locker', 'muscle_groups',
-    'ordered_schedule', 'parameter', 'rating', 'standard_parameter_value', 'training_goal', 'week_schedule', 'exercise_muscle');
+    'ordered_schedule', 'parameter', 'rating', 'standard_parameter_value', 'training_goal', 'week_schedule');
 
     FOR i IN 1..names.count LOOP
         v_name := names(i);
@@ -114,13 +114,13 @@ LOGGING;
 
 ALTER TABLE equipment ADD CONSTRAINT equipment_pk PRIMARY KEY ( equipment_id );
 
-CREATE TABLE excercise_muscle (
+CREATE TABLE exercise_muscle (
     exercise_id      INTEGER NOT NULL,
     muscle_groups_id INTEGER NOT NULL
 )
 LOGGING;
 
-ALTER TABLE excercise_muscle ADD CONSTRAINT excercise_muscle_pk PRIMARY KEY ( exercise_id,
+ALTER TABLE exercise_muscle ADD CONSTRAINT exercise_muscle_pk PRIMARY KEY ( exercise_id,
                                                                               muscle_groups_id );
 
 CREATE TABLE exercise (
@@ -219,8 +219,6 @@ CREATE TABLE gym (
     gym_id            INTEGER NOT NULL,
     name              VARCHAR2(30) NOT NULL,
     phone_number      VARCHAR2(13),
-    address_id        INTEGER NOT NULL,
-    opening_hours_id  INTEGER NOT NULL,
     city              VARCHAR2(40),
     street            VARCHAR2(40),
     house_number      NVARCHAR2(10),
@@ -418,11 +416,11 @@ ALTER TABLE exercise_history_param_value
     ADD CONSTRAINT ehpv_parameter_fk FOREIGN KEY ( parameter_id )
         REFERENCES parameter ( parameter_id );
 
-ALTER TABLE excercise_muscle
+ALTER TABLE exercise_muscle
     ADD CONSTRAINT em_exercise_fk FOREIGN KEY ( exercise_id )
         REFERENCES exercise ( exercise_id );
 
-ALTER TABLE excercise_muscle
+ALTER TABLE exercise_muscle
     ADD CONSTRAINT em_muscle_groups_fk FOREIGN KEY ( muscle_groups_id )
         REFERENCES muscle_groups ( muscle_groups_id );
 
