@@ -1,0 +1,48 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import RegistrationForm1 from './RegistrationForm1';
+
+
+function RegistrationForm2(formData) {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('http://localhost:8000/registration/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ login: formData.login,
+                                    password_hash: formData.password,
+                                    email: formData.email,
+                                    phone_number: formData.phone,
+                                    name: formData.name,
+                                    surname: formData.surname,
+                                    gender: 'M',
+                                    height: 155,
+                                    birth_year: '2000-01-01',
+                                    advancement: 'zaawansowany',
+                                    target_weight: 55,
+                                    training_frequency: 1,
+                                    training_time: 60,
+                                    training_goal_id: 1,
+                                    gym_id: 1 }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          alert('Zostałeś pomyślnie zarejestrowany.')
+
+          // const data = await response.json();
+          // setFormData(formData.name, formData.surname, formData.login, formData.password, formData.email);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+}
+
+export default RegistrationForm2

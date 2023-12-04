@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 
-function RegistrationForm() {
+function RegistrationForm1() {
     const navigate = useNavigate();
+    const [cliLogin, setcliLogin] = useState(null);
     const [formData, setFormData] = useState({
       name: '',
       surname: '',
       login: '',
       password: '',
       email: '',
+      dayOfBrith: '',
+      monthOfBrith: '',
       yearOfBrith: '',
-      sex: ''
+      sex: '',
+      phone: ''
     });
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,12 +40,12 @@ function RegistrationForm() {
             body: JSON.stringify({ login: formData.login,
                                     password_hash: formData.password,
                                     email: formData.email,
-                                    phone_number: '123123123',
+                                    phone_number: formData.phone,
                                     name: formData.name,
                                     surname: formData.surname,
-                                    gender: 'M',
+                                    gender: formData.sex,
                                     height: 155,
-                                    birth_year: '2000-01-01',
+                                    birth_year: '2002-10-05',
                                     advancement: 'zaawansowany',
                                     target_weight: 55,
                                     training_frequency: 1,
@@ -52,9 +57,32 @@ function RegistrationForm() {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          alert('Zostałeś pomyślnie zarejestrowany.')
 
           // const data = await response.json();
           // setFormData(formData.name, formData.surname, formData.login, formData.password, formData.email);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+      const handleDBcon = async () => {
+        try {
+          const response = await fetch('http://localhost:8000/client_login/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: 1 }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setcliLogin(data.login);
+          alert('Z bazy pobrano login: '+ cliLogin)
         } catch (error) {
           console.error('Error:', error);
         }
@@ -84,7 +112,7 @@ function RegistrationForm() {
 
         <fieldset>
          <label>
-           <p style={paragraphStyle}>Imię</p>
+           <p style={paragraphStyle}>Imię*</p>
            <input
            style = {inputStyle}
            type="text"
@@ -99,7 +127,7 @@ function RegistrationForm() {
 
        <fieldset>
          <label>
-           <p style={paragraphStyle}>Nazwisko</p>
+           <p style={paragraphStyle}>Nazwisko*</p>
            <input
            style = {inputStyle}
            type="text"
@@ -115,7 +143,7 @@ function RegistrationForm() {
 
        <fieldset>
          <label>
-           <p style={paragraphStyle}>E-mail</p>
+           <p style={paragraphStyle}>E-mail*</p>
            <input
            style = {inputStyle}
            type="text"
@@ -131,7 +159,7 @@ function RegistrationForm() {
 
        <fieldset>
          <label>
-           <p style={paragraphStyle}>Login</p>
+           <p style={paragraphStyle}>Login*</p>
            <input
            style = {inputStyle}
            type="text"
@@ -146,7 +174,7 @@ function RegistrationForm() {
 
        <fieldset>
          <label>
-           <p style={paragraphStyle}>Hasło</p>
+           <p style={paragraphStyle}>Hasło*</p>
            <input
            style = {inputStyle}
            type="password"
@@ -159,11 +187,42 @@ function RegistrationForm() {
          </label>
        </fieldset>
 
+       <fieldset>
+         <label>
+           <p style={paragraphStyle}>Nr telefonu</p>
+           <input
+           style = {inputStyle}
+           type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+        />
+         </label>
+       </fieldset>
 
-       <button type="submit" className="mt-4 px-4 py-2 bg-orange-500 text-black rounded hover:bg-orange-600">Zarejestruj</button>
+       <fieldset>
+         <label>
+           <p style={paragraphStyle}>Płeć*</p>
+           <select style = {inputStyle} name="sex" onChange={handleChange}>
+               <option value="">--Ustaw swoją płeć--</option>
+               <option value="K">Kobieta</option>
+               <option value="M">Mężczyzna</option>
+           </select>
+         </label>
+         </fieldset>
+
+
+       <button type='submit' onClick={handleSubmit} className="mt-4 px-4 py-2 bg-orange-500 text-black rounded hover:bg-orange-600">Zarejestruj</button>
+
         </form>
+
+      <div>
+        <button type='submit' onClick={handleDBcon} className="mt-4 px-4 py-2 bg-orange-500 text-black rounded hover:bg-orange-600">Przetestuj połączenie z bazą</button>
+      </div>
+
       </div>
     );
   }
 
-  export default RegistrationForm
+  export default RegistrationForm1

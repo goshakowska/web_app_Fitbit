@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 import {BrowserRouter, Route, Switch } from 'react-router-dom';
-import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
+import RegistrationForm1 from "./components/RegistrationForm/RegistrationForm1";
 
 
   /*
@@ -58,7 +58,7 @@ function App() {
   return(
       <div className="">
             <BrowserRouter>
-              <RegistrationForm />
+              <RegistrationForm1 />
 
             </BrowserRouter>
       </div>

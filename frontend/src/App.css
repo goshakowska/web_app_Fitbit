@@ -52,3 +52,7 @@ body {
 .wrapper fieldset {
   margin: 20px 0;
 }
+
+.wrapper select {
+  margin: 10px 
+}
