@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
+import {BrowserRouter, Route, Switch } from 'react-router-dom';
+import RegistrationForm from "./components/RegistrationForm/RegistrationForm";
 
-function App() {
+
+  /*
   const [text, setText] = useState([]);
   const [originalNumber] = useState(6);
   const [modifiedNumber, setModifiedNumber] = useState(null);
 
-  useEffect(() => {
+/*  useEffect(() => {
     fetch(' http://localhost:8000/test1').then(res => res.json()).then(data => {
         setText(data.message);
       });
@@ -42,13 +46,24 @@ function App() {
       </div>
 
       <div className="p-4 text-xl">
-        <p>React: Moja liczba to {originalNumber} pomnóż ją razy 2 proszę</p>
-        <button onClick={handleSendNumber}>Wyślij do Django</button>
+        <p>React: Moja liczba to {originalNumber} pomnóż ją razy 4 proszę</p>
           {modifiedNumber && <p>Django: Oto twój wynik {modifiedNumber} :)</p>}
       </div>
 
     </div>
   );
 }
+*/
+function App() {
+  return(
+      <div className="">
+            <BrowserRouter>
+              <RegistrationForm />
 
+            </BrowserRouter>
+      </div>
+);
+
+
+}
 export default App;
