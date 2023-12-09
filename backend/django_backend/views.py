@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from myapp.models import Illness, Client
+from django.contrib.auth.hashers import make_password
+import database
+
 
 @csrf_exempt  # Ignoruje CSRF dla uproszczenia
 def modify_number(request):
@@ -27,6 +29,7 @@ def registration(request):
         data = json.loads(request.body.decode('utf-8'))
         login = data.get('login', '')
         password_hash = data.get('password_hash', '')
+        password_hash = make_password(password_hash)
         email = data.get('email', '')
         phone_number = data.get('phone_number', '')
         name = data.get('name', '')
@@ -40,25 +43,9 @@ def registration(request):
         training_time = data.get('training_time', 0)
         training_goal_id = data.get('training_goal_id', 0)
         gym_id = data.get('gym_id', 0)
-
-        new_client = Client(
-            login=login,
-            password_hash=password_hash,
-            email=email,
-            phone_number=phone_number,
-            name=name,
-            surname=surname,
-            gender=gender,
-            height=height,
-            birth_year=birth_year,
-            advancement=advancement,
-            target_weight=target_weight,
-            training_frequency=training_frequency,
-            training_time=training_time,
-            training_goal_id=training_goal_id,
-            gym_id=gym_id,
-        )
-        new_client.save()
+        database.registration(login, password_hash, email, phone_number,
+        name, surname, gender, height, birth_year, advancement, target_weight,
+        training_frequency, training_time, training_goal_id, gym_id)
         return JsonResponse({'login': login})
     else:
         return JsonResponse({'error': 'Invalid request method'})
@@ -66,7 +53,5 @@ def registration(request):
 @csrf_exempt
 def client_login(request):
     data = json.loads(request.body.decode('utf-8'))
-    id = data.get('id', 1)
-    client_by_id = Client.objects.get(client_id=id)
-    login = client_by_id.login
-    return JsonResponse({'login':login})
+
+    return JsonResponse({'login':'login'})
