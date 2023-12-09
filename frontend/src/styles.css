@@ -32,18 +32,26 @@ body {
   background-color: rgba(217,217,217,1);
 }
 
-.button-style1{
+.button-style-header{
   background-color: rgba(237,222,164,1);
   border: 3px solid rgba(247,160,114,1);
   border-radius: 50px;
   width: 240px;
-  font-size: 16px;
-  margin-left: 50px;
 }
 
+.button-style-login{
+background: #F7A072;
+mix-blend-mode: normal;
+border-radius: 26px;
+width: 240px;
+margin-left: 80px;
+}
+
+
 .text-style{
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Inknut Antiqua';
   text-align: center;
+  font-size: 16px;
   color: black;
 }
 
@@ -52,4 +60,24 @@ body {
   height: 80px;
   display: flex;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.navbar-toggler {
+width: 70px;
+height: 70px;
+background: #EDDEA4;
+border: 3px solid #F7A072;
+border-radius: 50%;
+display: flex;
+align-items: center;
+}
+
+.navbar-toggler-icon {
+  font-family: 'Inknut Antiqua';
+  text-align: center;
+  font-size: 16px;
+  color: black;
 }

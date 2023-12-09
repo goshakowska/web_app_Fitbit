@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 
 function RegistrationForm1() {
-    const navigate = useNavigate();
     const [cliLogin, setcliLogin] = useState(null);
     const [formData, setFormData] = useState({
       name: '',
