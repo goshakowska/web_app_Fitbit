@@ -37,11 +37,9 @@ body {
   border: 3px solid rgba(247,160,114,1);
   border-radius: 50px;
   width: 240px;
-  margin-left: 40px;
 }
 
 .button-style-login{
-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 background: #F7A072;
 mix-blend-mode: normal;
 border-radius: 26px;
@@ -62,4 +60,24 @@ margin-left: 80px;
   height: 80px;
   display: flex;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.navbar-toggler {
+width: 70px;
+height: 70px;
+background: #EDDEA4;
+border: 3px solid #F7A072;
+border-radius: 50%;
+display: flex;
+align-items: center;
+}
+
+.navbar-toggler-icon {
+  font-family: 'Inknut Antiqua';
+  text-align: center;
+  font-size: 16px;
+  color: black;
 }

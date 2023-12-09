@@ -6,6 +6,7 @@ import {
   NavLink,
 } from 'reactstrap';
 import "../styles.css"
+import SideBar from './SideBar';
 
 function Header() {
   return (
@@ -32,7 +33,7 @@ function Header() {
     </NavLink>
   </NavItem>
   <NavItem className='button-style-login'>
-    <NavLink href="./logowanie" className='text-style'>
+  <NavLink href="./rejestracja" className='text-style'>
       ZALOGUJ
     </NavLink>
   </NavItem>
