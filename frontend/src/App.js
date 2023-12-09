@@ -1,10 +1,10 @@
 import React from "react";
-import './styles.css';
+import './client/styles.css';
 import {BrowserRouter, Routes, Route } from 'react-router-dom';
-import StartPage from "./components/StartPage"
-import Header from "./components/Header";
-import FitnessClubs from "./components/FitnessClubs";
-import RegistrationForm1 from "./components/RegistrationForm/RegistrationForm1";
+import StartPage from "./client/components/StartPage"
+import Header from "./client/components/Header";
+import FitnessClubs from "./client/components/FitnessClubs";
+import RegistrationForm1 from "./client/components/RegistrationForm/RegistrationForm1";
 
 function App() {
   return(

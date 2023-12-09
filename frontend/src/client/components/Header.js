@@ -2,13 +2,15 @@ import React from 'react';
 import {
   NavbarBrand,
   Nav,
+  NavbarText,
   NavItem,
   NavLink,
 } from 'reactstrap';
 import "../styles.css"
-import SideBar from './SideBar';
+import SideBarClient from './SideBarClient.js';
 
 function Header() {
+
   return (
     <div>
     <Nav pills className='header-style'>
@@ -32,11 +34,7 @@ function Header() {
       KONTAKT
     </NavLink>
   </NavItem>
-  <NavItem className='button-style-login'>
-  <NavLink href="./rejestracja" className='text-style'>
-      ZALOGUJ
-    </NavLink>
-  </NavItem>
+    <SideBarClient />
 </Nav>
     </div>
   );
