@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import './App.css';
-import {BrowserRouter, Route, Switch } from 'react-router-dom';
+import './styles.css';
+import {BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegistrationForm1 from "./components/RegistrationForm/RegistrationForm1";
+import StartPage from "./components/StartPage"
+import Header from "./components/Header";
 
 
   /*
@@ -56,9 +58,13 @@ import RegistrationForm1 from "./components/RegistrationForm/RegistrationForm1";
 */
 function App() {
   return(
-      <div className="">
+      <div className="App">
             <BrowserRouter>
-              <RegistrationForm1 />
+              <Header />
+
+              <Routes>
+              <Route exact path="/start" element={<StartPage />} />
+              </Routes>
 
             </BrowserRouter>
       </div>
