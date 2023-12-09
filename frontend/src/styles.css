@@ -1,0 +1,55 @@
+
+body {
+  background-color: #2a6c70
+}
+
+
+.dark-green {
+  background-color: rgba(0,47,53,1);
+}
+
+.bottle-green {
+  background-color: rgba(21,94,99,1);
+}
+
+.vanilla {
+  background-color: rgba(237,222,164,1);
+}
+
+.ivory {
+  background-color: rgba(249,247,243,1);
+}
+
+.tangerine {
+  background-color: rgba(247,160,114,1);
+}
+
+.baby-blue {
+  background-color: rgba(181,226,250,1);
+}
+
+.monotonous-grey{
+  background-color: rgba(217,217,217,1);
+}
+
+.button-style1{
+  background-color: rgba(237,222,164,1);
+  border: 3px solid rgba(247,160,114,1);
+  border-radius: 50px;
+  width: 240px;
+  font-size: 16px;
+  margin-left: 50px;
+}
+
+.text-style{
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  color: black;
+}
+
+.header-style{
+  background-color: rgba(0,47,53,1);
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
