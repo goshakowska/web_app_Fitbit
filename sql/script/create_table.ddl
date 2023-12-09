@@ -27,29 +27,30 @@ END;
 
 /
 
-
-
 CREATE TABLE client (
     client_id          INTEGER NOT NULL,
-    login              VARCHAR2(25),
-    password_hash      VARCHAR2(25) NOT NULL,
+    login              VARCHAR2(25) UNIQUE,
+    password_hash      VARCHAR2(100) NOT NULL,
     email              VARCHAR2(30) NOT NULL,
-    phone_number       VARCHAR2(13) NOT NULL,
+    phone_number       VARCHAR2(13),
     name               VARCHAR2(40) NOT NULL,
     surname            VARCHAR2(40) NOT NULL,
     gender             VARCHAR2(1) NOT NULL,
-    height             INTEGER NOT NULL,
+    height             INTEGER,
     birth_year         DATE NOT NULL,
     advancement        VARCHAR2(40) NOT NULL,
-    target_weight      INTEGER NOT NULL,
-    training_frequency INTEGER NOT NULL,
-    training_time      INTEGER NOT NULL,
-    training_goal_id   INTEGER NOT NULL,
-    gym_id             INTEGER
+    target_weight      INTEGER,
+    training_frequency INTEGER,
+    training_time      INTEGER,
+    training_goal_id   INTEGER,
+    gym_id             INTEGER,
+    CONSTRAINT gender_check CHECK (gender IN ('M', 'K')),
+    CONSTRAINT advancement_check CHECK (advancement IN ('pocz¹tkuj¹cy', 'œredniozaawansowany', 'zaawansowany'))
 )
 LOGGING;
 
 ALTER TABLE client ADD CONSTRAINT client_pk PRIMARY KEY ( client_id );
+ALTER TABLE client MODIFY (client_id DEFAULT client_id_seq.NEXTVAL);
 
 CREATE TABLE client_data_history (
     client_data_history_id INTEGER NOT NULL,
