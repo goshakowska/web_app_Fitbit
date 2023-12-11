@@ -34,14 +34,15 @@ body {
 
 .button-style-header{
   background-color: rgba(237,222,164,1);
-  border: 3px solid rgba(247,160,114,1);
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  mix-blend-mode: normal;
+  border: 2px solid rgba(247,160,114,1);
   border-radius: 50px;
   width: 240px;
 }
 
 .button-style-login{
 background: #F7A072;
-mix-blend-mode: normal;
 border-radius: 26px;
 width: 240px;
 margin-left: 80px;
@@ -60,24 +61,56 @@ margin-left: 80px;
   height: 80px;
   display: flex;
   align-items: center;
-  display: flex;
   justify-content: space-between;
 }
 
 
 .navbar-toggler {
-width: 70px;
-height: 70px;
+width: 64px;
+height: 64px;
 background: #EDDEA4;
 border: 3px solid #F7A072;
 border-radius: 50%;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 display: flex;
 align-items: center;
 }
 
 .navbar-toggler-icon {
+background-image: none;
+}
+
+.sidebar-style{
+  position: fixed;
+  width: 200px;
+  right: 0px;
+  height: 600px;
+}
+
+.sidebar-pos-style{
+background-color: #D9D9D9;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+width: 160px;
+height: 40px;
+margin-top: 15px;
+margin-bottom: 5px;
+margin-left: 20px;
+}
+
+.sidebar-last-pos-style{
+background-color: #D9D9D9;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+width: 160px;
+height: 40px;
+margin-top: 160px;
+margin-left: 20px;
+}
+
+.text-style-sidebar{
   font-family: 'Inknut Antiqua';
-  text-align: center;
-  font-size: 16px;
+  text-align:center;
+  font-size: 13px;
   color: black;
 }
