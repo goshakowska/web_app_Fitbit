@@ -1,0 +1,2 @@
+class ClientLoginError(Exception):
+    pass

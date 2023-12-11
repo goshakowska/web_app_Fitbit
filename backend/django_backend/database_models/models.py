@@ -68,8 +68,8 @@ class Discount(models.Model):
 
 class Employee(models.Model):
     employee_id = models.BigIntegerField(primary_key=True)
-    login = models.CharField(max_length=25)
-    password_hash = models.CharField(max_length=25)
+    login = models.CharField(unique=True, max_length=25)
+    password_hash = models.CharField(max_length=100)
     email = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=13)
     name = models.CharField(max_length=40)
@@ -77,8 +77,8 @@ class Employee(models.Model):
     gender = models.CharField(max_length=1)
     type = models.CharField(max_length=10)
     standar_salary = models.BigIntegerField(blank=True, null=True)
-    locker = models.ForeignKey('Locker', models.DO_NOTHING)
     gym = models.ForeignKey('Gym', models.DO_NOTHING)
+    locker_id = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
