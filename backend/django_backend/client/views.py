@@ -39,8 +39,8 @@ def client_login(request):
     login = data.get('login')
     password = data.get('password')
     print(login)
-    id = database.user_login(login, password)
+    id, name = database.user_login(login, password)
     if id:
-        return JsonResponse({'id':id})
+        return JsonResponse({'id':id, 'name': name})
     else:
         raise user_errors.ClientLoginError(f'Incorrect user login!')

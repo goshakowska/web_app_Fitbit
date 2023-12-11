@@ -27,13 +27,11 @@ def registration(login, password_hash, email, phone_number,
 
 def user_login(login, password):
     try:
-        user = Client.objects.get(login=login)
-        is_correct = check_password(password, user.password_hash)
+        client = Client.objects.get(login=login)
+        is_correct = check_password(password, client.password_hash)
         if is_correct:
-            print(user.client_id)
-            return user.client_id
+            return client.client_id, client.name
         else:
-            print(user.client_id),
-            return user.client_id
+            return None
     except Client.DoesNotExist:
         return None
