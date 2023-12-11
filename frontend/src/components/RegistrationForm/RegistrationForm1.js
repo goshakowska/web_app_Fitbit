@@ -29,7 +29,7 @@ function RegistrationForm1() {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:8000/registration/', {
+          const response = await fetch('http://localhost:8000/client/registration/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -65,12 +65,12 @@ function RegistrationForm1() {
 
       const handleDBcon = async () => {
         try {
-          const response = await fetch('http://localhost:8000/client_login/', {
+          const response = await fetch('http://localhost:8000/client/client_login/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: 1 }),
+            body: JSON.stringify({ login: 'krol_wro', password: '123' }),
           });
 
           if (!response.ok) {
@@ -78,9 +78,10 @@ function RegistrationForm1() {
           }
 
           const data = await response.json();
-          setcliLogin(data.login);
-          alert('Z bazy pobrano login: '+ cliLogin)
+          setcliLogin(data.id);
+          alert('Z bazy pobrano login: '+ data.id);
         } catch (error) {
+          alert('Wykryto błąd');
           console.error('Error:', error);
         }
       };
