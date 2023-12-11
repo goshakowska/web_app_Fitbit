@@ -2,7 +2,7 @@
 function StartPage()
 {
     return (
-        <h1> Hello World!</h1>
+        <h1> Main page</h1>
     );
 
 }

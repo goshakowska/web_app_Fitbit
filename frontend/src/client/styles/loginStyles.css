@@ -1,0 +1,57 @@
+
+.input-group{
+    width: 300px;
+    position: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}
+
+.text-style-login{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 64px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 60px;
+  }
+
+  .centered-text-input{
+    text-align: center;
+    font-family: 'Inknut Antiqua';
+  }
+
+.button-style-login-user{
+background: #F7A072;
+border-radius: 26px;
+width: 240px;
+margin-top: 50px;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.button-style-login-user:hover{
+    background: #9d6547;
+    border-radius: 26px;
+    width: 240px;
+    margin-top: 50px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+.link-texts{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 16px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 9px;
+}
+
+.link-texts-group{
+    margin-top: 70px;
+}

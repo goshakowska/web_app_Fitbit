@@ -41,11 +41,11 @@ body {
   width: 240px;
 }
 
-.button-style-login{
+.button-style-login-header{
 background: #F7A072;
 border-radius: 26px;
 width: 240px;
-margin-left: 80px;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 

@@ -7,13 +7,8 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
 } from 'reactstrap';
-import "../styles.css"
+import "../styles/styles.css"
 
 function SideBarClient() {
   const [isOpen, setIsOpen] = useState(false);
