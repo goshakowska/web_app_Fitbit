@@ -32,6 +32,6 @@ def user_login(login, password):
         if is_correct:
             return client.client_id, client.name
         else:
-            return None
+            return None, None
     except Client.DoesNotExist:
-        return None
+        return None, None
