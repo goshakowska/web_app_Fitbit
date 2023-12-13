@@ -103,7 +103,7 @@ function RegistrationForm1() {
       };
 
     return(
-        <div className="wrapper">
+        <div className="registrationForm">
         <h1 style={headingStyle}>Zarejestruj się</h1>
         <h1 style={paragraphStyle}>Gwiazdką * oznaczono pola obowiązkowe</h1>
         <form onSubmit={handleSubmit}>

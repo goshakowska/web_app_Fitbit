@@ -1,13 +1,13 @@
 
-.input-group{
+.inputGroup{
     width: 300px;
     position: flex;
     align-items: flex-start;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
-.login-form{
+.loginForm{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,7 +15,7 @@
     height: 85vh;
 }
 
-.text-style-login{
+.textLogin{
     font-family: 'Inknut Antiqua';
     text-align: center;
     font-size: 64px;
@@ -23,12 +23,12 @@
     margin-bottom: 60px;
   }
 
-  .centered-text-input{
-    text-align: center;
-    font-family: 'Inknut Antiqua';
-  }
+.centeredTextInput{
+text-align: center;
+font-family: 'Inknut Antiqua';
+}
 
-.button-style-login-user{
+.buttonStyleLoginUser{
 background: #F7A072;
 border-radius: 26px;
 width: 240px;
@@ -36,7 +36,7 @@ margin-top: 50px;
 box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.button-style-login-user:hover{
+.buttonStyleLoginUser:hover{
     background: #9d6547;
     border-radius: 26px;
     width: 240px;
@@ -44,7 +44,7 @@ box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
-.link-texts{
+.linkTexts{
     font-family: 'Inknut Antiqua';
     text-align: center;
     font-size: 16px;
@@ -52,6 +52,14 @@ box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-bottom: 9px;
 }
 
-.link-texts-group{
+.linkTextsGroup{
     margin-top: 70px;
+}
+
+.errorLabel{
+    font-family: 'Inknut Antiqua';
+    display: flex;
+    justify-content: center;
+    color: rgb(185, 23, 23);
+    font-size: 16px;
 }

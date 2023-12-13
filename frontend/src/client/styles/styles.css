@@ -39,6 +39,8 @@ body {
   border: 2px solid rgba(247,160,114,1);
   border-radius: 50px;
   width: 240px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .button-style-login-header{
@@ -46,6 +48,7 @@ background: #F7A072;
 border-radius: 26px;
 width: 240px;
 box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+margin-left: auto
 }
 
 
@@ -56,12 +59,18 @@ box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: black;
 }
 
+.user-circle-text-style{
+  font-family: 'Inknut Antiqua';
+  text-align: center;
+  font-size: 12px;
+  color: black;
+}
+
 .header-style{
   background-color: rgba(0,47,53,1);
   height: 80px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 
@@ -72,8 +81,6 @@ background: #EDDEA4;
 border: 3px solid #F7A072;
 border-radius: 50%;
 box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-display: flex;
-align-items: center;
 }
 
 .navbar-toggler-icon {
@@ -84,7 +91,7 @@ background-image: none;
   position: fixed;
   width: 200px;
   right: 0px;
-  height: 600px;
+  height: 100vh;
 }
 
 .sidebar-pos-style{
@@ -95,16 +102,6 @@ width: 160px;
 height: 40px;
 margin-top: 15px;
 margin-bottom: 5px;
-margin-left: 20px;
-}
-
-.sidebar-last-pos-style{
-background-color: #D9D9D9;
-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
-width: 160px;
-height: 40px;
-margin-top: 160px;
 margin-left: 20px;
 }
 

@@ -9,20 +9,29 @@ import {
   NavLink,
 } from 'reactstrap';
 import "../styles/styles.css"
+import clientToken from '../ClientToken';
+
 
 function SideBarClient() {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
+  const {userName, logout} = clientToken();
+
+  const handleLogout = () => {
+    logout();
+  }
+
   return (
     <div >
       <Navbar>
         <NavbarBrand href="/"></NavbarBrand>
-        <NavbarToggler className= 'text-style' onClick={toggle} > <span>User</span> </NavbarToggler>
+        <NavbarToggler className= 'user-circle-text-style' onClick={toggle} > <span>{userName()}</span> </NavbarToggler>
         <Collapse isOpen={isOpen} navbar>
           <Nav className='sidebar-style dark-green' navbar>
             <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' href="/kalendarz_klienta">Twoje zajęcia</NavLink>
+              <NavLink className='text-style-sidebar' href="/kalendarz_klienta">
+                Twoje zajęcia
+                </NavLink>
             </NavItem>
             <NavItem className='sidebar-pos-style'>
               <NavLink className='text-style-sidebar' href="/statystyki">
@@ -49,11 +58,11 @@ function SideBarClient() {
                 Profil klienta
               </NavLink>
             </NavItem>
-            <NavItem className='sidebar-last-pos-style'>
-              <NavLink className='text-style-sidebar'>
-                Wyloguj
+            <NavItem className='sidebar-pos-style' onClick={handleLogout}>
+            <NavLink className='text-style-sidebar' href="/" >
+                Wyloguj się
               </NavLink>
-            </NavItem>
+              </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.hashers import make_password
 from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 import client.database as database
 import client.user_errors as user_errors
 import client.password as passw
@@ -45,20 +46,14 @@ def client_login(request):
     if id:
         return JsonResponse({'id':id, 'name': name})
     else:
-        raise user_errors.ClientLoginError(f'Incorrect user login!')
+        error_message = 'Incorrect user login!'
+        return JsonResponse({'error': error_message}, status=400)
 
 @csrf_exempt
-def validate_password(request):
+def validate_password_client(request):
     data = json.loads(request.body.decode('utf-8'))
     password = data.get('password')
     validate = passw.validate_password(password)
     return JsonResponse({'validate': validate})
-
-# def correct_mail(request):
-#     data = json.loads(request.body.decode('utf-8'))
-#     email = data.get('email')
-#     try:
-#         password.check_password(password)
-#     return JsonResponse({'correct': correct})
 
 
