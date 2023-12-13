@@ -10,30 +10,30 @@ import {
 
 function LoginForm ()
 {
-    const [userLoginInput, setUserLoginInput] = useState("") // to co użytkownik wpisuje do zalogowania
+    const [userLoginInput, setUserLoginInput] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [loggingError, setLoggingError] = useState("")
     const {login} = clientToken();
 
     const errorHandle = () =>
     {
-        setLoggingError("")
-        setLoggingError("")
         if ("" === userLoginInput) {
-            setLoggingError("Wprowadź swój login.")
-            return
+            setLoggingError("Wprowadź swój login.");
+            return true
         }
         if ("" === userPassword) {
-            setLoggingError("Wprowadź swoje hasło.")
-            return
+            setLoggingError("Wprowadź swoje hasło.");
+            return true
         }
+
+        return false;
     }
 
-    const handleLogin = async (event) =>
+    const Login = async (event) =>
     {
-        errorHandle();
         event.preventDefault();
-        if(loggingError===""){
+        console.log(loggingError);
+        if(loggingError==="") {
         try {
             const response = await fetch('http://localhost:8000/client/client_login/', {
               method: 'POST',
@@ -46,7 +46,7 @@ function LoginForm ()
             });
 
             if (response.status === 400) {
-                throw new Error('Niepoprawny login lub hasło. Spróbuj ponownie.')
+                throw new Error('Incorrect user login.');
             }
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -57,26 +57,32 @@ function LoginForm ()
             window.location.href = '/'
 
           } catch (error) {
-            setLoggingError('Niepoprawny login lub hasło. Spróbuj ponownie.');
+            if(error.message.includes('Incorrect user login')){
+                setLoggingError('Błędne dane logowania.');
+            }
+            else{
             console.error('Error:', error);
-        }
-
-    }
+          }}}
         };
+
+        const handleLogin = (event) =>{
+            if(errorHandle() === true) {return};
+            Login(event);
+        }
 
 
     return(
     <div className="loginForm">
         <h1 className="textLogin">Zaloguj się</h1>
-        <div>
+        <form>
             <InputGroup className="inputGroup">
-                <Input className='centeredTextInput' placeholder="login" onChange={ev => {setUserLoginInput(ev.target.value); setLoggingError("")}} />
+                <Input className='centeredTextInput' placeholder="login" onChange={ev => { setUserLoginInput(ev.target.value); setLoggingError("")}} />
             </InputGroup>
             <InputGroup className="inputGroup">
                 <Input className='centeredTextInput' type="password" placeholder="hasło" onChange={ev => {setUserPassword(ev.target.value); setLoggingError("")}}/>
             </InputGroup>
-        </div>
-        <label className="errorLabel"> {loggingError} </label>
+            <label className="errorLabel"> {loggingError} </label>
+        </form>
         <div>
             <Button
                 className="buttonStyleLoginUser text-style" onClick={handleLogin}
