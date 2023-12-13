@@ -112,10 +112,10 @@ class Exercise(models.Model):
 
 class ExerciseHistory(models.Model):
     exercise_history_id = models.BigIntegerField(primary_key=True)
-    date = models.DateField()
+    exercise_date = models.DateField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField()
-    comment = models.TextField(blank=True, null=True)
+    exercise_comment = models.TextField(blank=True, null=True)
     gym = models.ForeignKey('Gym', models.DO_NOTHING)
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
     trainer = models.ForeignKey(Employee, models.DO_NOTHING, blank=True, null=True)
@@ -174,7 +174,7 @@ class ExercisePlanPosition(models.Model):
     position = models.BigIntegerField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField(blank=True, null=True)
-    comment = models.TextField(blank=True, null=True)
+    plan_comment = models.TextField(blank=True, null=True)
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
     exercise_plan = models.ForeignKey(ExercisePlan, models.DO_NOTHING)
 
@@ -325,7 +325,7 @@ class MuscleGroups(models.Model):
 
 class OrderedSchedule(models.Model):
     ordered_schedule_id = models.BigIntegerField(primary_key=True)
-    date = models.DateField()
+    schedule_date = models.DateField()
     payment_date = models.DateField(blank=True, null=True)
     week_schedule = models.ForeignKey('WeekSchedule', models.DO_NOTHING)
     client_user = models.ForeignKey(Client, models.DO_NOTHING)
@@ -348,7 +348,7 @@ class Parameter(models.Model):
 class Rating(models.Model):
     rating_id = models.BigIntegerField(primary_key=True)
     rating = models.BigIntegerField()
-    comment = models.TextField(blank=True, null=True)
+    rate_comment = models.TextField(blank=True, null=True)
     ordered_schedule = models.ForeignKey(OrderedSchedule, models.DO_NOTHING)
 
     class Meta:
