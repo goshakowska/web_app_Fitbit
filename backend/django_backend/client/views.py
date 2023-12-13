@@ -60,3 +60,8 @@ def is_busy_login(request):
 def training_goals(request):
     goals = database.training_goals()
     return JsonResponse({'goals': goals})
+
+@csrf_exempt
+def standard_gym_ticket_offer(request):
+    tickets = database.standard_gym_ticket_offer()
+    return JsonResponse({'tickets': tickets})
