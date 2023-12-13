@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   NavbarBrand,
   Nav,
@@ -7,9 +7,11 @@ import {
 } from 'reactstrap';
 import "../styles/styles.css"
 import SideBarClient from './SideBarClient.js';
+import clientToken from '../ClientToken.js';
+
 
 function Header() {
-  const [isLogged, setLogged] = useState(false);
+  const {userId} = clientToken();
 
   return (
     <div>
@@ -33,11 +35,13 @@ function Header() {
             KONTAKT
           </NavLink>
         </NavItem>
-  {isLogged ? <SideBarClient /> : (<NavItem className='button-style-login-header'>
-    <NavLink href="./login" className='text-style'>
-      ZALOGUJ
-    </NavLink>
-    </NavItem>)};
+
+  {userId() ? <SideBarClient /> : (<NavItem className='button-style-login-header'>
+                                      <NavLink href="./login" className='text-style'>
+                                        ZALOGUJ
+                                      </NavLink>
+                                      </NavItem>)
+    };
       </Nav>
     </div>
   );

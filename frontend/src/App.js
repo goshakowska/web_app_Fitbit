@@ -7,6 +7,7 @@ import FitnessClubs from "./client/components/FitnessClubs";
 import LoginForm from "./client/components/LoginForm";
 import RegistrationForm1 from "./client/components/RegistrationForm/RegistrationForm1";
 
+
 function App() {
   return(
       <div className="App">
