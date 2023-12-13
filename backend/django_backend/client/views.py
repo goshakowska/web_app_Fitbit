@@ -56,3 +56,7 @@ def is_busy_login(request):
     return JsonResponse({'is_busy': is_busy})
 
 
+@csrf_exempt
+def training_goals(request):
+    goals = database.training_goals()
+    return JsonResponse({'goals': goals})

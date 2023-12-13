@@ -1,4 +1,4 @@
-from database_models.models import Client
+from database_models.models import Client, TrainingGoal
 from django.contrib.auth.hashers import check_password
 
 
@@ -42,3 +42,8 @@ def is_busy_login(login):
         return True
     except Client.DoesNotExist:
         return False
+
+def training_goals():
+    training_goals = TrainingGoal.objects.all()
+    training_goals = [[goal.training_goal_id, goal.name] for goal in training_goals]
+    return training_goals
