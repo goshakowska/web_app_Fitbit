@@ -44,6 +44,10 @@ function LoginForm ()
                                       password: userPassword}),
 
             });
+
+            if (response.status === 400) {
+                throw new Error('Niepoprawny login lub hasło. Spróbuj ponownie.')
+            }
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -52,14 +56,11 @@ function LoginForm ()
             login(data.id, data.name);
             window.location.href = '/'
 
-          } catch (error) {if(error.message.includes('Incorrect user login!')){
+          } catch (error) {
             setLoggingError('Niepoprawny login lub hasło. Spróbuj ponownie.');
-            setUserLoginInput('');
-            setUserPassword('');
-        } else {
-            console.error('Unhandled error:', error);
+            console.error('Error:', error);
         }
-        }
+
     }
         };
 
@@ -69,13 +70,13 @@ function LoginForm ()
         <h1 className="textLogin">Zaloguj się</h1>
         <div>
             <InputGroup className="inputGroup">
-                <Input className='centeredTextInput' placeholder="login" onChange={ev => setUserLoginInput(ev.target.value)} />
+                <Input className='centeredTextInput' placeholder="login" onChange={ev => {setUserLoginInput(ev.target.value); setLoggingError("")}} />
             </InputGroup>
             <InputGroup className="inputGroup">
-                <Input className='centeredTextInput' type="password" placeholder="hasło" onChange={ev => setUserPassword(ev.target.value)}/>
+                <Input className='centeredTextInput' type="password" placeholder="hasło" onChange={ev => {setUserPassword(ev.target.value); setLoggingError("")}}/>
             </InputGroup>
-            <label className="errorLabel"> {loggingError} </label>
         </div>
+        <label className="errorLabel"> {loggingError} </label>
         <div>
             <Button
                 className="buttonStyleLoginUser text-style" onClick={handleLogin}
