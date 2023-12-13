@@ -41,7 +41,6 @@ def client_login(request):
     data = json.loads(request.body.decode('utf-8'))
     login = data.get('login')
     password = data.get('password')
-    print(login)
     id, name = database.user_login(login, password)
     if id:
         return JsonResponse({'id':id, 'name': name})
@@ -50,10 +49,10 @@ def client_login(request):
         return JsonResponse({'error': error_message}, status=400)
 
 @csrf_exempt
-def validate_password_client(request):
+def is_busy_login(request):
     data = json.loads(request.body.decode('utf-8'))
-    password = data.get('password')
-    validate = passw.validate_password(password)
-    return JsonResponse({'validate': validate})
+    login = data.get('login')
+    is_busy = database.is_busy_login(login)
+    return JsonResponse({'is_busy': is_busy})
 
 

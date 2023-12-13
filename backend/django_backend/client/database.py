@@ -35,3 +35,10 @@ def user_login(login, password):
             return None, None
     except Client.DoesNotExist:
         return None, None
+
+def is_busy_login(login):
+    try:
+        client = Client.objects.get(login=login)
+        return True
+    except Client.DoesNotExist:
+        return False
