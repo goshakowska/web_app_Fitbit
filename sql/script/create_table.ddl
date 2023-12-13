@@ -29,7 +29,7 @@ END;
 
 CREATE TABLE client (
     client_id          INTEGER NOT NULL,
-    login              VARCHAR2(25) UNIQUE,
+    login              VARCHAR2(25) UNIQUE NOT NULL,
     password_hash      VARCHAR2(100) NOT NULL,
     email              VARCHAR2(30) NOT NULL,
     phone_number       VARCHAR2(13),
@@ -82,17 +82,12 @@ CREATE TABLE discount (
 )
 LOGGING;
 
-CREATE UNIQUE INDEX discount__idx ON
-    discount (
-        gym_ticket_offer_id
-    ASC );
-
 ALTER TABLE discount ADD CONSTRAINT discount_pk PRIMARY KEY ( discount_id );
 
 CREATE TABLE employee (
     employee_id    INTEGER NOT NULL,
-    login          VARCHAR2(25) NOT NULL,
-    password_hash  VARCHAR2(25) NOT NULL,
+    login          VARCHAR2(25) UNIQUE NOT NULL,
+    password_hash  VARCHAR2(100) NOT NULL,
     email          VARCHAR2(30) NOT NULL,
     phone_number   VARCHAR2(13) NOT NULL,
     name           VARCHAR2(40) NOT NULL,
@@ -100,8 +95,10 @@ CREATE TABLE employee (
     gender         VARCHAR2(1) NOT NULL,
     type           VARCHAR2(10) NOT NULL,
     standar_salary INTEGER,
-    locker_id      INTEGER NOT NULL,
+    locker_id      INTEGER,
     gym_id         INTEGER NOT NULL
+    CONSTRAINT gender_check CHECK (gender IN ('M', 'K')),
+    CONSTRAINT type_check CHECK (type IN ('trener', 'portier', 'menad¿er'))
 )
 LOGGING;
 
@@ -284,6 +281,7 @@ CREATE TABLE gym_ticket_offer (
     duration            INTEGER NOT NULL,
     price               INTEGER NOT NULL,
     type                VARCHAR2(20) NOT NULL
+    CONSTRAINT type_check CHECK (type IN ('Wejœciowy', 'Dniowy'))
 )
 LOGGING;
 
