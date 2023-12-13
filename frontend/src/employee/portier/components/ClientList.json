@@ -1,0 +1,46 @@
+[{
+    "id": 1234,
+    "surname": "Adamska",
+    "name": "Agnieszka",
+    "pass": "active"
+},{
+    "id": 1235,
+    "surname": "Bąk",
+    "name": "Piotr",
+    "pass": "active"
+},{
+    "id": 2067,
+    "surname": "Kowalski",
+    "name": "Kamil",
+    "pass": "active"
+},{
+    "id": 2221,
+    "surname": "Nowak",
+    "name": "Anna",
+    "pass": "active"
+},{
+    "id": 2540,
+    "surname": "Nowak",
+    "name": "Jan",
+    "pass": "active"
+},{
+    "id": 3145,
+    "surname": "Nowakowska",
+    "name": "Maria",
+    "pass": "active"
+},{
+    "id": 3267,
+    "surname": "Olejnik",
+    "name": "Michał",
+    "pass": "active"
+},{
+    "id": 4321,
+    "surname": "Swoczyński",
+    "name": "Bernard",
+    "pass": "inactive"
+},{
+    "id": 4333,
+    "surname": "Tomczak",
+    "name": "Paweł",
+    "pass": "inactive"
+}]
