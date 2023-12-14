@@ -1,11 +1,12 @@
 import database_models.models as models
 from django.contrib.auth.hashers import check_password
 from datetime import datetime
+import client.discount_calculate as dc
 
 
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_year, advancement, target_weight,
-        training_frequency, training_time, training_goal_id, gym_id):
+        training_frequency, training_time, training_goal_id, gym_id, current_weight):
     new_client = models.Client(
         login=login,
         password_hash=password_hash,
@@ -24,6 +25,11 @@ def registration(login, password_hash, email, phone_number,
         gym_id=gym_id,
     )
     new_client.save()
+    new_history = models.ClientDataHistory(
+        weight=current_weight,
+        measurement_date=datetime.now().date(),
+        client=new_client)
+    new_history.save()
 
 
 def user_login(login, password):
@@ -62,6 +68,6 @@ def gym_ticket_offer_with_discount():
             continue
         print(discount.gym_ticket_offer)
         ticket = discount.gym_ticket_offer
-        # todo add price after discount
-        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, 200, discount.stop_date])
+        price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
+        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date])
     return tickets
