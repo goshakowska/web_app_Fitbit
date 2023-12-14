@@ -49,4 +49,4 @@ def employee_login(request):
     if id:
         return JsonResponse({'id':id, 'name': name, 'type': type})
     else:
-        raise JsonResponse({'error': "Incorrect employee login or password"}, status=400)
+        return JsonResponse({'message': "Incorrect employee login or password"}, status=400)
