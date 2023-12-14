@@ -76,3 +76,9 @@ def get_gyms_list():
     gyms = models.Gym.objects.all()
     gyms = [[gym.gym_id, gym.name, gym.city, gym.street, gym.house_number] for gym in gyms]
     return gyms
+
+def change_default_gym_client(client_id, gym_id):
+    client = models.Client.objects.get(client_id=client_id)
+    new_default_gym = models.Gym.objects.get(gym_id=gym_id)
+    client.gym = new_default_gym
+    client.save()

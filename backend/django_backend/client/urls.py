@@ -10,4 +10,5 @@ urlpatterns = [
     path('standard_gym_ticket_offer/', views.standard_gym_ticket_offer),
     path('discount_gym_ticket_offer/', views.discount_gym_ticket_offer),
     path('gyms_list/', views.gyms_list),
+    path('change_default_gym/', views.change_default_gym_client),
 ]

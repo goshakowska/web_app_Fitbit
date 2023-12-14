@@ -75,3 +75,11 @@ def discount_gym_ticket_offer(request):
 def gyms_list(request):
     gyms = database.get_gyms_list()
     return JsonResponse({'gyms': gyms})
+
+@csrf_exempt
+def change_default_gym_client(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    gym_id = data.get('gym_id')
+    database.change_default_gym_client(client_id, gym_id)
+    return JsonResponse({'response': 'completed'})
