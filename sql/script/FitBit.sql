@@ -200,6 +200,17 @@ insert into client (client_id, login, password_hash, email, phone_number, name, 
 gender, height, birth_year, advancement, target_weight, training_frequency, training_time, training_goal_id, gym_id)
 VALUES (10, 'monet_monet', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A4h5XXUeU20dt5FqiFb0QnBaB3/LvI=', 'perelka@edu.pl', '652358745', 'Hailie', 'Monet', 'K', 174, TO_DATE('2004-10-21', 'YYYY-MM-DD'),
     'zaawansowany', 65, 1, 60, 1, 1);
+    
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (56, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 1);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (91, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 2);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (86, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 3);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (74, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 4);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (83, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 5);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (71, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 6);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (76, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 7);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (82, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 8);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (102, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 9);
+insert into client_data_history (weight, fat_body_level, measurement_date, client_id) VALUES (70, null, TO_DATE('2023-12-01', 'YYYY-MM-DD'), 10);
 
 -- employee trener
 
