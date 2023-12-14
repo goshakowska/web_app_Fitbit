@@ -263,3 +263,118 @@ values (12, 'alek', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A4
 -- employee portier
 insert into employee(employee_id, login, password_hash, email, phone_number, name, surname, gender, type, standar_salary, gym_id)
 values (11, 'kleks', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A4h5XXUeU20dt5FqiFb0QnBaB3/LvI=', 'akademia@edu.pl', '111111111', 'AmbroÅ¼y', 'Kleks', 'M', 'portier', 3000, 1);
+
+
+-- exercise
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (1, 'Bieganie na bie¿ni', 'Cardio', 300, 1800, 'Œredniozaawansowany', 0, 'Biegnij na bie¿ni', 1);
+-- dystans 5km czyli 5000m
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (2, 'Jazda na rowerku', 'Cardio', 250, 1200, 'Pocz¹tkuj¹cy', 0, 'JedŸ na rowerku stacjonarnym', 2);
+-- dystans 7km czyli 7000m
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (3, 'Wios³owanie', 'Si³owe', 200, 1500, 'Œredniozaawansowany', 0, 'Trening si³owy na wioœlarzu', 3);
+-- dystans 5km czyli 5000m
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (4, 'Wyciskanie sztangi', 'Si³owe', 80, 100, 'Zaawansowany', 10, 
+'Po³ó¿ siê na ³awce p³askiej. Chwyæ sztangê nachwytem na tak¹ szerokoœæ, aby w po³owie wykonywania ruchu k¹t miêdzy ramieniem a przedramieniem wynosi³ 90 stopni. £opatki œci¹gniête, barki opuszczone i mocno dociœniête do ³aweczki. Zachowaj naturalne ustawienie krêgos³upa – odcinek lêdŸwiowy lekko uniesiony, poœladki na ³aweczce.Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, wykonaj wdech i powolnym ruchem opuœæ sztangê do œrodkowej czêœci klatki piersiowej, uginaj¹c ramiona w ³okciach. Po przytrzymaniu sztangi w okolicach klatki przez u³amek sekundy zacznij unosiæ sztangê z powrotem do pozycji wyjœciowej, wykonuj¹c wydech powietrza. Skup siê, aby wyciskanie nastêpowa³o z miêœnia piersiowego. W momencie wyprostowania ramion ze sztang¹ (unikaj przeprostu w ³okciach) mocno dopnij miêsieñ piersiowy, po czym ponownie zacznij opuszczaæ sztangê.', 4);
+-- obci¹¿enie 20 kg wysokoœæ 40 cm
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (5, 'Martwy ci¹g', 'Si³owe', 6, 60, 'Zaawansowany', 10, 
+'Pó³przysiad przed sztang¹, cia³o mocno pochylone. Sztanga nad stopami, blisko piszczeli. Ramiona wyprostowane, ustawione na szerokoœæ barków. Plecy wyprostowane, g³owa powinna stanowiæ przed³u¿enie krêgos³upa. Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, wykonaj mocny wdech powietrza do brzucha. Wybierz luz na sztandze, a nastêpnie zacznij unosiæ sztangê z ziemi, wykonuj¹c wyprost w stawach biodrowych oraz kolanowych. Sztangê prowadŸ blisko nóg, nie pozwól, aby podczas ruchu plecy wygiê³y siê w ³uk. Koñcz¹c ruch, utrzymuj mocne napiêcie miêœni brzucha oraz poœladków i wykonaj wydech. Utrzymaj pozycjê przez sekundê, nastêpnie nabieraj¹c kolejny wdech, w kontrolowany sposób odstaw sztangê na pod³ogê. Utrzymuj plecy proste, a miêœnie brzucha mocno napiête. Wykonaj wyznaczon¹ liczbê powtórzeñ, za ka¿dym razem odk³adaj sztangê na pod³ogê.', 5);
+-- obci¹¿enie 20 kg wysokoœæ 80cm
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (6, 'Poliquin step-up', 'Si³owe', 5, 60, 'Œredniozaawansowane', 15, 
+'Pozycja stoj¹ca na jednej nodze na podwy¿szeniu ok. 20 cm. Pod piêt¹ minimalne podniesienie ok. 2 cm. Sylwetka wyprostowana, ramiona ustawione na biodrach lub wzd³u¿ cia³a. Druga noga w powietrzu, stopa ustawiona w zgiêciu grzbietowym (palce koñcami skierowane w górê).Wykonaj g³êboki wdech. Powoli rozpocznij uginanie nogi w kolanie, zachowuj¹c biodra na jednej wysokoœci. Utrzymuj¹c prawid³ow¹ postawê, schodŸ przez oko³o 4 sekundy, tak aby druga wyprostowana noga dotknê³a piêt¹ pod³ogi. Nastêpnie bez wsparcia (odbicia) nogi na pod³odze wyprostuj nogê w kolanie i wraz z wdechem wróæ do pozycji pocz¹tkowej. W pozycji pocz¹tkowej pamiêtaj o utrzymaniu kolana w aktywnym wyproœcie (bez przeprostu). ', 11);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (7, 'Podci¹ganie na dr¹¿ku', 'Si³owe', 3, 30, 'Pocz¹tkuj¹cy', 6, 
+'Dr¹¿ek z³apany nachwytem (kciuki skierowane do wewn¹trz), szerzej ni¿ rozstaw barków. Ramiona wyprostowane, wzrok skierowany w górê. WeŸ wdech, ruch rozpocznij od bardzo dynamicznego, mocnego œci¹gniêcia ³opatek w dó³ i do siebie po³¹czonego z mocn¹ prac¹ ramion. Podci¹gaj siê tak, jakbyœ chcia³ dotkn¹æ dr¹¿ka brzuchem w okolicy pasa. W najwy¿szym punkcie spróbuj zatrzymaæ ruch poprzez mocne spiêcie miêœni. Nastêpnie kontrolowanym ruchem opuœæ cia³o.', 7);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (8, 'Z-press', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 12, 
+'Pozycja siedz¹ca, nogi rozstawione tak, aby zapewnia³y stabiln¹ postawê. Ramiona w górze, hantle na wysokoœci g³owy. £okcie skierowane w dó³. Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, weŸ wdech i zacznij wyciskaæ ciê¿ar nad g³owê. W koñcowej fazie ruchu wykonaj wydech. Nastêpnie powolnym ruchem opuœæ hantle, wykonuj¹c p³ynny wdech.', 8);
+-- obci¹¿enie 2kg
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (9, 'Trening na orbitreku', 'Cardio', 160, 1800, 'Œredniozaawansowany', 0, 'Intensywny trening na orbitreku', 9);
+-- dystans 5km 5000m
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (10, 'Przyci¹ganie kolan pod klatkê na pi³ce', 'Si³owe', 160, 60, 'Pocz¹tkuj¹cy', 10, 
+'Podpór przodem z nogami ustawionymi na pi³ce. Z pozycji wyjœciowej rozpocznij wykonywanie unoszenia bioder. Równoczeœnie uginaj kolana, kieruj¹c je do klatki piersiowej. W momencie maksymalnego spiêcia utrzymaj pozycjê przez u³amek sekundy. Spokojnym, kontrolowanym ruchem wróæ do pozycji wyjœciowej.', 10);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (11, 'Obroty szyi', 'Rozci¹gaj¹ce', 3, 30, 'Pocz¹tkuj¹cy', 6, 'Wykonuj skrêty szyi. Wykonuj je powoli i ostro¿nie, w lewo i w prawo.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (12, 'Kobra', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 1, 'Le¿enie przodem, d³onie oparte na wysokoœci klatki piersiowej. Z pozycji wyjœciowej unieœ tu³ów, trzymaj¹c biodra oparte na pod³odze. Wzrok skieruj przed siebie. Utrzymaj pozycjê przez 20 sekund, a nastêpnie wróæ do pozycji wyjœciowej.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (13, 'Rozci¹ganie miêœni najszerszych grzbietu w klêku podpartym', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
+'W klêku podpartym wysuñ rêkê w przód po stronie rozci¹ganej za oœ œrodkow¹ cia³a. D³oñ wysuniêtej rêki ustaw wierzchni¹ stron¹ do pod³o¿a. Drug¹ rêkê u³ó¿ na wysuniêtej rêce, jednoczeœnie naciskaj na ni¹ tak, by nie zmieni³a swojej pozycji. Opieraj ciê¿ar cia³a na kolanach oraz wysuniêtej rêce, postaraj siê delikatnie skrêcaæ tu³ów, przenoœ ciê¿ar cia³a w bok na stronê wysuniêtej rêki. Podczas wykonywania skrêtu tu³owia postaraj siê wykonaæ lekkie ty³opochylenie miednicy, szczególnie po stronie rozci¹ganej. W tej pozycji pozostañ przez oko³o 90–120 sekund, systematycznie pog³êbiaj pozycjê co ok. 30 sekund.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (14, 'Rozci¹ganie miêœni naramiennych w staniu', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
+'W pozycji stoj¹cej zegnij ³okieæ, postaraj siê za³o¿yæ d³oñ rêki zginanej za plecy. Z pozycji wyjœciowej zacznij przesuwaæ rêkê ku górze, w stronê g³owy. Postaraj siê równie¿ cofn¹æ bark po stronie rozci¹ganej poprzez przyci¹gniecie ³opatki do krêgos³upa. Rozci¹ganie wykonuj przez oko³o 90–120 sekund dla jednej koñczyny, staraj¹c siê systematycznie pog³êbiaæ pozycjê rozci¹gania co oko³o 30 sekund.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (15, 'Rozci¹ganie miêœni dwug³owych w le¿eniu', 'Rozci¹gaj¹ce', 4, 30, 'Œredniozaawansowany', 2, 
+'Pozycja le¿¹ca, jedna noga wyprostowana, druga ugiêta w kolanie. Ugiêt¹ nogê unieœ tak, by móc zapleœæ d³onie z ty³u uda. Postaraj siê, aby udo by³o ustawione prostopadle do pod³o¿a. W pozycji wyjœciowej zacznij delikatnie prostowaæ kolano do momentu odczucia napiêcia na tylnej œcianie uda. Staraj siê minimalnie mocniej wyprostowaæ trzyman¹ nogê i pozostañ w tej pozycji oko³o 30 sekund.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (16, 'Rozci¹ganie miêœni poœladkowych w podporze', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 'Siad wykroczny podparty, noga zakroczna wyprostowana, tu³ów wyprostowany. Noga wykroczna zgiêta w kolanie, miednica skierowana w przód. Po uzyskaniu stabilnej pozycji sprawdŸ, czy kolano nogi wykrocznej znajduje siê w jednej linii z biodrem. Utrzymuj naturaln¹ krzywiznê krêgos³upa, miednicê skieruj ku przodowi, klatkê piersiow¹ lekko wypchnij.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (17, 'Rozci¹ganie miêœni poœladkowych w le¿eniu', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 
+'Le¿¹c na plecach z nogami ugiêtymi w kolanach, za³ó¿ stopê jednej nogi na kolano drugiej nogi asystuj¹cej. Postaraj siê skierowaæ na zewn¹trz kolano nogi zgiêtej. Unieœ tu³ów oraz rêce, zaplataj¹c je na górnej czêœci piszczeli lub z ty³u uda nogi znajduj¹cej siê na pod³o¿u. Zacznij delikatnie przyci¹gaæ za³o¿on¹ nogê w kierunku klatki piersiowej.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (18, 'Rozci¹ganie bicepsów', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 
+'Stañ bokiem do œciany na odleg³oœæ wyprostowanej rêki, unieœ w bok prost¹ rêkê na wysokoœæ barku, skieruj palce w ty³. Delikatnie odwodz¹c rêkê w ty³, u³ó¿ d³oñ wewnêtrzn¹ stron¹ do œciany. Zachowaj naturaln¹ krzywiznê krêgos³upa, g³owa stanowi przed³u¿enie krêgos³upa, klatka piersiowa wypchniêta. Z pozycji wyjœciowej zacznij delikatnie skrêcaæ tu³ów i biodra w przeciwn¹ stronê do rêki rozci¹ganej.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (19, 'Rozci¹ganie tricepsów', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 
+'Pozycja stoj¹ca, zginaj¹c ³okieæ, unieœ rêkê ponad g³owê. Postaraj siê siêgn¹æ d³oni¹ i przedramieniem za g³owê. Drug¹ rêk¹ z³ap za ³okieæ rêki czynnej. Zachowaj naturaln¹ krzywiznê krêgos³upa, g³owa stanowi przed³u¿enie krêgos³upa, klatka piersiowa wypchniêta. Z pozycji wyjœciowej postaraj siê za pomoc¹ si³y rêki asystuj¹cej obni¿aæ pozycjê ³okcia rêki rozci¹ganej i jednoczeœnie przyci¹gaæ j¹ w przeciwleg³¹ stronê. Postaraj siê utrzymywaæ maksymalnie zgiêty ³okieæ rêki rozci¹ganej. ', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (20, 'Rozci¹ganie miêœni czworog³owych w klêku', 'Rozci¹gaj¹ce', 45, 12, 'Pocz¹tkuj¹cy', 0, 
+'Klêk wykroczny, noga zakroczna spoczywa swobodnie na pod³o¿u. Miednica skierowana w przód, g³owa stanowi przed³u¿enie krêgos³upa, ca³a stopa nogi wykrocznej przylega do pod³o¿a. Postaraj siê zachowaæ fizjologiczn¹ krzywiznê krêgos³upa, szczególnie w odcinku lêdŸwiowym. Z pozycji wyjœciowej unieœ nogê zakroczn¹, jednoczeœnie staraj siê z³apaæ okolicê kostki unoszonej nogi. Unosz¹c nogê, postaraj siê rêk¹ przyci¹gn¹æ stopê nogi rozci¹ganej do poœladka. ', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (21, 'Plank', 'Si³owe', 3, 30, 'Pocz¹tkuj¹cy', 0, 'Trzymanie pozycji plank', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (22, 'Pompki', 'Si³owe', 7, 60, 'Pocz¹tkuj¹cy', 15, 'Pompki na p³asko', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (23, 'Przysiady', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 15, 'Stañ w rozkroku na szerokoœæ bider i zrób przysiad', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (24, 'Poziomka', 'Si³owe', 3, 30, 'Zaawansowany', 0, 
+' Siad prosty na pod³odze. Rêce u³o¿one na pod³odze w okolicy bioder. Z pozycji wyjœciowej wykonaj podpór na ramionach, unosz¹c wyprostowane nogi w górê, tak aby pozosta³y w pozycji bliskiej równoleg³ej do pod³ogi. Utrzymaj nogi w górnej pozycji przez okreœlony czas, nastêpnie spokojnym ruchem opuœæ cia³o do pozycji wyjœciowej.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (25, 'Mountain climbers', 'Cardio', 3, 30, 'Œredniozaawansowany', 15, 'Pozycjê wyjœciow¹ zaczynamy od podporu przodem, a kontakt z pod³o¿em maj¹ jedynie d³onie i stopy. Utrzymuj¹c wspomnian¹ pozycjê przyci¹gamy dynamicznie na zmianê raz jedno, raz drugie kolano do klatki piersiowej. Miêœnie brzucha oraz miêœnie poœladkowe powinny byæ w ci¹g³ym napiêciu. Æwiczenie wykonujemy dynamicznie wykonuj¹c kontrolowany ruch.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (26, 'Deska boczna', 'Si³owe', 4, 30, 'Œredniozaawansowany', 2, 'Trzymanie pozycji deski bocznej', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (27, 'Deska na kolanach', 'Si³owe', 3, 30, 'Pocz¹tkuj¹cy', 0, 'Pozycja klêku podpartego. Z klêku podpartego przejdŸ do podporu na przedramionach. Podczas utrzymywania pozycji pamiêtaj o równym oddechu, utrzymuj napiêcie w miêœniach brzucha oraz poœladków.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (28, 'No¿yce nogami', 'Si³owe', 4, 40, 'Œredniozaawansowany', 20, 
+'Pozycja le¿¹ca. Ramiona ustawione wzd³u¿ cia³a, d³onie pod poœladkami. Nogi ugiête w kolanach. Stopy oparte o pod³o¿e. Odcinek lêdŸwiowy krêgos³upa dotyka maty. Broda przyklejona do klatki piersiowej. WeŸ wdech, unieœ nogi ustawione pod k¹tem 45 stopni. Wykonuj naprzemienne wznosy nogami góra–dó³. Wykonuj krótkie wdechy, utrzymuj¹c sta³e napiêcie miêœni brzucha.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (29, 'Krab', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 20, 
+'Podpór ty³em, kolana ugiête, ramiona wyprostowane. Utrzymuj¹c pozycjê wyjœciow¹, rozpocznij wykonywanie ma³ych kroków po kwadracie. Podczas ruchu stale utrzymuj biodra nad pod³og¹. Æwiczenie wykonuj okreœlony czas.', NULL);
+
+INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
+VALUES (30, 'Przeskoki ³y¿wiarza', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 20, 'Æwiczenie polega na wykonywaniu dynamicznych przeskoków na boki, z nogi na nogê. Wraz z prac¹ nóg postaraj siê zsynchronizowaæ pracê ramion.', NULL);
