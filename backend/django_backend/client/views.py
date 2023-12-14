@@ -65,3 +65,8 @@ def training_goals(request):
 def standard_gym_ticket_offer(request):
     tickets = database.standard_gym_ticket_offer()
     return JsonResponse({'tickets': tickets})
+
+@csrf_exempt
+def discount_gym_ticket_offer(request):
+    tickets = database.gym_ticket_offer_with_discount()
+    return JsonResponse({'tickets': tickets})

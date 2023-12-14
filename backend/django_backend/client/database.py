@@ -1,5 +1,6 @@
 import database_models.models as models
 from django.contrib.auth.hashers import check_password
+from datetime import datetime
 
 
 def registration(login, password_hash, email, phone_number,
@@ -52,3 +53,15 @@ def standard_gym_ticket_offer():
     gym_tickets = models.GymTicketOffer.objects.all()
     gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price] for ticket in gym_tickets]
     return gym_tickets
+
+def gym_ticket_offer_with_discount():
+    discounts = models.Discount.objects.all()
+    tickets = []
+    for discount in discounts:
+        if discount.start_date > datetime.now().date() or discount.stop_date and discount.stop_date < datetime.now().date():
+            continue
+        print(discount.gym_ticket_offer)
+        ticket = discount.gym_ticket_offer
+        # todo add price after discount
+        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, 200, discount.stop_date])
+    return tickets
