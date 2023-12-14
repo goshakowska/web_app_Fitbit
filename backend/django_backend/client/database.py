@@ -71,3 +71,8 @@ def gym_ticket_offer_with_discount():
         price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
         tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date])
     return tickets
+
+def get_gyms_list():
+    gyms = models.Gym.objects.all()
+    gyms = [[gym.gym_id, gym.name, gym.city, gym.street, gym.house_number] for gym in gyms]
+    return gyms
