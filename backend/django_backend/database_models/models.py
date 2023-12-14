@@ -32,11 +32,11 @@ class Client(models.Model):
 
 
 class ClientDataHistory(models.Model):
-    client_data_history_id = models.BigIntegerField(primary_key=True)
+    client_data_history_id = models.AutoField(primary_key=True)
     weight = models.BigIntegerField()
     fat_body_level = models.BigIntegerField(blank=True, null=True)
     measurement_date = models.DateField()
-    client_user = models.ForeignKey(Client, models.DO_NOTHING)
+    client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -159,7 +159,7 @@ class ExerciseMuscle(models.Model):
 
 class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
-    created_date = models.DateField()
+    ordered_id = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
     done = models.CharField(max_length=1, blank=True, null=True)
     trainer = models.ForeignKey(Employee, models.DO_NOTHING)
     client = models.ForeignKey(Client, models.DO_NOTHING)

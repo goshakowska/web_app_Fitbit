@@ -172,7 +172,7 @@ ALTER TABLE exercise_illness ADD CONSTRAINT exercise_illness_pk PRIMARY KEY ( ex
 
 CREATE TABLE exercise_plan (
     exercise_plan_id INTEGER NOT NULL,
-    created_date     DATE NOT NULL,
+    ordered_id       INTEGER NOT NULL,
     done             CHAR(1),
     trainer_id       INTEGER NOT NULL,
     client_id        INTEGER NOT NULL
@@ -554,6 +554,10 @@ ALTER TABLE week_schedule
 ALTER TABLE week_schedule
     ADD CONSTRAINT week_schedule_trainer_fk FOREIGN KEY ( trainer_id )
         REFERENCES employee ( employee_id );
+
+ALTER TABLE exercise_plan
+    ADD CONSTRAINT ordered_schedule_fk FOREIGN KEY (ordered_id)
+        REFERENCES ordered_schedule(ordered_schedule_id);
 
 
 
