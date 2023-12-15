@@ -101,3 +101,34 @@ def describe_client(client_id):
         }
     except m.Client.DoesNotExist:
         return None
+
+
+def get_exercises_for_training(trainer_id, client_id):
+
+    current_date = timezone.now()
+    ordered_schedule_training = (
+        m.OrderedSchedule.objects
+        .select_related('week_schedule')  # join with WeekSchedule
+        .filter(client_user=client_id, week_schedule__trainer_id=trainer_id, schedule_date__gte=current_date)
+        .order_by('schedule_date')
+        .first()
+    )
+    result = []
+    try:
+        exercise_plan_id = (m.ExercisePlan.objects
+                            .filter(ordered_id=ordered_schedule_training.ordered_schedule_id)
+                            .first())
+        positions = m.ExercisePlanPosition.objects.filter(exercise_plan=exercise_plan_id).order_by('position')
+        for position in positions:
+            result.append(
+                {
+                    'exercise_id': position.exercise.exercise_id,
+                    'number': position.repetitions_number if position.repetitions_number != 0 else position.duration/60,
+                    'name': position.exercise.name,
+                    'position': position.position
+                }
+            )
+    except m.ExercisePlan.DoesNotExist:
+        return None, None
+
+    return result, exercise_plan_id.exercise_plan_id

@@ -35,3 +35,17 @@ def describe_client(request):
         return JsonResponse({'description': description})
     else:
         return JsonResponse({'error': "Wrong client id"}, status=400)
+
+
+@csrf_exempt
+def incoming_training(request):
+    data = json.loads(request.body.decode('utf-8'))
+    trainer = data.get('trainer_id')
+    client = data.get('client_id')
+    exercises, training_id = database.get_exercises_for_training(trainer, client)
+    print(exercises)
+    print(training_id)
+    if training_id:
+        return JsonResponse({'exercises':exercises, 'training_id': training_id})
+    else:
+        return JsonResponse({'error': "No training_plan in database for this class"}, status=400)
