@@ -114,3 +114,16 @@ def move_down_exercise(request):
         return JsonResponse({'message': "Exercise moved"})
     else:
         return JsonResponse({'error': "Can't move exercise"}, status=400)
+
+
+@csrf_exempt
+def delete_exercise_from_training(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training = data.get('training_id')
+    exercise_pos = data.get('position')
+    result = database.delete_exercise(training, exercise_pos)
+
+    if result:
+        return JsonResponse({'message': "Exercise deleted"})
+    else:
+        return JsonResponse({'error': "Wrong position or training id"}, status=400)

@@ -11,4 +11,5 @@ urlpatterns = [
     path('add_exercise/', views.add_exercise_to_training),
     path('move_up/', views.move_up_exercise),
     path('move_down/', views.move_down_exercise),
+    path('delete_exercise/', views.delete_exercise_from_training),
 ]

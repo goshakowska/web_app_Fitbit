@@ -247,3 +247,22 @@ def move_down(training_id, exercise_pos):
         return True
     except m.ExercisePlanPosition.DoesNotExist:
         return None
+
+
+def delete_exercise(training_id, exercise_pos):
+    try:
+        # delete exercise
+        exercise_delete = m.ExercisePlanPosition.objects.get(exercise_plan_id=training_id, position=exercise_pos)
+        exercise_delete.delete()
+
+        # find all exercises that have lower position
+        exercises_down = (m.ExercisePlanPosition.objects
+                        .filter(exercise_plan_id=training_id, position__gt=exercise_pos)
+                        .order_by('position'))
+        for exercise in exercises_down:
+            # move every exercise up
+            exercise.position = exercise.position - 1
+            exercise.save()
+        return True
+    except m.ExercisePlanPosition.DoesNotExist:
+        return None
