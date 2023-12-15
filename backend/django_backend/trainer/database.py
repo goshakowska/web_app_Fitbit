@@ -216,3 +216,34 @@ def move_up(training_id, exercise_pos):
     except m.ExercisePlanPosition.DoesNotExist:
         return None
 
+
+def can_move_down(pos, training_id):
+    last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
+    print(last_position.position)
+    if pos == last_position.position:
+        print("no")
+        return False
+    else:
+        print("yes")
+        return True
+
+
+def move_down(training_id, exercise_pos):
+
+    if not can_move_down(exercise_pos, training_id):
+        # can't move, it is on bottom of the list
+        return None
+
+    try:
+        exercise_up = m.ExercisePlanPosition.objects.get(position=exercise_pos+1, exercise_plan_id=training_id)
+        exercise = m.ExercisePlanPosition.objects.get(position=exercise_pos, exercise_plan_id=training_id)
+
+        # swap positions of exercises
+        exercise_up.position = exercise_pos
+        exercise.position = exercise_pos + 1
+        exercise_up.save()
+        exercise.save()
+
+        return True
+    except m.ExercisePlanPosition.DoesNotExist:
+        return None

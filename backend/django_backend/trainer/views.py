@@ -101,3 +101,16 @@ def move_up_exercise(request):
         return JsonResponse({'message': "Exercise moved"})
     else:
         return JsonResponse({'error': "Can't move exercise"}, status=400)
+
+
+@csrf_exempt
+def move_down_exercise(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training = data.get('training_id')
+    exercise_pos = data.get('position')
+    result = database.move_down(training, exercise_pos)
+
+    if result:
+        return JsonResponse({'message': "Exercise moved"})
+    else:
+        return JsonResponse({'error': "Can't move exercise"}, status=400)
