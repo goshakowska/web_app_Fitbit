@@ -168,7 +168,7 @@ class ExercisePlan(models.Model):
 
 
 class ExercisePlanPosition(models.Model):
-    exercise_plan_position_id = models.BigIntegerField(primary_key=True)
+    exercise_plan_position_id = models.AutoField(primary_key=True)
     position = models.BigIntegerField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField(blank=True, null=True)

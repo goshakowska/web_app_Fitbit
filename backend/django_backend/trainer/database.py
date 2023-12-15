@@ -154,3 +154,37 @@ def measured_by_duration(exercise_id):
         return answer
     except m.Exercise.DoesNotExist:
         return None
+
+
+def add_exercise(training_id, exercise_id, measured):
+    # find last position in this training
+    last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
+    last_position = last_position.position
+    position = last_position + 1
+    print(position)
+    try:
+        exercise = m.Exercise.objects.get(exercise_id=exercise_id)
+        # measured by repetition number
+        if exercise.repetitions_number != 0:
+            repetition_number = measured
+            # scale duration to new repetition number
+            duration = (exercise.duration * repetition_number) // exercise.repetitions_number
+        # measured by duration
+        else:
+            repetition_number = 0
+            duration = measured
+
+        plan = m.ExercisePlan.objects.get(exercise_plan_id=training_id)
+
+        m.ExercisePlanPosition.objects.create(
+            position=last_position+1,
+            duration=duration,
+            repetitions_number=repetition_number,
+            exercise=exercise,
+            exercise_plan=plan
+            )
+        return True
+    except Exception as e:
+        print(e)
+        return None
+

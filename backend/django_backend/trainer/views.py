@@ -74,3 +74,17 @@ def exercise_measured_duration(request):
         return JsonResponse({'answer':answer})
     else:
         return JsonResponse({'error': "Wrong exercise id"}, status=400)
+
+
+@csrf_exempt
+def add_exercise_to_training(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training = data.get('training_id')
+    exercise = data.get('exercise_id')
+    measured = data.get('measured')     # repetition number or duration
+    result = database.add_exercise(training, exercise, measured)
+
+    if result:
+        return JsonResponse({'message': "Exercise added"})
+    else:
+        return JsonResponse({'error': "Error during adding exercise"}, status=400)
