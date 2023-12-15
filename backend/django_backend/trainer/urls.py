@@ -9,4 +9,5 @@ urlpatterns = [
     path('measured_repetition/', views.exercise_measured_repetition_number),
     path('measured_duration/', views.exercise_measured_duration),
     path('add_exercise/', views.add_exercise_to_training),
+    path('move_up/', views.move_up_exercise),
 ]

@@ -88,3 +88,16 @@ def add_exercise_to_training(request):
         return JsonResponse({'message': "Exercise added"})
     else:
         return JsonResponse({'error': "Error during adding exercise"}, status=400)
+
+
+@csrf_exempt
+def move_up_exercise(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training = data.get('training_id')
+    exercise_pos = data.get('position')
+    result = database.move_up(training, exercise_pos)
+
+    if result:
+        return JsonResponse({'message': "Exercise moved"})
+    else:
+        return JsonResponse({'error': "Can't move exercise"}, status=400)

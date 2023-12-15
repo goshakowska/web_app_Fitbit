@@ -188,3 +188,31 @@ def add_exercise(training_id, exercise_id, measured):
         print(e)
         return None
 
+
+def can_move_up(pos):
+    if pos == 1:
+        return False
+    else:
+        return True
+
+
+def move_up(training_id, exercise_pos):
+
+    if not can_move_up(exercise_pos):
+        # can't move, it is on top of the list
+        return None
+
+    try:
+        exercise_up = m.ExercisePlanPosition.objects.get(position=exercise_pos-1, exercise_plan_id=training_id)
+        exercise = m.ExercisePlanPosition.objects.get(position=exercise_pos, exercise_plan_id=training_id)
+
+        # swap positions of exercises
+        exercise_up.position = exercise_pos
+        exercise.position = exercise_pos - 1
+        exercise_up.save()
+        exercise.save()
+
+        return True
+    except m.ExercisePlanPosition.DoesNotExist:
+        return None
+
