@@ -161,8 +161,6 @@ class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
     ordered_id = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
     done = models.CharField(max_length=1, blank=True, null=True)
-    trainer = models.ForeignKey(Employee, models.DO_NOTHING)
-    client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
         managed = False
