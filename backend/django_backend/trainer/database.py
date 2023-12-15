@@ -132,3 +132,25 @@ def get_exercises_for_training(trainer_id, client_id):
         return None, None
 
     return result, exercise_plan_id.exercise_plan_id
+
+
+def measured_by_repetition(exercise_id):
+    try:
+        exercise = m.Exercise.objects.get(exercise_id=exercise_id)
+        answer = False
+        if exercise.repetitions_number != 0:
+            answer = True
+        return answer
+    except m.Exercise.DoesNotExist:
+        return None
+
+
+def measured_by_duration(exercise_id):
+    try:
+        exercise = m.Exercise.objects.get(exercise_id=exercise_id)
+        answer = True
+        if exercise.repetitions_number != 0:
+            answer = False
+        return answer
+    except m.Exercise.DoesNotExist:
+        return None

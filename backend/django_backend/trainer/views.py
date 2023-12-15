@@ -43,9 +43,34 @@ def incoming_training(request):
     trainer = data.get('trainer_id')
     client = data.get('client_id')
     exercises, training_id = database.get_exercises_for_training(trainer, client)
-    print(exercises)
-    print(training_id)
+
     if training_id:
         return JsonResponse({'exercises':exercises, 'training_id': training_id})
     else:
-        return JsonResponse({'error': "No training_plan in database for this class"}, status=400)
+        return JsonResponse({'error': "No plan in database for this training"}, status=400)
+
+
+@csrf_exempt
+def exercise_measured_repetition_number(request):
+    # check if this exercise is measured by repetition number
+    data = json.loads(request.body.decode('utf-8'))
+    exercise = data.get('exercise_id')
+    answer = database.measured_by_repetition(exercise)
+
+    if answer is not None:
+        return JsonResponse({'answer':answer})
+    else:
+        return JsonResponse({'error': "Wrong exercise id"}, status=400)
+
+
+@csrf_exempt
+def exercise_measured_duration(request):
+    # check if this exercise is measured by duration
+    data = json.loads(request.body.decode('utf-8'))
+    exercise = data.get('exercise_id')
+    answer = database.measured_by_duration(exercise)
+
+    if answer is not None:
+        return JsonResponse({'answer':answer})
+    else:
+        return JsonResponse({'error': "Wrong exercise id"}, status=400)
