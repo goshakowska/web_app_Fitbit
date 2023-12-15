@@ -174,8 +174,6 @@ CREATE TABLE exercise_plan (
     exercise_plan_id INTEGER NOT NULL,
     ordered_id       INTEGER NOT NULL,
     done             CHAR(1),
-    trainer_id       INTEGER NOT NULL,
-    client_id        INTEGER NOT NULL
 )
 LOGGING;
 

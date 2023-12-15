@@ -159,7 +159,7 @@ class ExerciseMuscle(models.Model):
 
 class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
-    ordered_id = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
+    ordered = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
     done = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
