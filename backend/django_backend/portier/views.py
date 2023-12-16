@@ -73,3 +73,15 @@ def assign_locker(request):
         return JsonResponse({'locker': locker})
     else:
         return JsonResponse({'error': "Wrong portier id or no free locker"}, status=400)
+
+
+@csrf_exempt
+def activate_ticket(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client = data.get('client_id')
+    result = database.activate_ticket(client)
+
+    if result:
+        return JsonResponse({'message': "Ticket activated"})
+    else:
+        return JsonResponse({'error': "Client has active ticket or doesn't have ticket to activate"}, status=400)

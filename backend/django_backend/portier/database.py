@@ -218,3 +218,25 @@ def assign_locker(client_id, portier_id):
     visit.locker_locker = locker
     visit.save()
     return locker.locker_number
+
+
+def activate_ticket(client_id):
+    if check_status_client(client_id):
+        # client has active ticket
+        return None
+
+    ticket_to_activate = (m.GymTicketHistory.objects
+                          .filter(
+                              client_id=client_id,
+                              activation_date__isnull=True
+                              )
+                          .first())
+    if not ticket_to_activate:
+        # client doesn't have ticket
+        return None
+
+    # activate ticket
+    time = datetime.now().date()
+    ticket_to_activate.activation_date = time
+    ticket_to_activate.save()
+    return True
