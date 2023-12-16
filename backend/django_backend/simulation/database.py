@@ -25,3 +25,7 @@ def get_all_exercises():
         exercises_list.append(item)
     return exercises_list
 
+def get_trainers_by_gym(gym_id):
+    trainers = models.Employee.objects.filter(type='trener', gym__gym_id=gym_id)
+    trainers = [[trainer.employee_id, trainer.name, trainer.surname]for trainer in trainers]
+    return trainers

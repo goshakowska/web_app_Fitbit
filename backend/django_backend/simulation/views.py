@@ -19,3 +19,10 @@ def gyms_list(request):
 def exercise_list(request):
     exercises = database.get_all_exercises()
     return JsonResponse({'exercises': exercises})
+
+@csrf_exempt
+def trainers_list(request):
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    trainers = database.get_trainers_by_gym(gym_id)
+    return JsonResponse({'trainers': trainers})
