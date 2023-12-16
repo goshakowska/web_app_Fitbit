@@ -165,7 +165,7 @@ def leave(client_id, portier_id):
 
     # find entry
     visit = (m.GymVisit.objects
-             .filter(client_user_id=client_id, gym_gym=gym)
+             .filter(client_user_id=client_id, gym_gym=gym, departure_time__isnull=True)
              .order_by('-entry_time')
              .first()
              )
@@ -177,7 +177,15 @@ def leave(client_id, portier_id):
     time = datetime.now()
     visit.departure_time = time
     visit.save()
-    return time
+
+    # check locker number
+    locker = 0
+    if visit.locker_locker:
+        locker = visit.locker_locker.locker_number
+    else:
+        locker = None
+
+    return time, locker
 
 
 
@@ -191,7 +199,7 @@ def assign_locker(client_id, portier_id):
 
     # find entry
     visit = (m.GymVisit.objects
-             .filter(client_user_id=client_id, gym_gym=gym)
+             .filter(client_user_id=client_id, gym_gym=gym, departure_time__isnull=True)
              .order_by('-entry_time')
              .first()
              )
