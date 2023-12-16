@@ -71,3 +71,51 @@ def get_clients():
 
     return result
 
+
+
+def find_name_surname(name, surname):
+    result = []
+    if not name:
+        # find only by surname
+        clients = m.Client.objects.filter(surname=surname)
+        for client in clients:
+            result.append(
+                {
+                    'name': client.name,
+                    'surname': client.surname,
+                    'status': check_status_client(client.client_id),
+                    'login': client.login,
+                }
+            )
+
+    elif not surname:
+        # find only by name
+        clients = m.Client.objects.filter(name=name)
+        for client in clients:
+            result.append(
+                {
+                    'name': client.name,
+                    'surname': client.surname,
+                    'status': check_status_client(client.client_id),
+                    'login': client.login,
+                }
+            )
+
+    else:
+        # find by name and surname
+        clients = m.Client.objects.filter(name=name, surname=surname)
+        for client in clients:
+            result.append(
+                {
+                    'name': client.name,
+                    'surname': client.surname,
+                    'status': check_status_client(client.client_id),
+                    'login': client.login,
+                }
+            )
+
+    if not result:
+        # given client doesn't exist
+        return None
+
+    return result
