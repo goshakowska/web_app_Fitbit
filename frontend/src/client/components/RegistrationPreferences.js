@@ -80,13 +80,29 @@ function RegistrationPreferences() {
               <Input className='centeredTextInputSmall' type="number" placeholder="waga docelowa (kg)" name="target_weight" value={formData.target_weight} onChange={handleChange}/>
           </InputGroup>
           <InputGroup className="inputGroupSmall">
-              <Input className='centeredTextInputSmall' type="number" placeholder="wzrost (cm)" name="height" value={formData.height} onChange={handleChange}/>
+              <Input className='centeredTextInputSmall' type="number" min='100' placeholder="wzrost (cm)" name="height" value={formData.height} onChange={handleChange}/>
           </InputGroup></Row>
           <InputGroup className="inputGroup">
-              <Input className='centeredTextInput' type="number" placeholder="planowana liczba treningów w tygodniu" name="training_frequency" value={formData.training_frequency} onChange={handleChange}/>
+              <Input className='centeredTextInput' type="select" name="training_frequency" value={formData.training_frequency} onChange={handleChange}>
+              <option value={null}> planowana liczba treningów w tygodniu </option>
+              <option value="1"> 1 </option>
+              <option value="2"> 2 </option>
+              <option value="3"> 3 </option>
+              <option value="4"> 4 </option>
+              <option value="5"> 5 </option>
+              <option value="6"> 6 </option>
+              <option value="7"> 7 </option> </Input>
           </InputGroup>
           <InputGroup className="inputGroup">
-              <Input className='centeredTextInput' type="number" placeholder="szacowany czas treningu (w min.)" name="training_time" value={formData.training_time} onChange={handleChange}/>
+              <Input className='centeredTextInput' type="select" name="training_time" value={formData.training_time} onChange={handleChange}>
+              <option value={null}> szacowany czas treningu </option>
+              <option value="20"> 20 minut </option>
+              <option value="30"> 30 minut </option>
+              <option value="45"> 45 minut </option>
+              <option value="60"> 60 minut </option>
+              <option value="75"> 75 minut </option>
+              <option value="90"> 90 minut </option>
+              <option value="120"> 120 minut </option> </Input>
           </InputGroup>
           <InputGroup className="inputGroup">
               <Input className='centeredTextInput' type= "select" name="advancement" value={formData.advancement} onChange={handleChange}>
@@ -106,7 +122,7 @@ function RegistrationPreferences() {
           </InputGroup>
           <Row>
           <Button className="buttonStyleSwitchPage text-style" type="button" onClick={handlePrev}> COFNIJ </Button>
-          <Button className="buttonStyleSwitchPage text-style" type="submit" onClick={handleSubmit}> ZAREJESTRUJ SIĘ </Button>
+          <Button className="buttonStyleLoginUser text-style" type="submit" onClick={handleSubmit}> ZAREJESTRUJ SIĘ </Button>
             </Row>
 
       </form>

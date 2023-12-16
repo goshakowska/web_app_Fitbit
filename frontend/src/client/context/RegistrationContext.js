@@ -13,24 +13,35 @@ export const FormProvider = ({ children }) => {
     const [page, setPage] = useState(0)
 
     const [formData, setFormData] = useState({
-        name: '',
-        surname: '',
-        login: '',
-        password: '',
-        email: '',
-        dateOfBrith: '',
-        sex: '',
-        phone: '',
-        current_weight: '',
-        target_weight: '',
-        advancement: '',
-        height: '',
-        training_frequency: '',
-        training_goal_id: '',
-        training_time: '',
+        name: null,
+        surname: null,
+        login: null,
+        password: null,
+        repeatedPassword: null,
+        email: null,
+        dateOfBirth: null,
+        sex: null,
+        phone: null,
+        current_weight: null,
+        target_weight: null,
+        advancement: null,
+        height: null,
+        training_frequency: null,
+        training_goal_id: null,
+        training_time: null,
+        validate: {
+          loginState: "",
+          emailState:"",
+          passwordState: "",
+          repeatedPasswordState: "",
+          phoneState: "",
+          nameState: "",
+          surnameState: "",
+        },
       });
 
       const handleChange = (e) => {
+        console.log(formData)
         const { name, value } = e.target;
         setFormData((prevData) => ({
           ...prevData,
@@ -40,6 +51,8 @@ export const FormProvider = ({ children }) => {
 
       const handlePrev = () => setPage(prev => prev - 1);
       const handleNext = () => setPage(prev => prev + 1);
+
+
 
     return(
         <FormContext.Provider value={{title, page, setPage, formData, setFormData, handleChange, handlePrev, handleNext}}>
