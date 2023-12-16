@@ -1,0 +1,52 @@
+.tableDesign{
+    width: 550px;
+    justify-content: center;
+}
+
+.clubsTable{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tablePos{
+    justify-content: center;
+}
+
+.ticketsShop{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.gridDesign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+    justify-content: center;
+    margin-left: 100px;
+  }
+
+.tableDesign th {
+    background-color: rgba(0,47,53,1);
+    color: rgba(237,222,164,1);
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .tableDesign td {
+    border: 2px solid rgba(237,222,164,1);
+    padding: 8px;
+    text-align: center;
+  }
+
+  .cartStyle {
+    background-color: rgba(237,222,164,1);
+    border: 2px solid rgba(247,160,114,1);
+  }
+
+  .cartStyle:hover {
+    background-color: rgb(180, 165, 108);
+    border: 2px solid rgba(247,160,114,1);
+  }

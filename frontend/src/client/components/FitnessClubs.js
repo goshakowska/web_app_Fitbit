@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Table} from 'reactstrap';
+import "../styles/tablesStyle.css"
 
 function FitnessClubs()
 {
@@ -28,7 +29,10 @@ function FitnessClubs()
     useEffect(() => {getGyms()}, []);
 
     return (
-        <Table bordered hover responsive >
+      <div className="clubsTable">
+      <h className="textLogin"> Nasze siłownie </h>
+      <div>
+        <Table bordered hover responsive className="tableDesign" >
   <thead>
     <tr>
       <th>
@@ -47,7 +51,7 @@ function FitnessClubs()
                     </tr>
                 ))}
   </tbody>
-</Table>
+</Table> </div></div>
     );
 
 }
