@@ -5,4 +5,7 @@ import json
 import portier.database as database
 
 
-
+@csrf_exempt
+def list_clients(request):
+    clients = database.get_clients()
+    return JsonResponse({'clients': clients})
