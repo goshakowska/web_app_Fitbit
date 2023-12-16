@@ -2,11 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.hashers import make_password
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 import client.database as database
-import client.user_errors as user_errors
-import client.password as passw
 
 
 @csrf_exempt
@@ -83,3 +79,11 @@ def change_default_gym_client(request):
     gym_id = data.get('gym_id')
     database.change_default_gym_client(client_id, gym_id)
     return JsonResponse({'response': 'completed'})
+
+@csrf_exempt
+def get_ordered_classes_client(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    start_date = data.get('start_date')
+    classes = database.get_ordered_classes_client(client_id, start_date)
+    return JsonResponse({'classes': classes})

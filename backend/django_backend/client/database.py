@@ -1,6 +1,6 @@
 import database_models.models as models
 from django.contrib.auth.hashers import check_password
-from datetime import datetime
+from datetime import datetime, timedelta
 import client.discount_calculate as dc
 
 
@@ -82,3 +82,17 @@ def change_default_gym_client(client_id, gym_id):
     new_default_gym = models.Gym.objects.get(gym_id=gym_id)
     client.gym = new_default_gym
     client.save()
+
+def get_ordered_classes_client(client_id, start_date):
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date = end_date = start_date + timedelta(days=7)
+    classes = models.OrderedSchedule.objects.filter(
+        client_user__client_id=client_id,
+        schedule_date__range=[start_date, end_date]
+    )
+    classes_list = []
+    default_gym = models.Client.objects.get(client_id=client_id).gym.gym_id
+    for classe in classes:
+        is_default_gym = True if default_gym == classe.week_schedule.trainer.gym.gym_id else False
+        classes_list.append([classe.ordered_schedule_id, classe.schedule_date, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
+    return classes_list
