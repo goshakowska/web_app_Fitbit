@@ -164,7 +164,7 @@ VALUES (2, 'krol_wron', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnH
 insert into client (client_id, login, password_hash, email, phone_number, name, surname,
 gender, height, birth_year, advancement, target_weight, training_frequency, training_time, training_goal_id, gym_id)
 VALUES (3, 'chlopi', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A4h5XXUeU20dt5FqiFb0QnBaB3/LvI=', 'jagus123@edu.pl', '157426852', 'Jagna', 'Paczesiï¿½wna', 'K', 185, TO_DATE('2003-07-01', 'YYYY-MM-DD'),
-    'ï¿½redniozaawansowany', 80, 1, 80, 4, 1);
+    'œredniozaawansowany', 80, 1, 80, 4, 1);
 
 insert into client (client_id, login, password_hash, email, phone_number, name, surname,
 gender, height, birth_year, advancement, target_weight, training_frequency, training_time, training_goal_id, gym_id)
@@ -174,7 +174,7 @@ VALUES (4, 'blyskawica', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxn
 insert into client (client_id, login, password_hash, email, phone_number, name, surname,
 gender, height, birth_year, advancement, target_weight, training_frequency, training_time, training_goal_id, gym_id)
 VALUES (5, 'diuna3000', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A4h5XXUeU20dt5FqiFb0QnBaB3/LvI=', 'diuna456@edu.pl', '157157157', 'Paweï¿½', 'Atryda', 'M', 178, TO_DATE('1976-12-12', 'YYYY-MM-DD'),
-    'poczï¿½tkujï¿½cy', 75, 4, 50, 5, 4);
+    'pocz¹tkuj¹cy', 75, 4, 50, 5, 4);
 
 insert into client (client_id, login, password_hash, email, phone_number, name, surname,
 gender, height, birth_year, advancement, target_weight, training_frequency, training_time, training_goal_id, gym_id)
@@ -269,24 +269,40 @@ values (11, 'kleks', 'pbkdf2_sha256$600000$RTDRIBN0ZLuYMCbfdILsco$ef/H2RLGxnHS+A
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (1, 'Bieganie na bie¿ni', 'Cardio', 300, 1800, 'Œredniozaawansowany', 0, 'Biegnij na bie¿ni', 1);
 -- dystans 5km czyli 5000m
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (1, 5000, 2, 1);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (2, 'Jazda na rowerku', 'Cardio', 250, 1200, 'Pocz¹tkuj¹cy', 0, 'JedŸ na rowerku stacjonarnym', 2);
 -- dystans 7km czyli 7000m
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (2, 7000, 2, 2);
+
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (3, 'Wios³owanie', 'Si³owe', 200, 1500, 'Œredniozaawansowany', 0, 'Trening si³owy na wioœlarzu', 3);
 -- dystans 5km czyli 5000m
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (3, 5000, 2, 3);
+
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (4, 'Wyciskanie sztangi', 'Si³owe', 80, 100, 'Zaawansowany', 10, 
 'Po³ó¿ siê na ³awce p³askiej. Chwyæ sztangê nachwytem na tak¹ szerokoœæ, aby w po³owie wykonywania ruchu k¹t miêdzy ramieniem a przedramieniem wynosi³ 90 stopni. £opatki œci¹gniête, barki opuszczone i mocno dociœniête do ³aweczki. Zachowaj naturalne ustawienie krêgos³upa – odcinek lêdŸwiowy lekko uniesiony, poœladki na ³aweczce.Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, wykonaj wdech i powolnym ruchem opuœæ sztangê do œrodkowej czêœci klatki piersiowej, uginaj¹c ramiona w ³okciach. Po przytrzymaniu sztangi w okolicach klatki przez u³amek sekundy zacznij unosiæ sztangê z powrotem do pozycji wyjœciowej, wykonuj¹c wydech powietrza. Skup siê, aby wyciskanie nastêpowa³o z miêœnia piersiowego. W momencie wyprostowania ramion ze sztang¹ (unikaj przeprostu w ³okciach) mocno dopnij miêsieñ piersiowy, po czym ponownie zacznij opuszczaæ sztangê.', 4);
 -- obci¹¿enie 20 kg wysokoœæ 40 cm
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (4, 20, 1, 4);
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (5, 40, 3, 4);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (5, 'Martwy ci¹g', 'Si³owe', 6, 60, 'Zaawansowany', 10, 
 'Pó³przysiad przed sztang¹, cia³o mocno pochylone. Sztanga nad stopami, blisko piszczeli. Ramiona wyprostowane, ustawione na szerokoœæ barków. Plecy wyprostowane, g³owa powinna stanowiæ przed³u¿enie krêgos³upa. Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, wykonaj mocny wdech powietrza do brzucha. Wybierz luz na sztandze, a nastêpnie zacznij unosiæ sztangê z ziemi, wykonuj¹c wyprost w stawach biodrowych oraz kolanowych. Sztangê prowadŸ blisko nóg, nie pozwól, aby podczas ruchu plecy wygiê³y siê w ³uk. Koñcz¹c ruch, utrzymuj mocne napiêcie miêœni brzucha oraz poœladków i wykonaj wydech. Utrzymaj pozycjê przez sekundê, nastêpnie nabieraj¹c kolejny wdech, w kontrolowany sposób odstaw sztangê na pod³ogê. Utrzymuj plecy proste, a miêœnie brzucha mocno napiête. Wykonaj wyznaczon¹ liczbê powtórzeñ, za ka¿dym razem odk³adaj sztangê na pod³ogê.', 5);
 -- obci¹¿enie 20 kg wysokoœæ 80cm
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (6, 20, 1, 5);
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (7, 80, 3, 5);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (6, 'Poliquin step-up', 'Si³owe', 5, 60, 'Œredniozaawansowane', 15, 
@@ -300,10 +316,16 @@ INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_l
 VALUES (8, 'Z-press', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 12, 
 'Pozycja siedz¹ca, nogi rozstawione tak, aby zapewnia³y stabiln¹ postawê. Ramiona w górze, hantle na wysokoœci g³owy. £okcie skierowane w dó³. Utrzymuj¹c prawid³ow¹ pozycjê wyjœciow¹, weŸ wdech i zacznij wyciskaæ ciê¿ar nad g³owê. W koñcowej fazie ruchu wykonaj wydech. Nastêpnie powolnym ruchem opuœæ hantle, wykonuj¹c p³ynny wdech.', 8);
 -- obci¹¿enie 2kg
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (8, 2, 1, 8);
+
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (9, 'Trening na orbitreku', 'Cardio', 160, 1800, 'Œredniozaawansowany', 0, 'Intensywny trening na orbitreku', 9);
 -- dystans 5km 5000m
+INSErT INTO standard_parameter_value (standard_parameter_value_id, value, parameter_id, exercise_id)
+values (9, 5000, 2, 9);
+
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (10, 'Przyci¹ganie kolan pod klatkê na pi³ce', 'Si³owe', 160, 60, 'Pocz¹tkuj¹cy', 10, 
@@ -378,3 +400,131 @@ VALUES (29, 'Krab', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 20,
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
 VALUES (30, 'Przeskoki ³y¿wiarza', 'Si³owe', 6, 60, 'Pocz¹tkuj¹cy', 20, 'Æwiczenie polega na wykonywaniu dynamicznych przeskoków na boki, z nogi na nogê. Wraz z prac¹ nóg postaraj siê zsynchronizowaæ pracê ramion.', NULL);
+
+-- gym equipment
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (1, 1, 1, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (2, 1, 1, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (3, 1, 1, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (4, 1, 2, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (5, 1, 2, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (6, 1, 3, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (7, 1, 3, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (8, 1, 4, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (9, 1, 4, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (10, 1, 5, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (11, 1, 5, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (12, 1, 5, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (13, 1, 6, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (14, 1, 6, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (15, 1, 7, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (16, 1, 7, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (17, 1, 7, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (18, 1, 8, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (19, 1, 8, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (20, 1, 8, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (21, 1, 9, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (22, 1, 9, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (23, 1, 10, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (24, 1, 11, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (25, 1, 12, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (26, 1, 13, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (27, 1, 14, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (28, 1, 15, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (29, 1, 16, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (30, 1, 17, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (31, 1, 17, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (32, 1, 16, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (33, 1, 15, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (34, 1, 14, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (35, 1, 13, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (36, 1, 12, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+INSERT INTO gym_equipment (gym_equipment_id, gym_id, equipment_id, purchase_date) 
+values (37, 1, 11, TO_DATE('2023-12-01', 'YYYY-MM-DD'));
+
+-- gym classe
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (1, 'Aerobik', 18, 60, 30, 'Opis aerobiku');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (2, 'Trening indywidualny', 100, 60, 1, 'Opis treningu indywidualnego');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (3, 'Zumba', 20, 80, 25, 'Opis zumby');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (4, 'Tabata', 30, 45, 30, 'Opis tabaty');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (5, 'Joga', 50, 60, 15, 'Opis jogi');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (6, 'Streching', 15, 60, 30, 'Opis strechingu');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (7, 'P³aski brzuch', 30, 45, 25, 'Opis p³askiego brzucha');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (8, 'Pilates', 25, 60, 30, 'Opis pilatesu');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (9, 'Zdrowy krêgos³up', 40, 90, 20, 'Opis zdrowego krêgos³upu');
+INSERT INTO gym_classe (gym_classe_id, name, price, duration, max_people, description)
+values (10, 'TBC', 40, 55, 30, 'Opis TBC');
+
+-- locker
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (1, 101, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (2, 102, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (3, 103, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (4, 104, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (5, 105, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (6, 106, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (7, 107, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (8, 108, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (9, 109, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (10, 110, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (11, 111, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (12, 112, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (13, 113, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (14, 114, 1);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (15, 101, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (16, 102, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (17, 103, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (18, 104, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (19, 105, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (20, 106, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (21, 107, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (22, 108, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (23, 109, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (24, 110, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (25, 111, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (26, 112, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (27, 113, 2);
+INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (28, 114, 2);
