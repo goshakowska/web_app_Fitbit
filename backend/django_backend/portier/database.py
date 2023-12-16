@@ -1,4 +1,4 @@
-from django.db.models import F, ExpressionWrapper, fields, Value
+from django.db.models import Q, F, ExpressionWrapper, fields, Value
 from django.utils import timezone
 import database_models.models as m
 from datetime import datetime, timedelta
@@ -178,3 +178,35 @@ def leave(client_id, portier_id):
     visit.departure_time = time
     visit.save()
     return time
+
+
+
+def assign_locker(client_id, portier_id):
+    # find gym
+    try:
+        portier = m.Employee.objects.get(employee_id=portier_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    # find entry
+    visit = (m.GymVisit.objects
+             .filter(client_user_id=client_id, gym_gym=gym)
+             .order_by('-entry_time')
+             .first()
+             )
+
+    # find free locker
+
+    exclude_locker = m.GymVisit.objects.filter(departure_time__isnull=True, gym_gym=gym, locker_locker__isnull=False)
+    exclude_id = []     # locker_id that are in use
+    for locker_ex in exclude_locker:
+        exclude_id.append(locker_ex.locker_locker.locker_id)
+
+    locker = m.Locker.objects.filter(gym=gym).exclude(locker_id__in=exclude_id).first()
+    if not locker:
+        # no free locker
+        return None
+    visit.locker_locker = locker
+    visit.save()
+    return locker.locker_number

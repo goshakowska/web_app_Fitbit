@@ -60,3 +60,16 @@ def register_leave(request):
         return JsonResponse({'time': time})
     else:
         return JsonResponse({'error': "Wrong portier id or no registered entry"}, status=400)
+
+
+@csrf_exempt
+def assign_locker(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client = data.get('client_id')
+    portier = data.get('portier_id')
+    locker = database.assign_locker(client, portier)
+
+    if locker:
+        return JsonResponse({'locker': locker})
+    else:
+        return JsonResponse({'error': "Wrong portier id or no free locker"}, status=400)
