@@ -9,6 +9,7 @@ import Header from "./client/components/Header";
 import FitnessClubs from "./client/components/FitnessClubs";
 import LoginForm from "./client/components/LoginForm";
 import Registration from "./client/views/Registration";
+import Tickets from "./client/components/Tickets";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route exact path='/silownie' element={<FitnessClubs />} />
               <Route exact path='/login' element={<LoginForm />} />
               <Route exact path='/rejestracja' element={<Registration />} />
+              <Route exact path='/sklep_karnetow' element={<Tickets />} />
               </Routes>
 
               </FormProvider>
