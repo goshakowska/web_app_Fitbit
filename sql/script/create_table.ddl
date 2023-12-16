@@ -31,21 +31,21 @@ CREATE TABLE client (
     client_id          INTEGER NOT NULL,
     login              VARCHAR2(25) UNIQUE NOT NULL,
     password_hash      VARCHAR2(100) NOT NULL,
-    email              VARCHAR2(30) NOT NULL,
+    email              VARCHAR2(30) UNIQUE NOT NULL,
     phone_number       VARCHAR2(13),
     name               VARCHAR2(40) NOT NULL,
     surname            VARCHAR2(40) NOT NULL,
     gender             VARCHAR2(1) NOT NULL,
     height             INTEGER,
     birth_year         DATE NOT NULL,
-    advancement        VARCHAR2(40) NOT NULL,
+    advancement        VARCHAR2(40),
     target_weight      INTEGER,
     training_frequency INTEGER,
     training_time      INTEGER,
     training_goal_id   INTEGER,
     gym_id             INTEGER,
     CONSTRAINT gender_check CHECK (gender IN ('M', 'K')),
-    CONSTRAINT advancement_check CHECK (advancement IN ('pocz¹tkuj¹cy', 'œredniozaawansowany', 'zaawansowany'))
+    CONSTRAINT advancement_check CHECK (advancement IN (('pocz¹tkuj¹cy', 'œredniozaawansowany', 'zaawansowany') OR advancement IS NULL)
 )
 LOGGING;
 
@@ -57,7 +57,7 @@ CREATE TABLE client_data_history (
     weight                 INTEGER NOT NULL,
     fat_body_level         INTEGER,
     measurement_date       DATE NOT NULL,
-    client_user_id         INTEGER NOT NULL
+    client_id         INTEGER NOT NULL
 )
 LOGGING;
 
