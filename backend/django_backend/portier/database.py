@@ -140,3 +140,18 @@ def find_phone_number(phone_number):
         return None
 
     return result
+
+
+def entry(client_id, portier_id):
+    # find gym
+    try:
+        portier = m.Employee.objects.get(employee_id=portier_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        print("nie istnieje")
+        return None
+
+    time = datetime.now()
+    m.GymVisit.objects.create(entry_time=time, gym_gym=gym, client_user_id=client_id)
+    print(time)
+    return time

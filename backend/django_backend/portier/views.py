@@ -34,3 +34,16 @@ def find_client_by_phone_number(request):
         return JsonResponse({'clients': clients})
     else:
         return JsonResponse({'error': "This client doesn't exist"}, status=400)
+
+
+@csrf_exempt
+def register_entry(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client = data.get('client_id')
+    portier = data.get('portier_id')
+    time = database.entry(client, portier)
+
+    if time:
+        return JsonResponse({'time': time})
+    else:
+        return JsonResponse({'error': "Wrong portier id"}, status=400)
