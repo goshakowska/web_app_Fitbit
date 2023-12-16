@@ -119,3 +119,24 @@ def find_name_surname(name, surname):
         return None
 
     return result
+
+
+def find_phone_number(phone_number):
+    result = []
+    # find by phone_number
+    clients = m.Client.objects.filter(phone_number=phone_number)
+    for client in clients:
+        result.append(
+            {
+                'name': client.name,
+                'surname': client.surname,
+                'status': check_status_client(client.client_id),
+                'login': client.login,
+            }
+        )
+
+    if not result:
+        # given client doesn't exist
+        return None
+
+    return result

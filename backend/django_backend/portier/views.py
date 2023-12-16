@@ -22,3 +22,15 @@ def find_client_by_name_surname(request):
         return JsonResponse({'clients': clients})
     else:
         return JsonResponse({'error': "This client doesn't exist"}, status=400)
+
+
+@csrf_exempt
+def find_client_by_phone_number(request):
+    data = json.loads(request.body.decode('utf-8'))
+    phone = data.get('phone_number')
+    clients = database.find_phone_number(phone)
+
+    if clients:
+        return JsonResponse({'clients': clients})
+    else:
+        return JsonResponse({'error': "This client doesn't exist"}, status=400)
