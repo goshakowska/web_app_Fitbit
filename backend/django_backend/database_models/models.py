@@ -112,7 +112,7 @@ class Exercise(models.Model):
 
 class ExerciseHistory(models.Model):
     exercise_history_id = models.BigIntegerField(primary_key=True)
-    exercise_date = models.DateField()
+    exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField()
     exercise_comment = models.TextField(blank=True, null=True)
@@ -120,6 +120,7 @@ class ExerciseHistory(models.Model):
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
     trainer = models.ForeignKey(Employee, models.DO_NOTHING, blank=True, null=True)
     client = models.ForeignKey(Client, models.DO_NOTHING)
+    calories = models.BigIntegerField()
 
     class Meta:
         managed = False
