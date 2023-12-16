@@ -47,3 +47,16 @@ def register_entry(request):
         return JsonResponse({'time': time})
     else:
         return JsonResponse({'error': "Wrong portier id"}, status=400)
+
+
+@csrf_exempt
+def register_leave(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client = data.get('client_id')
+    portier = data.get('portier_id')
+    time = database.leave(client, portier)
+
+    if time:
+        return JsonResponse({'time': time})
+    else:
+        return JsonResponse({'error': "Wrong portier id or no registered entry"}, status=400)

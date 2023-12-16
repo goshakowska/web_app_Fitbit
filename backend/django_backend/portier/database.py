@@ -148,10 +148,33 @@ def entry(client_id, portier_id):
         portier = m.Employee.objects.get(employee_id=portier_id)
         gym = portier.gym
     except m.Employee.DoesNotExist:
-        print("nie istnieje")
         return None
 
     time = datetime.now()
     m.GymVisit.objects.create(entry_time=time, gym_gym=gym, client_user_id=client_id)
-    print(time)
+    return time
+
+
+def leave(client_id, portier_id):
+    # find gym
+    try:
+        portier = m.Employee.objects.get(employee_id=portier_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    # find entry
+    visit = (m.GymVisit.objects
+             .filter(client_user_id=client_id, gym_gym=gym)
+             .order_by('-entry_time')
+             .first()
+             )
+
+    if not visit or visit.entry_time.date() != datetime.now().date():
+        # no registered visit or registered visit from different day
+        return None
+
+    time = datetime.now()
+    visit.departure_time = time
+    visit.save()
     return time
