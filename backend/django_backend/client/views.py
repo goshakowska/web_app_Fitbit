@@ -87,3 +87,10 @@ def get_ordered_classes_client(request):
     start_date = data.get('start_date')
     classes = database.get_ordered_classes_client(client_id, start_date)
     return JsonResponse({'classes': classes})
+
+@csrf_exempt
+def get_trenings_client(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    trenings = database.get_trening_history(client_id)
+    return JsonResponse({'trenings': trenings})

@@ -94,5 +94,27 @@ def get_ordered_classes_client(client_id, start_date):
     default_gym = models.Client.objects.get(client_id=client_id).gym.gym_id
     for classe in classes:
         is_default_gym = True if default_gym == classe.week_schedule.trainer.gym.gym_id else False
-        classes_list.append([classe.ordered_schedule_id, classe.schedule_date, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
+        classes_list.append([classe.ordered_schedule_id, classe.schedule_date, classe.week_schedule.gym_classe.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
     return classes_list
+
+def get_trening_history(client_id):
+    trenings = models.GymVisit.objects.filter(client_user__client_id=client_id)
+    trening_list = []
+    for trening in trenings:
+        start_date = trening.entry_time
+        end_date = trening.departure_time
+        exercises = models.ExerciseHistory.objects.filter(
+            client__client_id=client_id,
+            exercise_date__range=[start_date, end_date]
+        )
+        # exercises = models.ExerciseHistory.objects.all()
+        calories = 0
+        time = 0
+        for exercise in exercises:
+            calories += exercise.calories
+            time += exercise.duration
+            print()
+        # start_date, end_date = end_date, start_date
+        trening_list.append([trening.gym_visit_id, start_date, end_date, time, calories])
+    return trening_list
+

@@ -19,7 +19,7 @@ class Client(models.Model):
     gender = models.CharField(max_length=1)
     height = models.BigIntegerField(blank=True, null=True)
     birth_year = models.DateField()
-    advancement = models.CharField(max_length=40)
+    advancement = models.CharField(max_length=40, null=True)
     target_weight = models.BigIntegerField(blank=True, null=True)
     training_frequency = models.BigIntegerField(blank=True, null=True)
     training_time = models.BigIntegerField(blank=True, null=True)
@@ -112,7 +112,7 @@ class Exercise(models.Model):
 
 class ExerciseHistory(models.Model):
     exercise_history_id = models.BigIntegerField(primary_key=True)
-    exercise_date = models.DateField()
+    exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField()
     exercise_comment = models.TextField(blank=True, null=True)
@@ -120,6 +120,7 @@ class ExerciseHistory(models.Model):
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
     trainer = models.ForeignKey(Employee, models.DO_NOTHING, blank=True, null=True)
     client = models.ForeignKey(Client, models.DO_NOTHING)
+    calories = models.BigIntegerField()
 
     class Meta:
         managed = False
@@ -147,22 +148,10 @@ class ExerciseIllness(models.Model):
         unique_together = (('exercise_exercise', 'illness_illness'),)
 
 
-class ExerciseMuscle(models.Model):
-    exercise = models.OneToOneField(Exercise, models.DO_NOTHING, primary_key=True)  # The composite primary key (exercise_id, muscle_groups_id) found, that is not supported. The first column is selected.
-    muscle_groups = models.ForeignKey('MuscleGroups', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'exercise_muscle'
-        unique_together = (('exercise', 'muscle_groups'),)
-
-
 class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
-    class_date = models.DateField()
+    oredered = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
     done = models.CharField(max_length=1, blank=True, null=True)
-    trainer = models.ForeignKey(Employee, models.DO_NOTHING)
-    client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -284,8 +273,8 @@ class GymTicketOffer(models.Model):
 
 class GymVisit(models.Model):
     gym_visit_id = models.BigIntegerField(primary_key=True)
-    entry_time = models.DateField()
-    departure_time = models.DateField(blank=True, null=True)
+    entry_time = models.DateTimeField()
+    departure_time = models.DateTimeField(blank=True, null=True)
     gym_gym = models.ForeignKey(Gym, models.DO_NOTHING)
     client_user = models.ForeignKey(Client, models.DO_NOTHING)
     locker_locker = models.ForeignKey('Locker', models.DO_NOTHING, blank=True, null=True)
