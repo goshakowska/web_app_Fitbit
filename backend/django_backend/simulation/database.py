@@ -9,3 +9,19 @@ def get_all_gyms():
     gyms = models.Gym.objects.all()
     gyms = [[gym.gym_id, gym.name] for gym in gyms]
     return gyms
+
+def get_all_exercises():
+    exercises = models.Exercise.objects.all()
+    exercises_list = []
+    for exercise in exercises:
+        item = {
+            'id': exercise.exercise_id,
+            'name': exercise.name
+            }
+        parameter_values = models.StandardParameterValue.objects.filter(exercise__exercise_id=exercise.exercise_id)
+        if parameter_values:
+            parameters = [[parameter.parameter.parameter_id, parameter.parameter.name]for parameter in parameter_values]
+            item.update({'parameters': parameters})
+        exercises_list.append(item)
+    return exercises_list
+

@@ -14,3 +14,8 @@ def clients_list(request):
 def gyms_list(request):
     gyms = database.get_all_gyms()
     return JsonResponse({'gyms': gyms})
+
+@csrf_exempt
+def exercise_list(request):
+    exercises = database.get_all_exercises()
+    return JsonResponse({'exercises': exercises})
