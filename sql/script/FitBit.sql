@@ -328,7 +328,7 @@ values (9, 5000, 2, 9);
 
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (10, 'Przyci¹ganie kolan pod klatkê na pi³ce', 'Si³owe', 160, 60, 'Pocz¹tkuj¹cy', 10, 
+VALUES (10, 'Przyci¹ganie kolan na pi³ce', 'Si³owe', 160, 60, 'Pocz¹tkuj¹cy', 10, 
 'Podpór przodem z nogami ustawionymi na pi³ce. Z pozycji wyjœciowej rozpocznij wykonywanie unoszenia bioder. Równoczeœnie uginaj kolana, kieruj¹c je do klatki piersiowej. W momencie maksymalnego spiêcia utrzymaj pozycjê przez u³amek sekundy. Spokojnym, kontrolowanym ruchem wróæ do pozycji wyjœciowej.', 10);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
@@ -338,22 +338,22 @@ INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_l
 VALUES (12, 'Kobra', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 1, 'Le¿enie przodem, d³onie oparte na wysokoœci klatki piersiowej. Z pozycji wyjœciowej unieœ tu³ów, trzymaj¹c biodra oparte na pod³odze. Wzrok skieruj przed siebie. Utrzymaj pozycjê przez 20 sekund, a nastêpnie wróæ do pozycji wyjœciowej.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (13, 'Rozci¹ganie miêœni najszerszych grzbietu w klêku podpartym', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
+VALUES (13, 'Rozci¹ganie miêœni grzbietu', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
 'W klêku podpartym wysuñ rêkê w przód po stronie rozci¹ganej za oœ œrodkow¹ cia³a. D³oñ wysuniêtej rêki ustaw wierzchni¹ stron¹ do pod³o¿a. Drug¹ rêkê u³ó¿ na wysuniêtej rêce, jednoczeœnie naciskaj na ni¹ tak, by nie zmieni³a swojej pozycji. Opieraj ciê¿ar cia³a na kolanach oraz wysuniêtej rêce, postaraj siê delikatnie skrêcaæ tu³ów, przenoœ ciê¿ar cia³a w bok na stronê wysuniêtej rêki. Podczas wykonywania skrêtu tu³owia postaraj siê wykonaæ lekkie ty³opochylenie miednicy, szczególnie po stronie rozci¹ganej. W tej pozycji pozostañ przez oko³o 90–120 sekund, systematycznie pog³êbiaj pozycjê co ok. 30 sekund.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (14, 'Rozci¹ganie miêœni naramiennych w staniu', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
+VALUES (14, 'Rozci¹ganie miêœni naramiennych', 'Rozci¹gaj¹ce', 3, 20, 'Pocz¹tkuj¹cy', 2, 
 'W pozycji stoj¹cej zegnij ³okieæ, postaraj siê za³o¿yæ d³oñ rêki zginanej za plecy. Z pozycji wyjœciowej zacznij przesuwaæ rêkê ku górze, w stronê g³owy. Postaraj siê równie¿ cofn¹æ bark po stronie rozci¹ganej poprzez przyci¹gniecie ³opatki do krêgos³upa. Rozci¹ganie wykonuj przez oko³o 90–120 sekund dla jednej koñczyny, staraj¹c siê systematycznie pog³êbiaæ pozycjê rozci¹gania co oko³o 30 sekund.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (15, 'Rozci¹ganie miêœni dwug³owych w le¿eniu', 'Rozci¹gaj¹ce', 4, 30, 'Œredniozaawansowany', 2, 
+VALUES (15, 'Rozci¹ganie miêœni dwug³owych', 'Rozci¹gaj¹ce', 4, 30, 'Œredniozaawansowany', 2, 
 'Pozycja le¿¹ca, jedna noga wyprostowana, druga ugiêta w kolanie. Ugiêt¹ nogê unieœ tak, by móc zapleœæ d³onie z ty³u uda. Postaraj siê, aby udo by³o ustawione prostopadle do pod³o¿a. W pozycji wyjœciowej zacznij delikatnie prostowaæ kolano do momentu odczucia napiêcia na tylnej œcianie uda. Staraj siê minimalnie mocniej wyprostowaæ trzyman¹ nogê i pozostañ w tej pozycji oko³o 30 sekund.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (16, 'Rozci¹ganie miêœni poœladkowych w podporze', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 'Siad wykroczny podparty, noga zakroczna wyprostowana, tu³ów wyprostowany. Noga wykroczna zgiêta w kolanie, miednica skierowana w przód. Po uzyskaniu stabilnej pozycji sprawdŸ, czy kolano nogi wykrocznej znajduje siê w jednej linii z biodrem. Utrzymuj naturaln¹ krzywiznê krêgos³upa, miednicê skieruj ku przodowi, klatkê piersiow¹ lekko wypchnij.', NULL);
+VALUES (16, 'Rozci¹ganie miêœni poœladkowych', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 'Siad wykroczny podparty, noga zakroczna wyprostowana, tu³ów wyprostowany. Noga wykroczna zgiêta w kolanie, miednica skierowana w przód. Po uzyskaniu stabilnej pozycji sprawdŸ, czy kolano nogi wykrocznej znajduje siê w jednej linii z biodrem. Utrzymuj naturaln¹ krzywiznê krêgos³upa, miednicê skieruj ku przodowi, klatkê piersiow¹ lekko wypchnij.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (17, 'Rozci¹ganie miêœni poœladkowych w le¿eniu', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 
+VALUES (17, 'Rozci¹ganie miêœni poœladkowych', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2, 
 'Le¿¹c na plecach z nogami ugiêtymi w kolanach, za³ó¿ stopê jednej nogi na kolano drugiej nogi asystuj¹cej. Postaraj siê skierowaæ na zewn¹trz kolano nogi zgiêtej. Unieœ tu³ów oraz rêce, zaplataj¹c je na górnej czêœci piszczeli lub z ty³u uda nogi znajduj¹cej siê na pod³o¿u. Zacznij delikatnie przyci¹gaæ za³o¿on¹ nogê w kierunku klatki piersiowej.', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
@@ -365,7 +365,7 @@ VALUES (19, 'Rozci¹ganie tricepsów', 'Rozci¹gaj¹ce', 6, 60, 'Pocz¹tkuj¹cy', 2,
 'Pozycja stoj¹ca, zginaj¹c ³okieæ, unieœ rêkê ponad g³owê. Postaraj siê siêgn¹æ d³oni¹ i przedramieniem za g³owê. Drug¹ rêk¹ z³ap za ³okieæ rêki czynnej. Zachowaj naturaln¹ krzywiznê krêgos³upa, g³owa stanowi przed³u¿enie krêgos³upa, klatka piersiowa wypchniêta. Z pozycji wyjœciowej postaraj siê za pomoc¹ si³y rêki asystuj¹cej obni¿aæ pozycjê ³okcia rêki rozci¹ganej i jednoczeœnie przyci¹gaæ j¹ w przeciwleg³¹ stronê. Postaraj siê utrzymywaæ maksymalnie zgiêty ³okieæ rêki rozci¹ganej. ', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
-VALUES (20, 'Rozci¹ganie miêœni czworog³owych w klêku', 'Rozci¹gaj¹ce', 45, 12, 'Pocz¹tkuj¹cy', 0, 
+VALUES (20, 'Rozci¹ganie miêœni czworog³owych', 'Rozci¹gaj¹ce', 45, 12, 'Pocz¹tkuj¹cy', 0, 
 'Klêk wykroczny, noga zakroczna spoczywa swobodnie na pod³o¿u. Miednica skierowana w przód, g³owa stanowi przed³u¿enie krêgos³upa, ca³a stopa nogi wykrocznej przylega do pod³o¿a. Postaraj siê zachowaæ fizjologiczn¹ krzywiznê krêgos³upa, szczególnie w odcinku lêdŸwiowym. Z pozycji wyjœciowej unieœ nogê zakroczn¹, jednoczeœnie staraj siê z³apaæ okolicê kostki unoszonej nogi. Unosz¹c nogê, postaraj siê rêk¹ przyci¹gn¹æ stopê nogi rozci¹ganej do poœladka. ', NULL);
 
 INSERT INTO exercise (exercise_id, name, type, calories, duration, advancement_level, repetitions_number, description, equipment_id)
@@ -528,3 +528,69 @@ INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (25, 111, 2);
 INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (26, 112, 2);
 INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (27, 113, 2);
 INSERT INTO LOCKER (LOCKER_ID, locker_number, gym_id) values (28, 114, 2);
+
+
+-- week schedule
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (15, 'wtorek', '17:15', 4, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (16, 'wtorek', '16:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (3, 'wtorek', '14:45', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (4, 'wtorek', '18:15', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (5, 'œroda', '15:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (6, 'œroda', '16:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (7, 'œroda', '15:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (8, 'œroda', '14:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (9, 'czwartek', '12:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (10, 'czwartek', '13:15', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (11, 'pi¹tek', '12:00', 2, 4);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (12, 'czwartek', '18:00', 6, 5);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (13, 'œroda', '20:00', 9, 5);
+INSERT INTO WEEK_SCHEDULE (week_schedule_id, week_day, start_time, gym_classe_id, trainer_id)
+VALUES (14, 'poniedzia³ek', '17:00', 5, 5);
+
+-- gym visit
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-12-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-12-15 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1);
+
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-12-14 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-12-14 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1);
+
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-12-13 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-12-13 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1);
+
+-- exercise history
+INSERT INTO EXERCISE_HISTORY (EXERCISE_DATE, DURATION, REPETITIONS_NUMBER, EXERCISE_COMMENT, GYM_ID, EXERCISE_ID, TRAINER_ID, CLIENT_ID)
+VALUES (TIMESTAMP '2023-12-15 10:10:00', 1800, 0, '', 1, 1, null, 1);
+
+INSERT INTO EXERCISE_HISTORY_PARAM_VALUE (VALUE, PARAMETER_ID, EXERCISE_HISTORY_ID)
+VALUES (4968, 2, 51);
+
+INSERT INTO EXERCISE_HISTORY (EXERCISE_DATE, DURATION, REPETITIONS_NUMBER, EXERCISE_COMMENT, GYM_ID, EXERCISE_ID, TRAINER_ID, CLIENT_ID, CALORIES)
+VALUES (TIMESTAMP '2023-12-15 10:45:00', 60, 2, '', 1, 12, null, 1, 9);
+
+INSERT INTO EXERCISE_HISTORY (EXERCISE_DATE, DURATION, REPETITIONS_NUMBER, EXERCISE_COMMENT, GYM_ID, EXERCISE_ID, TRAINER_ID, CLIENT_ID, CALORIES)
+VALUES (TIMESTAMP '2023-12-15 10:46:45', 60, 2, '', 1, 16, null, 1, 6);
+
+-- gym ticket history
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-11-01', 'YYYY-MM-DD'), TO_DATE('2023-11-01', 'YYYY-MM-DD'), 2, null, 1);
+
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-12-15', 'YYYY-MM-DD'), TO_DATE('2023-11-15', 'YYYY-MM-DD'), 2, 3, 1);
+
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-12-16', 'YYYY-MM-DD'), null, 2, null, 1);
+
+
