@@ -40,7 +40,7 @@ const TrainingDetails = props => {
       <h className="textLogin"> Twoje dane z treningu z dnia {training_date}</h>
 
       <div className="tablePos">
-<Table bordered hover responsive className="tableDesign" >
+<Table bordered hover responsive className="tableDesign tableDesignWide" >
 <thead>
   <tr>
     <th>

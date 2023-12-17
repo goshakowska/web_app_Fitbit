@@ -3,7 +3,7 @@ import {Button, Table} from 'reactstrap';
 import "../styles/tablesStyle.css"
 import clientToken from '../ClientToken.js';
 
-function Tickets()
+function TicketsShop()
 {
     const {userId} = clientToken();
     const [discountTickets, setDiscountTickets] = useState([])
@@ -65,7 +65,7 @@ function Tickets()
         <div className="gridDesign">
       <div className="tablePos">
       <h className="textLogin"> Karnety promocyjne </h>
-        <Table bordered hover responsive className="tableDesign" >
+        <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
       <th>
@@ -94,7 +94,7 @@ function Tickets()
   <tbody>
   {discountTickets.length > 0 && discountTickets.map((ticket, index) => (
                     <tr key={index}>
-                        <th scope="row">{ticket[2]}</th>
+                        <th scope="row">{ticket[2]}({ticket[8]})</th>
                         <td> {ticket[3]} </td>
                         <td>{ticket[4]}%</td>
                         <td> {ticket[5]}zł </td>
@@ -110,7 +110,7 @@ function Tickets()
 
 <div className="tablePos">
       <h className="textLogin"> Karnety standardowe </h>
-<Table bordered hover responsive className="tableDesign" >
+<Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
       <th>
@@ -130,7 +130,7 @@ function Tickets()
   <tbody>
   {discountTickets.length > 0 && standardTickets.map((ticket, index) => (
                     <tr key={index}>
-                        <th scope="row">{ticket[1]}</th>
+                        <th scope="row">{ticket[1]}({ticket[3]})</th>
                         <td> Standardowy </td>
                         <td>{ticket[2]}zł</td>
                         <td> <Button type="button" className="cartStyle" onClick={handleClick}
@@ -144,4 +144,4 @@ function Tickets()
 
 }
 
-export default Tickets;
+export default TicketsShop;

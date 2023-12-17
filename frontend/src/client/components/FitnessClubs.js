@@ -32,7 +32,7 @@ function FitnessClubs()
       <div className="clubsTable">
       <h className="textLogin"> Nasze siłownie </h>
       <div>
-        <Table bordered hover responsive className="tableDesign" >
+        <Table bordered hover responsive className="tableDesign tableDesignWide" >
   <thead>
     <tr>
       <th>

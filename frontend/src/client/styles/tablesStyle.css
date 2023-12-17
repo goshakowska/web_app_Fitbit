@@ -1,6 +1,6 @@
-.tableDesign{
-    width: 850px;
-    justify-content: center;
+.tableDesignNarrow{
+  width: 550px;
+  justify-content: center;
 }
 
 .clubsTable{
@@ -12,11 +12,6 @@
 
 .tablePos{
     justify-content: center;
-}
-
-.tablePosWide{
-  justify-content: center;
-  width: 200px;
 }
 
 .ticketsShop{
@@ -32,6 +27,11 @@
     justify-content: center;
     margin-left: 100px;
   }
+
+  .tableDesignWide{
+    width: 850px;
+    justify-content: center;
+}
 
 .tableDesign th {
     background-color: rgba(0,47,53,1);
@@ -84,4 +84,10 @@
   .weekSwitchLayout{
     display: flex;
     justify-content: center;
+  }
+
+  .activeTicket {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(44, 157, 46);
   }

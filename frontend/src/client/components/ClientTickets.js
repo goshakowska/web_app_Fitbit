@@ -7,16 +7,16 @@ import moment from 'moment';
 import secondsToHHMMSS from "../functions/secondsToHHMMSS.js";
 
 
-function Trainings()
+function ClientTickets()
 {
     const {userId} = clientToken();
-    const [trainings, setTrainings] = useState([]);
+    const [clientTickets, setClientTickets] = useState([]);
     let navigate = useNavigate();
 
 
-    const getTrainings = async (event) => {
+    const getClientTickets = async (event) => {
         try {
-            const response = await fetch('http://localhost:8000/client/client_trenings/', {
+            const response = await fetch('http://localhost:8000/client/gym_tickets_history/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -27,44 +27,49 @@ function Trainings()
             }
 
             const data = await response.json();
-            console.log(data.trenings);
-            setTrainings(data.trenings)
+            console.log(data.tickets)
+            setClientTickets(data.tickets)
 
           } catch (error) {
             console.error('Error:', error);
           };
     }
 
-    useEffect(() => {getTrainings()}, []);
+    const checkStatus = (status) => {
+        if(status === true) {return "aktywny"}
+        else if(status === null) {return "nieaktywowany"}
+        else {return "wygasły"}
+    }
 
-    const handleClick = (training_id, date) => {
-      navigate('/szczegoly_treningu', {
+    useEffect(() => {getClientTickets()}, []);
+
+    const handleClick = (ticket_id) => {
+      navigate('/szczegoly_karnetu', {
         state: {
-          detailId: training_id,
-          detailDate: date,
+          ticketId: ticket_id,
         }
       });
     };
 
     return (
         <div className="clubsTable">
-        <h className="textLogin"> Twoje dane z treningów </h>
+        <h className="textLogin"> Twoje karnety </h>
 
         <div className="tablePos">
 <Table bordered hover responsive className="tableDesignWide tableDesign" >
   <thead>
     <tr>
       <th>
-        Start
+        Typ
       </th>
       <th>
-        Koniec
+        Zniżka
       </th>
       <th>
-        Czas trwania
+        Cena
       </th>
       <th>
-        Spalone kalorie
+        Status
       </th>
       <th>
         Zobacz szczegóły
@@ -72,13 +77,13 @@ function Trainings()
     </tr>
   </thead>
   <tbody>
-  {trainings.length > 0 && trainings.map((training, index) => (
+  {clientTickets.length > 0 && clientTickets.map((ticket, index) => (
                     <tr key={index}>
-                        <td>{moment(training[1]).format('DD.MM.YYYY, hh:mm:ss')}</td>
-                        <td> {moment(training[2]).format('DD.MM.YYYY, hh:mm:ss')} </td>
-                        <td>{secondsToHHMMSS(training[3])}</td>
-                        <td>{training[4]} kcal</td>
-                        <td> <Button type="button" className="cartStyle text-style" onClick={ (e) => {handleClick(training[0], moment(training[2]).format('DD.MM.YYYY'))}}
+                        <th scope="row">{ticket["type"]}({ticket["duration"]})</th>
+                        {ticket["discount"] ? <td>{ticket["discount"]}% ({ticket["discount_name"]})</td> : <td> - </td>}
+                        <td>{ticket["price"]} zł</td>
+                        <td> {checkStatus(ticket["status"])}</td>
+                        <td> <Button type="button" className="cartStyle text-style" onClick={ (e) => {handleClick(ticket["id"])}}
                         >Szczegóły </Button> </td>
                     </tr>
                 ))}
@@ -89,4 +94,4 @@ function Trainings()
 
 }
 
-export default Trainings;
+export default ClientTickets;
