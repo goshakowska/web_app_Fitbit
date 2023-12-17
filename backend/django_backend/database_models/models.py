@@ -272,7 +272,7 @@ class GymTicketOffer(models.Model):
 
 
 class GymVisit(models.Model):
-    gym_visit_id = models.BigIntegerField(primary_key=True)
+    gym_visit_id = models.AutoField(primary_key=True)
     entry_time = models.DateTimeField()
     departure_time = models.DateTimeField(blank=True, null=True)
     gym_gym = models.ForeignKey(Gym, models.DO_NOTHING)

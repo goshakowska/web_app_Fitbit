@@ -119,3 +119,26 @@ def get_trening_history(client_id):
         trening_list.append([trening.gym_visit_id, start_date, end_date, time, calories])
     return trening_list
 
+def get_training_details(training_id):
+    training = models.GymVisit.objects.get(gym_visit_id=training_id)
+    exercises = models.ExerciseHistory.objects.filter(
+            client__client_id=training.client_user.client_id,
+            exercise_date__range=[training.entry_time, training.departure_time]
+        )
+    exercises_list = []
+    for exercise in exercises:
+        item = {
+            'name': exercise.exercise.name,
+            'start_date': exercise.exercise_date,
+            'duration': exercise.duration,
+            'repetitions_number': exercise.repetitions_number,
+            'calories': exercise.calories
+            }
+        print(exercise.exercise_history_id)
+        parameter_values = models.ExerciseHistoryParamValue.objects.filter(exercise_history__exercise_history_id=exercise.exercise_history_id)
+        if parameter_values:
+            parameters = [{'name': parameter.parameter.name, 'value': parameter.value, 'unit': parameter.parameter.units} for parameter in parameter_values]
+            item.update({'parameters': parameters})
+        exercises_list.append(item)
+    return exercises_list
+
