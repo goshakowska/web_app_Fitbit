@@ -187,9 +187,8 @@ def gym_ticket_details(ticket_id):
     if status:
         if ticket.gym_ticket_offer.type == "Dniowy":
             end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
-            item.update({'end_date': end_date})
             delta = end_date - timezone.now().date()
-            item.update({'days_to_end': delta.days})
+            item.update({'days_to_end': delta.days, 'end_date': end_date})
         else:
             gym_visits = models.GymVisit.objects.filter(entry_time__gte=ticket.activation_date)
             visit_to_end = ticket.gym_ticket_offer.duration - len(gym_visits)
