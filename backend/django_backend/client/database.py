@@ -224,6 +224,18 @@ def get_trainer_by_gym(gym_id):
     trainers = [[trainer.employee_id, trainer.name, trainer.surname] for trainer in trainers]
     return trainers
 
+def get_gym_classes(gym_id):
+    week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
+    gym_classes = [classe.gym_classe for classe in week_classes]
+    id_list = []
+    gym_classe_list = []
+    for classe in gym_classes:
+        if classe.gym_classe_id in id_list:
+            continue
+        gym_classe_list.append([classe.gym_classe_id, classe.name])
+        id_list.append(classe.gym_classe_id)
+    return gym_classe_list
+
 
 def check_if_ticket_active(ticket, client_id):
     # check if still active
