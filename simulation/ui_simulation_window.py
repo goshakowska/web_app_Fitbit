@@ -54,8 +54,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_9)
 
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.horizontalLayout = QHBoxLayout()
@@ -91,11 +91,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
 
 
-        self.horizontalLayout_6.addLayout(self.verticalLayout_3)
+        self.horizontalLayout_8.addLayout(self.verticalLayout_3)
 
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_6.addItem(self.horizontalSpacer_2)
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_2)
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -132,20 +132,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
 
 
-        self.horizontalLayout_6.addLayout(self.verticalLayout_2)
+        self.horizontalLayout_8.addLayout(self.verticalLayout_2)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_6.addItem(self.horizontalSpacer)
+        self.horizontalLayout_8.addItem(self.horizontalSpacer)
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMinimumSize(QSize(0, 50))
-        self.pushButton.setMaximumSize(QSize(300, 16777215))
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.pushButton)
+        self.horizontalLayout_6.addWidget(self.label_6)
+
+        self.calories = QSpinBox(self.centralwidget)
+        self.calories.setObjectName(u"calories")
+        self.calories.setMinimumSize(QSize(100, 50))
+
+        self.horizontalLayout_6.addWidget(self.calories)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
@@ -165,10 +175,21 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_5)
 
 
-        self.horizontalLayout_6.addLayout(self.verticalLayout)
+        self.horizontalLayout_8.addLayout(self.verticalLayout)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_3)
+
+        self.pushButton = QPushButton(self.centralwidget)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setMinimumSize(QSize(0, 50))
+        self.pushButton.setMaximumSize(QSize(300, 16777215))
+
+        self.horizontalLayout_8.addWidget(self.pushButton)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_6)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_8)
 
 
         self.gridLayout.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
@@ -193,7 +214,8 @@ class Ui_MainWindow(object):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Dystans<br/>w m:</p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Liczba powt\u00f3rze\u0144:", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Obci\u0105\u017cenie<br/>w kg:</p></body></html>", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Prze\u015blij dane do bazy", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Kalorie:</p></body></html>", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Wysoko\u015b\u0107<br/>w cm:</p></body></html>", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Prze\u015blij dane do bazy", None))
     # retranslateUi
 

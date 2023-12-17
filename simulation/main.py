@@ -35,6 +35,7 @@ class MainScreen(QMainWindow):
         start_time = end_time  - timedelta(seconds=duration)
         start_time = start_time.strftime("%Y-%m-%d %H:%M:%S")
         repetitions_number = self.ui.repetitionsNumber.value()
+        calories = self.ui.calories.value()
         param = {}
         if 1 in self.param:
             param[1] = self.ui.weight.value()
@@ -42,8 +43,7 @@ class MainScreen(QMainWindow):
             param[2] = self.ui.distance.value()
         if 3 in self.param:
             param[3] = self.ui.hight.value()
-        result = bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, 50, self.param)
-        print(result)
+        bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, self.param)
 
     def _clear(self):
         # lists
@@ -62,6 +62,7 @@ class MainScreen(QMainWindow):
         self.ui.distance.setValue(0)
         self.ui.weight.setValue(0)
         self.ui.hight.setValue(0)
+        self.ui.calories.setValue(0)
 
 
     def _clients_list(self):
