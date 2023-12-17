@@ -236,6 +236,47 @@ def get_gym_classes(gym_id):
         id_list.append(classe.gym_classe_id)
     return gym_classe_list
 
+def get_free_trainings(trainer_id, start_date, client_id):
+    week_classes = models.WeekSchedule.objects.filter(trainer__employee_id=trainer_id)
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    if start_date.strftime('%A') !=  "Monday":
+        return
+    end_date = end_date = start_date + timedelta(days=7)
+    ordered_classes = models.OrderedSchedule.objects.filter(
+        schedule_date__range=[start_date, end_date]
+    )
+    ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
+    day_delta = {
+        'poniedziałek': 0,
+        'wtorek': 1,
+        'środa': 2,
+        'czwartek': 3,
+        'piątek': 4,
+        'sobota': 5,
+        'niedziela': 6
+    }
+    # todo zrób to mądrzej i ładniej
+    # todo colisions
+    classes_list = []
+    for week_classe in week_classes:
+        if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
+            continue
+        day = start_date + timedelta(days=day_delta[week_classe.week_day])
+        collision = check_collision(client_id, week_classe, day)
+        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, day, week_classe.start_time, collision]
+        classes_list.append(item)
+    return classes_list
+
+def check_collision(client_id, week_classe, date):
+    classes = models.OrderedSchedule.objects.filter(schedule_date=date, client_user__client_id=client_id)
+    if not classes:
+        return False
+    # date_str = datetime.strptime(date, '%Y-%m-%d')
+    # date_another = datetime.strptime(f'{date_str} {week_classe.start_time}', '%Y-%m-%d %H:%M')
+    for classe in classes:
+        return True
+
+
 
 def check_if_ticket_active(ticket, client_id):
     # check if still active

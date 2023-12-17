@@ -136,3 +136,12 @@ def get_gym_classes(request):
     gym_id = data.get('gym_id')
     classes = database.get_gym_classes(gym_id)
     return JsonResponse({'classes': classes})
+
+@csrf_exempt
+def get_free_trainings(request):
+    data = json.loads(request.body.decode('utf-8'))
+    trainer_id = data.get('trainer_id')
+    start_date = data.get('start_date')
+    client_id = data.get('client_id')
+    trainings = database.get_free_trainings(trainer_id, start_date, client_id)
+    return JsonResponse({'trainings': trainings})
