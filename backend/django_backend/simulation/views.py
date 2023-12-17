@@ -47,4 +47,6 @@ def insert_exercise_history(request):
     calories = data.get('calories')
     params = data.get('params')
     exercise_history_id = database.insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories)
+    if params:
+        database.insert_params_history(exercise_history_id, params)
     return JsonResponse({'message': "We are connected"})

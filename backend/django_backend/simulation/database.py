@@ -43,3 +43,13 @@ def insert_exercise_history(exercise_date, duration, repetitions_number, gym_id,
     )
     new_history_exercise.save()
     return new_history_exercise.exercise_history_id
+
+def insert_params_history(exercise_history_id, params):
+    print(params)
+    for param, value in params.items():
+        new_history_param = models.ExerciseHistoryParamValue(
+            value=value,
+            parameter_id=param,
+            exercise_history_id=exercise_history_id
+        )
+        new_history_param.save()
