@@ -68,6 +68,7 @@ class Ui_MainWindow(object):
         self.time = QSpinBox(self.centralwidget)
         self.time.setObjectName(u"time")
         self.time.setMinimumSize(QSize(100, 50))
+        self.time.setMaximum(99999)
 
         self.horizontalLayout.addWidget(self.time)
 
@@ -84,6 +85,7 @@ class Ui_MainWindow(object):
         self.distance = QSpinBox(self.centralwidget)
         self.distance.setObjectName(u"distance")
         self.distance.setMinimumSize(QSize(100, 50))
+        self.distance.setMaximum(99999)
 
         self.horizontalLayout_3.addWidget(self.distance)
 
@@ -109,6 +111,7 @@ class Ui_MainWindow(object):
         self.repetitionsNumber = QSpinBox(self.centralwidget)
         self.repetitionsNumber.setObjectName(u"repetitionsNumber")
         self.repetitionsNumber.setMinimumSize(QSize(100, 50))
+        self.repetitionsNumber.setMaximum(99999)
 
         self.horizontalLayout_2.addWidget(self.repetitionsNumber)
 
@@ -125,6 +128,7 @@ class Ui_MainWindow(object):
         self.weight = QSpinBox(self.centralwidget)
         self.weight.setObjectName(u"weight")
         self.weight.setMinimumSize(QSize(100, 50))
+        self.weight.setMaximum(99999)
 
         self.horizontalLayout_4.addWidget(self.weight)
 
@@ -151,6 +155,7 @@ class Ui_MainWindow(object):
         self.calories = QSpinBox(self.centralwidget)
         self.calories.setObjectName(u"calories")
         self.calories.setMinimumSize(QSize(100, 50))
+        self.calories.setMaximum(99999)
 
         self.horizontalLayout_6.addWidget(self.calories)
 
@@ -168,6 +173,7 @@ class Ui_MainWindow(object):
         self.hight = QSpinBox(self.centralwidget)
         self.hight.setObjectName(u"hight")
         self.hight.setMinimumSize(QSize(100, 50))
+        self.hight.setMaximum(99999)
 
         self.horizontalLayout_5.addWidget(self.hight)
 

@@ -43,7 +43,7 @@ class MainScreen(QMainWindow):
             param[2] = self.ui.distance.value()
         if 3 in self.param:
             param[3] = self.ui.hight.value()
-        bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, self.param)
+        bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, param)
 
     def _clear(self):
         # lists
