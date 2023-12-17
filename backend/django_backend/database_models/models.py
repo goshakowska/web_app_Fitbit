@@ -111,6 +111,7 @@ class Exercise(models.Model):
 
 
 class ExerciseHistory(models.Model):
+<<<<<<< HEAD
     exercise_history_id = models.AutoField(primary_key=True)
     exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
@@ -150,7 +151,7 @@ class ExerciseIllness(models.Model):
 
 class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
-    oredered = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
+    ordered = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
     done = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
@@ -159,7 +160,7 @@ class ExercisePlan(models.Model):
 
 
 class ExercisePlanPosition(models.Model):
-    exercise_plan_position_id = models.BigIntegerField(primary_key=True)
+    exercise_plan_position_id = models.AutoField(primary_key=True)
     position = models.BigIntegerField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField(blank=True, null=True)

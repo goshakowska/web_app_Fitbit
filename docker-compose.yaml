@@ -10,7 +10,7 @@ services:
       - '3000:3000'
 
     volumes:
-      - ./frontend:/app/frontend
+      - ./frontend/src:/app/frontend/src
 
     depends_on:
       - backend

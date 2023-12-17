@@ -18,8 +18,10 @@ RUN apt-get update && apt-get install -y libaio1 wget unzip \
 # Ustawienie zmiennej środowiskowej LD_LIBRARY_PATH
 ENV LD_LIBRARY_PATH=/opt/oracle/instantclient_19_19:$LD_LIBRARY_PATH
 
-RUN pip install django django-cors-headers cx_Oracle djangorestframework
+COPY requirements.txt .
 
-COPY . /app/backend/
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

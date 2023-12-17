@@ -9,14 +9,14 @@ DECLARE
     names    namesarray;
 BEGIN
     names := namesarray('client', 'client_data_history', 'client_illness', 'discount', 'employee', 'equipment',
-    'exercise_muscle', 'exercise', 'exercise_history', 'exercise_history_param_value', 'exercise_illness', 
+    'exercise_muscle', 'exercise', 'exercise_history', 'exercise_history_param_value', 'exercise_illness',
     'exercise_plan', 'exercise_plan_position', 'exercise_position_value', 'favourite_exercises', 'gym', 'gym_classe',
     'gym_equipment', 'gym_ticket_history', 'gym_ticket_offer', 'gym_visit', 'illness', 'locker', 'muscle_groups',
     'ordered_schedule', 'parameter', 'rating', 'standard_parameter_value', 'training_goal', 'week_schedule');
 
     FOR i IN 1..names.count LOOP
         v_name := names(i);
-        
+
         SELECT COUNT(*) INTO v_count FROM user_tables WHERE table_name = upper(v_name);
         IF v_count = 1 THEN
             DBMS_OUTPUT.PUT_LINE('Dropping table: ' || v_name);
@@ -45,8 +45,8 @@ CREATE TABLE client (
     training_goal_id   INTEGER,
     gym_id             INTEGER,
     CONSTRAINT gender_check CHECK (gender IN ('M', 'K')),
-    CONSTRAINT advancement_check CHECK (advancement IN (('pocz¹tkuj¹cy', 'œredniozaawansowany', 'zaawansowany') OR advancement IS NULL)
-)
+    CONSTRAINT advancement_check CHECK (advancement IN (('poczï¿½tkujï¿½cy', 'ï¿½redniozaawansowany', 'zaawansowany') OR advancement IS NULL)
+
 LOGGING;
 
 ALTER TABLE client ADD CONSTRAINT client_pk PRIMARY KEY ( client_id );
@@ -98,7 +98,7 @@ CREATE TABLE employee (
     locker_id      INTEGER,
     gym_id         INTEGER NOT NULL
     CONSTRAINT gender_check CHECK (gender IN ('M', 'K')),
-    CONSTRAINT type_check CHECK (type IN ('trener', 'portier', 'menad¿er'))
+    CONSTRAINT type_check CHECK (type IN ('trener', 'portier', 'menadï¿½er'))
 )
 LOGGING;
 
@@ -138,10 +138,10 @@ ALTER TABLE exercise ADD CONSTRAINT exercise_pk PRIMARY KEY ( exercise_id );
 
 CREATE TABLE exercise_history (
     exercise_history_id INTEGER NOT NULL,
-    "Date"              DATE NOT NULL,
+    exercise_date       DATE NOT NULL,
     duration            INTEGER,
     repetitions_number  INTEGER NOT NULL,
-    "Comment"           CLOB,
+    exercise_comment    CLOB,
     gym_id              INTEGER NOT NULL,
     exercise_id         INTEGER NOT NULL,
     trainer_id          INTEGER,
@@ -172,10 +172,8 @@ ALTER TABLE exercise_illness ADD CONSTRAINT exercise_illness_pk PRIMARY KEY ( ex
 
 CREATE TABLE exercise_plan (
     exercise_plan_id INTEGER NOT NULL,
-    created_date     DATE NOT NULL,
+    ordered_id       INTEGER NOT NULL,
     done             CHAR(1),
-    trainer_id       INTEGER NOT NULL,
-    client_id        INTEGER NOT NULL
 )
 LOGGING;
 
@@ -186,7 +184,7 @@ CREATE TABLE exercise_plan_position (
     position                  INTEGER NOT NULL,
     duration                  INTEGER,
     repetitions_number        INTEGER,
-    "Comment"                 CLOB,
+    plan_comment              CLOB,
     exercise_id               INTEGER NOT NULL,
     exercise_plan_id          INTEGER NOT NULL
 )
@@ -281,7 +279,7 @@ CREATE TABLE gym_ticket_offer (
     duration            INTEGER NOT NULL,
     price               INTEGER NOT NULL,
     type                VARCHAR2(20) NOT NULL
-    CONSTRAINT type_check CHECK (type IN ('Wejœciowy', 'Dniowy'))
+    CONSTRAINT type_check CHECK (type IN ('Wejï¿½ciowy', 'Dniowy'))
 )
 LOGGING;
 
@@ -326,7 +324,7 @@ ALTER TABLE muscle_groups ADD CONSTRAINT muscle_pk PRIMARY KEY ( muscle_groups_i
 
 CREATE TABLE ordered_schedule (
     ordered_schedule_id INTEGER NOT NULL,
-    "Date"              DATE NOT NULL,
+    schedule_date       DATE NOT NULL,
     payment_date        DATE,
     week_schedule_id    INTEGER NOT NULL,
     client_user_id      INTEGER NOT NULL
@@ -347,7 +345,7 @@ ALTER TABLE parameter ADD CONSTRAINT parameter_pk PRIMARY KEY ( parameter_id );
 CREATE TABLE rating (
     rating_id           INTEGER NOT NULL,
     rating              INTEGER NOT NULL,
-    "Comment"           CLOB,
+    rate_comment        CLOB,
     ordered_schedule_id INTEGER NOT NULL
 )
 LOGGING;
@@ -555,10 +553,14 @@ ALTER TABLE week_schedule
     ADD CONSTRAINT week_schedule_trainer_fk FOREIGN KEY ( trainer_id )
         REFERENCES employee ( employee_id );
 
+ALTER TABLE exercise_plan
+    ADD CONSTRAINT ordered_schedule_fk FOREIGN KEY (ordered_id)
+        REFERENCES ordered_schedule(ordered_schedule_id);
 
 
--- Oracle SQL Developer Data Modeler Summary Report: 
--- 
+
+-- Oracle SQL Developer Data Modeler Summary Report:
+--
 -- CREATE TABLE                            30
 -- CREATE INDEX                             1
 -- ALTER TABLE                             73
@@ -586,9 +588,9 @@ ALTER TABLE week_schedule
 -- CREATE SYNONYM                           0
 -- CREATE TABLESPACE                        0
 -- CREATE USER                              0
--- 
+--
 -- DROP TABLESPACE                          0
 -- DROP DATABASE                            0
--- 
+--
 -- ERRORS                                   0
 -- WARNINGS                                 0
