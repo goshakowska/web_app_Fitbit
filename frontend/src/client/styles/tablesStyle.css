@@ -43,10 +43,40 @@
 
   .cartStyle {
     background-color: rgba(237,222,164,1);
-    border: 2px solid rgba(247,160,114,1);
+    border: 3px solid rgb(223, 115, 56);
   }
 
   .cartStyle:hover {
     background-color: rgb(180, 165, 108);
-    border: 2px solid rgba(247,160,114,1);
+    border: 3px solid rgb(223, 115, 56);
+  }
+
+  .weekSwitch{
+    background-color: rgba(237,222,164,1);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    mix-blend-mode: normal;
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 50px;
+    height: 40px;
+    width: 180px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .weekSwitch:hover{
+    background-color: rgb(196, 178, 107);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    mix-blend-mode: normal;
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 50px;
+    width: 180px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .weekSwitchLayout{
+    display: flex;
+    justify-content: center;
   }

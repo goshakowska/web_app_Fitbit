@@ -94,3 +94,10 @@ def get_trenings_client(request):
     client_id = data.get('client_id')
     trenings = database.get_trening_history(client_id)
     return JsonResponse({'trenings': trenings})
+
+@csrf_exempt
+def get_trening_details(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training_id = data.get('training_id')
+    details = database.get_training_details(training_id)
+    return JsonResponse({'details': details})
