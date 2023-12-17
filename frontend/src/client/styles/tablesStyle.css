@@ -1,5 +1,5 @@
 .tableDesign{
-    width: 550px;
+    width: 850px;
     justify-content: center;
 }
 
@@ -12,6 +12,11 @@
 
 .tablePos{
     justify-content: center;
+}
+
+.tablePosWide{
+  justify-content: center;
+  width: 200px;
 }
 
 .ticketsShop{
