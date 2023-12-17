@@ -17,3 +17,10 @@ def discount_popularity_week(request):
     data = database.discount_popularity_week()
 
     return JsonResponse({'plot':data})
+
+
+@csrf_exempt
+def count_age_range(request):
+    data = database.age_range()
+
+    return JsonResponse({'plot':data})

@@ -1,4 +1,5 @@
-from django.db.models import F, ExpressionWrapper, fields, Value
+from django.db.models import Value, Count, Case, When, CharField, ExpressionWrapper, IntegerField, F
+from django.db.models.functions import ExtractYear
 from django.utils import timezone
 import database_models.models as m
 from datetime import datetime, timedelta
@@ -92,6 +93,57 @@ def discount_popularity_week():
     plt.title('Popularność zniżek w zeszłym tygodniu')
     plt.xlabel('Nazwa zniżki')
     plt.ylabel('Liczba sprzedanych karnetów ze zniżką')
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64
+
+
+
+def age_range():
+    age_ranges = [
+        (0, 17, '<18'),
+        (18, 24, '18-24'),
+        (25, 34, '25-34'),
+        (35, 44, '35-44'),
+        (45, 54, '45-54'),
+        (55, 64, '55-64'),
+        (65, 200, '65+')
+    ]
+    today = datetime.now().date()
+    age_expression = ExpressionWrapper(today.year - ExtractYear('birth_year'), output_field=IntegerField())
+
+    # count clients in age ranges
+    age_counts = m.Client.objects.annotate(
+        age=age_expression
+    ).annotate(
+        age_group=Case(
+            *[When(age__range=(start, end), then=Value(group)) for start, end, group in age_ranges],
+            default=Value('Unknown'),
+            output_field=CharField()
+        )
+    ).values('age_group').annotate(count_clients=Count('client_id')).order_by('age_group')
+
+    # Plot
+    age = []
+    count = []
+    for row in age_counts:
+        age.append(row['age_group'])
+        count.append(row['count_clients'])
+    plt.figure(figsize=(10, 6))
+
+    bar_width = 0.2
+    plt.bar(age, count, width=bar_width, color='#2ecc71')
+
+    plt.title('Rozkład wieku klientów')
+    plt.xlabel('Grupa wiekowa')
+    plt.ylabel('Liczba klientów')
 
     # Save image in memory
     image_stream = io.BytesIO()
