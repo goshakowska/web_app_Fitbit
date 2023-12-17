@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 
 def _current_week():
-    current_date = datetime.now()
+    current_date = datetime.now().date()
     current_weekday = current_date.weekday()
 
     days_until_monday = current_weekday
