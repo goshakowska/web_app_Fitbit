@@ -10,6 +10,8 @@ import Header from "./client/components/Header";
 import FitnessClubs from "./client/components/FitnessClubs";
 import LoginForm from "./client/components/LoginForm";
 import Tickets from "./client/components/Tickets";
+import Trainings from "./client/components/Trainings";
+import TrainingDetails from "./client/components/TrainingDetails";
 
 import Registration from "./client/views/Registration";
 import ClientClasses from "./client/views/ClientClasses";
@@ -30,6 +32,8 @@ function App() {
               <Route exact path='/rejestracja' element={<Registration />} />
               <Route exact path='/sklep_karnetow' element={<Tickets />} />
               <Route exact path='/kalendarz_klienta' element={<ClientClasses />} />
+              <Route exact path='/statystyki' element={<Trainings />} />
+              <Route exact path='/szczegoly' element={<TrainingDetails />} />
               </Routes>
 
               </WeekSwitcherProvider>
