@@ -26,3 +26,11 @@ def trainers_list(request):
     gym_id = data.get('gym_id')
     trainers = database.get_trainers_by_gym(gym_id)
     return JsonResponse({'trainers': trainers})
+
+
+@csrf_exempt
+def test_connection(request):
+    data = json.loads(request.body.decode('utf-8'))
+    message = data.get('message')
+    print(message)
+    return JsonResponse({'message': "We are connected"})
