@@ -149,7 +149,7 @@ def get_gym_ticket_client(client_id):
     for ticket in tickets:
         status = check_if_ticket_active(ticket, client_id) if ticket.activation_date else None
         item = {
-            'id': ticket.gym_ticket_offer.gym_ticket_offer_id,
+            'id': ticket.gym_ticket_history_id,
             'ticket_name': ticket.gym_ticket_offer.name,
             'type': ticket.gym_ticket_offer.type,
             'duration': ticket.gym_ticket_offer.duration,
@@ -162,6 +162,41 @@ def get_gym_ticket_client(client_id):
         item.update({'price': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)})
         tickets_list.append(item)
     return tickets_list
+
+
+def gym_ticket_details(ticket_id):
+    # todo refactorization of this and up function
+    ticket = models.GymTicketHistory.objects.get(gym_ticket_history_id=ticket_id)
+    client_id = ticket.client.client_id
+    status = check_if_ticket_active(ticket, client_id) if ticket.activation_date else None
+    item = {
+            'ticket_name': ticket.gym_ticket_offer.name,
+            'type': ticket.gym_ticket_offer.type,
+            'duration': ticket.gym_ticket_offer.duration,
+            'status': status,
+            'price_before': ticket.gym_ticket_offer.price,
+            'activation_date': ticket.activation_date
+            }
+    if ticket.discount:
+        discount = ticket.discount.discount_percentages
+        item.update({
+            'discount_name': ticket.discount.name,
+            'discount': discount,
+            'price_after': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)
+            })
+    if status:
+        if ticket.gym_ticket_offer.type == "Dniowy":
+            end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
+            item.update({'end_date': end_date})
+            delta = end_date - timezone.now().date()
+            item.update({'days_to_end': delta.days})
+        else:
+            gym_visits = models.GymVisit.objects.filter(entry_time__gte=ticket.activation_date)
+            visit_to_end = ticket.gym_ticket_offer.duration - len(gym_visits)
+            item.update({'visits_to_end': visit_to_end})
+    return item
+
+
 
 
 def check_if_ticket_active(ticket, client_id):
