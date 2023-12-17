@@ -195,7 +195,29 @@ def gym_ticket_details(ticket_id):
             item.update({'visits_to_end': visit_to_end})
     return item
 
-
+def get_client_data(client_id):
+    client = models.Client.objects.get(client_id=client_id)
+    # latest weight
+    lastest = models.ClientDataHistory.objects.filter(client_id=1).order_by('-measurement_date').first()
+    current_weight = lastest.weight if lastest else None
+    client_data = {
+        'login': client.login,
+        'email': client.email,
+        'phone_number': client.phone_number,
+        'name': client.name,
+        'surname': client.surname,
+        'gender': client.gender,
+        'height': client.height,
+        'birth_year': client.birth_year,
+        'advancement': client.advancement,
+        'target_weight': client.target_weight,
+        'training_frequency': client.training_frequency,
+        'training_time': client.training_time,
+        'training_goal': client.training_goal.name,
+        'gym': client.gym.name,
+        'current_weight': current_weight
+    }
+    return client_data
 
 
 def check_if_ticket_active(ticket, client_id):

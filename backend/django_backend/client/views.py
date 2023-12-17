@@ -115,3 +115,10 @@ def get_gym_tickets_details(request):
     ticket_id = data.get('ticket_id')
     details = database.gym_ticket_details(ticket_id)
     return JsonResponse({'details': details})
+
+@csrf_exempt
+def get_client_data(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    client_data = database.get_client_data(client_id)
+    return JsonResponse({'client_data': client_data})
