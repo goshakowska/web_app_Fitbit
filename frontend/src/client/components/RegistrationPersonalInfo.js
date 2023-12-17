@@ -71,7 +71,7 @@ function RegistrationPersonalInfo() {
                                             handleChange(e);}}/>
           </InputGroup>
           <InputGroup className="inputGroup">
-              <Input className='centeredTextInput' type= 'number' placeholder="numer telefonu" name="phone" value={formData.phone}
+              <Input className='centeredTextInput' type= 'number' placeholder="numer telefonu*" name="phone" value={formData.phone}
                                           valid={formData.validate.phoneState === 'has-success'}
                                           invalid={formData.validate.phoneState === 'has-danger'}
                                           onChange={(e) => {
