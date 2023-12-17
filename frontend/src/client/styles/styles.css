@@ -21,7 +21,7 @@ body {
 }
 
 .tangerine {
-  background-color: rgba(247,160,114,1);
+  background-color: rgb(223, 115, 56);
 }
 
 .baby-blue {
@@ -36,7 +36,18 @@ body {
   background-color: rgba(237,222,164,1);
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   mix-blend-mode: normal;
-  border: 2px solid rgba(247,160,114,1);
+  border: 3px solid rgb(223, 115, 56);
+  border-radius: 50px;
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-style-header:hover{
+  background-color: rgb(196, 178, 107);
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  mix-blend-mode: normal;
+  border: 3px solid rgb(223, 115, 56);
   border-radius: 50px;
   width: 240px;
   margin-left: auto;
@@ -78,7 +89,7 @@ margin-left: auto
 width: 64px;
 height: 64px;
 background: #EDDEA4;
-border: 3px solid #F7A072;
+border: 3px solid rgb(223, 115, 56);
 border-radius: 50%;
 box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
