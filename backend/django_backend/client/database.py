@@ -219,6 +219,11 @@ def get_client_data(client_id):
     }
     return client_data
 
+def get_trainer_by_gym(gym_id):
+    trainers = models.Employee.objects.filter(gym_id=gym_id, type='trener')
+    trainers = [[trainer.employee_id, trainer.name, trainer.surname] for trainer in trainers]
+    return trainers
+
 
 def check_if_ticket_active(ticket, client_id):
     # check if still active

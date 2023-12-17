@@ -122,3 +122,10 @@ def get_client_data(request):
     client_id = data.get('client_id')
     client_data = database.get_client_data(client_id)
     return JsonResponse({'client_data': client_data})
+
+@csrf_exempt
+def get_trainer_by_gym(request):
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    trainers = database.get_trainer_by_gym(gym_id)
+    return JsonResponse({'trainers': trainers})
