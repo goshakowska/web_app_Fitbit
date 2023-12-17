@@ -2,7 +2,7 @@ import database_models.models as models
 from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
 import client.discount_calculate as dc
-
+from django.utils import timezone
 
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_year, advancement, target_weight,
@@ -58,7 +58,7 @@ def training_goals():
 
 def standard_gym_ticket_offer():
     gym_tickets = models.GymTicketOffer.objects.all()
-    gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price] for ticket in gym_tickets]
+    gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price, ticket.duration] for ticket in gym_tickets]
     return gym_tickets
 
 def gym_ticket_offer_with_discount():
@@ -70,7 +70,7 @@ def gym_ticket_offer_with_discount():
         print(discount.gym_ticket_offer)
         ticket = discount.gym_ticket_offer
         price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
-        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date])
+        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date, ticket.duration])
     return tickets
 
 def get_gyms_list():
@@ -143,3 +143,44 @@ def get_training_details(training_id):
         exercises_list.append(item)
     return exercises_list
 
+def get_gym_ticket_client(client_id):
+    tickets = models.GymTicketHistory.objects.filter(client_id=client_id)
+    tickets_list = []
+    for ticket in tickets:
+        status = check_if_ticket_active(ticket, client_id) if ticket.activation_date else None
+        item = {
+            'id': ticket.gym_ticket_offer.gym_ticket_offer_id,
+            'ticket_name': ticket.gym_ticket_offer.name,
+            'type': ticket.gym_ticket_offer.type,
+            'duration': ticket.gym_ticket_offer.duration,
+            'status': status
+            }
+        discount = 0
+        if ticket.discount:
+            discount = ticket.discount.discount_percentages
+            item.update({'discount_name': ticket.discount.name, 'discount': discount})
+        item.update({'price': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)})
+        tickets_list.append(item)
+    return tickets_list
+
+
+def check_if_ticket_active(ticket, client_id):
+    # check if still active
+    if ticket.gym_ticket_offer.type == "Dniowy":
+        # ticket is for time
+        end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
+        current_date = timezone.now().date()
+        if current_date > end_date:
+            # ticket has expired
+            return False
+        else:
+            return True
+    else:
+        # ticket is for number of entries
+        entries = models.GymVisit.objects.filter(client_user=client_id).count()
+        limit_entries = ticket.gym_ticket_offer.duration
+        if entries > limit_entries:
+            # ticket has expired
+            return False
+        else:
+            return True

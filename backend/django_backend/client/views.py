@@ -101,3 +101,10 @@ def get_trening_details(request):
     training_id = data.get('training_id')
     details = database.get_training_details(training_id)
     return JsonResponse({'details': details})
+
+@csrf_exempt
+def get_gym_tickets_client_history(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    tickets = database.get_gym_ticket_client(client_id)
+    return JsonResponse({'tickets': tickets})
