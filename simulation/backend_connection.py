@@ -73,3 +73,31 @@ def get_trainers(gym_id):
 
     except requests.exceptions.RequestException as e:
         print(f"Error: {str(e)}")
+
+def insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories, params):
+    api_url = "http://localhost:8000/simulation/insert_exercise_history/"
+    headers = {"Content-Type": "application/json"}
+
+    body = {
+        "exercise_date": exercise_date,
+        "duration": duration,
+        "repetitions_number": repetitions_number,
+        "gym_id": gym_id,
+        "exercise_id": exercise_id,
+        "trainer_id": trainer_id,
+        "client_id": client_id,
+        "calories": calories,
+        "params": params
+        }
+
+    try:
+        response = requests.post(api_url, json=body, headers=headers)
+
+        if response.status_code == 200:
+            pass
+        else:
+            print(f"Error response {response.status_code}  {response.text}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {str(e)}")
+

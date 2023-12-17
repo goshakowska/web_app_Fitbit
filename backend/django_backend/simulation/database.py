@@ -29,3 +29,17 @@ def get_trainers_by_gym(gym_id):
     trainers = models.Employee.objects.filter(type='trener', gym__gym_id=gym_id)
     trainers = [[trainer.employee_id, trainer.name, trainer.surname]for trainer in trainers]
     return trainers
+
+def insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories):
+    new_history_exercise = models.ExerciseHistory(
+        exercise_date=exercise_date,
+        duration=duration,
+        repetitions_number=repetitions_number,
+        gym_id=gym_id,
+        exercise_id=exercise_id,
+        trainer_id=trainer_id,
+        client_id=client_id,
+        calories=calories
+    )
+    new_history_exercise.save()
+    return new_history_exercise.exercise_history_id

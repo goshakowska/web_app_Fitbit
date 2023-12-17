@@ -32,5 +32,19 @@ def trainers_list(request):
 def test_connection(request):
     data = json.loads(request.body.decode('utf-8'))
     message = data.get('message')
-    print(message)
+    return JsonResponse({'message': "We are connected"})
+
+@csrf_exempt
+def insert_exercise_history(request):
+    data = json.loads(request.body.decode('utf-8'))
+    exercise_date = data.get('exercise_date')
+    duration = data.get('duration')
+    repetitions_number = data.get('repetitions_number')
+    gym_id = data.get('gym_id')
+    exercise_id = data.get('exercise_id')
+    trainer_id = data.get('trainer_id')
+    client_id = data.get('client_id')
+    calories = data.get('calories')
+    params = data.get('params')
+    exercise_history_id = database.insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories)
     return JsonResponse({'message': "We are connected"})

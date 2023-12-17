@@ -111,7 +111,7 @@ class Exercise(models.Model):
 
 
 class ExerciseHistory(models.Model):
-    exercise_history_id = models.BigIntegerField(primary_key=True)
+    exercise_history_id = models.AutoField(primary_key=True)
     exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField()
@@ -128,7 +128,7 @@ class ExerciseHistory(models.Model):
 
 
 class ExerciseHistoryParamValue(models.Model):
-    param_value_id = models.BigIntegerField(primary_key=True)
+    param_value_id = models.AutoField(primary_key=True)
     value = models.BigIntegerField()
     parameter = models.ForeignKey('Parameter', models.DO_NOTHING)
     exercise_history = models.ForeignKey(ExerciseHistory, models.DO_NOTHING, blank=True, null=True)
