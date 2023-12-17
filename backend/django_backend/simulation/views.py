@@ -16,7 +16,7 @@ def gyms_list(request):
     return JsonResponse({'gyms': gyms})
 
 @csrf_exempt
-def exercise_list(request):
+def exercises_list(request):
     exercises = database.get_all_exercises()
     return JsonResponse({'exercises': exercises})
 
