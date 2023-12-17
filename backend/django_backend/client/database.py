@@ -25,11 +25,12 @@ def registration(login, password_hash, email, phone_number,
         gym_id=gym_id,
     )
     new_client.save()
-    new_history = models.ClientDataHistory(
-        weight=current_weight,
-        measurement_date=datetime.now().date(),
-        client=new_client)
-    new_history.save()
+    if current_weight:
+        new_history = models.ClientDataHistory(
+            weight=current_weight,
+            measurement_date=datetime.now().date(),
+            client=new_client)
+        new_history.save()
 
 
 def user_login(login, password):
