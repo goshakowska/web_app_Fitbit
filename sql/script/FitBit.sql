@@ -584,6 +584,7 @@ INSERT INTO EXERCISE_HISTORY (EXERCISE_DATE, DURATION, REPETITIONS_NUMBER, EXERC
 VALUES (TIMESTAMP '2023-12-15 10:46:45', 60, 2, '', 1, 16, null, 1, 6);
 
 -- gym ticket history
+-- dniowe
 INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
 VALUES (TO_DATE('2023-11-01', 'YYYY-MM-DD'), TO_DATE('2023-11-01', 'YYYY-MM-DD'), 2, null, 1);
 
@@ -593,4 +594,24 @@ VALUES (TO_DATE('2023-12-15', 'YYYY-MM-DD'), TO_DATE('2023-11-15', 'YYYY-MM-DD')
 INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
 VALUES (TO_DATE('2023-12-16', 'YYYY-MM-DD'), null, 2, null, 1);
 
+-- wejsciowe
+-- wygas³y
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-11-01', 'YYYY-MM-DD'), TO_DATE('2023-11-01', 'YYYY-MM-DD'), 4, null, 2);
 
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-11-01 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-11-01 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 2, 1);
+
+-- aktywny
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-12-01', 'YYYY-MM-DD'), TO_DATE('2023-12-01', 'YYYY-MM-DD'), 5, null, 2);
+
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-12-01 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-12-01 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 2, 1);
+
+INSERT INTO GYM_VISIT (entry_time, departure_time, gym_gym_id, client_user_id, locker_locker_id)
+VALUES (TO_DATE('2023-12-02 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-12-02 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1, 2, 1);
+
+-- nieaktywny
+INSERT INTO GYM_ticket_history (purchase_date, activation_date, gym_ticket_offer_id, discount_id, client_id)
+VALUES (TO_DATE('2023-12-01', 'YYYY-MM-DD'), null, 5, null, 2);
