@@ -11,3 +11,9 @@ def ticket_popularity_week(request):
 
     return JsonResponse({'plot':data})
 
+
+@csrf_exempt
+def discount_popularity_week(request):
+    data = database.discount_popularity_week()
+
+    return JsonResponse({'plot':data})

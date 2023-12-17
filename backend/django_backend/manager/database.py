@@ -31,7 +31,6 @@ def ticket_popularity_week():
         data[f"{day.strftime('%d-%m-%Y')}"] = ticket_number
         day += timedelta(days=1)
 
-    print(data)
 
     # Create plot
     plt.figure(figsize=(10, 6))
@@ -51,6 +50,48 @@ def ticket_popularity_week():
     plt.ylabel('Liczba sprzedanych karnetów')
     plt.xticks(index, data.keys())
     plt.legend()
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64
+
+
+
+def discount_popularity_week():
+    current_week = _current_week()
+    # dates for last week
+    day = current_week[0] - timedelta(days=7)
+    last_day = current_week[1] - timedelta(days=7)
+
+    data_count = []
+
+    discount_types = m.Discount.objects.values('name').distinct()
+    discount_types = [discount['name'] for discount in discount_types]
+
+    for discount in discount_types:
+        # count = (m.GymTicketHistory.objects
+        #          .filter(discount__name=discount, purchase_date__gte=day, purchase_date__lte=last_day)
+        #          .count())
+        count = randint(1, 10)
+        data_count.append(count)
+
+    print(data_count)
+
+    # Create plot
+    plt.figure(figsize=(10, 6))
+
+    bar_width = 0.2
+    plt.bar(discount_types, data_count, width=bar_width, color='#2ecc71')
+
+    plt.title('Popularność zniżek w zeszłym tygodniu')
+    plt.xlabel('Nazwa zniżki')
+    plt.ylabel('Liczba sprzedanych karnetów ze zniżką')
 
     # Save image in memory
     image_stream = io.BytesIO()
