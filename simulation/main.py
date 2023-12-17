@@ -1,7 +1,9 @@
-from PySide2.QtWidgets import QApplication, QMainWindow, QListWidgetItem
+from PySide2.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QDialog
 from ui_simulation_window import Ui_MainWindow
+from ui_dialog import Ui_Dialog
 import sys
 import backend_connection as bc
+from datetime import datetime, timedelta
 
 class MainScreen(QMainWindow):
     def __init__(self):
@@ -15,9 +17,8 @@ class MainScreen(QMainWindow):
         self.exercise = None
         self.param = None
 
-        self._clients_list()
-        self._gyms_list()
-        self._exercises_list()
+
+        self._clear()
 
         self.ui.pushButton.clicked.connect(self._send_to_database)
         self.ui.gymList.itemClicked.connect(self._choose_gym)
@@ -26,7 +27,40 @@ class MainScreen(QMainWindow):
         self.ui.trainerList.itemClicked.connect(self._choose_trainer)
 
     def _send_to_database(self):
-        pass
+        end_time = datetime.now()
+        if not self.gym or not self.client or not self.exercise:
+            dialog = Dialog(self)
+            dialog.show()
+        duration = self.ui.time.value()
+        start_time = end_time  - timedelta(seconds=duration)
+        repetitions_number = self.ui.repetitionsNumber.value()
+        param = {}
+        if 1 in self.param:
+            param[1] = self.ui.weight.value()
+        if 2 in self.param:
+            param[2] = self.ui.distance.value()
+        if 3 in self.param:
+            param[3] = self.ui.hight.value()
+
+
+    def _clear(self):
+        # lists
+        self._clients_list()
+        self._gyms_list()
+        self._exercises_list()
+        # list's items
+        self.gym = None
+        self.client = None
+        self.trainer = None
+        self.exercise = None
+        self.param = None
+        # spinboxes
+        self.ui.time.setValue(0)
+        self.ui.repetitionsNumber.setValue(0)
+        self.ui.distance.setValue(0)
+        self.ui.weight.setValue(0)
+        self.ui.hight.setValue(0)
+
 
     def _clients_list(self):
         self.ui.clientList.clear()
@@ -56,13 +90,15 @@ class MainScreen(QMainWindow):
             id = exercise['id']
             name = exercise['name']
             parameters = ''
+            param_id = []
             for id, par_name in exercise.get('parameters', []):
+                param_id.append(id)
                 parameters += par_name + ', '
             parameters = '(' + parameters[0:-2] + ')' if parameters else ''
             description = f'{id}.\t{name}\t{parameters}'
             item = QListWidgetItem(description)
             item.id = id
-            item.param = exercise.get('parameters', [])
+            item.param = param_id
             self.ui.exerciseList.addItem(item)
 
     def _choose_gym(self, item):
@@ -92,6 +128,13 @@ class MainScreen(QMainWindow):
         print(self.trainer)
 
 
+
+class Dialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        self.ui.pushButton.clicked.connect(self.close)
 
 
 def guiMain(args):
