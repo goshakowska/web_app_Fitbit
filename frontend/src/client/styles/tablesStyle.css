@@ -89,5 +89,32 @@
   .activeTicket {
     display: flex;
     justify-content: center;
-    background-color: rgb(44, 157, 46);
+    background-color: rgb(94, 200, 96);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    align-items: center;
+    height: 80px;
+  }
+
+  .inactiveTicket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(136, 136, 136);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    height: 50px;
+  }
+
+  .expiredTicket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(180, 62, 22);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    height: 50px;
   }

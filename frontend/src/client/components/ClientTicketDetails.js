@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import {Button, Table} from 'reactstrap';
+import {Table} from 'reactstrap';
 import "../styles/tablesStyle.css";
-import secondsToHHMMSS from "../functions/secondsToHHMMSS";
-import moment from 'moment';
+
 
 
 const ClientTicketDetails = props => {
@@ -75,9 +74,15 @@ const ClientTicketDetails = props => {
 </tbody>
 </Table>
 </div>
+<div> {details["visits_to_end"] ?
+        <div className="activeTicket text-style">Karnet aktywny. Zostało wejść: {details["visits_to_end"]}. </div> : <></>} </div>
+
 <div> {details["days_to_end"] ?
-        <div className="activeTicket text-style"> <p>Karnet aktywny.</p>
-        <p>Zostało: {details["days_to_end"]} dni.</p> </div> : <></>} </div>
+        <div className="activeTicket text-style">Karnet aktywny. Zostało: {details["days_to_end"]} dni. </div> : <></>} </div>
+<div> {details["status"]=== null ?
+        <div className="inactiveTicket text-style">Karnet nie został aktywowany. </div> : <></>} </div>
+<div> {details["status"] === false ?
+        <div className="expiredTicket text-style">Karnet wygasł. </div> : <></>} </div>
 </div>
   );
 

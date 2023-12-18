@@ -1,6 +1,6 @@
 import React from "react";
 import './client/styles/styles.css';
-import {BrowserRouter, Routes, Route, Form } from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 import {FormProvider} from "./client/context/RegistrationContext";
 import { WeekSwitcherProvider } from "./client/context/WeekSwitcherContext";
@@ -14,6 +14,8 @@ import Trainings from "./client/components/Trainings";
 import TrainingDetails from "./client/components/TrainingDetails";
 import ClientTickets from "./client/components/ClientTickets";
 import ClientTicketDetails from "./client/components/ClientTicketDetails";
+import Profile from "./client/components/Profile";
+import FitnessClubDetails from "./client/components/FitnessClubDetails";
 
 import Registration from "./client/views/Registration";
 import ClientClasses from "./client/views/ClientClasses";
@@ -30,6 +32,7 @@ function App() {
               <Routes>
               <Route exact path="/" element={<StartPage />} />
               <Route exact path='/silownie' element={<FitnessClubs />} />
+              <Route exact path='/szczegoly_silowni' element={<FitnessClubDetails />} />
               <Route exact path='/login' element={<LoginForm />} />
               <Route exact path='/rejestracja' element={<Registration />} />
               <Route exact path='/sklep_karnetow' element={<TicketsShop />} />
@@ -38,6 +41,7 @@ function App() {
               <Route exact path='/szczegoly_treningu' element={<TrainingDetails />} />
               <Route exact path='/karnety_klienta' element={<ClientTickets />} />
               <Route exact path='/szczegoly_karnetu' element={<ClientTicketDetails />} />
+              <Route exact path='/profil' element={<Profile />} />
               </Routes>
 
               </WeekSwitcherProvider>

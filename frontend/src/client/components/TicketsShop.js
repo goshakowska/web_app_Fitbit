@@ -54,8 +54,7 @@ function TicketsShop()
     useEffect(() => {getStandardTickets()}, []);
 
     const handleClick = () => {
-        if (userId()) {
-         window.location.href = '/silownie'} else
+        if (userId()) {} else
         {window.location.href = '/login'; alert("Aby dodać do koszyka musisz się najpierw zalogować.")}
     }
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {Table} from 'reactstrap';
 import "../styles/tablesStyle.css"
 
 function FitnessClubs()
 {
-    const [gyms, setGyms] = useState([])
+    const [gyms, setGyms] = useState([]);
+    let navigate = useNavigate();
 
     const getGyms = async (event) => {
         try {
@@ -28,6 +30,15 @@ function FitnessClubs()
 
     useEffect(() => {getGyms()}, []);
 
+    const handleClick = (club_id, club_name) => {
+      navigate('/szczegoly_silowni', {
+        state: {
+          clubId: club_id,
+          clubName: club_name,
+        }
+      });
+    };
+
     return (
       <div className="clubsTable">
       <h className="textLogin"> Nasze siłownie </h>
@@ -47,7 +58,7 @@ function FitnessClubs()
   {gyms.length > 0 && gyms.map((gym, index) => (
                     <tr key={index}>
                         <th scope="row">{gym[1]}</th>
-                        <td> {gym[2]}, {gym[3]}, {gym[4]}</td>
+                        <td onClick={ (e) => {handleClick(gym[0], gym[1])}}> {gym[2]}, {gym[3]}, {gym[4]}</td>
                     </tr>
                 ))}
   </tbody>
