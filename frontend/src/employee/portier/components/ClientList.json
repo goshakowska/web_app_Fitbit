@@ -2,45 +2,100 @@
     "id": 1234,
     "surname": "Adamska",
     "name": "Agnieszka",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
+
 },{
     "id": 1235,
     "surname": "Bąk",
     "name": "Piotr",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 2067,
     "surname": "Kowalski",
     "name": "Kamil",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": false,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 2221,
     "surname": "Nowak",
     "name": "Anna",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 2540,
     "surname": "Nowak",
     "name": "Jan",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 3145,
     "surname": "Nowakowska",
     "name": "Maria",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": false,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 3267,
     "surname": "Olejnik",
     "name": "Michał",
-    "pass": "active"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "10-12-2023",
+    "expirationDate": "10-01-2024"
 },{
     "id": 4321,
     "surname": "Swoczyński",
     "name": "Bernard",
-    "pass": "inactive"
+    "email": "agnieszka@gmail.com",
+    "phoneNumber": "+48 123 456 789",
+    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy,30 dni",
+    "cardStatus": true,
+    "activationDate": "11-12-2023",
+    "expirationDate": "11-01-2024"
 },{
     "id": 4333,
     "surname": "Tomczak",
     "name": "Paweł",
-    "pass": "inactive"
+    "email": "paweł@gmail.com",
+    "phoneNumber": "+48 987 345 123",
+    "nextTrailing": [""],
+    "cardType": "Wejściowy, 10 wejść",
+    "cardStatus": false,
+    "activationDate": "",
+    "expirationDate": ""
 }]
