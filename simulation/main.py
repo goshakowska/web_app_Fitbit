@@ -29,7 +29,7 @@ class MainScreen(QMainWindow):
     def _send_to_database(self):
         end_time = datetime.now()
         if not self.gym or not self.client or not self.exercise:
-            dialog = Dialog(self)
+            dialog = Dialog('Najpierw wybierz ćwiczenie,\nklienta i siłownię', self)
             dialog.show()
         duration = self.ui.time.value()
         start_time = end_time  - timedelta(seconds=duration)
@@ -44,6 +44,11 @@ class MainScreen(QMainWindow):
         if 3 in self.param:
             param[3] = self.ui.hight.value()
         bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, param)
+        dialog = Dialog('Dodano ćwiczenie', self)
+        dialog.show()
+        self._clear()
+
+
 
     def _clear(self):
         # lists
@@ -133,10 +138,11 @@ class MainScreen(QMainWindow):
 
 
 class Dialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, text, parent=None):
         super().__init__(parent)
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.ui.label.setText(text)
         self.ui.pushButton.clicked.connect(self.close)
 
 
