@@ -190,7 +190,7 @@ def gym_ticket_details(ticket_id):
             delta = end_date - timezone.now().date()
             item.update({'days_to_end': delta.days, 'end_date': end_date})
         else:
-            gym_visits = models.GymVisit.objects.filter(entry_time__gte=ticket.activation_date)
+            gym_visits = models.GymVisit.objects.filter(entry_time__gte=ticket.activation_date, client_user__client_id=client_id)
             visit_to_end = ticket.gym_ticket_offer.duration - len(gym_visits)
             item.update({'visits_to_end': visit_to_end})
     return item
