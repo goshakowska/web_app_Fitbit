@@ -111,7 +111,6 @@ class Exercise(models.Model):
 
 
 class ExerciseHistory(models.Model):
-<<<<<<< HEAD
     exercise_history_id = models.AutoField(primary_key=True)
     exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
