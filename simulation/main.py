@@ -31,22 +31,23 @@ class MainScreen(QMainWindow):
         if not self.gym or not self.client or not self.exercise:
             dialog = Dialog('Najpierw wybierz ćwiczenie,\nklienta i siłownię', self)
             dialog.show()
-        duration = self.ui.time.value()
-        start_time = end_time  - timedelta(seconds=duration)
-        start_time = start_time.strftime("%Y-%m-%d %H:%M:%S")
-        repetitions_number = self.ui.repetitionsNumber.value()
-        calories = self.ui.calories.value()
-        param = {}
-        if 1 in self.param:
-            param[1] = self.ui.weight.value()
-        if 2 in self.param:
-            param[2] = self.ui.distance.value()
-        if 3 in self.param:
-            param[3] = self.ui.hight.value()
-        bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, param)
-        dialog = Dialog('Dodano ćwiczenie', self)
-        dialog.show()
-        self._clear()
+        else:
+            duration = self.ui.time.value()
+            start_time = end_time  - timedelta(seconds=duration)
+            start_time = start_time.strftime("%Y-%m-%d %H:%M:%S")
+            repetitions_number = self.ui.repetitionsNumber.value()
+            calories = self.ui.calories.value()
+            param = {}
+            if 1 in self.param:
+                param[1] = self.ui.weight.value()
+            if 2 in self.param:
+                param[2] = self.ui.distance.value()
+            if 3 in self.param:
+                param[3] = self.ui.hight.value()
+            bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, param)
+            dialog = Dialog('Dodano ćwiczenie', self)
+            dialog.show()
+            self._clear()
 
 
 
@@ -82,6 +83,7 @@ class MainScreen(QMainWindow):
 
     def _gyms_list(self):
         self.ui.gymList.clear()
+        self.ui.trainerList.clear()
         gyms = bc.get_gyms()
         gyms = sorted(gyms, key=lambda gym: gym[0])
         for gym in gyms:
