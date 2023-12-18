@@ -63,7 +63,7 @@ function TicketsShop()
             <h className="textLogin"> Oferta karnetów </h>
         <div className="gridDesign">
       <div className="tablePos">
-      <h className="textLogin"> Karnety promocyjne </h>
+      <h className="textLogin2"> Karnety promocyjne </h>
         <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
@@ -108,7 +108,7 @@ function TicketsShop()
 </div>
 
 <div className="tablePos">
-      <h className="textLogin"> Karnety standardowe </h>
+      <h className="textLogin2"> Karnety standardowe </h>
 <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
