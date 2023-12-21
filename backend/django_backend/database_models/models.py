@@ -19,7 +19,7 @@ class Client(models.Model):
     gender = models.CharField(max_length=1)
     height = models.BigIntegerField(blank=True, null=True)
     birth_year = models.DateField()
-    advancement = models.CharField(max_length=40)
+    advancement = models.CharField(max_length=40, null=True)
     target_weight = models.BigIntegerField(blank=True, null=True)
     training_frequency = models.BigIntegerField(blank=True, null=True)
     training_time = models.BigIntegerField(blank=True, null=True)
@@ -111,7 +111,7 @@ class Exercise(models.Model):
 
 
 class ExerciseHistory(models.Model):
-    exercise_history_id = models.BigIntegerField(primary_key=True)
+    exercise_history_id = models.AutoField(primary_key=True)
     exercise_date = models.DateTimeField()
     duration = models.BigIntegerField(blank=True, null=True)
     repetitions_number = models.BigIntegerField()
@@ -128,7 +128,7 @@ class ExerciseHistory(models.Model):
 
 
 class ExerciseHistoryParamValue(models.Model):
-    param_value_id = models.BigIntegerField(primary_key=True)
+    param_value_id = models.AutoField(primary_key=True)
     value = models.BigIntegerField()
     parameter = models.ForeignKey('Parameter', models.DO_NOTHING)
     exercise_history = models.ForeignKey(ExerciseHistory, models.DO_NOTHING, blank=True, null=True)
@@ -146,16 +146,6 @@ class ExerciseIllness(models.Model):
         managed = False
         db_table = 'exercise_illness'
         unique_together = (('exercise_exercise', 'illness_illness'),)
-
-
-class ExerciseMuscle(models.Model):
-    exercise = models.OneToOneField(Exercise, models.DO_NOTHING, primary_key=True)  # The composite primary key (exercise_id, muscle_groups_id) found, that is not supported. The first column is selected.
-    muscle_groups = models.ForeignKey('MuscleGroups', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'exercise_muscle'
-        unique_together = (('exercise', 'muscle_groups'),)
 
 
 class ExercisePlan(models.Model):

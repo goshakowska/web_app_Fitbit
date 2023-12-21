@@ -25,15 +25,12 @@ function LoginForm ()
             setLoggingError("Wprowadź swoje hasło.");
             return true
         }
-
         return false;
     }
 
     const Login = async (event) =>
     {
         event.preventDefault();
-        console.log(loggingError);
-        if(loggingError==="") {
         try {
             const response = await fetch('http://localhost:8000/client/client_login/', {
               method: 'POST',
@@ -62,8 +59,9 @@ function LoginForm ()
             }
             else{
             console.error('Error:', error);
-          }}}
+          }}
         };
+
 
         const handleLogin = (event) =>{
             if(errorHandle() === true) {return};

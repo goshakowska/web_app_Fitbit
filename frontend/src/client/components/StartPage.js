@@ -26,10 +26,12 @@ function StartPage()
           console.error('Error:', error);
         }
       };
+
+      //<button type='submit' onClick={handleDBcon} className="mt-4 px-4 py-2 bg-orange-500 text-black rounded hover:bg-orange-600">Przetestuj połączenie z bazą</button>
     return (
-        <div>
-        <h1> Main page</h1>
-        <button type='submit' onClick={handleDBcon} className="mt-4 px-4 py-2 bg-orange-500 text-black rounded hover:bg-orange-600">Przetestuj połączenie z bazą</button>
+        <div className="loginForm">
+        <h className='startPageText1'> FitBit </h>
+        <h className='startPageText2'> HEALTH. STRENGTH. POWER. </h>
       </div>
     );
 

@@ -1,0 +1,120 @@
+.tableDesignNarrow{
+  width: 550px;
+  justify-content: center;
+}
+
+.clubsTable{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tablePos{
+    justify-content: center;
+}
+
+.ticketsShop{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.gridDesign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+    justify-content: center;
+    margin-left: 100px;
+  }
+
+  .tableDesignWide{
+    width: 850px;
+    justify-content: center;
+}
+
+.tableDesign th {
+    background-color: rgba(0,47,53,1);
+    color: rgba(237,222,164,1);
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .tableDesign td {
+    border: 2px solid rgba(237,222,164,1);
+    padding: 8px;
+    text-align: center;
+  }
+
+  .cartStyle {
+    background-color: rgba(237,222,164,1);
+    border: 3px solid rgb(223, 115, 56);
+  }
+
+  .cartStyle:hover {
+    background-color: rgb(180, 165, 108);
+    border: 3px solid rgb(223, 115, 56);
+  }
+
+  .weekSwitch{
+    background-color: rgba(237,222,164,1);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    mix-blend-mode: normal;
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 50px;
+    height: 40px;
+    width: 180px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .weekSwitch:hover{
+    background-color: rgb(196, 178, 107);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    mix-blend-mode: normal;
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 50px;
+    width: 180px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .weekSwitchLayout{
+    display: flex;
+    justify-content: center;
+  }
+
+  .activeTicket {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(94, 200, 96);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    align-items: center;
+    height: 80px;
+  }
+
+  .inactiveTicket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(136, 136, 136);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    height: 50px;
+  }
+
+  .expiredTicket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(180, 62, 22);
+    border: 3px solid rgb(220, 225, 115);
+    border-radius: 20px;
+    width: 140px;
+    height: 50px;
+  }

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'trainer',
     'portier',
     'manager',
-    'database_models'
+    'database_models',
+    'simulation'
 ]
 
 MIDDLEWARE = [

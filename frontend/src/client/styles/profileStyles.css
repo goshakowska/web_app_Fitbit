@@ -1,0 +1,31 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Dwie kolumny z separatorem po środku */
+    justify-content: center;
+    width: 60vw;
+    height: 50vh;
+    background: rgba(249, 247, 243, 1);
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .separator {
+    width: 2px;
+    height: 100%;
+    background-color: black;
+  }
+
+  .leftColumn, .rightColumn {
+    padding: 20px;
+  }
+
+  .textStyleProfile{
+    font-family: 'Inknut Antiqua';
+    text-align: left;
+    font-size: 16px;
+    color: black;
+  }

@@ -28,4 +28,5 @@ urlpatterns = [
     path('trainer/', include('trainer.urls')),
     path('portier/', include('portier.urls')),
     path('manager/', include('manager.urls')),
+    path('simulation/', include('simulation.urls')),
 ]
