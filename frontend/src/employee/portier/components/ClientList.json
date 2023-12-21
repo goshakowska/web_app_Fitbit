@@ -5,7 +5,7 @@
     "email": "agnieszka@gmail.com",
     "phoneNumber": "+48 123 456 789",
     "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
-    "cardType": "Czasowy,30 dni",
+    "cardType": "Czasowy, 30 dni",
     "cardStatus": true,
     "activationDate": "10-12-2023",
     "expirationDate": "10-01-2024"
@@ -14,10 +14,10 @@
     "id": 1235,
     "surname": "Bąk",
     "name": "Piotr",
-    "email": "agnieszka@gmail.com",
+    "email": "piotr.b@gmail.com",
     "phoneNumber": "+48 123 456 789",
-    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
-    "cardType": "Czasowy,30 dni",
+    "nextTrailing": ["Aqua Aerobik", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy, 30 dni",
     "cardStatus": true,
     "activationDate": "10-12-2023",
     "expirationDate": "10-01-2024"
@@ -25,13 +25,13 @@
     "id": 2067,
     "surname": "Kowalski",
     "name": "Kamil",
-    "email": "agnieszka@gmail.com",
+    "email": "kamil@gmail.com",
     "phoneNumber": "+48 123 456 789",
-    "nextTrailing": ["Zumba", "18-12-2023, godz. 18"],
-    "cardType": "Czasowy,30 dni",
+    "nextTrailing": ["Boks", "18-12-2023, godz. 18"],
+    "cardType": "Czasowy, 30 dni",
     "cardStatus": false,
-    "activationDate": "10-12-2023",
-    "expirationDate": "10-01-2024"
+    "activationDate": "15-12-2023",
+    "expirationDate": "15-01-2024"
 },{
     "id": 2221,
     "surname": "Nowak",
