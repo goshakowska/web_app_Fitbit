@@ -1,0 +1,33 @@
+.trainer-calendar {
+    font-family: 'Inknut Antiqua';
+    border: 2px #f7a072;
+    border-radius: 8px;
+    background-color: cadetblue;
+
+}
+
+.rbc-day-bg {
+    background-color: #e0e0e0;
+    border: 3px solid #f7a072;
+    border-radius: 8px;
+  }
+
+.rbc-event {
+    color: #333;
+    background-color: darkcyan;
+    border-radius: 8px;
+}
+
+.rbc-day-slot {
+    background-color: bisque;
+}
+
+.rbc-timeslot-group {
+    background-color: #e0e0e0;
+    border: 3px solid burlywood;
+    border-radius: 8px;
+}
+
+.rbc-allday-cell  {
+    display: none;
+}

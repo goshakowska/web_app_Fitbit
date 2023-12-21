@@ -1,0 +1,28 @@
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 60px;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+    border-left: 1px solid #dee2e6;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.profile-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar-button {
+    width: 100%;
+    margin-bottom: 20px;
+}

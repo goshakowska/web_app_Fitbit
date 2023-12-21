@@ -1,0 +1,13 @@
+.title-row {
+    background-color: #eddea4;
+    border: 5px solid;
+    border-color: #f7a072;
+    border-radius: 10px;
+}
+
+.client-cell {
+    background-color: #f9f7f3;
+    border: 5px solid;
+    border-color: #f7a072;
+    border-radius: 10px;
+}
