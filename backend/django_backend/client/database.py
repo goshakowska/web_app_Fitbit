@@ -157,8 +157,7 @@ def gym_ticket_offer_with_discount():
             continue
         ticket = discount.gym_ticket_offer
         price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
-        # todo date in string
-        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date, ticket.duration])
+        tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, dc.str_date(discount.stop_date), ticket.duration])
     return tickets
 
 def get_gyms_list():
@@ -226,7 +225,7 @@ def get_ordered_classes_client(client_id, start_date):
     default_gym = models.Client.objects.get(client_id=client_id).gym.gym_id
     for classe in classes:
         is_default_gym = True if default_gym == classe.week_schedule.trainer.gym.gym_id else False
-        classes_list.append([classe.ordered_schedule_id, classe.schedule_date, classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
+        classes_list.append([classe.ordered_schedule_id, dc.str_date(classe.schedule_date), classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
     return classes_list
 
 def get_training_history(client_id):
@@ -263,7 +262,7 @@ def get_training_history(client_id):
             # todo początek i koniec oraz czas
             calories += exercise.calories
             time += exercise.duration
-        training_list.append([training.gym_visit_id, start_date, end_date, time, calories])
+        training_list.append([training.gym_visit_id, dc.str_date(start_date), dc.str_hour(start_date), dc.str_date(end_date), dc.str_hour(end_date), time, calories])
     return training_list
 
 def get_training_details(training_id):
@@ -296,7 +295,8 @@ def get_training_details(training_id):
     for exercise in exercises:
         item = {
             'name': exercise.exercise.name,
-            'start_date': exercise.exercise_date,
+            'start_date': dc.str_date(exercise.exercise_date),
+            'start_hour': dc.str_hour(exercise.exercise_date),
             'duration': exercise.duration,
             'repetitions_number': exercise.repetitions_number,
             'calories': exercise.calories
@@ -367,7 +367,7 @@ def gym_ticket_details(ticket_id):
             discount (int): percentages of discount if discount,
             price_after (float): price after discount if discount,
             days_to_end (int): days to gym ticket ends if ticket is valid and type is 'Dniowy',
-            end_date (str): date when gym ticket ends if ticket is not inactive and type is 'Dniowy',
+            end_date (str): date when gym ticket ends if ticket is not inactive and type is 'Dniowy', format: '%Y-%m-%d',
             visits_to_end (int): number of avaible visits of gym ticket if ticket is valid and type is 'Wejściowy'
         }.
     '''
@@ -381,7 +381,7 @@ def gym_ticket_details(ticket_id):
             'duration': ticket.gym_ticket_offer.duration,
             'status': status,
             'price_before': ticket.gym_ticket_offer.price,
-            'activation_date': ticket.activation_date
+            'activation_date': dc.str_date(ticket.activation_date)
             }
     if ticket.discount:
         discount = ticket.discount.discount_percentages
@@ -391,12 +391,13 @@ def gym_ticket_details(ticket_id):
             'price_after': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)
             })
     # to do end_date when type is 'Dniowy' and status == False
-    if status:
-        if ticket.gym_ticket_offer.type == "Dniowy":
-            end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
+    if ticket.gym_ticket_offer.type == "Dniowy" and (status or status == False):
+        end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
+        item.update({'end_date': dc.str_date(end_date)})
+        if status:
             delta = end_date - timezone.now().date()
-            item.update({'days_to_end': delta.days, 'end_date': end_date})
-        else:
+            item.update({'days_to_end': delta.days})
+    elif ticket.gym_ticket_offer.type == "Wejściowy" and status:
             gym_visits = models.GymVisit.objects.filter(entry_time__gte=ticket.activation_date, client_user__client_id=client_id)
             visit_to_end = ticket.gym_ticket_offer.duration - len(gym_visits)
             item.update({'visits_to_end': visit_to_end})
@@ -440,7 +441,7 @@ def get_client_data(client_id):
         'surname': client.surname,
         'gender': client.gender,
         'height': client.height,
-        'birth_year': client.birth_year,
+        'birth_year': dc.str_date(client.birth_year),
         'advancement': client.advancement,
         'target_weight': client.target_weight,
         'training_frequency': client.training_frequency,
@@ -537,7 +538,7 @@ def get_free_trainings(trainer_id, start_date, client_id):
             continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
         collision = check_collision(client_id, week_classe, day)
-        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, day, week_classe.start_time, collision]
+        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
         classes_list.append(item)
     return classes_list
 
