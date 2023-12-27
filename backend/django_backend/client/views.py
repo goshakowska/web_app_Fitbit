@@ -38,9 +38,9 @@ def client_login(request):
     data = json.loads(request.body.decode('utf-8'))
     login = data.get('login')
     password = data.get('password')
-    id, name = database.user_login(login, password)
-    if id:
-        return JsonResponse({'id':id, 'name': name})
+    client = database.user_login(login, password)
+    if client:
+        return JsonResponse({'id':client.client_id, 'name': client.name})
     else:
         error_message = 'Incorrect user login!'
         return JsonResponse({'error': error_message}, status=400)

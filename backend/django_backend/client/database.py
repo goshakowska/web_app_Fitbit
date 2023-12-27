@@ -5,8 +5,32 @@ import client.discount_calculate as dc
 from django.utils import timezone
 
 def registration(login, password_hash, email, phone_number,
-        name, surname, gender, height, birth_year, advancement, target_weight,
+        name, surname, gender, height, birth_date, advancement, target_weight,
         training_frequency, training_time, training_goal_id, gym_id, current_weight):
+    '''
+    Adds new client
+
+    Args:
+        login (int): The login of new client
+        password_hash (str): The password hash of new client.
+        email (str): The email of new client.
+        phone_number (str): The phone number of new client.
+        name (str): The first name of new client.
+        surname (str): The surname of the new client.
+        gender (str): The gender of the new client.
+        height (int): The height of the new client.
+        birth_date (str): The birth date of new client.
+        advancement (str): The advancement of the new client.
+        target_weight (int): The target weight of the new client.
+        training_frequency (int): The training frequency of new client.
+        training_time (int): The training time of new client.
+        training_goal_id (int): The training goal id of new client.
+        gym_id (int): The gym id of new client.
+        current_weight (int): The current weight of the new client.
+
+    Returns:
+        None
+    '''
     new_client = models.Client(
         login=login,
         password_hash=password_hash,
@@ -16,7 +40,7 @@ def registration(login, password_hash, email, phone_number,
         surname=surname,
         gender=gender,
         height=height,
-        birth_year=birth_year,
+        birth_year=birth_date,
         advancement=advancement,
         target_weight=target_weight,
         training_frequency=training_frequency,
@@ -34,17 +58,30 @@ def registration(login, password_hash, email, phone_number,
 
 
 def user_login(login, password):
+    '''
+       Check if client login and password are correct
+
+    Args:
+        login (str): The first number.
+        password (string): The second number.
+
+    Returns:
+        models.Client: client if login and password are correct else None
+    '''
     try:
         client = models.Client.objects.get(login=login)
         is_correct = check_password(password, client.password_hash)
         if is_correct:
-            return client.client_id, client.name
+            return client
         else:
-            return None, None
+            return None
     except models.Client.DoesNotExist:
-        return None, None
+        return None
 
 def is_busy_login(login):
+    '''
+    Returns if client login is busy
+    '''
     try:
         client = models.Client.objects.get(login=login)
         return True
@@ -52,11 +89,18 @@ def is_busy_login(login):
         return False
 
 def training_goals():
+    '''
+    Returns list of [training goal id, training goal name]
+    '''
     training_goals = models.TrainingGoal.objects.all()
     training_goals = [[goal.training_goal_id, goal.name] for goal in training_goals]
     return training_goals
 
 def standard_gym_ticket_offer():
+    '''
+    Returns list of
+    [gym ticket offer id, gym ticket offer type ('Dniowy', 'Wejściowy'), gym ticket offer price, gym ticket offer duration]
+    '''
     gym_tickets = models.GymTicketOffer.objects.all()
     gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price, ticket.duration] for ticket in gym_tickets]
     return gym_tickets
@@ -67,7 +111,6 @@ def gym_ticket_offer_with_discount():
     for discount in discounts:
         if discount.start_date > datetime.now().date() or discount.stop_date and discount.stop_date < datetime.now().date():
             continue
-        print(discount.gym_ticket_offer)
         ticket = discount.gym_ticket_offer
         price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
         tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date, ticket.duration])
