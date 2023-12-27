@@ -28,21 +28,26 @@ def get_all_exercises():
         exercises_list.append(item)
     return exercises_list
 
-def get_trainers_by_gym(gym_id):
-    trainers = models.Employee.objects.filter(type='trener', gym__gym_id=gym_id)
-    trainers = [[trainer.employee_id, trainer.name, trainer.surname]for trainer in trainers]
-    return trainers
+def get_equipments_by_gym_and_exercise(gym_id, exercise_id):
+    try:
+        equipment_id = models.Exercise.objects.get(exercise_id=exercise_id).equipment.equipment_id
+    except Exception:
+        return []
+    if equipment_id:
+        equipments = models.GymEquipment.objects.filter(gym__gym_id=gym_id, equipment_id=equipment_id)
+        equipments = [[equipment.gym_equipment_id, equipment.equipment.name] for equipment in equipments]
+    return equipments
 
-def insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories):
+def insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, equipment_id, client_id, calories):
     new_history_exercise = models.ExerciseHistory(
         exercise_date=exercise_date,
         duration=duration,
         repetitions_number=repetitions_number,
         gym_id=gym_id,
         exercise_id=exercise_id,
-        trainer_id=trainer_id,
         client_id=client_id,
-        calories=calories
+        calories=calories,
+        gym_equipment_id=equipment_id
     )
     new_history_exercise.save()
     return new_history_exercise.exercise_history_id

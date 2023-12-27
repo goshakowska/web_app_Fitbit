@@ -16,6 +16,7 @@ class MainScreen(QMainWindow):
         self.equipment = None
         self.exercise = None
         self.param = None
+        self.equip_list = False
 
 
         self._clear()
@@ -31,7 +32,9 @@ class MainScreen(QMainWindow):
         if not self.gym or not self.client or not self.exercise:
             dialog = Dialog('Najpierw wybierz ćwiczenie,\nklienta i siłownię', self)
             dialog.show()
-        # todo sprawdź czy ćwiczenie ma urządzenie
+        elif self.equip_list and not self.equipment:
+            dialog = Dialog('Najpierw wybierz urządzenie', self)
+            dialog.show()
         else:
             duration = self.ui.time.value()
             start_time = end_time  - timedelta(seconds=duration)
@@ -45,7 +48,7 @@ class MainScreen(QMainWindow):
                 param[2] = self.ui.distance.value()
             if 3 in self.param:
                 param[3] = self.ui.hight.value()
-            bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.trainer, self.client, calories, param)
+            bc.insert_exercise_history(start_time, duration, repetitions_number, self.gym, self.exercise, self.equipment, self.client, calories, param)
             dialog = Dialog('Dodano ćwiczenie', self)
             dialog.show()
             self._clear()
@@ -56,7 +59,10 @@ class MainScreen(QMainWindow):
         # lists
         self._gyms_list()
         self._exercises_list()
+        self.ui.clientList.clear()
+        self.ui.equipmentList.clear()
         # list's items
+        self.equip_list = False
         self.gym = None
         self.client = None
         self.exercise = None
@@ -96,7 +102,7 @@ class MainScreen(QMainWindow):
         exercises = bc.get_exercises()
         exercises = sorted(exercises, key=lambda exercise: exercise['id'])
         for exercise in exercises:
-            id = exercise['id']
+            exercise_id = exercise['id']
             name = exercise['name']
             parameters = ''
             param_id = []
@@ -104,16 +110,30 @@ class MainScreen(QMainWindow):
                 param_id.append(id)
                 parameters += par_name + ', '
             parameters = '(' + parameters[0:-2] + ')' if parameters else ''
-            description = f'{id}.\t{name}\t{parameters}'
+            description = f'{exercise_id}.\t{name}\t{parameters}'
             item = QListWidgetItem(description)
-            item.id = id
+            item.id = exercise_id
             item.param = param_id
             self.ui.exerciseList.addItem(item)
 
+    def _equipments_list(self):
+        self.ui.equipmentList.clear()
+        equipments = bc.get_equipments(self.gym, self.exercise)
+        if equipments:
+            self.equip_list = True
+        equipments = sorted(equipments, key=lambda equipment: equipment[0])
+        for equipment in equipments:
+            description = f'{equipment[0]}.\t {equipment[1]}'
+            item = QListWidgetItem(description)
+            item.id = equipment[0]
+            self.ui.equipmentList.addItem(item)
+
     def _choose_gym(self, item):
+        self.client = None
         self.gym = item.id
-        self.ui.clientList.clear()
         self._clients_list()
+        if self.exercise is not None:
+            self._equipments_list()
 
     def _choose_client(self, item):
         self.client = item.id
@@ -121,10 +141,12 @@ class MainScreen(QMainWindow):
     def _choose_exercise(self, item):
         self.exercise = item.id
         self.param = item.param
-        # todo choose exercise
+        self.equip_list = False
+        if self.gym is not None:
+            self._equipments_list()
 
-    def _choose_equipment(self):
-        pass
+    def _choose_equipment(self, item):
+        self.equipment = item.id
 
 
 
