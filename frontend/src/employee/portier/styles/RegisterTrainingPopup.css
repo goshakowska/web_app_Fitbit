@@ -1,0 +1,15 @@
+.popup-content {
+    font-family: 'Inknut Antiqua';
+    width: 200px;
+    height: 100px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.info {
+    font-family: 'Inknut Antiqua';
+}
