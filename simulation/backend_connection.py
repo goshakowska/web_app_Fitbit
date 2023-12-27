@@ -20,11 +20,12 @@ def connection():
         print(f"Error: {str(e)}")
 
 
-def get_clients():
+def get_clients(gym_id):
     api_url = "http://localhost:8000/simulation/all_clients/"
     headers = {"Content-Type": "application/json"}
+    body = {"gym_id": gym_id}
     try:
-        response = requests.post(api_url, headers=headers)
+        response = requests.post(api_url, json=body, headers=headers)
         if response.status_code == 200:
             return response.json().get('clients', [])
         else:
@@ -54,23 +55,6 @@ def get_exercises():
             return response.json().get('exercises', [])
         else:
             print(f"Error response {response.status_code}  {response.text}")
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {str(e)}")
-
-def get_trainers(gym_id):
-    api_url = "http://localhost:8000/simulation/all_trainers/"
-    headers = {"Content-Type": "application/json"}
-
-    body = {"gym_id": gym_id}
-
-    try:
-        response = requests.post(api_url, json=body, headers=headers)
-
-        if response.status_code == 200:
-            return response.json().get('trainers', [])
-        else:
-            print(f"Error response {response.status_code}  {response.text}")
-
     except requests.exceptions.RequestException as e:
         print(f"Error: {str(e)}")
 

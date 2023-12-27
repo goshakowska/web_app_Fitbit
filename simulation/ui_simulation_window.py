@@ -41,15 +41,15 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_9 = QHBoxLayout()
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.equipmentList = QListWidget(self.centralwidget)
+        self.equipmentList.setObjectName(u"equipmentList")
+
+        self.horizontalLayout_9.addWidget(self.equipmentList)
+
         self.clientList = QListWidget(self.centralwidget)
         self.clientList.setObjectName(u"clientList")
 
         self.horizontalLayout_9.addWidget(self.clientList)
-
-        self.trainerList = QListWidget(self.centralwidget)
-        self.trainerList.setObjectName(u"trainerList")
-
-        self.horizontalLayout_9.addWidget(self.trainerList)
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_9)

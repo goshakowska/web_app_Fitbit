@@ -7,7 +7,9 @@ import simulation.database as database
 
 @csrf_exempt
 def clients_list(request):
-    clients = database.get_all_clients()
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    clients = database.get_all_clients(gym_id)
     return JsonResponse({'clients': clients})
 
 @csrf_exempt

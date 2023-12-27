@@ -1,8 +1,11 @@
 import database_models.models as models
 
-def get_all_clients():
-    clients = models.Client.objects.all()
-    clients = [[client.client_id, client.name, client.surname] for client in clients]
+def get_all_clients(gym_id):
+    gym_visits = models.GymVisit.objects.filter(departure_time=None, gym_gym__gym_id=gym_id)
+    clients = []
+    for visit in gym_visits:
+        client = visit.client_user
+        clients.append([client.client_id, client.name, client.surname])
     return clients
 
 def get_all_gyms():

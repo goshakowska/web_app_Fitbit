@@ -118,9 +118,9 @@ class ExerciseHistory(models.Model):
     exercise_comment = models.TextField(blank=True, null=True)
     gym = models.ForeignKey('Gym', models.DO_NOTHING)
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
-    trainer = models.ForeignKey(Employee, models.DO_NOTHING, blank=True, null=True)
     client = models.ForeignKey(Client, models.DO_NOTHING)
     calories = models.BigIntegerField()
+    gym_equipment = models.ForeignKey('GymEquipment', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False

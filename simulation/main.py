@@ -13,7 +13,7 @@ class MainScreen(QMainWindow):
 
         self.gym = None
         self.client = None
-        self.trainer = None
+        self.equipment = None
         self.exercise = None
         self.param = None
 
@@ -24,13 +24,14 @@ class MainScreen(QMainWindow):
         self.ui.gymList.itemClicked.connect(self._choose_gym)
         self.ui.clientList.itemClicked.connect(self._choose_client)
         self.ui.exerciseList.itemClicked.connect(self._choose_exercise)
-        self.ui.trainerList.itemClicked.connect(self._choose_trainer)
+        self.ui.equipmentList.itemClicked.connect(self._choose_equipment)
 
     def _send_to_database(self):
         end_time = datetime.now()
         if not self.gym or not self.client or not self.exercise:
             dialog = Dialog('Najpierw wybierz ćwiczenie,\nklienta i siłownię', self)
             dialog.show()
+        # todo sprawdź czy ćwiczenie ma urządzenie
         else:
             duration = self.ui.time.value()
             start_time = end_time  - timedelta(seconds=duration)
@@ -53,15 +54,14 @@ class MainScreen(QMainWindow):
 
     def _clear(self):
         # lists
-        self._clients_list()
         self._gyms_list()
         self._exercises_list()
         # list's items
         self.gym = None
         self.client = None
-        self.trainer = None
         self.exercise = None
         self.param = None
+        self.equipment = None
         # spinboxes
         self.ui.time.setValue(0)
         self.ui.repetitionsNumber.setValue(0)
@@ -73,7 +73,7 @@ class MainScreen(QMainWindow):
 
     def _clients_list(self):
         self.ui.clientList.clear()
-        clients = bc.get_clients()
+        clients = bc.get_clients(self.gym)
         clients = sorted(clients, key=lambda client: client[0])
         for client in clients:
             description = f'{client[0]}.\t {client[1]}\t {client[2]}'
@@ -83,7 +83,6 @@ class MainScreen(QMainWindow):
 
     def _gyms_list(self):
         self.ui.gymList.clear()
-        self.ui.trainerList.clear()
         gyms = bc.get_gyms()
         gyms = sorted(gyms, key=lambda gym: gym[0])
         for gym in gyms:
@@ -113,29 +112,19 @@ class MainScreen(QMainWindow):
 
     def _choose_gym(self, item):
         self.gym = item.id
-        self.ui.trainerList.clear()
-        self.trainer = None
-        trainers = bc.get_trainers(self.gym)
-        trainers = sorted(trainers, key=lambda trainer: trainer[0])
-        for trainer in trainers:
-            description = f'{trainer[0]}.\t{trainer[1]}\t{trainer[2]}'
-            item = QListWidgetItem(description)
-            item.id = trainer[0]
-            self.ui.trainerList.addItem(item)
+        self.ui.clientList.clear()
+        self._clients_list()
 
     def _choose_client(self, item):
         self.client = item.id
-        print(self.client)
 
     def _choose_exercise(self, item):
         self.exercise = item.id
         self.param = item.param
-        print(self.exercise)
-        print(self.param)
+        # todo choose exercise
 
-    def _choose_trainer(self, item):
-        self.trainer = item.id
-        print(self.trainer)
+    def _choose_equipment(self):
+        pass
 
 
 
