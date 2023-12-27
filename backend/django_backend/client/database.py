@@ -8,10 +8,10 @@ def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_date, advancement, target_weight,
         training_frequency, training_time, training_goal_id, gym_id, current_weight):
     '''
-    Adds new client
+    Adds new client.
 
     Args:
-        login (int): The login of new client
+        login (int): The login of new client.
         password_hash (str): The password hash of new client.
         email (str): The email of new client.
         phone_number (str): The phone number of new client.
@@ -19,7 +19,7 @@ def registration(login, password_hash, email, phone_number,
         surname (str): The surname of the new client.
         gender (str): The gender of the new client.
         height (int): The height of the new client.
-        birth_date (str): The birth date of new client.
+        birth_date (str): The birth date of new client, format: '%Y-%m-%d'.
         advancement (str): The advancement of the new client.
         target_weight (int): The target weight of the new client.
         training_frequency (int): The training frequency of new client.
@@ -59,14 +59,14 @@ def registration(login, password_hash, email, phone_number,
 
 def user_login(login, password):
     '''
-       Check if client login and password are correct
+    Check if client login and password are correct.
 
     Args:
-        login (str): The first number.
-        password (string): The second number.
+        login (str): The login of client.
+        password (string): The password of client.
 
     Returns:
-        models.Client: client if login and password are correct else None
+        models.Client or None: client if login and password are correct, None otherwise.
     '''
     try:
         client = models.Client.objects.get(login=login)
@@ -80,7 +80,13 @@ def user_login(login, password):
 
 def is_busy_login(login):
     '''
-    Returns if client login is busy
+    Check if login of new client is busy.
+
+    Args:
+        login (str): The login of new client.
+
+    Returns:
+        bool: True if login of new client is busy, False otherwise.
     '''
     try:
         client = models.Client.objects.get(login=login)
@@ -90,7 +96,16 @@ def is_busy_login(login):
 
 def training_goals():
     '''
-    Returns list of [training goal id, training goal name]
+    List of training goal.
+
+    Args:
+        None.
+
+    Returns
+        list: [
+            training goal id (int): id of training goal,
+            training goal name (str): name of training goal
+            ] for one training goal.
     '''
     training_goals = models.TrainingGoal.objects.all()
     training_goals = [[goal.training_goal_id, goal.name] for goal in training_goals]
@@ -98,14 +113,43 @@ def training_goals():
 
 def standard_gym_ticket_offer():
     '''
-    Returns list of
-    [gym ticket offer id, gym ticket offer type ('Dniowy', 'Wejściowy'), gym ticket offer price, gym ticket offer duration]
+    List of standard gym ticket offer.
+
+    Args:
+        None.
+
+    Returns
+        list: [
+            gym ticket offer id (int): id of gym ticket,
+            gym ticket offer type (str): type of gym ticket, 'Dniowy', 'Wejściowy',
+            gym ticket offer price (float): price of gym ticket,
+            gym ticket offer duration (int): duration of gym ticket
+            ] for one gym ticket.
     '''
     gym_tickets = models.GymTicketOffer.objects.all()
     gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price, ticket.duration] for ticket in gym_tickets]
     return gym_tickets
 
 def gym_ticket_offer_with_discount():
+    '''
+    List of gym ticket offer with discount.
+
+    Args:
+        None.
+
+    Returns
+        list: [
+            gym ticket offer id (int): id of gym ticket,
+            discount id (int): id of discount,
+            gym ticket offer type (str): type of gym ticket, 'Dniowy', 'Wejściowy',
+            discount name (str): name of discount,
+            discount percentages (int): percentages of discount,
+            price before discount (int): price before discount,
+            price after discount (float): price after discount,
+            discount stop date (str): date when discount ends, format: '%Y-%m-%d',
+            gym ticket offer duration (int): duration of gym ticket
+            ] for one gym ticket.
+    '''
     discounts = models.Discount.objects.all()
     tickets = []
     for discount in discounts:
@@ -113,21 +157,65 @@ def gym_ticket_offer_with_discount():
             continue
         ticket = discount.gym_ticket_offer
         price_after_discount = dc.calcucate_price_after_discount(ticket.price, discount.discount_percentages)
+        # todo date in string
         tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, discount.stop_date, ticket.duration])
     return tickets
 
 def get_gyms_list():
+    '''
+    List of gyms.
+
+    Args:
+        None.
+
+    Returns:
+        list: [
+            gym id (int): id of gym,
+            gym city (str): city of gym,
+            gym street (str): street of gym,
+            gym house number (str): house number of gym
+            ] for one gym.
+    '''
+    # todo sprawdź number
     gyms = models.Gym.objects.all()
     gyms = [[gym.gym_id, gym.name, gym.city, gym.street, gym.house_number] for gym in gyms]
     return gyms
 
 def change_default_gym_client(client_id, gym_id):
+    '''
+    Changes default gym of client.
+
+    Args:
+        client_id (int): The id of client.
+        gym_id (int): The id of new default gym.
+
+    Returns:
+        None
+    '''
     client = models.Client.objects.get(client_id=client_id)
     new_default_gym = models.Gym.objects.get(gym_id=gym_id)
     client.gym = new_default_gym
     client.save()
 
 def get_ordered_classes_client(client_id, start_date):
+    '''
+    List of client's ordered classes during one week
+
+    Args:
+        client_id (int): The id of client.
+        start_date (string): The fisrt day of week, format: '%Y-%m-%d'.
+
+    Returns:
+        list: [
+            ordered classe id (int): id of ordered classe,
+            ordered classe date (str): date of ordered classe, format: '%Y-%m-%d',
+            ordered classe start time (str): hour when oredered classe starts,
+            ordered classe name (str): name of ordered classe,
+            trainer name (str): first name of trainer,
+            trainer surname (str): surname of trainer,
+            is default gym (bool): True if is default gym, False otherwise
+            ] for one ordered classe
+    '''
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = end_date = start_date + timedelta(days=7)
     classes = models.OrderedSchedule.objects.filter(
@@ -141,13 +229,28 @@ def get_ordered_classes_client(client_id, start_date):
         classes_list.append([classe.ordered_schedule_id, classe.schedule_date, classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
     return classes_list
 
-def get_trening_history(client_id):
-    trenings = models.GymVisit.objects.filter(client_user__client_id=client_id)
-    trening_list = []
-    for trening in trenings:
-        start_date = trening.entry_time
-        end_date = trening.departure_time
-        if not end_date:    # jeśli trening jeszcze się nie skończył
+def get_training_history(client_id):
+    '''
+    List of client's training history
+
+    Args:
+        client_id (int): The id of client.
+
+    Returns:
+        list: [
+            training id (int),
+            start date (str): date when training started, format: '%Y-%m-%d',
+            end date (str): date when training ended, format: '%Y-%m-%d',
+            time (int): training time in seconds,
+            calories (int): calories burned during training
+            ] for one training
+    '''
+    trainings = models.GymVisit.objects.filter(client_user__client_id=client_id)
+    training_list = []
+    for training in trainings:
+        start_date = training.entry_time
+        end_date = training.departure_time
+        if not end_date:    # if training is not over yet
             continue
         exercises = models.ExerciseHistory.objects.filter(
             client__client_id=client_id,
@@ -160,10 +263,30 @@ def get_trening_history(client_id):
             # todo początek i koniec oraz czas
             calories += exercise.calories
             time += exercise.duration
-        trening_list.append([trening.gym_visit_id, start_date, end_date, time, calories])
-    return trening_list
+        training_list.append([training.gym_visit_id, start_date, end_date, time, calories])
+    return training_list
 
 def get_training_details(training_id):
+    '''
+    List of details of client's training history
+
+    Args:
+        training_id (int): The id of training.
+
+    Returns:
+        list: {
+            name (str): name of exercise,
+            start date (str): date when exercise started,
+            duration (int): exercise duration,
+            repetitions number (int): repetitions number,
+            calories (int): calories burned during exercise,
+            parameters (list): {
+                name (str): name of parameter,
+                value (int): value of parameter,
+                unit (str): unit of parameter
+            } for one parameter if parameters, [] otherwise
+        } for one exercise
+    '''
     training = models.GymVisit.objects.get(gym_visit_id=training_id)
     exercises = models.ExerciseHistory.objects.filter(
             client__client_id=training.client_user.client_id,
@@ -187,6 +310,24 @@ def get_training_details(training_id):
     return exercises_list
 
 def get_gym_ticket_client(client_id):
+    '''
+    List of client's gym tickets history
+
+    Args:
+        client_id (int): The id of client.
+
+    Returns:
+        list: {
+            id (int): id of gym ticket history,
+            ticket_name (str): name of gym ticket,
+            type (str): type of gym ticket, 'Dniowy', 'Wejściowy',
+            duration (int): duration of gym ticket,
+            status (bool): True if ticket is valid, False if ticket is invalid, None if ticket is inactive
+            discount_name (str): name of discount if discount
+            discount (int): percentages of discount,
+            price (float): ends price
+        } for one gym ticket
+    '''
     tickets = models.GymTicketHistory.objects.filter(client_id=client_id)
     tickets_list = []
     for ticket in tickets:
@@ -208,6 +349,28 @@ def get_gym_ticket_client(client_id):
 
 
 def gym_ticket_details(ticket_id):
+    '''
+    Details of client's gym tickets history.
+
+    Args:
+        ticket_id (int): The id of gym ticket history.
+
+    Returns:
+        dict: {
+            ticket_name (str): name of gym ticket,
+            type (str): name of gym ticket,
+            duration (int): duration of gym ticket,
+            status (bool): True if ticket is valid, False if ticket is invalid, None if ticket is inactive,
+            price_before (int): standard price of gym ticket,
+            activation_date (str): activation date of gym ticket, format: '%Y-%m-%d',
+            discount_name (str): name of discount if discount,
+            discount (int): percentages of discount if discount,
+            price_after (float): price after discount if discount,
+            days_to_end (int): days to gym ticket ends if ticket is valid and type is 'Dniowy',
+            end_date (str): date when gym ticket ends if ticket is not inactive and type is 'Dniowy',
+            visits_to_end (int): number of avaible visits of gym ticket if ticket is valid and type is 'Wejściowy'
+        }.
+    '''
     # todo refactorization of this and up function
     ticket = models.GymTicketHistory.objects.get(gym_ticket_history_id=ticket_id)
     client_id = ticket.client.client_id
@@ -227,6 +390,7 @@ def gym_ticket_details(ticket_id):
             'discount': discount,
             'price_after': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)
             })
+    # to do end_date when type is 'Dniowy' and status == False
     if status:
         if ticket.gym_ticket_offer.type == "Dniowy":
             end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
@@ -239,9 +403,34 @@ def gym_ticket_details(ticket_id):
     return item
 
 def get_client_data(client_id):
+    '''
+    Data of client.
+
+    Args:
+        client_id (int): The id of client.
+
+    Returns:
+        dict: {
+        login (str): login of client
+        email (str): email of client,
+        phone_number (str): phone number of client,
+        name (str): name of client,
+        surname (str): surname of client,
+        gender (str): gender of client,
+        height (int): height of client,
+        birth_year (str): birth date of client, format: '%Y-%m-%d',
+        advancement (str): advancement of client,
+        target_weight (int): target weight of client,
+        training_frequency (int): standard training frequency of client,
+        training_time (int): standard training time of client,
+        training_goal (str): training goal's  name of client,
+        gym (str): default gym's name of client,
+        current_weight (int): current weight of client if client has current weight
+        }.
+    '''
     client = models.Client.objects.get(client_id=client_id)
     # latest weight
-    lastest = models.ClientDataHistory.objects.filter(client_id=1).order_by('-measurement_date').first()
+    lastest = models.ClientDataHistory.objects.filter(client_id=1).order_by('measurement_date').first()
     current_weight = lastest.weight if lastest else None
     client_data = {
         'login': client.login,
@@ -263,11 +452,36 @@ def get_client_data(client_id):
     return client_data
 
 def get_trainer_by_gym(gym_id):
+    '''
+    List of traniners of gym.
+
+    Args:
+        gym_id (int): The id of gym.
+
+    Returns
+        list: [
+            trainer id (int): id of trainer,
+            trainer name (str): fisrt name of trainer,
+            trainer surname (str): surname of trainer
+            ] for one trainer.
+    '''
     trainers = models.Employee.objects.filter(gym_id=gym_id, type='trener')
     trainers = [[trainer.employee_id, trainer.name, trainer.surname] for trainer in trainers]
     return trainers
 
 def get_gym_classes(gym_id):
+    '''
+    List of gym classes of gym.
+
+    Args:
+        gym_id (int): The id of gym.
+
+    Returns
+        list: [
+            gym classe id (int): id of gym classe,
+            gym classe name (str): name of classe
+            ] for one gym classe.
+    '''
     week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
     gym_classes = [classe.gym_classe for classe in week_classes]
     id_list = []
@@ -280,6 +494,23 @@ def get_gym_classes(gym_id):
     return gym_classe_list
 
 def get_free_trainings(trainer_id, start_date, client_id):
+    '''
+    List of free individual trainings of trainer in one week.
+
+    Args:
+        trainer_id (int): The id of trainer.
+        start_date (str): First day of week.
+        client_id (int): The id of client.
+
+    Returns
+        list: [
+            training id (int): id of training,
+            training name (str): name of training,
+            day (str): date of training,
+            start time (str): hours when training starts,
+            collision (bool): True if is collision, False otherwise
+            ] for one gym classe.
+    '''
     week_classes = models.WeekSchedule.objects.filter(trainer__employee_id=trainer_id)
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Monday":
@@ -311,6 +542,17 @@ def get_free_trainings(trainer_id, start_date, client_id):
     return classes_list
 
 def check_collision(client_id, week_classe, date):
+    '''
+    Check if is collision.
+
+    Args:
+        client_id (int): The id of client.
+        week_classe (int): id of gym classe what will be ordered
+        date (str): the date when will be the gym classe, format: '%Y-%m-%d %H:%M'
+
+    Returns
+        bool: True if is collision, False otherwise
+    '''
     classes = models.OrderedSchedule.objects.filter(schedule_date=date, client_user__client_id=client_id)
     if not classes:
         return False
