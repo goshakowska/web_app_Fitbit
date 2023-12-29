@@ -27,7 +27,6 @@ class Client(models.Model):
     gym = models.ForeignKey('Gym', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'client'
 
 
@@ -39,7 +38,6 @@ class ClientDataHistory(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'client_data_history'
 
 
@@ -48,7 +46,6 @@ class ClientIllness(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'client_illness'
         unique_together = (('illness', 'client'),)
 
@@ -62,7 +59,6 @@ class Discount(models.Model):
     gym_ticket_offer = models.OneToOneField('GymTicketOffer', models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'discount'
 
 
@@ -81,7 +77,6 @@ class Employee(models.Model):
     locker_id = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'employee'
 
 
@@ -90,7 +85,6 @@ class Equipment(models.Model):
     name = models.CharField(max_length=40)
 
     class Meta:
-        managed = False
         db_table = 'equipment'
 
 
@@ -106,7 +100,6 @@ class Exercise(models.Model):
     equipment = models.ForeignKey(Equipment, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'exercise'
 
 
@@ -123,7 +116,6 @@ class ExerciseHistory(models.Model):
     calories = models.BigIntegerField()
 
     class Meta:
-        managed = False
         db_table = 'exercise_history'
 
 
@@ -134,7 +126,6 @@ class ExerciseHistoryParamValue(models.Model):
     exercise_history = models.ForeignKey(ExerciseHistory, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'exercise_history_param_value'
 
 
@@ -143,7 +134,6 @@ class ExerciseIllness(models.Model):
     illness_illness = models.ForeignKey('Illness', models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'exercise_illness'
         unique_together = (('exercise_exercise', 'illness_illness'),)
 
@@ -154,7 +144,6 @@ class ExercisePlan(models.Model):
     done = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'exercise_plan'
 
 
@@ -168,7 +157,6 @@ class ExercisePlanPosition(models.Model):
     exercise_plan = models.ForeignKey(ExercisePlan, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'exercise_plan_position'
 
 
@@ -179,7 +167,6 @@ class ExercisePositionValue(models.Model):
     exercise_plan_position = models.ForeignKey(ExercisePlanPosition, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'exercise_position_value'
 
 
@@ -188,7 +175,6 @@ class FavouriteExercises(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'favourite_exercises'
         unique_together = (('exercise', 'client'),)
 
@@ -218,7 +204,6 @@ class Gym(models.Model):
     sunday_closing = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'gym'
 
 
@@ -231,7 +216,6 @@ class GymClasse(models.Model):
     description = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'gym_classe'
 
 
@@ -242,7 +226,6 @@ class GymEquipment(models.Model):
     purchase_date = models.DateField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'gym_equipment'
 
 
@@ -255,7 +238,6 @@ class GymTicketHistory(models.Model):
     client = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'gym_ticket_history'
 
 
@@ -267,7 +249,6 @@ class GymTicketOffer(models.Model):
     type = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
         db_table = 'gym_ticket_offer'
 
 
@@ -280,7 +261,6 @@ class GymVisit(models.Model):
     locker_locker = models.ForeignKey('Locker', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'gym_visit'
 
 
@@ -289,7 +269,6 @@ class Illness(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'illness'
 
 
@@ -299,7 +278,6 @@ class Locker(models.Model):
     gym = models.ForeignKey(Gym, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'locker'
 
 
@@ -308,7 +286,6 @@ class MuscleGroups(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        managed = False
         db_table = 'muscle_groups'
 
 
@@ -320,7 +297,6 @@ class OrderedSchedule(models.Model):
     client_user = models.ForeignKey(Client, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'ordered_schedule'
 
 
@@ -330,7 +306,6 @@ class Parameter(models.Model):
     units = models.CharField(max_length=10)
 
     class Meta:
-        managed = False
         db_table = 'parameter'
 
 
@@ -341,7 +316,6 @@ class Rating(models.Model):
     ordered_schedule = models.ForeignKey(OrderedSchedule, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'rating'
 
 
@@ -352,7 +326,6 @@ class StandardParameterValue(models.Model):
     exercise = models.ForeignKey(Exercise, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'standard_parameter_value'
 
 
@@ -361,7 +334,6 @@ class TrainingGoal(models.Model):
     name = models.CharField(max_length=40)
 
     class Meta:
-        managed = False
         db_table = 'training_goal'
 
 
@@ -373,5 +345,4 @@ class WeekSchedule(models.Model):
     trainer = models.ForeignKey(Employee, models.DO_NOTHING)
 
     class Meta:
-        managed = False
         db_table = 'week_schedule'

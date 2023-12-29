@@ -1,5 +1,5 @@
 import pytest
-import backend.django_backend.client.password as passw
+import client.password as passw
 
 
 def test_password_shorter_than_8():
