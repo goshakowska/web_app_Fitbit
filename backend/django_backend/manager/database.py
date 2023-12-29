@@ -11,6 +11,12 @@ import base64
 
 
 def ticket_popularity_week():
+    """
+    Generates a bar chart depicting the popularity of gym ticket types over the last week.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
     ticket_offer = m.GymTicketOffer.objects.all()
     current_week = _current_week()
     # dates for last week
@@ -65,6 +71,12 @@ def ticket_popularity_week():
 
 
 def discount_popularity_week():
+    """
+    Generates a bar chart depicting the popularity of gym ticket discounts over the last week.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
     current_week = _current_week()
     # dates for last week
     day = current_week[0] - timedelta(days=7)
@@ -107,6 +119,12 @@ def discount_popularity_week():
 
 
 def age_range():
+    """
+    Generates a bar chart depicting the distribution of clients in different age ranges.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
     age_ranges = [
         (0, 17, '<18'),
         (18, 24, '18-24'),
