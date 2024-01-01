@@ -244,6 +244,35 @@ def get_ordered_classes_client(client_id, start_date):
         classes_list.append([classe.ordered_schedule_id, dc.str_date(classe.schedule_date), classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
     return classes_list
 
+def get_gym_classe_details(classe_id):
+    """
+    Retrieve details of a gym class based on the provided class_id.
+
+    Parameters:
+    - class_id (int): The unique identifier of the gym class.
+
+    Returns:
+    list: A list containing details of the gym class, including class name, trainer name,
+          trainer surname, gym city, gym street, gym house number, gym classe date,
+          start time, and week day.
+    """
+    try:
+        classe = models.OrderedSchedule.objects.get(ordered_schedule_id=classe_id)
+        details = [
+            classe.week_schedule.gym_classe.name,
+            classe.week_schedule.trainer.name,
+            classe.week_schedule.trainer.surname,
+            classe.week_schedule.trainer.gym.city,
+            classe.week_schedule.trainer.gym.street,
+            classe.week_schedule.trainer.gym.house_number,
+            dc.str_date(classe.schedule_date),
+            classe.week_schedule.start_time,
+            classe.week_schedule.week_day
+            ]
+        return details
+    except models.OrderedSchedule.DoesNotExist:
+        return None
+
 def get_training_history(client_id):
     '''
     List of client's training history
