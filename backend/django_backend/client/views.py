@@ -39,9 +39,9 @@ def send_email(email):
     subject = 'Rejestracja'
     message = "Dzień dobry!\n"
     message += "Dziękujemy za rejestrację w serwisie FitBit. "
-    message += "Twoje konto jest już aktywne. "
-    message += "Zachęcamy do zapisania sę na swoje pierwsze zajęcia już dziś, ponieważ "
-    message += "jak mówi znanae przysłowie: Nie odkładaj na jutro tego, co możesz zrobić dziś!\n"
+    message += "Twoje konto jest już aktywne.\n"
+    message += "Zachęcamy do zapisania się na swoje pierwsze zajęcia już dziś, ponieważ "
+    message += "jak mówi znane przysłowie: Nie odkładaj na jutro tego, co możesz zrobić dziś!\n"
     message += "Życzymy sukcesów i satysfakcji ze swoich wyników,\n"
     message += "Zespół FitBit\n"
     from_email = 'health.strength.power@gmail.com'
