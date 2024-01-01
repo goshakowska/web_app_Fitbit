@@ -4,13 +4,17 @@
 /django_backend/trainer/__pycache__
 /django_backend/portier/__pycache__
 /django_backend/manager/__pycache__
+/django_backend/simulation/__pycache__
 
 /django_backend/client/migrations/__pycache__
 /django_backend/trainer/migrations/__pycache__
 /django_backend/portier/migrations/__pycache__
 /django_backend/manager/migrations/__pycache__
 /django_backend/database_models/migrations/__pycache__
+/django_backend/simulation/migrations/__pycache__
 
 /django_backend/database_models/__pycache__
 /django_backend/django_backend/__pycache__
 /django_backend/__pycache__
+
+/__pycache__

@@ -5,11 +5,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 WORKDIR /app/test
 
-COPY requirements.txt .
+COPY backend/django_backend/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY backend/django_backend .
+
+COPY .env .
 
 ENV DJANGO_SETTINGS_MODULE=django_backend.settings_test
 

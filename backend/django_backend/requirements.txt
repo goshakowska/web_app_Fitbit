@@ -4,3 +4,4 @@ cx_Oracle
 djangorestframework
 matplotlib
 pytest
+python-decouple

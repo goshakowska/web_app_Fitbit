@@ -25,3 +25,6 @@ services:
 
     volumes:
       - ./backend/django_backend:/app/backend
+
+    env_file:
+      - .env
