@@ -291,8 +291,8 @@ class MuscleGroups(models.Model):
 
 class OrderedSchedule(models.Model):
     ordered_schedule_id = models.BigIntegerField(primary_key=True)
-    schedule_date = models.DateField()
-    payment_date = models.DateField(blank=True, null=True)
+    schedule_date = models.DateTimeField()
+    payment_date = models.DateTimeField(blank=True, null=True)
     week_schedule = models.ForeignKey('WeekSchedule', models.DO_NOTHING)
     client_user = models.ForeignKey(Client, models.DO_NOTHING)
 

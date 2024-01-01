@@ -501,7 +501,8 @@ def get_free_trainings(trainer_id, start_date, client_id):
         if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
             continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
-        collision = check_collision(client_id, week_classe, day)
+        print('collision')
+        collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
         item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
         classes_list.append(item)
     return classes_list
@@ -566,20 +567,20 @@ def get_gym_opening_hours(gym_id):
         return None
 
 
-def check_collision(client_id, week_classe:models.WeekSchedule, date):
+def check_collision(client_id, week_classe: models.WeekSchedule, date):
     """
-    Check if there is a collision between a gym classe and existing OrderedSchedules for a client on a specified date.
+    Check if there is a collision between a gym class and existing OrderedSchedules for a client on a specified date.
 
     Parameters:
     - client_id (int): The unique identifier of the client.
-    - week_classe (models.WeekSchedule): The gym classe to check for collisions.
+    - week_classe (models.WeekSchedule): The gym class to check for collisions.
     - date (str): The date of the gym class in the format 'YYYY-MM-DD'.
 
     Returns:
     bool: True if there is a collision, False otherwise.
     """
-    classe_date_start = datetime.strptime(date, "%Y-%m-%d")
-    classe_date_stop = classe_date_start + timedelta(1)
+    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    classe_date_stop = classe_date_start + timedelta(days=1)
     classes = models.OrderedSchedule.objects.filter(
         schedule_date__gt=classe_date_start,
         schedule_date__lt=classe_date_stop,
@@ -592,11 +593,13 @@ def check_collision(client_id, week_classe:models.WeekSchedule, date):
     classe_date_start += timedelta(hours=hours, minutes=minutes)
     classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
     for classe in classes:
-        ordered_start = classe.schedule_date
+        ordered_start = classe.schedule_date.replace(tzinfo=timezone.utc)
         ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
         if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
             return True
     return False
+
+
 
 
 
