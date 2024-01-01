@@ -7,6 +7,16 @@ import client.database as database
 
 @csrf_exempt
 def registration(request):
+    """
+    View to handle user registration.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating the success or failure of the registration.
+                      {'login': login} if registration is successful, {'error': 'Invalid request method'} otherwise.
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         login = data.get('login')
@@ -35,6 +45,16 @@ def registration(request):
 
 @csrf_exempt
 def client_login(request):
+    """
+    View to handle client login.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing user login credentials.
+
+    Returns:
+        JsonResponse: A JSON response containing client information if login is successful,
+                      or an error message with status 400 if login fails.
+    """
     data = json.loads(request.body.decode('utf-8'))
     login = data.get('login')
     password = data.get('password')
@@ -47,6 +67,15 @@ def client_login(request):
 
 @csrf_exempt
 def is_busy_login(request):
+    """
+    View to check if a login is already in use.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the login to check.
+
+    Returns:
+        JsonResponse: A JSON response indicating whether the login is in use or not.
+    """
     data = json.loads(request.body.decode('utf-8'))
     login = data.get('login')
     is_busy = database.is_busy_login(login)
@@ -71,26 +100,69 @@ def is_busy_email(request):
 
 @csrf_exempt
 def training_goals(request):
+    """
+    View to retrieve information about training goals.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of training goals.
+    """
     goals = database.training_goals()
     return JsonResponse({'goals': goals})
 
 @csrf_exempt
 def standard_gym_ticket_offer(request):
+    """
+    View to retrieve information about standard gym ticket offers.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of standard gym ticket offers.
+    """
     tickets = database.standard_gym_ticket_offer()
     return JsonResponse({'tickets': tickets})
 
 @csrf_exempt
 def discount_gym_ticket_offer(request):
+    """
+    View to retrieve information about gyms.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of gyms.
+    """
     tickets = database.gym_ticket_offer_with_discount()
     return JsonResponse({'tickets': tickets})
 
 @csrf_exempt
 def gyms_list(request):
+    """
+    Retrieve information about gyms.
+
+    Returns:
+        list: A list of lists containing information about gyms.
+              Each inner list includes [gym_id, name, city, street, house_number].
+    """
     gyms = database.get_gyms_list()
     return JsonResponse({'gyms': gyms})
 
 @csrf_exempt
 def change_default_gym_client(request):
+    """
+    View to change the default gym for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing client_id and gym_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response indicating the completion of the operation.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
     gym_id = data.get('gym_id')
@@ -99,6 +171,15 @@ def change_default_gym_client(request):
 
 @csrf_exempt
 def get_ordered_classes_client(request):
+    """
+    View to retrieve a list of ordered classes for a client within a specified date range.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing client_id and start_date in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of ordered classes.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
     start_date = data.get('start_date')
@@ -124,6 +205,15 @@ def get_gym_classe_details(request):
 
 @csrf_exempt
 def get_trenings_client(request):
+    """
+    View to retrieve the training history for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of training history for the client.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
     trenings = database.get_trening_history(client_id)
@@ -131,6 +221,15 @@ def get_trenings_client(request):
 
 @csrf_exempt
 def get_trening_details(request):
+    """
+    View to retrieve details of a specific training.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing training_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing details of the specified training.
+    """
     data = json.loads(request.body.decode('utf-8'))
     training_id = data.get('training_id')
     details = database.get_training_details(training_id)
@@ -138,6 +237,15 @@ def get_trening_details(request):
 
 @csrf_exempt
 def get_gym_tickets_client_history(request):
+    """
+    View to retrieve the gym ticket history for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing a list of gym ticket history for the client.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
     tickets = database.get_gym_ticket_client(client_id)
@@ -145,6 +253,18 @@ def get_gym_tickets_client_history(request):
 
 @csrf_exempt
 def get_gym_tickets_details(request):
+    """
+    View to retrieve details of a specific gym ticket.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing ticket_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing details of the specified gym ticket.
+
+    Raises:
+        models.GymTicketHistory.DoesNotExist: If the gym ticket with the specified ticket_id does not exist.
+    """
     data = json.loads(request.body.decode('utf-8'))
     ticket_id = data.get('ticket_id')
     details = database.gym_ticket_details(ticket_id)
@@ -152,6 +272,18 @@ def get_gym_tickets_details(request):
 
 @csrf_exempt
 def get_client_data(request):
+    """
+    View to retrieve data for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing information about the client.
+
+    Raises:
+        models.Client.DoesNotExist: If the client with the specified client_id does not exist.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
     client_data = database.get_client_data(client_id)
@@ -159,6 +291,16 @@ def get_client_data(request):
 
 @csrf_exempt
 def get_trainer_by_gym(request):
+    """
+    Get a list of trainers associated with a specific gym.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the JSON data.
+            Requires 'gym_id' in the JSON data.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of trainers.
+    """
     data = json.loads(request.body.decode('utf-8'))
     gym_id = data.get('gym_id')
     trainers = database.get_trainer_by_gym(gym_id)
@@ -166,6 +308,16 @@ def get_trainer_by_gym(request):
 
 @csrf_exempt
 def get_gym_classes(request):
+    """
+    Get a list of gym classes offered by trainers in a specific gym.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the JSON data.
+            Requires 'gym_id' in the JSON data.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of gym classes.
+    """
     data = json.loads(request.body.decode('utf-8'))
     gym_id = data.get('gym_id')
     classes = database.get_gym_classes(gym_id)
@@ -173,6 +325,19 @@ def get_gym_classes(request):
 
 @csrf_exempt
 def get_free_trainings(request):
+    """
+    Get a list of free trainings offered by a specific trainer on a specific date.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the JSON data.
+            Requires 'trainer_id', 'start_date', and 'client_id' in the JSON data.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of free trainings.
+
+    Raises:
+        None
+    """
     data = json.loads(request.body.decode('utf-8'))
     trainer_id = data.get('trainer_id')
     start_date = data.get('start_date')
