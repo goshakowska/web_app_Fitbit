@@ -53,6 +53,23 @@ def is_busy_login(request):
     return JsonResponse({'is_busy': is_busy})
 
 @csrf_exempt
+def is_busy_email(request):
+    """
+    View to check if an email is associated with an existing client in the database.
+
+    Parameters:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    JsonResponse: A JSON response indicating whether the email is associated with an existing client.
+                  {'is_busy': True} if the email is busy, {'is_busy': False} otherwise.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    email = data.get('email')
+    is_busy = database.is_busy_email(email)
+    return JsonResponse({'is_busy': is_busy})
+
+@csrf_exempt
 def training_goals(request):
     goals = database.training_goals()
     return JsonResponse({'goals': goals})
@@ -145,3 +162,20 @@ def get_free_trainings(request):
     client_id = data.get('client_id')
     trainings = database.get_free_trainings(trainer_id, start_date, client_id)
     return JsonResponse({'trainings': trainings})
+
+@csrf_exempt
+def get_gym_opening_hours(request):
+    """
+    View to retrieve the opening hours of a gym based on the provided gym_id.
+
+    Parameters:
+    - request (HttpRequest): The HTTP request object containing the gym_id in the request body.
+
+    Returns:
+    JsonResponse: A JSON response containing the opening hours of the gym.
+                  {'opening_hours': [list of opening hours]}.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    opening_hours = database.get_gym_opening_hours(gym_id)
+    return JsonResponse({'opening_hours': opening_hours})

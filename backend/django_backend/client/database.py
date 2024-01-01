@@ -94,6 +94,22 @@ def is_busy_login(login):
     except models.Client.DoesNotExist:
         return False
 
+def is_busy_email(email):
+    """
+    Check if an email is associated with an existing client in the database.
+
+    Parameters:
+    - email (str): The email address to check.
+
+    Returns:
+    bool: True if the email is associated with an existing client, False otherwise.
+    """
+    try:
+        client = models.Client.objects.get(email=email)
+        return True
+    except models.Client.DoesNotExist:
+        return False
+
 def training_goals():
     '''
     List of training goal.
@@ -514,7 +530,7 @@ def get_free_trainings(trainer_id, start_date, client_id):
     '''
     week_classes = models.WeekSchedule.objects.filter(trainer__employee_id=trainer_id)
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
-    if start_date.strftime('%A') !=  "Monday":
+    if start_date.strftime('%A') !=  "Sunday":
         return
     end_date = end_date = start_date + timedelta(days=7)
     ordered_classes = models.OrderedSchedule.objects.filter(
@@ -522,13 +538,13 @@ def get_free_trainings(trainer_id, start_date, client_id):
     )
     ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
     day_delta = {
-        'poniedziałek': 0,
-        'wtorek': 1,
-        'środa': 2,
-        'czwartek': 3,
-        'piątek': 4,
-        'sobota': 5,
-        'niedziela': 6
+        'poniedziałek': 1,
+        'wtorek': 2,
+        'środa': 3,
+        'czwartek': 4,
+        'piątek': 5,
+        'sobota': 6,
+        'niedziela': 0
     }
     # todo zrób to mądrzej i ładniej
     # todo colisions
@@ -541,6 +557,82 @@ def get_free_trainings(trainer_id, start_date, client_id):
         item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
         classes_list.append(item)
     return classes_list
+
+def get_free_gym_classes(gym_id, start_date, client_id):
+    '''
+    List of free gym classes in one week.
+
+    Args:
+        trainer_id (int): The id of trainer.
+        start_date (str): First day of week.
+        client_id (int): The id of client.
+
+    Returns
+        list: [
+            training id (int): id of training,
+            training name (str): name of training,
+            day (str): date of training,
+            start time (str): hours when training starts,
+            collision (bool): True if is collision, False otherwise
+            ] for one gym classe.
+    '''
+    week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
+    start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    if start_date.strftime('%A') !=  "Sunday":
+        return
+    end_date = end_date = start_date + timedelta(days=7)
+    ordered_classes = models.OrderedSchedule.objects.filter(
+        schedule_date__range=[start_date, end_date]
+    )
+    ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
+    day_delta = {
+        'poniedziałek': 1,
+        'wtorek': 2,
+        'środa': 3,
+        'czwartek': 4,
+        'piątek': 5,
+        'sobota': 6,
+        'niedziela': 0
+    }
+    # todo zrób to mądrzej i ładniej
+    # todo colisions
+    classes_list = []
+    for week_classe in week_classes:
+        if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
+            continue
+        day = start_date + timedelta(days=day_delta[week_classe.week_day])
+        collision = check_collision(client_id, week_classe, day)
+        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
+        classes_list.append(item)
+    return classes_list
+
+def get_gym_opening_hours(gym_id):
+    """
+    Retrieve the opening hours of a gym based on the provided gym_id.
+
+    Parameters:
+    - gym_id (int): The unique identifier of the gym.
+
+    Returns:
+    list or None: A list containing strings representing the opening hours for each day of the week
+                  in the format 'opening-closing'. The list order corresponds to Sunday to Saturday.
+                  Returns None if no gym is found with the specified gym_id.
+    """
+    try:
+        gym = models.Gym.objects.get(gym_id=gym_id)
+        opening_hours = [
+            f'{gym.sunday_opening}-{gym.sunday_closing}',
+            f'{gym.monday_opening}-{gym.monday_closing}',
+            f'{gym.tuesday_opening}-{gym.tuesday_closing}',
+            f'{gym.wednesday_opening}-{gym.wednesday_closing}',
+            f'{gym.thursday_opening}-{gym.thursday_closing}',
+            f'{gym.friday_opening}-{gym.friday_closing}',
+            f'{gym.saturday_opening}-{gym.saturday_closing}'
+        ]
+        return opening_hours
+    except models.Gym.DoesNotExist:
+        return None
+
 
 def check_collision(client_id, week_classe, date):
     '''
@@ -564,7 +656,7 @@ def check_collision(client_id, week_classe, date):
 
 
 
-def check_if_ticket_active(ticket, client_id):
+def check_if_ticket_active(ticket, client_id):      # podmienić funkcję
     # check if still active
     if ticket.gym_ticket_offer.type == "Dniowy":
         # ticket is for time

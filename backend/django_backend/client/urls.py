@@ -6,6 +6,7 @@ urlpatterns = [
     path('registration/', views.registration),
     path('client_login/', views.client_login),
     path('is_busy_login/', views.is_busy_login),
+    path('is_busy_email/', views.is_busy_email),
     path('training_goals/', views.training_goals),
     path('standard_gym_ticket_offer/', views.standard_gym_ticket_offer),
     path('discount_gym_ticket_offer/', views.discount_gym_ticket_offer),
@@ -20,4 +21,5 @@ urlpatterns = [
     path('gym_trainers/', views.get_trainer_by_gym),
     path('gym_classes/', views.get_gym_classes),
     path('free_trainings/', views.get_free_trainings),
+    path('gym_opening_hours/', views.get_gym_opening_hours),
 ]
