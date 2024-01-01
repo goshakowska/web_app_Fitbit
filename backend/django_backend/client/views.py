@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.hashers import make_password
 import client.database as database
+from django.core.mail import send_mail
 
 
 @csrf_exempt
@@ -39,9 +40,25 @@ def registration(request):
         database.registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_year, advancement, target_weight,
         training_frequency, training_time, training_goal_id, gym_id, current_weight)
+        send_email(email)
         return JsonResponse({'login': login})
     else:
         return JsonResponse({'error': 'Invalid request method'})
+
+def send_email(email):
+    subject = 'Rejestracja'
+    message = "Dzień dobry!\n"
+    message += "Dziękujemy za rejestrację w serwisie FitBit. "
+    message += "Twoje konto jest już aktywne.\n"
+    message += "Zachęcamy do zapisania się na swoje pierwsze zajęcia już dziś, ponieważ "
+    message += "jak mówi znane przysłowie: Nie odkładaj na jutro tego, co możesz zrobić dziś!\n"
+    message += "Życzymy sukcesów i satysfakcji ze swoich wyników,\n"
+    message += "Zespół FitBit\n"
+    from_email = 'health.strength.power@gmail.com'
+    recipient_list = [email]
+
+    send_mail(subject, message, from_email, recipient_list)
+
 
 @csrf_exempt
 def client_login(request):

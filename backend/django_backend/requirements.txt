@@ -3,3 +3,5 @@ django-cors-headers
 cx_Oracle
 djangorestframework
 matplotlib
+pytest
+python-decouple

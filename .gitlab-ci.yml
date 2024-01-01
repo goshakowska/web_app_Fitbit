@@ -1,25 +1,18 @@
-stages:         
+stages:
   - test
 
 variables:
-  IMAGE: mcr.microsoft.com/windows/servercore:ltsc2019
+  DJANGO_SETTINGS_MODULE: "django_backend.settings_test"
 
-before_script:
-  # Set up the Python environment
-  - apt-get update -qy
-  - apt-get install -y python3 python3-pip
-  - apt install python3.11-venv -qy
-  - python3 -m venv venv
-  - source venv/bin/activate
-  - pip install pytest
-
-pytest-test-job:
-  stage: test    
+django-test-job:
+  stage: test
+  image: python:3.8.13-bullseye
   script:
-    - cd backend
-    - pytest test_trial_file.py
-  image:
-    name: $DOCKER_IMAGE
-    entrypoint: [""]
-
-
+    - cd backend/django_backend
+    - pip install --no-cache-dir -r requirements.txt
+    - export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+    - export DATABASE_PASSWORD='test'
+    - export EMAIL_HOST_PASSWORD='test'
+    - python manage.py makemigrations database_models
+    - python manage.py migrate
+    - python manage.py test
