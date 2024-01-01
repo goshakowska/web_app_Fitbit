@@ -663,25 +663,38 @@ def get_gym_opening_hours(gym_id):
         return None
 
 
-def check_collision(client_id, week_classe, date):
-    '''
-    Check if is collision.
+def check_collision(client_id, week_classe:models.WeekSchedule, date):
+    """
+    Check if there is a collision between a gym classe and existing OrderedSchedules for a client on a specified date.
 
-    Args:
-        client_id (int): The id of client.
-        week_classe (int): id of gym classe what will be ordered
-        date (str): the date when will be the gym classe, format: '%Y-%m-%d %H:%M'
+    Parameters:
+    - client_id (int): The unique identifier of the client.
+    - week_classe (models.WeekSchedule): The WeekSchedule to check for collisions.
+    - date (str): The date of the gym class in the format 'YYYY-MM-DD'.
 
-    Returns
-        bool: True if is collision, False otherwise
-    '''
-    classes = models.OrderedSchedule.objects.filter(schedule_date=date, client_user__client_id=client_id)
+    Returns:
+    bool: True if there is a collision, False otherwise.
+    """
+    classe_date_start = datetime.strptime(date, "%Y-%m-%d")
+    classe_date_stop = classe_date_start + timedelta(1)
+    classes = models.OrderedSchedule.objects.filter(
+        schedule_date__gt=classe_date_start,
+        schedule_date__lt=classe_date_stop,
+        client_user__client_id=client_id
+    )
     if not classes:
         return False
-    # date_str = datetime.strptime(date, '%Y-%m-%d')
-    # date_another = datetime.strptime(f'{date_str} {week_classe.start_time}', '%Y-%m-%d %H:%M')
+    hours = int(week_classe.start_time[0:2])
+    minutes = int(week_classe.start_time[3:5])
+    classe_date_start += timedelta(hours=hours, minutes=minutes)
+    classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
     for classe in classes:
-        return True
+        ordered_start = classe.schedule_date
+        ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
+        if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
+            return True
+    return False
+
 
 
 
