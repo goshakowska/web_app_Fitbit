@@ -403,3 +403,45 @@ def get_gym_opening_hours(request):
     gym_id = data.get('gym_id')
     opening_hours = database.get_gym_opening_hours(gym_id)
     return JsonResponse({'opening_hours': opening_hours})
+
+@csrf_exempt
+def check_client_can_buy_gym_ticket(request):
+    """
+    Check if a client is eligible to buy a specific type of gym ticket.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating whether the client can buy the ticket.
+                      {'can_buy': True} if eligible, {'can_buy': False} otherwise.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    client_id = data.get('client_id')
+    ticket_type = data.get('type')
+    can_buy = database.check_client_can_buy_gym_ticket(client_id, ticket_type)
+    return JsonResponse({'can_buy': can_buy})
+
+@csrf_exempt
+def delete_gym_ticket(request):
+    """
+    Delete a gym ticket by its ID, only if it has not been activated.
+
+    Args:
+        request (HttpRequest): Django HTTP request object containing the JSON payload.
+            The JSON payload should include the 'gym_ticket_id' key with the ID of the gym ticket to be deleted.
+
+    Returns:
+        JsonResponse: JSON response indicating the result of the deletion operation.
+            If the deletion is successful, the response will contain {'result': 'success'}.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    gym_ticket_id = data.get('gym_ticket_id')
+
+    try:
+        database.delete_gym_ticket(gym_ticket_id)
+        response_data = {'result': 'success'}
+    except database.NotActivationDate:
+        response_data = {'result': 'error', 'message': 'Cannot delete an activated gym ticket.'}
+
+    return JsonResponse(response_data)

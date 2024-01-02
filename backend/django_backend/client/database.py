@@ -619,6 +619,49 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date):
             return True
     return False
 
+def check_client_can_buy_gym_ticket(client_id, ticket_type):
+    """
+    Check if a client is eligible to buy a specific type of gym ticket.
+
+    Args:
+        client_id (int): The ID of the client.
+        ticket_type (str): The type of gym ticket.
+
+    Returns:
+        bool: True if the client can buy the ticket, False otherwise.
+    """
+    try:
+        ticket = models.GymTicketHistory.objects.get(
+            client__client_id=client_id,
+            gym_ticket_offer__type=ticket_type,
+            activation_date=None)
+        return False
+    except:
+        return True
+
+class NotActivationDate(Exception):
+    pass
+
+
+def delete_gym_ticket(gym_ticket_id):
+    """
+    Delete a gym ticket by its ID, only if it has not been activated.
+
+    Args:
+        gym_ticket_id (int): The ID of the gym ticket to be deleted.
+
+    Raises:
+        NotActivationDate: If the gym ticket has been activated and cannot be deleted.
+        models.GymTicketHistory.DoesNotExist: If the gym ticket with the specified gym_ticket_id does not exist.
+    """
+    gym_ticket = models.GymTicketHistory.objects.get(gym_ticket_history_id=gym_ticket_id)
+    if gym_ticket.activation_date:
+        raise NotActivationDate
+    else:
+        gym_ticket.delete()
+
+
+
 
 
 
