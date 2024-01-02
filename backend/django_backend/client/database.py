@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
 import client.discount_calculate as dc
 from django.utils import timezone
+from collections import Counter
 
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_date, advancement, target_weight,
@@ -482,7 +483,7 @@ def get_free_trainings(trainer_id, start_date, client_id):
         return
     end_date = end_date = start_date + timedelta(days=7)
     ordered_classes = models.OrderedSchedule.objects.filter(
-        schedule_date__range=[start_date, end_date]
+        schedule_date__range=[start_date, end_date],
     )
     ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
     day_delta = {
@@ -495,7 +496,6 @@ def get_free_trainings(trainer_id, start_date, client_id):
         'niedziela': 0
     }
     # todo zrób to mądrzej i ładniej
-    # todo colisions
     classes_list = []
     for week_classe in week_classes:
         if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
@@ -508,7 +508,17 @@ def get_free_trainings(trainer_id, start_date, client_id):
     return classes_list
 
 def get_free_gym_classes(gym_id, start_date, client_id):
+    """
+    Get a list of free gym classes in a given gym starting from a specific date.
 
+    Args:
+        gym_id (int): The ID of the gym.
+        start_date (str): The start date in the format '%Y-%m-%d'.
+        client_id (int): The ID of the client.
+
+    Returns:
+        List: A list of dictionaries representing free gym classes.
+    """
     week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
@@ -518,6 +528,8 @@ def get_free_gym_classes(gym_id, start_date, client_id):
         schedule_date__range=[start_date, end_date]
     )
     ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
+    ordered_classes_counter = Counter(ordered_classes)
+    print(ordered_classes_counter)
     day_delta = {
         'poniedziałek': 1,
         'wtorek': 2,
@@ -527,15 +539,23 @@ def get_free_gym_classes(gym_id, start_date, client_id):
         'sobota': 6,
         'niedziela': 0
     }
-    # todo zrób to mądrzej i ładniej
-    # todo colisions
+    # todo zrób to mądrzej i ładniej, najlepiej nowa funkcja do obliczania daty
     classes_list = []
     for week_classe in week_classes:
-        if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
+        if week_classe.gym_classe.gym_classe_id == 2:
+            continue
+        elif ordered_classes_counter.get(week_classe.week_schedule_id, 0) == week_classe.gym_classe.max_people: # max client number
             continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
-        collision = check_collision(client_id, week_classe, day)
-        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
+        collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
+        item = [
+            week_classe.week_schedule_id,
+            week_classe.gym_classe.name,
+            week_classe.trainer.name,
+            week_classe.trainer.surname,
+            dc.str_date(day),
+            week_classe.start_time,
+            collision]
         classes_list.append(item)
     return classes_list
 

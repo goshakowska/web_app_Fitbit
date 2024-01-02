@@ -22,5 +22,6 @@ urlpatterns = [
     path('gym_trainers/', views.get_trainer_by_gym),
     path('gym_classes/', views.get_gym_classes),
     path('free_trainings/', views.get_free_trainings),
+    path('free_gym_classes/', views.get_free_gym_classes),
     path('gym_opening_hours/', views.get_gym_opening_hours),
 ]

@@ -46,6 +46,15 @@ def registration(request):
         return JsonResponse({'error': 'Invalid request method'})
 
 def send_email(email):
+    """
+    Send a registration confirmation email.
+
+    Args:
+        email (str): The email address of the recipient.
+
+    Returns:
+        None
+    """
     subject = 'Rejestracja'
     message = "Dzień dobry!\n"
     message += "Dziękujemy za rejestrację w serwisie FitBit. "
@@ -351,9 +360,6 @@ def get_free_trainings(request):
 
     Returns:
         JsonResponse: A JSON response containing the list of free trainings.
-
-    Raises:
-        None
     """
     data = json.loads(request.body.decode('utf-8'))
     trainer_id = data.get('trainer_id')
@@ -361,6 +367,25 @@ def get_free_trainings(request):
     client_id = data.get('client_id')
     trainings = database.get_free_trainings(trainer_id, start_date, client_id)
     return JsonResponse({'trainings': trainings})
+
+@csrf_exempt
+def get_free_gym_classes(request):
+    """
+    Get a list of free gym classes offered by a specific gym on a specific date.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the JSON data.
+            Requires 'gym_id', 'start_date', and 'client_id' in the JSON data.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of free gym classes.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    start_date = data.get('start_date')
+    client_id = data.get('client_id')
+    classes = database.get_free_gym_classes(gym_id, start_date, client_id)
+    return JsonResponse({'classes': classes})
 
 @csrf_exempt
 def get_gym_opening_hours(request):
