@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from trainer.database import _current_week
 from random import randint
 import matplotlib.pyplot as plt
+import matplotlib
 import io
 import base64
 
@@ -40,6 +41,7 @@ def ticket_popularity_week():
 
 
     # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
     bar_width = 0.1
@@ -97,6 +99,7 @@ def discount_popularity_week():
     print(data_count)
 
     # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
     bar_width = 0.2
@@ -149,6 +152,7 @@ def age_range():
     ).values('age_group').annotate(count_clients=Count('client_id')).order_by('age_group')
 
     # Plot
+    matplotlib.use('Agg')   # non-interactive mode
     age = []
     count = []
     for row in age_counts:
