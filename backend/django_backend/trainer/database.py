@@ -2,6 +2,8 @@ from django.db.models import F, ExpressionWrapper, fields, Value
 from django.utils import timezone
 import database_models.models as m
 from datetime import datetime, timedelta
+from dateutil.parser import parse
+import calendar
 
 
 def _current_week():
@@ -36,6 +38,45 @@ def _add_minutes(start, minutes):
     stop = stop.strftime("%H:%M")   # convert to string
     return stop
 
+def _convert_to_datetime(week, start_time):
+    # map week_day_name to number
+    day_mapping = {day: idx for idx, day in enumerate(calendar.day_name)}
+    # map polish names to english
+    convert_polish = {
+        "PONIEDZIAŁEK": "Monday",
+        "WTOREK": "Tuesday",
+        "ŚRODA": "Wednesday",
+        "CZWARTEK": "Thursday",
+        "PIĄTEK": "Friday",
+        "SOBOTA": "Saturday",
+        "NIEDZIELA": "Sunday"
+    }
+
+    convert_week = convert_polish[week.upper()]
+
+    today = datetime.now()
+
+    current_week_range = _current_week()
+
+    # difference beetwen current week day and desired week day
+    current_day_number = today.weekday()
+    target_day_number = day_mapping[convert_week]
+    day_difference = (target_day_number - current_day_number) % 7
+
+    target_date = today + timedelta(days=day_difference)
+
+    if current_week_range[0] <= target_date.date() <= current_week_range[1]:
+        # if desired week day is in future
+        target_datetime_str = f'{target_date.strftime("%Y-%m-%d")} {start_time}'
+        target_datetime = parse(target_datetime_str)
+        return target_datetime
+    else:
+        # if desired week day is in past
+        target_date = target_date - timedelta(days=7)
+        target_datetime_str = f'{target_date.strftime("%Y-%m-%d")} {start_time}'
+        target_datetime = parse(target_datetime_str)
+        return target_datetime
+
 
 def get_classes_for_trainer(trainer_id):
     """
@@ -63,27 +104,31 @@ def get_classes_for_trainer(trainer_id):
             ).first()
             # if it is ordered add client's data
             if ordered_schedule:
+                start = _convert_to_datetime(week_schedule_class.week_day, week_schedule_class.start_time)
+                end_time = _add_minutes(week_schedule_class.start_time,
+                                                week_schedule_class.gym_classe.duration)
+                end = _convert_to_datetime(week_schedule_class.week_day, end_time)
                 result.append({
-                    'class_id': week_schedule_class.gym_classe.gym_classe_id,
+                    'id': week_schedule_class.gym_classe.gym_classe_id,
                     'class_name': week_schedule_class.gym_classe.name,
-                    'class_day': week_schedule_class.week_day,
-                    'class_start': week_schedule_class.start_time,
-                    'class_stop': _add_minutes(week_schedule_class.start_time,
-                                                week_schedule_class.gym_classe.duration),
                     'client_id': ordered_schedule.client_user.client_id,
                     'client_name': ordered_schedule.client_user.name,
+                    'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
+                    'end': end.strftime("%Y-%m-%dT%H:%M:%S"),
                 })
         else:
             # not an individual training or training not ordered yet or for another week
+            start = _convert_to_datetime(week_schedule_class.week_day, week_schedule_class.start_time)
+            end_time = _add_minutes(week_schedule_class.start_time,
+                                                week_schedule_class.gym_classe.duration)
+            end = _convert_to_datetime(week_schedule_class.week_day, end_time)
             result.append({
-                'class_id': week_schedule_class.gym_classe.gym_classe_id,
+                'id': week_schedule_class.gym_classe.gym_classe_id,
                 'class_name': week_schedule_class.gym_classe.name,
-                'class_day': week_schedule_class.week_day,
-                'class_start': week_schedule_class.start_time,
-                'class_stop': _add_minutes(week_schedule_class.start_time,
-                                            week_schedule_class.gym_classe.duration),
                 'client_id': None,
-                'client_name': None
+                'client_name': None,
+                'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
+                'end': end.strftime("%Y-%m-%dT%H:%M:%S"),
             })
     return result
 
