@@ -136,7 +136,6 @@ def get_classes_for_trainer(trainer_id):
                     'class_stop': _add_minutes(week_schedule_class.start_time,
                                                 week_schedule_class.gym_classe.duration),
                     'client_id': None,
-                    'client_name': None
                     'client_name': None,
                     'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
                     'end': end.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -157,7 +156,6 @@ def get_classes_for_trainer(trainer_id):
                 'class_stop': _add_minutes(week_schedule_class.start_time,
                                             week_schedule_class.gym_classe.duration),
                 'client_id': None,
-                'client_name': None
                 'client_name': None,
                 'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
                 'end': end.strftime("%Y-%m-%dT%H:%M:%S"),
