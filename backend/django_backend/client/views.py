@@ -434,6 +434,8 @@ def delete_gym_ticket(request):
     Returns:
         JsonResponse: JSON response indicating the result of the deletion operation.
             If the deletion is successful, the response will contain {'result': 'success'}.
+            If the gym ticket has already been activated, the response will contain {'result': 'error', 'message': 'Cannot delete an activated gym ticket.'}.
+            If there is no gym ticket with the specified ID, the response will contain {'result': 'error', 'message': 'There is not any gym ticket with this id.'}.
     """
     data = json.loads(request.body.decode('utf-8'))
     gym_ticket_id = data.get('gym_ticket_id')
@@ -443,5 +445,6 @@ def delete_gym_ticket(request):
         response_data = {'result': 'success'}
     except database.NotActivationDate:
         response_data = {'result': 'error', 'message': 'Cannot delete an activated gym ticket.'}
-
+    except database.models.GymTicketHistory.DoesNotExist:
+        response_data = {'result': 'error', 'message': 'There is not any gym ticket with this id.'}
     return JsonResponse(response_data)

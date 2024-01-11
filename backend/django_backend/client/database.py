@@ -481,11 +481,7 @@ def get_free_trainings(trainer_id, start_date, client_id):
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
         return
-    end_date = end_date = start_date + timedelta(days=7)
-    ordered_classes = models.OrderedSchedule.objects.filter(
-        schedule_date__range=[start_date, end_date],
-    )
-    ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
+    end_date = start_date + timedelta(days=7)
     day_delta = {
         'poniedziałek': 1,
         'wtorek': 2,
@@ -498,14 +494,38 @@ def get_free_trainings(trainer_id, start_date, client_id):
     # todo zrób to mądrzej i ładniej
     classes_list = []
     for week_classe in week_classes:
-        if week_classe.week_schedule_id in ordered_classes or week_classe.gym_classe.gym_classe_id != 2:
+        if week_classe.gym_classe.gym_classe_id != 2:
             continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
-        print('collision')
         collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
-        item = [week_classe.week_schedule_id, week_classe.gym_classe.name, dc.str_date(day), week_classe.start_time, collision]
+        free_places = get_free_places_gym_classe(day, week_classe.week_schedule_id)
+        item = [
+            week_classe.week_schedule_id,
+            week_classe.gym_classe.name,
+            week_classe.trainer.name,
+            week_classe.trainer.surname,
+            dc.str_date(day),
+            week_classe.start_time,
+            collision,
+            free_places]
         classes_list.append(item)
     return classes_list
+
+def get_free_places_gym_classe(classe_date, week_schedule_id):
+    """
+    Calculates the number of available places in a gym class for a given date and week schedule.
+
+    Args:
+        classe_date (date): The date of the gym class.
+        week_schedule_id (int): The ID of the week schedule associated with the gym class.
+
+    Returns:
+        int: The number of available places in the gym class for the specified date and week schedule.
+    """
+    busy_classes = models.OrderedSchedule.objects.filter(week_schedule__week_schedule_id=week_schedule_id, ordered_date=classe_date)
+    gym_classe = models.WeekSchedule.objects.get(week_schedule_id=id)
+    return gym_classe.gym_classe.max_people - busy_classes.count()
+
 
 def get_free_gym_classes(gym_id, start_date, client_id):
     """
@@ -523,13 +543,12 @@ def get_free_gym_classes(gym_id, start_date, client_id):
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
         return
-    end_date = end_date = start_date + timedelta(days=7)
+    end_date = start_date + timedelta(days=7)
     ordered_classes = models.OrderedSchedule.objects.filter(
         schedule_date__range=[start_date, end_date]
     )
     ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
     ordered_classes_counter = Counter(ordered_classes)
-    print(ordered_classes_counter)
     day_delta = {
         'poniedziałek': 1,
         'wtorek': 2,
@@ -544,10 +563,9 @@ def get_free_gym_classes(gym_id, start_date, client_id):
     for week_classe in week_classes:
         if week_classe.gym_classe.gym_classe_id == 2:
             continue
-        elif ordered_classes_counter.get(week_classe.week_schedule_id, 0) == week_classe.gym_classe.max_people: # max client number
-            continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
         collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
+        free_places = get_free_places_gym_classe(day, week_classe.week_schedule_id)
         item = [
             week_classe.week_schedule_id,
             week_classe.gym_classe.name,
@@ -555,9 +573,44 @@ def get_free_gym_classes(gym_id, start_date, client_id):
             week_classe.trainer.surname,
             dc.str_date(day),
             week_classe.start_time,
-            collision]
+            collision,
+            free_places]
         classes_list.append(item)
     return classes_list
+
+
+def check_collision(client_id, week_classe: models.WeekSchedule, date):
+    """
+    Check if there is a collision between a gym class and existing OrderedSchedules for a client on a specified date.
+
+    Parameters:
+    - client_id (int): The unique identifier of the client.
+    - week_classe (models.WeekSchedule): The gym class to check for collisions.
+    - date (str): The date of the gym class in the format 'YYYY-MM-DD'.
+
+    Returns:
+    int or None: Oreder gym classe id if is collision, otherwise None.
+    """
+    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    classe_date_stop = classe_date_start + timedelta(days=1)
+    classes = models.OrderedSchedule.objects.filter(
+        schedule_date__gt=classe_date_start,
+        schedule_date__lt=classe_date_stop,
+        client_user__client_id=client_id
+    )
+    if not classes:
+        return None
+    hours = int(week_classe.start_time[0:2])
+    minutes = int(week_classe.start_time[3:5])
+    classe_date_start += timedelta(hours=hours, minutes=minutes)
+    classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
+    for classe in classes:
+        ordered_start = classe.schedule_date.replace(tzinfo=timezone.utc)
+        ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
+        if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
+            return classe.ordered_schedule_id
+    return None
+
 
 def get_gym_opening_hours(gym_id):
     """
@@ -587,37 +640,6 @@ def get_gym_opening_hours(gym_id):
         return None
 
 
-def check_collision(client_id, week_classe: models.WeekSchedule, date):
-    """
-    Check if there is a collision between a gym class and existing OrderedSchedules for a client on a specified date.
-
-    Parameters:
-    - client_id (int): The unique identifier of the client.
-    - week_classe (models.WeekSchedule): The gym class to check for collisions.
-    - date (str): The date of the gym class in the format 'YYYY-MM-DD'.
-
-    Returns:
-    bool: True if there is a collision, False otherwise.
-    """
-    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
-    classe_date_stop = classe_date_start + timedelta(days=1)
-    classes = models.OrderedSchedule.objects.filter(
-        schedule_date__gt=classe_date_start,
-        schedule_date__lt=classe_date_stop,
-        client_user__client_id=client_id
-    )
-    if not classes:
-        return False
-    hours = int(week_classe.start_time[0:2])
-    minutes = int(week_classe.start_time[3:5])
-    classe_date_start += timedelta(hours=hours, minutes=minutes)
-    classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
-    for classe in classes:
-        ordered_start = classe.schedule_date.replace(tzinfo=timezone.utc)
-        ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
-        if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
-            return True
-    return False
 
 def check_client_can_buy_gym_ticket(client_id, ticket_type):
     """
