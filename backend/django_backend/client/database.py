@@ -374,7 +374,7 @@ def gym_ticket_details(ticket_id):
         item.update({
             'discount_name': ticket.discount.name,
             'discount': discount,
-            'price_after': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)
+            'price_after': dc.calculate_price_after_discount(ticket.gym_ticket_offer.price, discount)
             })
     if ticket.gym_ticket_offer.type == "Dniowy" and (status or status == False):
         end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
