@@ -337,7 +337,7 @@ def get_gym_ticket_client(client_id):
         if ticket.discount:
             discount = ticket.discount.discount_percentages
             item.update({'discount_name': ticket.discount.name, 'discount': discount})
-        item.update({'price': dc.calcucate_price_after_discount(ticket.gym_ticket_offer.price, discount)})
+        item.update({'price': dc.calculate_price_after_discount(ticket.gym_ticket_offer.price, discount)})
         tickets_list.append(item)
     return tickets_list
 
