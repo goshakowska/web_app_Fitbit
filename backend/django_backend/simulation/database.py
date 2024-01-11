@@ -19,12 +19,13 @@ def get_all_exercises():
     for exercise in exercises:
         item = {
             'id': exercise.exercise_id,
-            'name': exercise.name
+            'name': exercise.name,
+            'parameters': []
             }
         parameter_values = models.StandardParameterValue.objects.filter(exercise__exercise_id=exercise.exercise_id)
         if parameter_values:
             parameters = [[parameter.parameter.parameter_id, parameter.parameter.name]for parameter in parameter_values]
-            item.update({'parameters': parameters})
+            item['parameters'] =  parameters
         exercises_list.append(item)
     return exercises_list
 
