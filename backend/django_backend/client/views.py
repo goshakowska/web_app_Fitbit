@@ -242,7 +242,7 @@ def get_trenings_client(request):
     """
     data = json.loads(request.body.decode('utf-8'))
     client_id = data.get('client_id')
-    trenings = database.get_trening_history(client_id)
+    trenings = database.get_training_history(client_id)
     return JsonResponse({'trenings': trenings})
 
 @csrf_exempt
