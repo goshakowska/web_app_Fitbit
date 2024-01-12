@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import {Table} from 'reactstrap';
+import { useLocation, useNavigate } from "react-router-dom";
+import {Table, Button} from 'reactstrap';
 import "../styles/tablesStyle.css";
 
 
@@ -8,6 +8,7 @@ import "../styles/tablesStyle.css";
 const ClientTicketDetails = props => {
     const [details, setDetails] = useState([])
     const location = useLocation();
+    const navigate = useNavigate();
     const ticket_id = location.state.ticketId;
 
     const getTicketDetails = async (event, ticket_id) => {
@@ -30,6 +31,23 @@ const ClientTicketDetails = props => {
             console.error('Error:', error);
           };
     }
+
+    const deleteTicket = async (event, ticket_id) => {
+      try {
+          const response = await fetch('http://localhost:8000/client/delete_gym_ticket/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },body: JSON.stringify({ gym_ticket_id: ticket_id})});
+            navigate('/karnety_klienta')
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+        } catch (error) {
+          console.error('Error:', error);
+        };
+  }
 
     useEffect((e) => {getTicketDetails(e, ticket_id)}, []);
 
@@ -80,9 +98,13 @@ const ClientTicketDetails = props => {
 <div> {details["days_to_end"] ?
         <div className="activeTicket text-style">Karnet aktywny. Zostało: {details["days_to_end"]} dni. </div> : <></>} </div>
 <div> {details["status"]=== null ?
-        <div className="inactiveTicket text-style">Karnet nie został aktywowany. </div> : <></>} </div>
+        <div className="inactiveTicket text-style">Karnet nie został aktywowany </div> : <></>} </div>
 <div> {details["status"] === false ?
-        <div className="expiredTicket text-style">Karnet wygasł. </div> : <></>} </div>
+        <div className="expiredTicket text-style">Karnet wygasł. </div> : <></>}
+<div>
+{details["status"]=== null ?
+        <Button className="deleteStyle text-style" onClick={(e) => {deleteTicket(e, ticket_id)}}> Anuluj zakup karnetu </Button> : <></>}
+        </div> </div>
 </div>
   );
 
