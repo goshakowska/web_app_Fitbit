@@ -26,4 +26,5 @@ urlpatterns = [
     path('gym_opening_hours/', views.get_gym_opening_hours),
     path('client_can_buy_ticket/', views.check_client_can_buy_gym_ticket),
     path('delete_gym_ticket/', views.delete_gym_ticket),
+    path('cancel_ordered_gym_classe/', views.cancel_gym_classe),
 ]

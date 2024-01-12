@@ -3,7 +3,8 @@ from django.contrib.auth.hashers import check_password
 from datetime import datetime, timedelta
 import client.discount_calculate as dc
 from django.utils import timezone
-from collections import Counter
+import client.client_error as client_error
+import pytz
 
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_date, advancement, target_weight,
@@ -548,12 +549,6 @@ def get_free_gym_classes(gym_id, start_date, client_id):
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
         return
-    end_date = start_date + timedelta(days=7)
-    ordered_classes = models.OrderedSchedule.objects.filter(
-        schedule_date__range=[start_date, end_date]
-    )
-    ordered_classes = [ classe.week_schedule.week_schedule_id for classe in ordered_classes]
-    ordered_classes_counter = Counter(ordered_classes)
     day_delta = {
         'poniedziałek': 1,
         'wtorek': 2,
@@ -581,7 +576,8 @@ def get_free_gym_classes(gym_id, start_date, client_id):
             dc.str_date(day),
             week_classe.start_time,
             collision,
-            free_places]
+            free_places
+            ]
         classes_list.append(item)
     return classes_list
 
@@ -668,8 +664,7 @@ def check_client_can_buy_gym_ticket(client_id, ticket_type):
     except:
         return True
 
-class NotActivationDate(Exception):
-    pass
+
 
 
 def delete_gym_ticket(gym_ticket_id):
@@ -685,9 +680,31 @@ def delete_gym_ticket(gym_ticket_id):
     """
     gym_ticket = models.GymTicketHistory.objects.get(gym_ticket_history_id=gym_ticket_id)
     if gym_ticket.activation_date:
-        raise NotActivationDate
+        raise client_error.NotActivationDate
     else:
         gym_ticket.delete()
+
+
+def cancel_gym_classe(ordered_gym_classe_id):
+    """
+    Cancels a gym class based on the provided ordered_gym_classe_id.
+
+    Args:
+        ordered_gym_classe_id (int): The unique identifier of the ordered gym class to be canceled.
+
+    Raises:
+        client_error.CannotCancelOrderedGymClasse: Raised if the scheduled date of the gym class
+            is less than 24 hours from the current time, indicating that it cannot be canceled.
+
+    Returns:
+        None
+    """
+    ordered_gym_classe = models.OrderedSchedule.objects.get(ordered_schedule_id=ordered_gym_classe_id)
+    now = datetime.now(pytz.timezone('Europe/Warsaw'))
+    if ordered_gym_classe.schedule_date < now + timedelta(days=1):
+        raise client_error.CannotCancelOrderedGymClasse
+    else:
+        ordered_gym_classe.delete()
 
 
 

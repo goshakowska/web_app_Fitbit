@@ -4,6 +4,7 @@ import json
 from django.contrib.auth.hashers import make_password
 import client.database as database
 from django.core.mail import send_mail
+import client.client_error as client_error
 
 
 @csrf_exempt
@@ -443,8 +444,31 @@ def delete_gym_ticket(request):
     try:
         database.delete_gym_ticket(gym_ticket_id)
         response_data = {'result': 'success'}
-    except database.NotActivationDate:
+    except client_error.NotActivationDate:
         response_data = {'result': 'error', 'message': 'Cannot delete an activated gym ticket.'}
     except database.models.GymTicketHistory.DoesNotExist:
         response_data = {'result': 'error', 'message': 'There is not any gym ticket with this id.'}
+    return JsonResponse(response_data)
+
+@csrf_exempt
+def cancel_gym_classe(request):
+    """
+    View to cancel a gym class based on the provided ordered_gym_classe_id.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the ordered_gym_classe_id
+                               in the request body as JSON.
+
+    Returns:
+        JsonResponse: A JSON response indicating the result of the cancellation.
+            - If successful, {'result': 'success'} is returned.
+            - If an error occurs during the cancellation process, the exception message is returned.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    ordered_gym_classe_id = data.get('ordered_gym_classe_id')
+    try:
+        database.cancel_gym_classe(ordered_gym_classe_id)
+        response_data = {'result': 'success'}
+    except client_error.CannotCancelOrderedGymClasse as e:
+        response_data = {'error': 'Cannot cancel ordered gym classe.'}
     return JsonResponse(response_data)
