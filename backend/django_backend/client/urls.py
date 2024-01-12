@@ -28,5 +28,6 @@ urlpatterns = [
     path('delete_gym_ticket/', views.delete_gym_ticket),
     path('cancel_ordered_gym_classe/', views.cancel_gym_classe),
     path('reserve_gym_classes/', views.reserve_gym_classes),
-    path('buy_items_from_busket/', views.buy_items)
+    path('buy_items_from_busket/', views.buy_items),
+    path('free_gym_classe_details/', views.get_free_gym_classe_details),
 ]

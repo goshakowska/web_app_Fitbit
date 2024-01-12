@@ -523,3 +523,23 @@ def buy_items(request):
     except models.OrderedSchedule.DoesNotExist:
         response_data = {'error': 'Too late to buy items.'}
     return JsonResponse(response_data)
+
+
+@csrf_exempt
+def get_free_gym_classe_details(request):
+    """
+    View to retrieve details and free places for a specific gym class on a given date.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the 'date' and 'gym_classe_id' in the request body as JSON.
+
+    Returns:
+        JsonResponse: A JSON response containing the details and free places for the specified gym class.
+            The response format is {'details': [list_of_details]}.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    date = data.get('date')
+    gym_classe_id = data.get('gym_classe_id')
+    details = database.get_free_gym_classe_details(date, gym_classe_id)
+    response_data = {'details': details }
+    return JsonResponse(response_data)

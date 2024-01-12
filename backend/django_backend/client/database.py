@@ -531,8 +531,9 @@ def get_free_places_gym_classe(classe_date, week_schedule_id):
     busy_classes = models.OrderedSchedule.objects.filter(
         schedule_date__gte=classe_date,
         schedule_date__lte=classe_date_stop,
-        schedule_date=classe_date
+        week_schedule__week_schedule_id=week_schedule_id
     )
+    print(busy_classes.count())
     gym_classe = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
     return gym_classe.gym_classe.max_people - busy_classes.count()
 
@@ -798,6 +799,7 @@ def buy_tickets(gym_tickets, client_id, now):
             discount_id = gym_ticket['discount_id'],
             client_id=client_id
         )
+        sold_gym_ticket.save()
 
 
 @transaction.atomic
@@ -839,6 +841,26 @@ def delete_unpaid_orders():
         reservation_date__lt=time_threshold,
         payment_date__isnull=True
     ).delete()
+
+def get_free_gym_classe_details(fgc_date_str, fgc_id):
+    """
+    Get details and free places for a gym class on a specific date.
+
+    Args:
+        fgc_date_str (str): The date and time of the gym class in the format 'YYYY-MM-DD HH:MM'.
+        fgc_id (int): The unique identifier of the week schedule associated with the gym class.
+
+    Returns:
+        list: A list containing details about the gym class and the number of free places.
+    """
+    week_schedule = models.WeekSchedule.objects.get(week_schedule_id=fgc_id)
+    fgc_date_str += f' {week_schedule.start_time}'
+    fgc_date = datetime.strptime(fgc_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
+    print(fgc_date)
+    details = get_gym_classe_details(fgc_id)
+    print(details)
+    details.append(get_free_places_gym_classe(fgc_date, fgc_id))
+    return details
 
 
 
