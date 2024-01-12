@@ -231,7 +231,7 @@ def get_gym_classe_details(request):
     return JsonResponse({'details': details})
 
 @csrf_exempt
-def get_trenings_client(request):
+def get_trainings_client(request):
     """
     View to retrieve the training history for a client.
 
@@ -471,4 +471,16 @@ def cancel_gym_classe(request):
         response_data = {'result': 'success'}
     except client_error.CannotCancelOrderedGymClasse as e:
         response_data = {'error': 'Cannot cancel ordered gym classe.'}
+    return JsonResponse(response_data)
+
+@csrf_exempt
+def reserve_gym_classes(request):
+    data = json.loads(request.body.decode('utf-8'))
+    gym_classes = data.get('gym_classes')
+    client_id = data.get('client_id')
+    try:
+        reserved_id = database.reserve_gym_classes(gym_classes, client_id)
+        response_data = {'reserved_id': reserved_id }
+    except client_error.NotEnoughFreePlaces:
+        response_data = {'error': 'Not enoughFreePlaces.'}
     return JsonResponse(response_data)

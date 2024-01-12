@@ -14,7 +14,7 @@ urlpatterns = [
     path('change_default_gym/', views.change_default_gym_client),
     path('ordered_classes/', views.get_ordered_classes_client),
     path('ordered_classe_details/', views.get_gym_classe_details),
-    path('client_trenings/', views.get_trenings_client),
+    path('client_trenings/', views.get_trainings_client),
     path('trening_details/', views.get_trening_details),
     path('gym_tickets_history/', views.get_gym_tickets_client_history),
     path('gym_tickets_details/', views.get_gym_tickets_details),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('client_can_buy_ticket/', views.check_client_can_buy_gym_ticket),
     path('delete_gym_ticket/', views.delete_gym_ticket),
     path('cancel_ordered_gym_classe/', views.cancel_gym_classe),
+    path('reserve_gym_classes/', views.reserve_gym_classes)
 ]

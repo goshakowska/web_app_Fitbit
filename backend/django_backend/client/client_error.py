@@ -3,3 +3,6 @@ class CannotCancelOrderedGymClasse(Exception):
 
 class NotActivationDate(Exception):
     pass
+
+class NotEnoughFreePlaces(Exception):
+    pass

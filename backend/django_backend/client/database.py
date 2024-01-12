@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 import client.discount_calculate as dc
 from django.utils import timezone
 import client.client_error as client_error
+from django.db import transaction
 import pytz
 
 def registration(login, password_hash, email, phone_number,
@@ -201,11 +202,13 @@ def get_ordered_classes_client(client_id, start_date):
               Each inner list includes [ordered_schedule_id, schedule_date, start_time,
               gym_class_name, trainer_name, trainer_surname, is_default_gym].
     """
+    delete_unpaid_orders()
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = end_date = start_date + timedelta(days=7)
     classes = models.OrderedSchedule.objects.filter(
         client_user__client_id=client_id,
-        schedule_date__range=[start_date, end_date]
+        schedule_date__range=[start_date, end_date],
+        payment_date__isnull=False
     )
     classes_list = []
     default_gym = models.Client.objects.get(client_id=client_id).gym.gym_id
@@ -478,6 +481,7 @@ def get_free_trainings(trainer_id, start_date, client_id):
     Raises:
         None
     """
+    delete_unpaid_orders()
     week_classes = models.WeekSchedule.objects.filter(trainer__employee_id=trainer_id)
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
@@ -525,8 +529,8 @@ def get_free_places_gym_classe(classe_date, week_schedule_id):
     """
     classe_date_stop = classe_date + timedelta(days=1)
     busy_classes = models.OrderedSchedule.objects.filter(
-        schedule_date__gt=classe_date,
-        schedule_date__lt=classe_date_stop,
+        schedule_date__gte=classe_date,
+        schedule_date__lte=classe_date_stop,
         schedule_date=classe_date
     )
     gym_classe = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
@@ -545,6 +549,7 @@ def get_free_gym_classes(gym_id, start_date, client_id):
     Returns:
         List: A list of dictionaries representing free gym classes.
     """
+    delete_unpaid_orders()
     week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     if start_date.strftime('%A') !=  "Sunday":
@@ -594,7 +599,7 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date):
     Returns:
     int or None: Oreder gym classe id if is collision, otherwise None.
     """
-    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(pytz.timezone('Europe/Warsaw'))
     classe_date_stop = classe_date_start + timedelta(days=1)
     classes = models.OrderedSchedule.objects.filter(
         schedule_date__gt=classe_date_start,
@@ -608,7 +613,7 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date):
     classe_date_start += timedelta(hours=hours, minutes=minutes)
     classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
     for classe in classes:
-        ordered_start = classe.schedule_date.replace(tzinfo=timezone.utc)
+        ordered_start = classe.schedule_date.replace(pytz.timezone('Europe/Warsaw'))
         ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
         if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
             return classe.ordered_schedule_id
@@ -705,6 +710,41 @@ def cancel_gym_classe(ordered_gym_classe_id):
         raise client_error.CannotCancelOrderedGymClasse
     else:
         ordered_gym_classe.delete()
+
+
+@transaction.atomic
+def reserve_gym_classes(gym_classes, client_id):
+    delete_unpaid_orders()
+    now = datetime.now(pytz.timezone('Europe/Warsaw'))
+    reserved_id = []
+    for gym_classe in gym_classes:
+        date_str = f"{gym_classe['schedule_date']} {gym_classe['hour']}"
+        gym_classe_date = datetime.strptime(date_str, "%Y-%m-%d %H:%M")
+        if get_free_places_gym_classe(gym_classe_date, gym_classe['week_schedule_id']) == 0:
+            raise client_error.NotEnoughFreePlaces
+        reserved_gym_classe = models.OrderedSchedule.objects.create(
+            schedule_date=gym_classe_date,
+            week_schedule_id=gym_classe['week_schedule_id'],
+            client_user_id=client_id,
+            reservation_date=now
+            )
+        reserved_gym_classe.save()
+        reserved_id.append(reserved_gym_classe.ordered_schedule_id)
+    return reserved_id
+
+
+
+
+
+
+
+def delete_unpaid_orders():
+    current_time = timezone.now()
+    time_threshold = current_time - timezone.timedelta(minutes=15)
+    models.OrderedSchedule.objects.filter(
+        reservation_date__lt=time_threshold,
+        payment_date__isnull=True
+    ).delete()
 
 
 
