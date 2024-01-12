@@ -51,6 +51,18 @@
     border: 3px solid rgb(223, 115, 56);
   }
 
+  .deleteStyle {
+    background-color: rgb(188, 9, 9);
+    border: 3px solid rgb(223, 115, 56);
+    margin-top: 15px;
+  }
+
+  .deleteStyle:hover {
+    background-color: rgb(155, 14, 14);
+    border: 3px solid rgb(223, 115, 56);
+    margin-top: 15px;
+  }
+
   .cartStyle:hover {
     background-color: rgb(180, 165, 108);
     border: 3px solid rgb(223, 115, 56);
@@ -117,4 +129,20 @@
     border-radius: 20px;
     width: 140px;
     height: 50px;
+  }
+
+  .smallHeader {
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 24px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 40px;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
   }

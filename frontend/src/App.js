@@ -16,6 +16,10 @@ import ClientTickets from "./client/components/ClientTickets";
 import ClientTicketDetails from "./client/components/ClientTicketDetails";
 import Profile from "./client/components/Profile";
 import FitnessClubDetails from "./client/components/FitnessClubDetails";
+import ClassTypes from "./client/components/ClassTypes";
+import GroupClassesShop from "./client/components/GroupClassesShop";
+import IndvClassesShop from "./client/components/IndvClassesShop";
+import ClassDetails from "./client/components/ClientClassDetails";
 
 import Registration from "./client/views/Registration";
 import ClientClasses from "./client/views/ClientClasses";
@@ -37,11 +41,15 @@ function App() {
               <Route exact path='/rejestracja' element={<Registration />} />
               <Route exact path='/sklep_karnetow' element={<TicketsShop />} />
               <Route exact path='/kalendarz_klienta' element={<ClientClasses />} />
+              <Route exact path='/szczegoly_zajec' element={<ClassDetails />} />
               <Route exact path='/statystyki' element={<Trainings />} />
               <Route exact path='/szczegoly_treningu' element={<TrainingDetails />} />
               <Route exact path='/karnety_klienta' element={<ClientTickets />} />
               <Route exact path='/szczegoly_karnetu' element={<ClientTicketDetails />} />
               <Route exact path='/profil' element={<Profile />} />
+              <Route exact path='/sklep_zajec' element={<ClassTypes />} />
+              <Route exact path='/grupowe_sklep' element={<GroupClassesShop />} />
+              <Route exact path='/indywidualne_sklep' element={<IndvClassesShop />} />
               </Routes>
 
               </WeekSwitcherProvider>
