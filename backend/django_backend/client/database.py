@@ -714,6 +714,24 @@ def cancel_gym_classe(ordered_gym_classe_id):
 
 @transaction.atomic
 def reserve_gym_classes(gym_classes, client_id):
+    """
+    Reserves multiple gym classes for a client.
+
+    Args:
+        gym_classes (list): A list of dictionaries containing information about the gym classes to be reserved.
+            Each dictionary should have the following keys:
+            - 'schedule_date' (str): The date of the gym class in the format 'YYYY-MM-DD'.
+            - 'hour' (str): The time of the gym class in the format 'HH:MM'.
+            - 'week_schedule_id' (int): The unique identifier of the week schedule associated with the gym class.
+
+        client_id (int): The unique identifier of the client for whom the gym classes are reserved.
+
+    Returns:
+        list: A list of ordered_schedule_id values for the successfully reserved gym classes.
+
+    Raises:
+        client_error.NotEnoughFreePlaces: Raised if there are not enough free places for any of the specified gym classes.
+    """
     delete_unpaid_orders()
     now = datetime.now(pytz.timezone('Europe/Warsaw'))
     reserved_id = []
@@ -733,12 +751,88 @@ def reserve_gym_classes(gym_classes, client_id):
     return reserved_id
 
 
+@transaction.atomic
+def buy_items(gym_tickets, reserved_gym_classes, client_id):
+    """
+    Executes a transaction to purchase gym classes and tickets for a client.
+
+    Args:
+        gym_tickets (list): A list of dictionaries containing information about the gym tickets to be purchased.
+            Each dictionary should have the necessary details for purchasing a gym ticket.
+
+        reserved_gym_classes (list): A list of ordered_schedule_id values representing the gym classes to be purchased.
+
+        client_id (int): The unique identifier of the client making the purchase.
+
+    Returns:
+        None
+    """
+    now = datetime.now(pytz.timezone('Europe/Warsaw'))
+    buy_gym_classes(reserved_gym_classes, now)
+    buy_tickets(gym_tickets, client_id, now)
 
 
+@transaction.atomic
+def buy_tickets(gym_tickets, client_id, now):
+    """
+    Purchase gym tickets for a client.
 
+    Args:
+        gym_tickets (list): A list of dictionaries containing information about the gym tickets to be purchased.
+            Each dictionary should have the following keys:
+            - 'gym_ticket_offer_id' (int): The unique identifier of the gym ticket offer.
+            - 'discount_id' (int): The unique identifier of the discount applied to the gym ticket.
+            - Other keys specific to gym ticket details.
+
+        client_id (int): The unique identifier of the client making the purchase.
+
+        now (datetime): The current date and time.
+
+    Returns:
+        None
+    """
+    for gym_ticket in gym_tickets:
+        sold_gym_ticket = models.GymTicketHistory.objects.create(
+            purchase_date=now,
+            gym_ticket_offer_id = gym_ticket['gym_ticket_offer_id'],
+            discount_id = gym_ticket['discount_id'],
+            client_id=client_id
+        )
+
+
+@transaction.atomic
+def buy_gym_classes(reserved_gym_classes, now):
+    """
+    Purchase reserved gym classes for a client.
+
+    Args:
+        reserved_gym_classes (list): A list of ordered_schedule_id values representing the reserved gym classes.
+
+        now (datetime): The current date and time.
+
+    Returns:
+        None
+    """
+    delete_unpaid_orders()
+    for reserved_gym_classe_id in reserved_gym_classes:
+        reseration = models.OrderedSchedule.objects.get(ordered_schedule_id=reserved_gym_classe_id)
+        reseration.payment_date = now
+        reseration.save()
 
 
 def delete_unpaid_orders():
+    """
+    Delete unpaid gym class reservations that exceed a time threshold.
+
+    Any gym class reservation made more than 15 minutes ago with no payment date
+    will be deleted from the database.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     current_time = timezone.now()
     time_threshold = current_time - timezone.timedelta(minutes=15)
     models.OrderedSchedule.objects.filter(

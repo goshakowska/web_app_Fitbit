@@ -230,7 +230,7 @@ class GymEquipment(models.Model):
 
 
 class GymTicketHistory(models.Model):
-    gym_ticket_history_id = models.BigIntegerField(primary_key=True)
+    gym_ticket_history_id = models.AutoField(primary_key=True)
     purchase_date = models.DateField()
     activation_date = models.DateField(blank=True, null=True)
     gym_ticket_offer = models.ForeignKey('GymTicketOffer', models.DO_NOTHING)

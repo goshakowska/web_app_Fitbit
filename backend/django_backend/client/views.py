@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 import client.database as database
 from django.core.mail import send_mail
 import client.client_error as client_error
+import database_models as models
 
 
 @csrf_exempt
@@ -475,6 +476,18 @@ def cancel_gym_classe(request):
 
 @csrf_exempt
 def reserve_gym_classes(request):
+    """
+    View to reserve multiple gym classes for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the gym_classes and client_id
+                               in the request body as JSON.
+
+    Returns:
+        JsonResponse: A JSON response indicating the result of the reservation.
+            - If successful, {'reserved_id': [list_of_reserved_ids]} is returned.
+            - If there are not enough free places, {'error': 'Not enough free places.'} is returned.
+    """
     data = json.loads(request.body.decode('utf-8'))
     gym_classes = data.get('gym_classes')
     client_id = data.get('client_id')
@@ -483,4 +496,30 @@ def reserve_gym_classes(request):
         response_data = {'reserved_id': reserved_id }
     except client_error.NotEnoughFreePlaces:
         response_data = {'error': 'Not enough free places.'}
+    return JsonResponse(response_data)
+
+
+@csrf_exempt
+def buy_items(request):
+    """
+    View to purchase gym tickets and reserved gym classes for a client.
+
+    Args:
+        request (HttpRequest): The HTTP request object containing the gym_tickets,
+                               reserved_gym_classes, and client_id in the request body as JSON.
+
+    Returns:
+        JsonResponse: A JSON response indicating the result of the purchase.
+            - If successful, {'result': 'success'} is returned.
+            - If there are no reserved gym classes to buy or it's too late, {'error': 'Too late to buy items.'} is returned.
+    """
+    data = json.loads(request.body.decode('utf-8'))
+    gym_tickets = data.get('gym_tickets')
+    reserved_gym_classes = data.get('reserved_gym_classes')
+    client_id = data.get('client_id')
+    try:
+        database.buy_items(gym_tickets, reserved_gym_classes, client_id)
+        response_data = {'result': 'success' }
+    except models.OrderedSchedule.DoesNotExist:
+        response_data = {'error': 'Too late to buy items.'}
     return JsonResponse(response_data)
