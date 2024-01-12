@@ -470,7 +470,7 @@ def cancel_gym_classe(request):
         database.cancel_gym_classe(ordered_gym_classe_id)
         response_data = {'result': 'success'}
     except client_error.CannotCancelOrderedGymClasse as e:
-        response_data = {'error': 'Cannot cancel ordered gym classe.'}
+        response_data = {'error': 'Nie możesz już odwołać swojego udziału w tych zajęciach.'}
     return JsonResponse(response_data)
 
 @csrf_exempt
@@ -482,5 +482,5 @@ def reserve_gym_classes(request):
         reserved_id = database.reserve_gym_classes(gym_classes, client_id)
         response_data = {'reserved_id': reserved_id }
     except client_error.NotEnoughFreePlaces:
-        response_data = {'error': 'Not enoughFreePlaces.'}
+        response_data = {'error': 'Not enough free places.'}
     return JsonResponse(response_data)
