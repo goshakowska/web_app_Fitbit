@@ -176,3 +176,82 @@ def age_range():
     plt.close()
 
     return image_base64
+
+
+
+
+def trainer_sessions(manager_id):
+    # find gym where manager works
+    try:
+        portier = m.Employee.objects.get(employee_id=manager_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    trainers = m.Employee.objects.all().filter(gym=gym, type="trener")
+    trainers_name = []
+    sessions = []   # all session for trainer
+    ordered = []  # sessions that have been ordered
+
+    # calculate last month
+    current_date = datetime.now()
+    last = current_date - timedelta(days=current_date.day)
+    last_month_year = last.year
+    last_month = last.month
+
+    weeks = 4   # there is around 4 weeks in month
+
+
+    for trainer in trainers:
+        trainers_name.append(f"{trainer.name} {trainer.surname}")
+        ses_count = m.WeekSchedule.objects.filter(
+                         trainer_id=trainer.employee_id,
+                         gym_classe__name = "Trening indywidualny"
+                         ).count()  # this is for one week
+        ses_count = ses_count * weeks   # in month
+
+        ord_count = m.OrderedSchedule.objects.filter(
+            week_schedule__trainer_id=trainer.employee_id,
+            week_schedule__gym_classe__name="Trening indywidualny",
+            schedule_date__month=last_month,
+            schedule_date__year=last_month_year
+            ).count()
+        # sessions.append(ses_count)
+        # ordered.append(ord_count)
+        sessions.append(randint(20, 40))
+        ordered.append(randint(1, 40))
+
+
+    # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
+    plt.figure(figsize=(10, 6))
+
+    bar_width = 0.3
+
+    colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b']
+
+    bars1 = plt.bar(trainers_name, sessions, bar_width, label='Wszystkie sesje', color=colors[0])
+    bars2 = plt.bar(trainers_name, ordered, bar_width, label='Wykupione sesje', color=colors[2])
+
+    plt.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
+
+    plt.title('Liczba sesji i sesji wykupionych')
+    plt.ylabel('Liczba sesji')
+    plt.legend()
+
+    # X labels
+    for i, bar in enumerate(bars1):
+        if i % 2 == 0:
+            plt.text(bar.get_x() + bar.get_width() / 2, -2, trainers_name[i], ha='center', va='center')
+        else:
+            plt.text(bar.get_x() + bar.get_width() / 2, -4, trainers_name[i], ha='center', va='center')
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64

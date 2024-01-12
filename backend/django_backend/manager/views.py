@@ -51,3 +51,14 @@ def count_age_range(request):
     data = database.age_range()
 
     return JsonResponse({'plot':data})
+
+
+@csrf_exempt
+def sessions(request):
+    data = json.loads(request.body.decode('utf-8'))
+    manager_id = data.get('manager_id')
+    plot = database.trainer_sessions(manager_id)
+    if plot:
+        return JsonResponse({'plot':plot})
+    else:
+        return JsonResponse({'error': "This manager doesn't exist"}, status=400)
