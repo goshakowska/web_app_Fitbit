@@ -29,12 +29,12 @@ def ticket_popularity_week():
     while day <= last_day:
         ticket_number = {}
         for ticket in ticket_offer:
-            # ticket_number[f"{ticket.type} ({ticket.duration})"] = (m.GymTicketHistory.objects
-            #                                                        .filter(gym_ticket_offer = ticket,
-            #                                                                purchase_date = day
-            #                                                                )
-            #                                                        .count()
-            #                                                        )
+            ticket_number[f"{ticket.type} ({ticket.duration})"] = (m.GymTicketHistory.objects
+                                                                   .filter(gym_ticket_offer = ticket,
+                                                                           purchase_date = day
+                                                                           )
+                                                                   .count()
+                                                                   )
             ticket_number[f"{ticket.type} ({ticket.duration})"] = randint(1, 20)
         data[f"{day.strftime('%d-%m-%Y')}"] = ticket_number
         day += timedelta(days=1)
@@ -90,9 +90,9 @@ def discount_popularity_week():
     discount_types = [discount['name'] for discount in discount_types]
 
     for discount in discount_types:
-        # count = (m.GymTicketHistory.objects
-        #          .filter(discount__name=discount, purchase_date__gte=day, purchase_date__lte=last_day)
-        #          .count())
+        count = (m.GymTicketHistory.objects
+                 .filter(discount__name=discount, purchase_date__gte=day, purchase_date__lte=last_day)
+                 .count())
         count = randint(1, 10)
         data_count.append(count)
 
@@ -228,10 +228,8 @@ def trainer_sessions(manager_id):
 
     bar_width = 0.3
 
-    colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b']
-
-    bars1 = plt.bar(trainers_name, sessions, bar_width, label='Wszystkie sesje', color=colors[0])
-    bars2 = plt.bar(trainers_name, ordered, bar_width, label='Wykupione sesje', color=colors[2])
+    bars1 = plt.bar(trainers_name, sessions, bar_width, label='Wszystkie sesje', color='#3498db')
+    bars2 = plt.bar(trainers_name, ordered, bar_width, label='Wykupione sesje', color='#2ecc71')
 
     plt.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
 
@@ -245,6 +243,60 @@ def trainer_sessions(manager_id):
             plt.text(bar.get_x() + bar.get_width() / 2, -2, trainers_name[i], ha='center', va='center')
         else:
             plt.text(bar.get_x() + bar.get_width() / 2, -4, trainers_name[i], ha='center', va='center')
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64
+
+
+
+def clients_by_week(manager_id):
+     # find gym where manager works
+    try:
+        portier = m.Employee.objects.get(employee_id=manager_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    current_week = _current_week()
+
+    # dates for last week
+    day = current_week[0] - timedelta(days=7)
+    last_day = current_week[1] - timedelta(days=7)
+    dates = []
+    counts = []
+
+    while day <= last_day:
+        clients = m.GymVisit.objects.filter(
+            gym_gym=gym,
+        )
+        client_count=0
+        for client in clients:
+            if client.entry_time.date() == day:
+                client_count+=1
+
+        client_count = randint(20, 50)
+        dates.append(f"{day.strftime('%d-%m-%Y')}")
+        counts.append(client_count)
+        day += timedelta(days=1)
+
+    # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
+    plt.figure(figsize=(10, 6))
+
+    plt.plot(dates, counts, marker='o', color='#3498db')
+
+    plt.ylim(bottom=0)
+
+    plt.title('Wejścia na siłownie w tygodniu')
+    plt.xlabel('Data')
+    plt.ylabel('Liczba wejść')
 
     # Save image in memory
     image_stream = io.BytesIO()

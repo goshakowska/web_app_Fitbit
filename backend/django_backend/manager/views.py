@@ -62,3 +62,14 @@ def sessions(request):
         return JsonResponse({'plot':plot})
     else:
         return JsonResponse({'error': "This manager doesn't exist"}, status=400)
+
+@csrf_exempt
+def clients_week(request):
+    data = json.loads(request.body.decode('utf-8'))
+    manager_id = data.get('manager_id')
+    plot = database.clients_by_week(manager_id)
+    if plot:
+        return JsonResponse({'plot':plot})
+    else:
+        return JsonResponse({'error': "This manager doesn't exist"}, status=400)
+

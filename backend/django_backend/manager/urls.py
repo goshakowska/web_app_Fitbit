@@ -6,4 +6,5 @@ urlpatterns = [
     path('discount_popularity_week/', views.discount_popularity_week),
     path('age_range/', views.count_age_range),
     path('sessions/', views.sessions),
+    path('clients_week/', views.clients_week),
 ]
