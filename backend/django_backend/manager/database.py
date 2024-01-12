@@ -307,3 +307,62 @@ def clients_by_week(manager_id):
     plt.close()
 
     return image_base64
+
+
+def clients_by_hour(manager_id):
+     # find gym where manager works
+    try:
+        portier = m.Employee.objects.get(employee_id=manager_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    data = {}
+
+    current_day = datetime.now().date()
+    yesterday = current_day - timedelta(days=1)
+    yesterday = yesterday.day
+    print(yesterday)
+    entries = m.GymVisit.objects.filter(
+            gym_gym=gym,
+        ).order_by('entry_time')
+    for entry in entries:
+        if entry.entry_time.day == yesterday:
+            time = entry.entry_time.time().strftime('%H:%M')
+            if time in data:
+                data[time] += 1
+            else:
+                data[time] = 1
+    print(data)
+    data = {
+        '9:00': 7,
+        '10:00': 5,
+        '10:30': 6,
+        '11:00': 8,
+        '12:00': 9
+    }
+
+    times = list(data.keys())
+    counts = list(data.values())
+
+    # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
+    plt.figure(figsize=(10, 6))
+
+    plt.plot(times, counts, marker='o', color='#3498db')
+
+    plt.ylim(bottom=0)
+
+    plt.title('Wejścia na siłownie w ciągu zeszłego dnia')
+    plt.xlabel('Godzina')
+    plt.ylabel('Liczba wejść')
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64

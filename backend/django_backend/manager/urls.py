@@ -7,4 +7,5 @@ urlpatterns = [
     path('age_range/', views.count_age_range),
     path('sessions/', views.sessions),
     path('clients_week/', views.clients_week),
+    path('clients_hour/', views.clients_hour),
 ]
