@@ -66,12 +66,12 @@ const TrainingDetails = props => {
 {details.length > 0 && details.map((details, index) => (
                   <tr key={index}>
                       <td>{details["name"]}</td>
-                      <td> {moment(details["start_date"]).format('hh:mm:ss')} </td>
+                      <td> {details["start_hour"]} </td>
                       <td>{secondsToHHMMSS(details["duration"])}</td>
                       {details["repetitions_number"] === 0 ? <td> - </td> : <td> {details["repetitions_number"]}</td> }
                       <td>{details["calories"]} kcal</td>
                       {details["parameters"] ? details["parameters"].map((parameters, index) => (
-                          <td>{parameters["name"]}: {parameters["value"]} {parameters["unit"]} </td>
+                          <td key={index}>{parameters["name"]}: {parameters["value"]} {parameters["unit"]} </td>
                       )) : <td>-</td>}
                   </tr>
               ))}
