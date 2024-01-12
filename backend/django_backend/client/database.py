@@ -522,8 +522,13 @@ def get_free_places_gym_classe(classe_date, week_schedule_id):
     Returns:
         int: The number of available places in the gym class for the specified date and week schedule.
     """
-    busy_classes = models.OrderedSchedule.objects.filter(week_schedule__week_schedule_id=week_schedule_id, ordered_date=classe_date)
-    gym_classe = models.WeekSchedule.objects.get(week_schedule_id=id)
+    classe_date_stop = classe_date + timedelta(days=1)
+    busy_classes = models.OrderedSchedule.objects.filter(
+        schedule_date__gt=classe_date,
+        schedule_date__lt=classe_date_stop,
+        schedule_date=classe_date
+    )
+    gym_classe = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
     return gym_classe.gym_classe.max_people - busy_classes.count()
 
 
@@ -565,6 +570,8 @@ def get_free_gym_classes(gym_id, start_date, client_id):
             continue
         day = start_date + timedelta(days=day_delta[week_classe.week_day])
         collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
+        print(day)
+        print(week_classe.week_schedule_id)
         free_places = get_free_places_gym_classe(day, week_classe.week_schedule_id)
         item = [
             week_classe.week_schedule_id,
