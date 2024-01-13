@@ -24,7 +24,6 @@ function App() {
 
 
   useEffect(() => {
-    // Fetch gyms, exercises, and other data on component mount
     const fetchData = async () => {
       try {
         const gymsResponse = await fetch('http://localhost:8000/simulation/all_gyms/', {
@@ -32,7 +31,6 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          // body: JSON.stringify({ login: login}),
 
         });
 
@@ -48,7 +46,6 @@ function App() {
           headers: {
             'Content-Type': 'application/json',
           },
-          // body: JSON.stringify({ login: login}),
 
         });
 
@@ -59,9 +56,7 @@ function App() {
         const data2 = await exercisesResponse.json();
 
         setExercises(data2.exercises);
-        console.log(data2.exercises)
 
-        // Add more fetch requests for other data (clients, equipments) as needed
       } catch (error) {
         console.error('Error:', error);
       };
@@ -103,12 +98,13 @@ function App() {
   };
 
   const handleExerciseClick = async (exerciseId, params=[], gymId=null) => {
-    setSelectedExercise(exerciseId);
+
+    if(!selectedExercise){
     setSelectedParams([]);
     params.forEach(([id, name]) => {
       setSelectedParams((prevSelectedParams) => [...prevSelectedParams, id]);
-      console.log(selectedParams);
-    })
+    })}
+    setSelectedExercise(exerciseId);
 
     let gym = null
     if (gymId){
@@ -143,7 +139,6 @@ function App() {
 
   const handleEquipmentClick = (equipmentId) => {
     setSelectedEquipment(equipmentId);
-    // Implement logic based on the selected equipment
   };
 
 
@@ -157,7 +152,7 @@ function App() {
       showDialog('Najpierw wybierz urządzenie');
     } else {
       setEndTime(new Date());
-      const startTime = new Date(endTime - duration);
+      const startTime = new Date(endTime - duration*1000);
 
       const formattedStartTime = new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
@@ -165,6 +160,7 @@ function App() {
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
         hour12: false,
       }).format(startTime);
       const [datePart, timePart] = formattedStartTime.split(", ");
@@ -208,7 +204,6 @@ function App() {
       console.log("calories", calories)
       console.log("params", params)
 
-      // Poniżej jest symulacja, ponieważ nie mam dostępu do Twojego API
       showDialog('Dodano ćwiczenie');
       clear();
     }
@@ -217,7 +212,7 @@ function App() {
 
 
   const showDialog = (message) => {
-    console.log(message)
+    alert(message);
   };
 
   const clear = () => {
@@ -232,6 +227,8 @@ function App() {
     setSelectedExercise(null);
     setSelectedEquipment(null);
     setSelectedParams([]);
+    setEquipments([])
+    setClients([])
   };
 
 
