@@ -54,8 +54,12 @@ function TicketsShop()
     useEffect(() => {getDiscountTickets()}, []);
     useEffect(() => {getStandardTickets()}, []);
 
-    const handleClick = () => {
-        if (userId()) {} else
+    const handleClick = (e, ticket, type) => {
+        if (userId()) {
+          if (type === 'disc')
+          addTicket(ticket[3], ticket[8], ticket[2], ticket[4], ticket[5], ticket[6], ticket[7], ticket[1], ticket[0])
+        else
+        addTicket('Standardowy', ticket[3], ticket[1], null, null, ticket[2], null, null, ticket[0])} else
         {window.location.href = '/login'; alert("Aby dodać do koszyka musisz się najpierw zalogować.")}
     }
 
@@ -100,7 +104,7 @@ function TicketsShop()
                         <td> {ticket[5]}zł </td>
                         <td>{ticket[6]}zł</td>
                         {ticket[7] ? <td>{ticket[7]}</td> : <td> - </td>}
-                        <td> <Button type="button" className="cartStyle" onClick={(e) =>{addTicket(ticket[3], ticket[8], ticket[2], ticket[4], ticket[5], ticket[6], ticket[7], ticket[1], ticket[0])}}
+                        <td> <Button type="button" className="cartStyle" onClick={(e) =>{handleClick(e, ticket, 'disc')}}
                         >🛒</Button> </td>
                     </tr>
                 ))}
@@ -133,7 +137,7 @@ function TicketsShop()
                         <th scope="row">{ticket[1]}({ticket[3]})</th>
                         <td> Standardowy </td>
                         <td>{ticket[2]}zł</td>
-                        <td> <Button type="button" className="cartStyle" onClick={(e) =>{addTicket('Standardowy', ticket[3], ticket[1], null, null, ticket[2], null, null, ticket[0])}}
+                        <td> <Button type="button" className="cartStyle" onClick={(e) =>{handleClick(e, ticket, 'std')}}
                         >🛒</Button> </td>
                     </tr>
                 ))}
