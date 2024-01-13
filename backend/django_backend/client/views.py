@@ -543,3 +543,9 @@ def get_free_gym_classe_details(request):
     details = database.get_free_gym_classe_details(date, gym_classe_id)
     response_data = {'details': details }
     return JsonResponse(response_data)
+
+@csrf_exempt
+def get_price_list(request):
+    price_list = database.get_price_list()
+    response_data = {'price_list': price_list }
+    return JsonResponse(response_data)

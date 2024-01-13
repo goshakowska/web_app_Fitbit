@@ -890,6 +890,10 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
 
+def get_price_list():
+    gym_classes = models.GymClasse.objects.all()
+    price_list = [ [ gym_classe.name, gym_classe.price ] for gym_classe in gym_classes ]
+    return price_list
 
 
 
