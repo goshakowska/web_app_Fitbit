@@ -544,8 +544,19 @@ def get_free_gym_classe_details(request):
     response_data = {'details': details }
     return JsonResponse(response_data)
 
+
 @csrf_exempt
 def get_price_list(request):
+    """
+    View to retrieve the price list for all gym classes.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the price list for all gym classes.
+            The response format is {'price_list': [list_of_price_details]}.
+    """
     price_list = database.get_price_list()
     response_data = {'price_list': price_list }
     return JsonResponse(response_data)

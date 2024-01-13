@@ -6,6 +6,7 @@ from django.utils import timezone
 import client.client_error as client_error
 from django.db import transaction
 import pytz
+TRAINING = 2
 
 
 def registration(login, password_hash, email, phone_number,
@@ -287,21 +288,18 @@ def get_training_history(client_id):
     trainings = models.GymVisit.objects.filter(client_user__client_id=client_id)
     training_list = []
     for training in trainings:
-        start_date = training.entry_time
-        end_date = training.departure_time
-        if not end_date:    # if training is not over yet
-            continue
+        start_date = training.entry_time.astimezone(pytz.timezone('Europe/Warsaw'))
+        end_date = training.departure_time.astimezone(pytz.timezone('Europe/Warsaw')) if training.departure_time else datetime.now(pytz.timezone('Europe/Warsaw'))
         exercises = models.ExerciseHistory.objects.filter(
             client__client_id=client_id,
             exercise_date__range=[start_date, end_date]
         )
         calories = 0
         time = 0
-        # start_date, end_date = end_date, start_date
         for exercise in exercises:
-            # todo początek i koniec oraz czas
             calories += exercise.calories
             time += exercise.duration
+        end_date = training.departure_time.astimezone(pytz.timezone('Europe/Warsaw')) if training.departure_time else None
         training_list.append([training.gym_visit_id, dc.str_date(start_date), dc.str_hour(start_date), dc.str_date(end_date), dc.str_hour(end_date), time, calories])
     return training_list
 
@@ -320,9 +318,11 @@ def get_training_details(training_id):
         models.GymVisit.DoesNotExist: If the training with the specified training_id does not exist.
     """
     training = models.GymVisit.objects.get(gym_visit_id=training_id)
+    # if training is not finished yet
+    deaprture_time = training.departure_time if training.departure_time else datetime.now(pytz.timezone('Europe/Warsaw'))
     exercises = models.ExerciseHistory.objects.filter(
             client__client_id=training.client_user.client_id,
-            exercise_date__range=[training.entry_time, training.departure_time]
+            exercise_date__range=[training.entry_time, deaprture_time]
         )
     exercises_list = []
     for exercise in exercises:
@@ -493,7 +493,7 @@ def get_gym_classes(gym_id):
         id_list.append(classe.gym_classe_id)
     return gym_classe_list
 
-def get_free_trainings(trainer_id, start_date, client_id):
+def get_free_trainings(trainer_id, start_date_str, client_id):
     """
     Get a list of free trainings offered by a specific trainer on a specific date.
 
@@ -509,38 +509,11 @@ def get_free_trainings(trainer_id, start_date, client_id):
         None
     """
     delete_unpaid_orders()
-    week_classes = models.WeekSchedule.objects.filter(trainer__employee_id=trainer_id)
-    start_date = datetime.strptime(start_date, '%Y-%m-%d')
-    if start_date.strftime('%A') !=  "Sunday":
-        return
-    end_date = start_date + timedelta(days=7)
-    day_delta = {
-        'poniedziałek': 1,
-        'wtorek': 2,
-        'środa': 3,
-        'czwartek': 4,
-        'piątek': 5,
-        'sobota': 6,
-        'niedziela': 0
-    }
-    # todo zrób to mądrzej i ładniej
-    classes_list = []
-    for week_classe in week_classes:
-        if week_classe.gym_classe.gym_classe_id != 2:
-            continue
-        day = start_date + timedelta(days=day_delta[week_classe.week_day])
-        collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
-        free_places = get_free_places_gym_classe(day, week_classe.week_schedule_id)
-        item = [
-            week_classe.week_schedule_id,
-            week_classe.gym_classe.name,
-            week_classe.trainer.name,
-            week_classe.trainer.surname,
-            dc.str_date(day),
-            week_classe.start_time,
-            collision,
-            free_places]
-        classes_list.append(item)
+    week_classes = models.WeekSchedule.objects.filter(
+        trainer__employee_id=trainer_id,
+        gym_classe__gym_classe_id=TRAINING
+        )
+    classes_list = get_free_items(start_date_str, week_classes, client_id)
     return classes_list
 
 def get_free_places_gym_classe(classe_date, week_schedule_id):
@@ -560,12 +533,11 @@ def get_free_places_gym_classe(classe_date, week_schedule_id):
         schedule_date__lte=classe_date_stop,
         week_schedule__week_schedule_id=week_schedule_id
     )
-    print(busy_classes.count())
     gym_classe = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
     return gym_classe.gym_classe.max_people - busy_classes.count()
 
 
-def get_free_gym_classes(gym_id, start_date, client_id):
+def get_free_gym_classes(gym_id, start_date_str, client_id):
     """
     Get a list of free gym classes in a given gym starting from a specific date.
 
@@ -578,35 +550,26 @@ def get_free_gym_classes(gym_id, start_date, client_id):
         List: A list of dictionaries representing free gym classes.
     """
     delete_unpaid_orders()
-    week_classes = models.WeekSchedule.objects.filter(trainer__gym_id=gym_id)
-    start_date = datetime.strptime(start_date, '%Y-%m-%d')
-    if start_date.strftime('%A') !=  "Sunday":
-        return
-    day_delta = {
-        'poniedziałek': 1,
-        'wtorek': 2,
-        'środa': 3,
-        'czwartek': 4,
-        'piątek': 5,
-        'sobota': 6,
-        'niedziela': 0
-    }
-    # todo zrób to mądrzej i ładniej, najlepiej nowa funkcja do obliczania daty
+    week_classes = models.WeekSchedule.objects.filter(
+        trainer__gym_id=gym_id
+    ).exclude(gym_classe__gym_classe_id=TRAINING)
+    classes_list = get_free_items(start_date_str, week_classes, client_id)
+    return classes_list
+
+
+def get_free_items(start_date_str, week_classes, client_id):
+    start_date = datetime.strptime(start_date_str, '%Y-%m-%d').replace(tzinfo=pytz.timezone('Europe/Warsaw'))
     classes_list = []
     for week_classe in week_classes:
-        if week_classe.gym_classe.gym_classe_id == 2:
-            continue
-        day = start_date + timedelta(days=day_delta[week_classe.week_day])
-        collision = check_collision(client_id, week_classe, day.strftime("%Y-%m-%d"))
-        print(day)
-        print(week_classe.week_schedule_id)
-        free_places = get_free_places_gym_classe(day, week_classe.week_schedule_id)
+        week_classe_date = gym_classe_date(start_date, week_classe.week_day)
+        collision = check_collision(client_id, week_classe, start_date_str)
+        free_places = get_free_places_gym_classe(start_date, week_classe.week_schedule_id)
         item = [
             week_classe.week_schedule_id,
             week_classe.gym_classe.name,
             week_classe.trainer.name,
             week_classe.trainer.surname,
-            dc.str_date(day),
+            dc.str_date(week_classe_date),
             week_classe.start_time,
             collision,
             free_places
@@ -615,7 +578,22 @@ def get_free_gym_classes(gym_id, start_date, client_id):
     return classes_list
 
 
-def check_collision(client_id, week_classe: models.WeekSchedule, date):
+def gym_classe_date(input_date, weekday):
+    day_delta = {
+        'poniedziałek': 0,
+        'wtorek': 1,
+        'środa': 2,
+        'czwartek': 3,
+        'piątek': 4,
+        'sobota': 5,
+        'niedziela': 6
+    }
+    days_until_target = (day_delta[weekday] - input_date.weekday() + 7) % 7
+    result_date = input_date + timedelta(days=days_until_target)
+    return result_date.replace(tzinfo=pytz.timezone('Europe/Warsaw'))
+
+
+def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
     """
     Check if there is a collision between a gym class and existing OrderedSchedules for a client on a specified date.
 
@@ -627,7 +605,7 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date):
     Returns:
     int or None: Oreder gym classe id if is collision, otherwise None.
     """
-    classe_date_start = datetime.strptime(date, "%Y-%m-%d").replace(pytz.timezone('Europe/Warsaw'))
+    classe_date_start = datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
     classe_date_stop = classe_date_start + timedelta(days=1)
     classes = models.OrderedSchedule.objects.filter(
         schedule_date__gt=classe_date_start,
@@ -676,7 +654,6 @@ def get_gym_opening_hours(gym_id):
         return None
 
 
-
 def check_client_can_buy_gym_ticket(client_id, ticket_type):
     """
     Check if a client is eligible to buy a specific type of gym ticket.
@@ -696,8 +673,6 @@ def check_client_can_buy_gym_ticket(client_id, ticket_type):
         return False
     except:
         return True
-
-
 
 
 def delete_gym_ticket(gym_ticket_id):
@@ -862,12 +837,13 @@ def delete_unpaid_orders():
     Returns:
         None
     """
-    current_time = timezone.now()
-    time_threshold = current_time - timezone.timedelta(minutes=15)
+    current_time = datetime.now(pytz.timezone('Europe/Warsaw'))
+    time_threshold = current_time - timedelta(minutes=15)
     models.OrderedSchedule.objects.filter(
         reservation_date__lt=time_threshold,
         payment_date__isnull=True
     ).delete()
+
 
 def get_free_gym_classe_details(fgc_date_str, fgc_id):
     """
@@ -890,10 +866,22 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
 
+
 def get_price_list():
+    """
+    Get the price list for all gym classes.
+
+    Returns:
+        list: A list of lists containing gym class names and their corresponding prices.
+            Each inner list has two elements: gym class name and price.
+    """
     gym_classes = models.GymClasse.objects.all()
     price_list = [ [ gym_classe.name, gym_classe.price ] for gym_classe in gym_classes ]
     return price_list
+
+
+def check_collision_in_basket():
+    pass
 
 
 
