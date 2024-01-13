@@ -19,46 +19,37 @@ def ticket_popularity_week():
         str: Base64-encoded image of the bar chart.
     """
     ticket_offer = m.GymTicketOffer.objects.all()
-    current_week = _current_week()
-    # dates for last week
-    day = current_week[0] - timedelta(days=7)
-    last_day = current_week[1] - timedelta(days=7)
-    data = {}
     ticket_types = [f"{ticket.type} ({ticket.duration})" for ticket in ticket_offer]
 
-    while day <= last_day:
-        ticket_number = {}
-        for ticket in ticket_offer:
-            ticket_number[f"{ticket.type} ({ticket.duration})"] = (m.GymTicketHistory.objects
-                                                                   .filter(gym_ticket_offer = ticket,
-                                                                           purchase_date = day
-                                                                           )
-                                                                   .count()
-                                                                   )
-            ticket_number[f"{ticket.type} ({ticket.duration})"] = randint(1, 20)
-        data[f"{day.strftime('%d-%m-%Y')}"] = ticket_number
-        day += timedelta(days=1)
+    # calculate last month
+    current_date = datetime.now().date()
+    last_day = current_date - timedelta(days=current_date.day)
+    day = last_day.replace(day=1)
+    data_count = []
 
+    for ticket in ticket_offer:
+        count = m.GymTicketHistory.objects.filter(
+            gym_ticket_offer = ticket,
+            purchase_date__gte = day,
+            purchase_date__lte = last_day
+        ).count()
+        print(count)
+        count = randint(20, 60)
+        data_count.append(count)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
-    bar_width = 0.1
-    index = range(len(data.keys()))
-
     colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b']
 
-    for i, type in enumerate(ticket_types):
-        x_values = [idx + i * bar_width for idx in index]
-        y_values = [data[day].get(type, 0) for day in data.keys()]
-        plt.bar(x_values, y_values, width=bar_width, label=type, color=colors[i])
+    wedges, texts, autotexts = plt.pie(data_count, labels=ticket_types, autopct='', startangle=90, wedgeprops=dict(width=1), colors=colors)
 
-    plt.title('Popularność karnetów w zeszłym tygodniu')
-    plt.xlabel('Data')
-    plt.ylabel('Liczba sprzedanych karnetów')
-    plt.xticks(index, data.keys())
-    plt.legend()
+    plt.title('Popularność karnetów w zeszłym miesiącu')
+    plt.axis('equal')
+
+    for i, text in enumerate(texts):
+        text.set_text(f"{ticket_types[i]}\n{data_count[i]}")
 
     # Save image in memory
     image_stream = io.BytesIO()
@@ -105,11 +96,12 @@ def discount_popularity_week():
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
+    colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b']
 
-    wedges, texts, autotexts = plt.pie(data_count, labels=discount_types, autopct='', startangle=90, wedgeprops=dict(width=1))
+    wedges, texts, autotexts = plt.pie(data_count, labels=discount_types, autopct='', startangle=90, wedgeprops=dict(width=1), colors=colors)
 
-    plt.title('Popularność zniżek w zeszłym tygodniu')
-    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+    plt.title('Popularność zniżek w zeszłym miesiącu')
+    plt.axis('equal')
 
     for i, text in enumerate(texts):
         text.set_text(f"{discount_types[i]}\n{data_count[i]}")
