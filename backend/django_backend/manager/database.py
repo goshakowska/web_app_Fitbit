@@ -363,3 +363,95 @@ def clients_by_hour(manager_id):
     plt.close()
 
     return image_base64
+
+
+
+def equipment_usage(manager_id, equipment_name):
+     # find gym where manager works
+    try:
+        portier = m.Employee.objects.get(employee_id=manager_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    data = {}
+
+    # calculate last month
+    current_date = datetime.now().date()
+    last_day = current_date - timedelta(days=current_date.day)
+    day = last_day.replace(day=1)
+    first_day = last_day.replace(day=1)
+
+    equipments_id = m.GymEquipment.objects.filter(gym=gym, equipment__name=equipment_name)
+
+    while day <= last_day:
+        usage = {
+            'hours': [],
+            'equipment': []
+        }
+        for equipment in equipments_id:
+            count = m.ExerciseHistory.objects.filter(
+                gym=gym,
+                gym_equipment=equipment,
+                exercise_date__date=day
+            ).count()
+            usage['equipment'].append(f"{equipment.equipment.name} {equipment.gym_equipment_id}")
+            usage['hours'].append(count/3600)   # in database stored in seconds
+
+        data[day.strftime('%d')] = usage
+        day = day + timedelta(days=1)
+
+    print(data)
+
+    data = {
+    '01': {'hours': [8, 10, 15], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '02': {'hours': [9, 11, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '03': {'hours': [8, 12, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '04': {'hours': [10, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '05': {'hours': [9, 12, 16], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '06': {'hours': [8, 12, 17], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '07': {'hours': [7, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '08': {'hours': [9, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '09': {'hours': [9, 15, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '10': {'hours': [11, 12, 20], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '11': {'hours': [10, 14, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '12': {'hours': [9, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '13': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '14': {'hours': [7, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '15': {'hours': [7, 12, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+    '16': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+}
+
+
+    # Process data for plot
+    dates = []
+    # equipment_names = [f"{equipment.equipment.name} {equipment.gym_equipment_id}" for equipment in equipments_id]
+    equipment_names = ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']
+    daily_hours = {equip: [] for equip in equipment_names}
+
+    for date, values in data.items():
+        dates.append(date)
+        for equip, hours in zip(values['equipment'], values['hours']):
+            daily_hours[equip].append(hours)
+
+    # Create plot
+    matplotlib.use('Agg')   # non-interactive mode
+    plt.figure(figsize=(10, 6))
+
+    for equip in equipment_names:
+        plt.plot(dates, daily_hours[equip], label=equip, marker='o')
+
+    plt.title(f'Wykorzystanie sprzętu na siłowni {first_day.strftime("%d/%m/%Y")} - {last_day.strftime("%d/%m/%Y")}')
+    plt.xlabel('Data')
+    plt.ylabel('Liczba godzin korzystania')
+    plt.legend()
+
+    # Save image in memory
+    image_stream = io.BytesIO()
+    plt.savefig(image_stream, format='jpeg')
+    image_stream.seek(0)
+
+    image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+    plt.close()
+
+    return image_base64
