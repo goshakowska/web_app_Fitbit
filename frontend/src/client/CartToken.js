@@ -18,13 +18,14 @@ export const CartToken = () => {
         sessionStorage.setItem('ticketsCart', JSON.stringify(storedCart));
     }
 
-    const addTraining = (name, price, hour, scheduleDate, weekScheduleId) => {
+    const addTraining = (name, price, hour, scheduleDate, weekScheduleId, freePlaces) => {
         let training = {
             name: name,
             price: price,
             hour: hour,
-            scheduleDate: scheduleDate,
-            weekScheduleId: weekScheduleId,
+            schedule_date: scheduleDate,
+            week_schedule_id: weekScheduleId,
+            freePlaces: freePlaces,
         }
         let storedCart = sessionStorage.getItem('trainingsCart') ?
         JSON.parse(sessionStorage.getItem('trainingsCart')) : [];

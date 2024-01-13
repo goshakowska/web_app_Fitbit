@@ -56,12 +56,13 @@ function GroupClassesShop () {
           }, [stateRef.current, gymId]);
           useEffect((e) => {getGyms(e)}, []);
 
-          const handleClick = (class_id, date, collision_id) => {
+          const handleClick = (class_id, date, collision_id, free_places) => {
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,
                 date: date,
-                collisionId: collision_id
+                collisionId: collision_id,
+                freePlaces: free_places
               }
             });
           };
@@ -106,7 +107,7 @@ function GroupClassesShop () {
                                     <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
                                     <td> {clientClass[7]}</td>
-                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {console.log(clientClass); handleClick(clientClass[0], clientClass[4], clientClass[6])}}
+                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7])}}
                         >Szczegóły</Button> </td>
                                 </tr>
                             ))}

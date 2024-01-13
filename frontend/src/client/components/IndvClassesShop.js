@@ -70,12 +70,13 @@ function IndvClassesShop () {
           useEffect((e) => {getGyms(e)}, []);
           useEffect((e) => {getTrainers(e, gymId)}, [gymId]);
 
-          const handleClick = (class_id, date, collision_id) => {
+          const handleClick = (class_id, date, collision_id, free_places) => {
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,
                 date: date,
-                collisionId: collision_id
+                collisionId: collision_id,
+                freePlaces: free_places
               }
             });
           };
@@ -125,12 +126,12 @@ function IndvClassesShop () {
                                     <th scope="row"> {clientClass[1]} </th>
                                     <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
-                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6])}}
+                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7])}}
                         >Szczegóły</Button> </td>
                                 </tr>
                             ))}
               </tbody>
-            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie ma już wolnych terminów.</p>} </div></div>
+            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie prowadzi żadnych zajęć.</p>} </div></div>
                 );
 
 
