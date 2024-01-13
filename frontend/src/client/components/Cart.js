@@ -78,12 +78,12 @@ function Cart () {
     </tr>
   </thead>
   <tbody>
-  {getCart()[1].length > 0 && getCart()[1].map((ticket, index) => (
+  {getCart()[1].length > 0 && getCart()[1].map((training, index) => (
                     <tr key={index}>
-                        <th scope="row">{ticket["name"]}</th>
-                        <td> {ticket["price"]} </td>
-                        <td>{ticket['scheduleDate']}, {ticket['hour']} </td>
-                        <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTicket(index); stst(!st)}}
+                        <th scope="row">{training["name"]}</th>
+                        <td> {training["price"]} </td>
+                        <td>{training['scheduleDate']}, {training['hour']} </td>
+                        <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTraining(index); stst(!st)}}
                         >Usuń z koszyka</Button> </td>
                     </tr>
                 ))}
