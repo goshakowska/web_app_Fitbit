@@ -308,10 +308,12 @@ function App() {
               Czas trwania w sekundach
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={duration}
-              onChange={(e) => setDuration(Number(e.target.value))}
+              onChange={(e) => {
+                if (isNaN(e.target.value)){setDuration(''); return}
+                setDuration(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded "
             />
           </div>
@@ -321,10 +323,12 @@ function App() {
               Liczba powtórzeń
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={repetitionsNumber}
-              onChange={(e) => setRepetitionsNumber(Number(e.target.value))}
+              onChange={(e) => {
+                if (isNaN(e.target.value)){setRepetitionsNumber(''); return}
+                setRepetitionsNumber(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
           </div>
@@ -334,10 +338,12 @@ function App() {
               Kalorie
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={calories}
-              onChange={(e) => setCalories(Number(e.target.value))}
+              onChange={(e) => {
+                if (isNaN(e.target.value)){setCalories(''); return}
+                setCalories(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
           </div>
@@ -347,10 +353,12 @@ function App() {
               Dystans w metrach
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={distance}
-              onChange={(e) => setDistance(Number(e.target.value))}
+              onChange={(e) => {
+                if (isNaN(e.target.value)){setDistance(''); return}
+                setDistance(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
           </div>
@@ -360,10 +368,12 @@ function App() {
               Obciążenie w kilogramach
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={weight}
-              onChange={(e) => setWeight(Number(e.target.value))}
+              onChange={(e) => {
+                if (isNaN(e.target.value)){setWeight(''); return}
+                setWeight(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
           </div>
@@ -373,10 +383,12 @@ function App() {
               Wysokość w centymetrach
             </label>
             <input
-              type="number"
+              type="numeric"
               pattern="[0-9]*"
               value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
+              onChange={(e) =>
+                {if (isNaN(e.target.value)){setHeight(''); return}
+                setHeight(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
           </div>
