@@ -5,7 +5,7 @@ import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import getGymsList from "../functions/GymsList.js";
 import { useNavigate } from "react-router-dom";
-
+import CartToken from "../CartToken.js";
 
 
 function GroupClassesShop () {
@@ -15,7 +15,9 @@ function GroupClassesShop () {
     const [gyms, setGyms] = useState([]);
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const stateRef = useRef();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const {addTraining} = CartToken();
+
 
     const getGroupClasses = async (e) => {
         try {
@@ -108,6 +110,8 @@ function GroupClassesShop () {
                                     <td> {clientClass[7]}</td>
                                     <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6])}}
                         >Szczegóły</Button> </td>
+                        <td> <Button type="button" className="cartStyle" onClick={(e) =>{addTraining(clientClass[1], '100', clientClass[5], clientClass[4], clientClass[0])}}
+                        >🛒</Button> </td>
                                 </tr>
                             ))}
               </tbody>
