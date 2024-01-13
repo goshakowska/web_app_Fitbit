@@ -1,4 +1,4 @@
-from django.db.models import Value, Count, Case, When, CharField, ExpressionWrapper, IntegerField, F
+from django.db.models import Value, Count, Case, When, CharField, ExpressionWrapper, IntegerField, Q
 from django.db.models.functions import ExtractYear
 from django.utils import timezone
 import database_models.models as m
@@ -79,10 +79,10 @@ def discount_popularity_week():
     Returns:
         str: Base64-encoded image of the bar chart.
     """
-    current_week = _current_week()
-    # dates for last week
-    day = current_week[0] - timedelta(days=7)
-    last_day = current_week[1] - timedelta(days=7)
+    # calculate last month
+    current_date = datetime.now().date()
+    last_day = current_date - timedelta(days=current_date.day)
+    day = last_day.replace(day=1)
 
     data_count = []
 
@@ -91,23 +91,28 @@ def discount_popularity_week():
 
     for discount in discount_types:
         count = (m.GymTicketHistory.objects
-                 .filter(discount__name=discount, purchase_date__gte=day, purchase_date__lte=last_day)
+                 .filter(Q(discount__name=discount) &
+                          Q(purchase_date__gte=day) &
+                          Q(purchase_date__lte=last_day) &
+                          Q(discount__start_date__lte=day) &
+                          (Q(discount__stop_date__isnull=True) | Q(discount__stop_date__gte=last_day))
+                          )
                  .count())
         count = randint(1, 10)
         data_count.append(count)
 
-    print(data_count)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
-    bar_width = 0.2
-    plt.bar(discount_types, data_count, width=bar_width, color='#2ecc71')
+    wedges, texts, autotexts = plt.pie(data_count, labels=discount_types, autopct='', startangle=90, wedgeprops=dict(width=1))
 
     plt.title('Popularność zniżek w zeszłym tygodniu')
-    plt.xlabel('Nazwa zniżki')
-    plt.ylabel('Liczba sprzedanych karnetów ze zniżką')
+    plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+    for i, text in enumerate(texts):
+        text.set_text(f"{discount_types[i]}\n{data_count[i]}")
 
     # Save image in memory
     image_stream = io.BytesIO()
