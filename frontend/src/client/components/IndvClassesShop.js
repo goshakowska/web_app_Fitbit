@@ -1,10 +1,11 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import clientToken from '../ClientToken.js';
-import { Table, Input, InputGroup } from 'reactstrap';
+import { Table, Input, InputGroup, Button } from 'reactstrap';
 import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import getGymsList from "../functions/GymsList.js";
 import getTrainersList from "../functions/TrainersList.js";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -17,6 +18,7 @@ function IndvClassesShop () {
     const [clubTrainers, setClubTrainers] = useState([])
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const stateRef = useRef();
+    const navigate = useNavigate()
 
 
     const getIndvClasses = async (e) => {
@@ -27,8 +29,9 @@ function IndvClassesShop () {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({  trainer_id: trainerId,
+                start_date: formatDate(stateRef.current),
                                       client_id: userId(),
-                                      start_date: formatDate(stateRef.current)}),
+                                      }),
             });
 
             if (!response.ok) {
@@ -36,8 +39,8 @@ function IndvClassesShop () {
             }
 
             const data = await response.json();
-            setClasses(data.classes)
-            console.log(data.classes)
+            setClasses(data.trainings)
+            console.log(data.trainings)
 
 
           } catch (error) {
@@ -63,6 +66,16 @@ function IndvClassesShop () {
           }, [stateRef.current, trainerId]);
           useEffect((e) => {getGyms(e)}, []);
           useEffect((e) => {getTrainers(e, gymId)}, [gymId]);
+
+          const handleClick = (class_id, date, collision_id) => {
+            navigate('/szczegoly_sklep', {
+              state: {
+                classId: class_id,
+                date: date,
+                collisionId: collision_id
+              }
+            });
+          };
 
           return(
             <div className="clubsTable">
@@ -93,23 +106,28 @@ function IndvClassesShop () {
                     Nazwa
                   </th>
                   <th>
-                    Data i godzina rozpoczęcia
+                    Trener
                   </th>
                   <th>
-                    Trener
+                  Data i godzina rozpoczęcia
+                  </th>
+                  <th>
+                  Szczegóły
                   </th>
                 </tr>
               </thead>
               <tbody>
               {classes.map((clientClass, index) => (
                                 <tr key={index}>
-                                    <th scope="row"> {clientClass[3]} </th>
-                                    <td> {clientClass[1]}, {clientClass[2]} </td>
+                                    <th scope="row"> {clientClass[1]} </th>
+                                    <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
+                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6])}}
+                        >Szczegóły</Button> </td>
                                 </tr>
                             ))}
               </tbody>
-            </Table> : <p className='errorLabel'>W tym tygodniu nie odbywają się żadne zajęcia grupowe.</p>} </div></div>
+            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie ma już wolnych terminów.</p>} </div></div>
                 );
 
 

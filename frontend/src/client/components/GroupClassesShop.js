@@ -1,9 +1,11 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import clientToken from '../ClientToken.js';
-import { Table, Input, InputGroup } from 'reactstrap';
+import { Table, Input, InputGroup, Button } from 'reactstrap';
 import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import getGymsList from "../functions/GymsList.js";
+import { useNavigate } from "react-router-dom";
+
 
 
 function GroupClassesShop () {
@@ -13,7 +15,7 @@ function GroupClassesShop () {
     const [gyms, setGyms] = useState([]);
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const stateRef = useRef();
-
+    const navigate = useNavigate()
 
     const getGroupClasses = async (e) => {
         try {
@@ -54,6 +56,16 @@ function GroupClassesShop () {
           }, [stateRef.current, gymId]);
           useEffect((e) => {getGyms(e)}, []);
 
+          const handleClick = (class_id, date, collision_id) => {
+            navigate('/szczegoly_sklep', {
+              state: {
+                classId: class_id,
+                date: date,
+                collisionId: collision_id
+              }
+            });
+          };
+
           return(
             <div className="clubsTable">
                   <InputGroup className="inputGroup">
@@ -74,23 +86,32 @@ function GroupClassesShop () {
                     Nazwa
                   </th>
                   <th>
-                    Data i godzina rozpoczęcia
+                    Trener
                   </th>
                   <th>
-                    Trener
+                  Data i godzina rozpoczęcia
+                  </th>
+                  <th>
+                  Dostępne miejsca
+                  </th>
+                  <th>
+                  Szczegóły
                   </th>
                 </tr>
               </thead>
               <tbody>
               {classes.map((clientClass, index) => (
                                 <tr key={index}>
-                                    <th scope="row"> {clientClass[3]} </th>
-                                    <td> {clientClass[1]}, {clientClass[2]} </td>
+                                    <th scope="row"> {clientClass[1]} </th>
+                                    <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
+                                    <td> {clientClass[7]}</td>
+                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6])}}
+                        >Szczegóły</Button> </td>
                                 </tr>
                             ))}
               </tbody>
-            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie prowadzi żadnych zajęć.</p>} </div></div>
+            </Table> : <p className='errorLabel'>W tym tygodniu nie odbywają się żadne zajęcia grupowe.</p>} </div></div>
                 );
 
 
