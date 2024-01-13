@@ -6,6 +6,7 @@ from django.utils import timezone
 import client.client_error as client_error
 from django.db import transaction
 import pytz
+from portier.database import check_if_ticket_active
 TRAINING = 2
 
 
@@ -571,7 +572,7 @@ def get_free_items(start_date_str, week_classes, client_id):
     classes_list = []
     for week_classe in week_classes:
         week_classe_date = gym_classe_date(start_date, week_classe.week_day)
-        collision = check_collision(client_id, week_classe, start_date_str)
+        collision = check_collision(client_id, week_classe, dc.str_date(week_classe_date))
         free_places = get_free_places_gym_classe(week_classe_date, week_classe.week_schedule_id)
         item = [
             week_classe.week_schedule_id,
@@ -614,7 +615,7 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
     Returns:
     int or None: Oreder gym classe id if is collision, otherwise None.
     """
-    classe_date_start = datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
+    classe_date_start = datetime.strptime(date_str, "%Y-%m-%d")
     classe_date_stop = classe_date_start + timedelta(days=1)
     classes = models.OrderedSchedule.objects.filter(
         schedule_date__gt=classe_date_start,
@@ -628,7 +629,6 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
     classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
     for classe in classes:
         ordered_start = classe.schedule_date
-        print(ordered_start)
         ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
         if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
             return classe.ordered_schedule_id
@@ -889,32 +889,7 @@ def get_price_list():
     return price_list
 
 
-def check_collision_in_basket():
+def check_collision_in_basket(week_schedule_id, date_str, ):
     pass
 
 
-
-
-
-
-
-def check_if_ticket_active(ticket, client_id):      # podmienić funkcję
-    # check if still active
-    if ticket.gym_ticket_offer.type == "Dniowy":
-        # ticket is for time
-        end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
-        current_date = timezone.now().date()
-        if current_date > end_date:
-            # ticket has expired
-            return False
-        else:
-            return True
-    else:
-        # ticket is for number of entries
-        entries = models.GymVisit.objects.filter(client_user=client_id).count()
-        limit_entries = ticket.gym_ticket_offer.duration
-        if entries > limit_entries:
-            # ticket has expired
-            return False
-        else:
-            return True
