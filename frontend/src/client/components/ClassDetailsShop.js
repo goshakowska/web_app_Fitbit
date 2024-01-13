@@ -4,6 +4,8 @@ import {Button, Table} from 'reactstrap';
 import getClassDetails from "../functions/ClassDetails";
 import getCalendarClassDetails from "../functions/CalendarClassDetails";
 import "../styles/tablesStyle.css";
+import CartToken from "../CartToken.js";
+
 
 export default function ClassDetailsShop() {
     const [details, setDetails] = useState([])
@@ -12,6 +14,7 @@ export default function ClassDetailsShop() {
     const classId = location.state.classId;
     const date = location.state.date;
     const collisionId = location.state.collisionId;
+    const {addTraining} = CartToken();
 
     const getCollisionDetails = async (event, collisionId) => {
         const details = await getClassDetails(event, collisionId);
@@ -27,9 +30,9 @@ export default function ClassDetailsShop() {
     useEffect((e) => {if (collisionId) getCollisionDetails(e, collisionId)}, []);
 
     return(
-        <div>
+        <div className="layout">
             <div>
-      <h className="textLogin"> Szczegóły Twoich zajęć</h>
+      <div className="textLogin"> Szczegóły terminu zajęciowego</div>
 
       <div className="tablePos">
 <Table bordered hover responsive className="tableDesign tableDesignWide" >
@@ -61,11 +64,10 @@ export default function ClassDetailsShop() {
 </Table>
 </div>
 </div>
-            {collisionId &&
+            {collisionId ?
       <div>
-      <h className="textLogin"> Szczegóły Twoich zajęć</h>
-
       <div className="tablePos">
+        <label className="errorLabel"> Uwaga! Masz kolizję z poniższym terminem: </label>
 <Table bordered hover responsive className="tableDesign tableDesignWide" >
 <thead>
   <tr>
@@ -93,8 +95,10 @@ export default function ClassDetailsShop() {
 
 </tbody>
 </Table>
+<label className="errorLabel"> Aby dodać ten termin do koszyka, anuluj swój udział w powyższych zajęciach. </label>
 </div>
-</div>}</div>
+</div> : <Button type="button" className="cartStyle text-style" onClick={(e) =>{addTraining(details[1], '100', details[5], details[4], details[0])}}
+                        >Dodaj zajęcia do koszyka</Button>}</div>
   );
 
 }

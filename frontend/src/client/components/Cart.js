@@ -1,12 +1,24 @@
 import CartToken from "../CartToken";
 import React, { useState, useEffect, useContext } from "react";
 import {Button, Table} from 'reactstrap';
+import { useNavigate } from "react-router-dom";
+
 
 function Cart () {
     const {getCart, deleteTicket, deleteTraining} = CartToken();
-    const [st, stst] = useState(true)
+    const [st, stst] = useState(true);
+    const navigate = useNavigate();
 
-    console.log(getCart()[0])
+    const handleClick = (class_id, date, collision_id) => {
+      navigate('/szczegoly_sklep', {
+        state: {
+          classId: class_id,
+          date: date,
+          collisionId: null
+        }
+      });
+    };
+
     return (
         <div className="ticketsShop">
             <h className="textLogin"> Twój koszyk </h>
@@ -83,6 +95,8 @@ function Cart () {
                         <th scope="row">{training["name"]}</th>
                         <td> {training["price"]} </td>
                         <td>{training['scheduleDate']}, {training['hour']} </td>
+                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(training["weekScheduleId"], training["scheduleDate"])}}
+                        >Szczegóły</Button> </td>
                         <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTraining(index); stst(!st)}}
                         >Usuń z koszyka</Button> </td>
                     </tr>

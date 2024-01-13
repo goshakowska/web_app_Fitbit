@@ -127,8 +127,6 @@ function IndvClassesShop () {
                                     <td> {clientClass[4]} {clientClass[5]} </td>
                                     <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6])}}
                         >Szczegóły</Button> </td>
-                                    <td> <Button type="button" className="cartStyle" onClick={(e) =>{addTraining(clientClass[1], '100', clientClass[5], clientClass[4], clientClass[0])}}
-                        >🛒</Button> </td>
                                 </tr>
                             ))}
               </tbody>
