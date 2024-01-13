@@ -560,3 +560,14 @@ def get_price_list(request):
     price_list = database.get_price_list()
     response_data = {'price_list': price_list }
     return JsonResponse(response_data)
+
+
+@csrf_exempt
+def check_collision_in_busket(request):
+    data = json.loads(request.body.decode('utf-8'))
+    date_str = data.get('date')
+    week_schedule_id = data.get('week_schedule_id')
+    basket = data.get('basket')
+    is_collision = database.check_collision_in_basket(week_schedule_id, date_str, basket)
+    response_data = {'is_collision': is_collision }
+    return JsonResponse(response_data)

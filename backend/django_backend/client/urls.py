@@ -31,4 +31,5 @@ urlpatterns = [
     path('buy_items_from_busket/', views.buy_items),
     path('free_gym_classe_details/', views.get_free_gym_classe_details),
     path('price_list/', views.get_price_list),
+    path('is_collision_in_basket/', views.check_collision_in_busket)
 ]
