@@ -22,6 +22,7 @@ import IndvClassesShop from "./client/components/IndvClassesShop";
 import ClassDetails from "./client/components/ClientClassDetails";
 import Cart from "./client/components/Cart";
 import ClassDetailsShop from "./client/components/ClassDetailsShop";
+import Reservation from "./client/components/Reservation";
 
 import Registration from "./client/views/Registration";
 import ClientClasses from "./client/views/ClientClasses";
@@ -54,6 +55,7 @@ function App() {
               <Route exact path='/indywidualne_sklep' element={<IndvClassesShop />} />
               <Route exact path='/szczegoly_sklep' element={<ClassDetailsShop />} />
               <Route exact path='/koszyk' element={<Cart />} />
+              <Route exact path='/platnosc' element={<Reservation />} />
               </Routes>
 
               </WeekSwitcherProvider>
