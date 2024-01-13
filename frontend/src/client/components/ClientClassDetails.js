@@ -1,38 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import {Table} from 'reactstrap';
+import { useLocation, useNavigate } from "react-router-dom";
+import getClassDetails from "../functions/ClassDetails";
+import {Button, Table} from 'reactstrap';
 import "../styles/tablesStyle.css";
-import secondsToHHMMSS from "../functions/secondsToHHMMSS";
-import moment from 'moment';
+
 
 
 const ClassDetails = props => {
-    const [details, setDetails] = useState([])
+    const [details, setDetails] = useState([]);
+    const [error, setError] = useState("")
     const location = useLocation();
+    const navigate = useNavigate();
     const class_id = location.state.classId;
 
-    const getClassDetails = async (event, class_id) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/ordered_classe_details/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ classe_id: class_id})});
+    const getDetails = async (event) => {
+      const details = await getClassDetails(event, class_id);
+      setDetails(details);
+  }
 
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    const cancelClass = async (event, class_id) => {
+      try {
+          const response = await fetch('http://localhost:8000/client/cancel_ordered_gym_classe/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },body: JSON.stringify({ ordered_gym_classe_id: class_id})});
 
-            const data = await response.json();
-            console.log(data.details[0])
-            setDetails(data.details);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
 
-          } catch (error) {
-            console.error('Error:', error);
-          };
-    }
+          const data = await response.json();
+          if(data.error){setError(data.error)}
+          if(data.result){navigate('/kalendarz_klienta')}
 
-    useEffect((e) => {getClassDetails(e, class_id)}, []);
+        } catch (error) {
+          console.error('Error:', error);
+        };
+  }
+
+    useEffect((e) => {getDetails(e, class_id)}, []);
 
     return(
       <div className="clubsTable">
@@ -65,7 +72,11 @@ const ClassDetails = props => {
     </tr>
 
 </tbody>
-</Table> </div>
+</Table>
+<div className="layout">
+<Button className="deleteStyle" onClick={e => cancelClass(e, class_id)} disabled={error}> Anuluj zajęcia </Button>
+<label className="errorLabel">{error}</label></div>
+</div>
 </div>
   );
 
