@@ -20,6 +20,8 @@ import ClassTypes from "./client/components/ClassTypes";
 import GroupClassesShop from "./client/components/GroupClassesShop";
 import IndvClassesShop from "./client/components/IndvClassesShop";
 import ClassDetails from "./client/components/ClientClassDetails";
+import Cart from "./client/components/Cart";
+import ClassDetailsShop from "./client/components/ClassDetailsShop";
 
 import Registration from "./client/views/Registration";
 import ClientClasses from "./client/views/ClientClasses";
@@ -50,6 +52,8 @@ function App() {
               <Route exact path='/sklep_zajec' element={<ClassTypes />} />
               <Route exact path='/grupowe_sklep' element={<GroupClassesShop />} />
               <Route exact path='/indywidualne_sklep' element={<IndvClassesShop />} />
+              <Route exact path='/szczegoly_sklep' element={<ClassDetailsShop />} />
+              <Route exact path='/koszyk' element={<Cart />} />
               </Routes>
 
               </WeekSwitcherProvider>
