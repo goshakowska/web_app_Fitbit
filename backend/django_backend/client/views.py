@@ -215,7 +215,7 @@ def get_ordered_classes_client(request):
     return JsonResponse({'classes': classes})
 
 @csrf_exempt
-def get_gym_classe_details(request):
+def get_ordered_gym_classe_details(request):
     """
     View to retrieve details of a gym class based on the provided class_id.
 
@@ -228,7 +228,7 @@ def get_gym_classe_details(request):
     """
     data = json.loads(request.body.decode('utf-8'))
     classe_id = data.get('classe_id')
-    details = database.get_gym_classe_details(classe_id)
+    details = database.get_ordered_gym_classe_details(classe_id)
     return JsonResponse({'details': details})
 
 @csrf_exempt

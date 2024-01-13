@@ -13,7 +13,7 @@ urlpatterns = [
     path('gyms_list/', views.gyms_list),
     path('change_default_gym/', views.change_default_gym_client),
     path('ordered_classes/', views.get_ordered_classes_client),
-    path('ordered_classe_details/', views.get_gym_classe_details),
+    path('ordered_classe_details/', views.get_ordered_gym_classe_details),
     path('client_trenings/', views.get_trainings_client),
     path('trening_details/', views.get_trening_details),
     path('gym_tickets_history/', views.get_gym_tickets_client_history),

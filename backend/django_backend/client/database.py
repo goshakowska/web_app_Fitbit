@@ -7,6 +7,7 @@ import client.client_error as client_error
 from django.db import transaction
 import pytz
 
+
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_date, advancement, target_weight,
         training_frequency, training_time, training_goal_id, gym_id, current_weight):
@@ -82,6 +83,7 @@ def user_login(login, password):
     except models.Client.DoesNotExist:
         return None
 
+
 def is_busy_login(login):
     """
     Check if a login is associated with an existing client in the database.
@@ -97,6 +99,7 @@ def is_busy_login(login):
         return True
     except models.Client.DoesNotExist:
         return False
+
 
 def is_busy_email(email):
     """
@@ -114,6 +117,7 @@ def is_busy_email(email):
     except models.Client.DoesNotExist:
         return False
 
+
 def training_goals():
     """
     Retrieve a list of training goals.
@@ -126,6 +130,7 @@ def training_goals():
     training_goals = [[goal.training_goal_id, goal.name] for goal in training_goals]
     return training_goals
 
+
 def standard_gym_ticket_offer():
     """
     Retrieve information about standard gym ticket offers.
@@ -137,6 +142,7 @@ def standard_gym_ticket_offer():
     gym_tickets = models.GymTicketOffer.objects.all()
     gym_tickets = [[ticket.gym_ticket_offer_id, ticket.type, ticket.price, ticket.duration] for ticket in gym_tickets]
     return gym_tickets
+
 
 def gym_ticket_offer_with_discount():
     """
@@ -157,6 +163,7 @@ def gym_ticket_offer_with_discount():
         tickets.append([ticket.gym_ticket_offer_id, discount.discount_id, ticket.type, discount.name, discount.discount_percentages, ticket.price, price_after_discount, dc.str_date(discount.stop_date), ticket.duration])
     return tickets
 
+
 def get_gyms_list():
     """
     Retrieve information about gyms.
@@ -168,6 +175,7 @@ def get_gyms_list():
     gyms = models.Gym.objects.all()
     gyms = [[gym.gym_id, gym.name, gym.city, gym.street, gym.house_number] for gym in gyms]
     return gyms
+
 
 def change_default_gym_client(client_id, gym_id):
     """
@@ -188,6 +196,7 @@ def change_default_gym_client(client_id, gym_id):
     new_default_gym = models.Gym.objects.get(gym_id=gym_id)
     client.gym = new_default_gym
     client.save()
+
 
 def get_ordered_classes_client(client_id, start_date):
     """
@@ -217,7 +226,8 @@ def get_ordered_classes_client(client_id, start_date):
         classes_list.append([classe.ordered_schedule_id, dc.str_date(classe.schedule_date), classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
     return classes_list
 
-def get_gym_classe_details(classe_id):
+
+def get_ordered_gym_classe_details(classe_id):
     """
     Retrieve details of a gym class based on the provided class_id.
 
@@ -231,20 +241,37 @@ def get_gym_classe_details(classe_id):
     """
     try:
         classe = models.OrderedSchedule.objects.get(ordered_schedule_id=classe_id)
-        details = [
-            classe.week_schedule.gym_classe.name,
-            classe.week_schedule.trainer.name,
-            classe.week_schedule.trainer.surname,
-            classe.week_schedule.trainer.gym.city,
-            classe.week_schedule.trainer.gym.street,
-            classe.week_schedule.trainer.gym.house_number,
-            dc.str_date(classe.schedule_date),
-            classe.week_schedule.start_time,
-            classe.week_schedule.week_day
-            ]
+        details = get_week_schedule_details(classe.week_schedule.week_schedule_id)
+        details.insert(6, dc.str_date(classe.schedule_date))
         return details
     except models.OrderedSchedule.DoesNotExist:
         return None
+
+
+def get_week_schedule_details(week_schedule_id):
+    """
+    Get details for a specific gym class week schedule.
+
+    Args:
+        week_schedule_id (int): The unique identifier of the week schedule associated with the gym class.
+
+    Returns:
+        list: A list containing details about the gym class week schedule.
+           Each inner list includes [gym_classe_Name, trainer_name, trainer_surname, gym_city, gym_street, gym_house_number, start_time, week_day]
+    """
+    gym_classe = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
+    details = [
+            gym_classe.gym_classe.name,
+            gym_classe.trainer.name,
+            gym_classe.trainer.surname,
+            gym_classe.trainer.gym.city,
+            gym_classe.trainer.gym.street,
+            gym_classe.trainer.gym.house_number,
+            gym_classe.start_time,
+            gym_classe.week_day
+            ]
+    return details
+
 
 def get_training_history(client_id):
     """
@@ -857,8 +884,9 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     fgc_date_str += f' {week_schedule.start_time}'
     fgc_date = datetime.strptime(fgc_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
     print(fgc_date)
-    details = get_gym_classe_details(fgc_id)
+    details = get_week_schedule_details(fgc_id)
     print(details)
+    details.insert(6, fgc_date_str[:-6])
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
 
