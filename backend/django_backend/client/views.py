@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 import client.database as database
 from django.core.mail import send_mail
 import client.client_error as client_error
-import database_models as models
+import database_models.models as models
 
 
 @csrf_exempt
