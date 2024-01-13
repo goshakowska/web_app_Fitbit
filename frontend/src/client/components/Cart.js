@@ -2,21 +2,58 @@ import CartToken from "../CartToken";
 import React, { useState, useEffect, useContext } from "react";
 import {Button, Table} from 'reactstrap';
 import { useNavigate } from "react-router-dom";
+import bookCart from "../functions/CartReservation";
+import Reservation from "./Reservation";
+import clientToken from "../ClientToken";
+import getCalendarClassDetails from "../functions/CalendarClassDetails";
 
 
 function Cart () {
+    const {userId} = clientToken();
     const {getCart, deleteTicket, deleteTraining} = CartToken();
     const [st, stst] = useState(true);
+    const [reservation, setReservation] = useState()
     const navigate = useNavigate();
+    const [freePlaces, setFreePlaces] = useState([]);
 
-    const handleClick = (class_id, date, collision_id) => {
+
+
+    const calculateTotal = () => {
+    const ticketsTotal = getCart()[0].reduce((sum, {price}) => sum + price, 0);
+    const trainingsTotal = getCart()[1].reduce((sum, {price}) => sum + price, 0);
+    const total = trainingsTotal + ticketsTotal;
+    return total};
+
+    const getDetails = async (event) => {
+      for(let i=0; i<getCart()[1].length; i++) {
+      const details = await getCalendarClassDetails(event, getCart()[1][i]["week_schedule_id"], getCart()[1][i]["schedule_date"]);
+      setFreePlaces(prevList => [...prevList, details[9]])};
+  }
+  useEffect((e) => {getDetails(e)}, [])
+
+
+    const handleClick = (class_id, date, collision_id, free_places) => {
       navigate('/szczegoly_sklep', {
         state: {
           classId: class_id,
           date: date,
-          collisionId: null
+          collisionId: collision_id,
+          freePlaces: free_places
         }
       });
+    };
+
+    const handleReservation = async (event, clientId, cartClasses) => {
+      const response = await bookCart(event, clientId, cartClasses);
+      if (response["reserved_id"]) {
+        navigate('/platnosc', {
+          state: {
+            reservationList: response["reserved_id"]
+          }
+        })
+      }
+      else if (response["error"]) {console.log(response["error"])}
+
     };
 
     return (
@@ -82,6 +119,9 @@ function Cart () {
         Termin
       </th>
       <th>
+        Liczba wolnych miejsc
+      </th>
+      <th>
         Szczegóły
       </th>
       <th>
@@ -94,8 +134,9 @@ function Cart () {
                     <tr key={index}>
                         <th scope="row">{training["name"]}</th>
                         <td> {training["price"]} </td>
-                        <td>{training['scheduleDate']}, {training['hour']} </td>
-                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(training["weekScheduleId"], training["scheduleDate"])}}
+                        <td>{training['schedule_date']}, {training['hour']} </td>
+                        <td> {freePlaces[index]} </td>
+                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(training["week_schedule_id"], training["schedule_date"], null, training["freePlaces"])}}
                         >Szczegóły</Button> </td>
                         <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTraining(index); stst(!st)}}
                         >Usuń z koszyka</Button> </td>
@@ -103,7 +144,10 @@ function Cart () {
                 ))}
   </tbody>
 </Table>
-</div></div></div>
+</div></div>
+<div>Suma: {calculateTotal()} zł</div>
+<Button type="button" className="cartStyle" onClick={(e) =>{handleReservation(e, userId(), getCart()[1])}}
+                        >Kupuję</Button></div>
 )
 
 }
