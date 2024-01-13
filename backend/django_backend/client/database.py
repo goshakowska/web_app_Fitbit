@@ -224,7 +224,16 @@ def get_ordered_classes_client(client_id, start_date):
     default_gym = models.Client.objects.get(client_id=client_id).gym.gym_id
     for classe in classes:
         is_default_gym = True if default_gym == classe.week_schedule.trainer.gym.gym_id else False
-        classes_list.append([classe.ordered_schedule_id, dc.str_date(classe.schedule_date), classe.week_schedule.start_time, classe.week_schedule.gym_classe.name, classe.week_schedule.trainer.name, classe.week_schedule.trainer.surname, is_default_gym])
+        classes_list.append(
+            [
+                classe.ordered_schedule_id,
+                dc.str_date(classe.schedule_date),
+                classe.week_schedule.start_time,
+                classe.week_schedule.gym_classe.name,
+                classe.week_schedule.trainer.name,
+                classe.week_schedule.trainer.surname,
+                is_default_gym
+            ])
     return classes_list
 
 
@@ -328,8 +337,8 @@ def get_training_details(training_id):
     for exercise in exercises:
         item = {
             'name': exercise.exercise.name,
-            'start_date': dc.str_date(exercise.exercise_date),
-            'start_hour': dc.str_hour(exercise.exercise_date),
+            'start_date': dc.str_date(exercise.exercise_date.astimezone(pytz.timezone('Europe/Warsaw'))),
+            'start_hour': dc.str_hour(exercise.exercise_date.astimezone(pytz.timezone('Europe/Warsaw'))),
             'duration': exercise.duration,
             'repetitions_number': exercise.repetitions_number,
             'calories': exercise.calories
@@ -563,7 +572,7 @@ def get_free_items(start_date_str, week_classes, client_id):
     for week_classe in week_classes:
         week_classe_date = gym_classe_date(start_date, week_classe.week_day)
         collision = check_collision(client_id, week_classe, start_date_str)
-        free_places = get_free_places_gym_classe(start_date, week_classe.week_schedule_id)
+        free_places = get_free_places_gym_classe(week_classe_date, week_classe.week_schedule_id)
         item = [
             week_classe.week_schedule_id,
             week_classe.gym_classe.name,
@@ -590,7 +599,7 @@ def gym_classe_date(input_date, weekday):
     }
     days_until_target = (day_delta[weekday] - input_date.weekday() + 7) % 7
     result_date = input_date + timedelta(days=days_until_target)
-    return result_date.replace(tzinfo=pytz.timezone('Europe/Warsaw'))
+    return result_date
 
 
 def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
@@ -614,12 +623,12 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
     )
     if not classes:
         return None
-    hours = int(week_classe.start_time[0:2])
-    minutes = int(week_classe.start_time[3:5])
-    classe_date_start += timedelta(hours=hours, minutes=minutes)
+    date_str += f' {week_classe.start_time}'
+    classe_date_start = datetime.strptime(date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
     classe_date_stop = classe_date_start + timedelta(minutes=week_classe.gym_classe.duration)
     for classe in classes:
-        ordered_start = classe.schedule_date.replace(pytz.timezone('Europe/Warsaw'))
+        ordered_start = classe.schedule_date
+        print(ordered_start)
         ordered_stop = ordered_start + timedelta(minutes=classe.week_schedule.gym_classe.duration)
         if not (ordered_start > classe_date_stop or classe_date_start > ordered_stop):
             return classe.ordered_schedule_id
