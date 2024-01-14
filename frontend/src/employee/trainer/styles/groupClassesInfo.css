@@ -1,0 +1,20 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 50%; */
+  }
+
+
+  .custom-carousel .carousel-control-prev-icon,
+.custom-carousel .carousel-control-next-icon {
+  color: black;
+}
+
+.custom-carousel .carousel-caption {
+  color: black;
+}
+
+.text {
+    font-family: 'Inknut Antiqua';
+}
