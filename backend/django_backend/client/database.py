@@ -900,7 +900,7 @@ def check_collision_in_basket(week_schedule_id, date_str, basket):
     gym_classe_stop = gym_classe_start + timedelta(minutes=week_schedule.gym_classe.duration)
     for basket_item in basket:
         basket_week_schedule = models.WeekSchedule.objects.get(week_schedule_id=basket_item['week_schedule_id'])
-        basket_date_str = f'{basket_item["date"]} {basket_week_schedule.start_time}'
+        basket_date_str = f'{basket_item["schedule_date"]} {basket_week_schedule.start_time}'
         basket_start = datetime.strptime(basket_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
         basket_stop = basket_start + timedelta(minutes=basket_week_schedule.gym_classe.duration)
         if not (gym_classe_start > basket_stop or basket_start > gym_classe_stop):
