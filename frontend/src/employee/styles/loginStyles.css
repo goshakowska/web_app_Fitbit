@@ -1,0 +1,141 @@
+
+.inputGroup{
+    width: 300px;
+    position: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.inputGroupSmall{
+    width: 180px;
+    position: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}
+
+.registrationForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 85vh;
+}
+
+.textRegistration{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 64px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 20px;
+  }
+
+.textLogin{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 64px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 60px;
+  }
+
+  .textLogin2{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 50px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 60px;
+  }
+
+.centeredTextInput{
+text-align: center;
+font-family: 'Inknut Antiqua';
+}
+
+.labelsStyle{
+    text-align: center;
+    font-family: 'Inknut Antiqua';
+    color: rgba(217,217,217,1);
+    font-size: 14px;
+    line-height: 1;
+    }
+
+.centeredTextInputSmall{
+    text-align: center;
+    font-family: 'Inknut Antiqua';
+    font-size: 14px;
+    }
+
+.buttonStyleLoginUser{
+background: rgba(237,222,164,1);
+border-radius: 26px;
+width: 200px;
+margin-top: 50px;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.buttonStyleLoginUser:hover{
+    background: rgb(180, 165, 108);
+    border-radius: 26px;
+    width: 200px;
+    margin-top: 50px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+.buttonStyleSwitchPage{
+    background: #F7A072;
+    border-radius: 26px;
+    width: 200px;
+    margin-top: 50px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+.buttonStyleSwitchPage:hover{
+    background: #9d6547;
+    border-radius: 26px;
+    width: 200px;
+    margin-top: 50px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+.linkTexts{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 16px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 9px;
+}
+
+.linkTextsGroup{
+    margin-top: 70px;
+}
+
+.errorLabel{
+    font-family: 'Inknut Antiqua';
+    display: flex;
+    justify-content: center;
+    color: rgb(221, 164, 21);
+    font-size: 16px;
+}
+
+.startPageText1 {
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 128px;
+    color: rgba(217,217,217,1);
+}
+
+.startPageText2 {
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 24px;
+    color: rgba(217,217,217,1);
+
+}
