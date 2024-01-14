@@ -13,4 +13,5 @@ urlpatterns = [
     path('move_down/', views.move_down_exercise),
     path('delete_exercise/', views.delete_exercise_from_training),
     path('all_exercises/', views.all_exercises),
+    path('save_exercises/', views.save_exercise_to_training),
 ]

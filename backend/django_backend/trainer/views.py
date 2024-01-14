@@ -233,3 +233,17 @@ def delete_exercise_from_training(request):
 def all_exercises(request):
     result = database.all_exercises()
     return JsonResponse({'exercises': result})
+
+
+
+@csrf_exempt
+def save_exercise_to_training(request):
+    data = json.loads(request.body.decode('utf-8'))
+    training = data.get('training_id')
+    exercise = data.get('exercise')
+    result = database.save_exercises(exercise, training)
+
+    if result:
+        return JsonResponse({'message': "Exercises saved"})
+    else:
+        return JsonResponse({'error': "Error during saving exercises"}, status=400)

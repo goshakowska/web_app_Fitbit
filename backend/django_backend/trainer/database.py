@@ -312,7 +312,7 @@ def get_exercises_for_training(trainer_id, client_id):
 #         return None
 
 
-def add_exercise(training_id, exercise_id, measured):
+def add_exercise(training_id, exercise_id, measured, position=None):
     """Adds an exercise to a training plan.
 
     Args:
@@ -324,9 +324,11 @@ def add_exercise(training_id, exercise_id, measured):
         bool: True if the exercise is successfully added, False if an error occurs.
               Returns None if the exercise or training plan is not found.
     """
-    # find last position in this training
-    last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
-    last_position = last_position.position
+    if not position:
+        # find last position in this training
+        last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
+        last_position = last_position.position
+        position = last_position + 1
     try:
         exercise = m.Exercise.objects.get(exercise_id=exercise_id)
         # measured by repetition number
@@ -342,7 +344,7 @@ def add_exercise(training_id, exercise_id, measured):
         plan = m.ExercisePlan.objects.get(exercise_plan_id=training_id)
 
         m.ExercisePlanPosition.objects.create(
-            position=last_position+1,
+            position=position,
             duration=duration,
             repetitions_number=repetition_number,
             exercise=exercise,
@@ -496,3 +498,19 @@ def all_exercises():
                 })
 
     return result
+
+
+def save_exercises(exercise_list, exercise_plan_id):
+    # remove old data for this training
+    m.ExercisePlanPosition.objects.filter(exercise_plan_id=exercise_plan_id).delete()
+    for exercise in exercise_list:
+        measured = exercise['rep'] if exercise['rep'] else exercise['duration']
+        result = add_exercise(exercise_plan_id,
+                     exercise['exercise_id'],
+                     measured,
+                     exercise['position'])
+        if not result:
+            # error
+            return None
+    return True
+
