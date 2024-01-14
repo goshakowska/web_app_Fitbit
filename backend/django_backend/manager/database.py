@@ -455,3 +455,19 @@ def equipment_usage(manager_id, equipment_name):
     plt.close()
 
     return image_base64
+
+
+def all_equipment(manager_id):
+    # find gym where manager works
+    try:
+        portier = m.Employee.objects.get(employee_id=manager_id)
+        gym = portier.gym
+    except m.Employee.DoesNotExist:
+        return None
+
+    equipment = m.GymEquipment.objects.filter(gym=gym)
+    equipment_name = []
+    for eqp in equipment:
+        equipment_name.append(eqp.equipment.name)
+
+    return list(set(equipment_name))
