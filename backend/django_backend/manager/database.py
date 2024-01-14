@@ -157,12 +157,14 @@ def age_range():
         count.append(row['count_clients'])
     plt.figure(figsize=(10, 6))
 
-    bar_width = 0.2
-    plt.bar(age, count, width=bar_width, color='#2ecc71')
+    colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b', '#1F618D']
 
-    plt.title('Rozkład wieku klientów')
-    plt.xlabel('Grupa wiekowa')
-    plt.ylabel('Liczba klientów')
+    wedges, texts, autotexts = plt.pie(count, labels=age, autopct='', startangle=90, wedgeprops=dict(width=1), colors=colors)
+
+    plt.axis('equal')
+
+    for i, text in enumerate(texts):
+        text.set_text(f"{age[i]}\n{count[i]}")
 
     # Save image in memory
     image_stream = io.BytesIO()
