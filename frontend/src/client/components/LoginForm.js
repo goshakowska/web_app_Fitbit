@@ -91,7 +91,7 @@ function LoginForm ()
         <div className="linkTextsGroup">
             <NavLink href="./rejestracja" className="linkTexts">Nie masz jeszcze konta? Załóż je tutaj!
             </NavLink>
-            <NavLink href="./rejestracja" className="linkTexts">Jesteś pracownikiem? Zaloguj się tutaj!
+            <NavLink href="./login_pracowników" className="linkTexts">Jesteś pracownikiem? Zaloguj się tutaj!
             </NavLink>
         </div>
 
