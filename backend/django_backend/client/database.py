@@ -810,8 +810,8 @@ def buy_tickets(gym_tickets, client_id, now):
     for gym_ticket in gym_tickets:
         sold_gym_ticket = models.GymTicketHistory.objects.create(
             purchase_date=now,
-            gym_ticket_offer_id = gym_ticket['gym_ticket_offer_id'],
-            discount_id = gym_ticket['discount_id'],
+            gym_ticket_offer_id = gym_ticket['gymTicketOfferId'],
+            discount_id = gym_ticket['discountId'],
             client_id=client_id
         )
         sold_gym_ticket.save()
