@@ -20,8 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASE_PASSWORD = config('DATABASE_PASSWORD')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 

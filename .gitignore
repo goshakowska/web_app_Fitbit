@@ -14,3 +14,4 @@ backend/django_backend/simulation/migrations/__pycache__/__init__.cpython-39.pyc
 simulation/__pycache__/backend_connection.cpython-39.pyc
 simulation/__pycache__/ui_dialog.cpython-39.pyc
 simulation/__pycache__/ui_simulation_window.cpython-39.pyc
+.env

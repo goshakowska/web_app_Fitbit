@@ -374,6 +374,7 @@ def add_exercise(training_id, exercise_id, measured):
 #     """
 #     Moves the exercise at the given position up by one position within the Exercise Plan.
 
+
 #     Args:
 #         training_id (int): The unique identifier for the training plan.
 #         exercise_pos (int): The position of the exercise to be moved up.
@@ -428,6 +429,7 @@ def add_exercise(training_id, exercise_id, measured):
 #         training_id (int): The unique identifier for the training plan.
 #         exercise_pos (int): The position of the exercise to be moved down.
 
+
 #     Returns:
 #         bool or None: Returns True if the move was successful, None if the exercise is already at the bottom
 #                       and cannot be moved down, or None if the specified exercise or its target position does not exist.
@@ -479,6 +481,7 @@ def add_exercise(training_id, exercise_id, measured):
 #     except m.ExercisePlanPosition.DoesNotExist:
 #         return None
 
+
 def all_exercises():
     result = []
     exercises = m.Exercise.objects.all()
@@ -489,6 +492,7 @@ def all_exercises():
                     'name': exer.name,
                     'rep': exer.repetitions_number if exer.repetitions_number != 0 else None,
                     'duration': exer.duration if exer.repetitions_number == 0 else None
+
                 })
 
     return result

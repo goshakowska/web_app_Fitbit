@@ -6,3 +6,4 @@ matplotlib
 pytest
 python-decouple
 coverage
+python-dateutil
