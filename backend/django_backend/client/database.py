@@ -380,6 +380,9 @@ def get_gym_ticket_client(client_id):
             discount = ticket.discount.discount_percentages
             item.update({'discount_name': ticket.discount.name, 'discount': discount})
         item.update({'price': dc.calculate_price_after_discount(ticket.gym_ticket_offer.price, discount)})
+        if ticket.gym_ticket_offer.type == "Dniowy" and (status or status == False):
+            end_date = ticket.activation_date + timedelta(days=ticket.gym_ticket_offer.duration)
+            item.update({'end_date': dc.str_date(end_date)})
         tickets_list.append(item)
     return tickets_list
 
