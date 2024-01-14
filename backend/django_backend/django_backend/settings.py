@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env
+DATABASE_PASSWORD = config('DATABASE_PASSWORD')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 
@@ -89,11 +93,19 @@ DATABASES = {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'IAIS',
         'USER': 'PZSP05',
-        'PASSWORD': 'PZSP05',
+        'PASSWORD': DATABASE_PASSWORD,
         'HOST': 'ora2.ia.pw.edu.pl',
         'PORT': '1521',
     }
 }
+
+# Email settings for Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'health.strength.power@gmail.com'
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 
 # Password validation
@@ -120,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
@@ -138,9 +150,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://localhost:4000'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Adres URL frontendu
+    'http://localhost:4000'   # Adres URL symulacji
 ]

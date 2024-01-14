@@ -25,3 +25,20 @@ services:
 
     volumes:
       - ./backend/django_backend:/app/backend
+
+    env_file:
+      - .env
+
+  simulation:
+    build:
+      context: ./simulation
+      dockerfile: Dockerfile
+
+    ports:
+      - '4000:4000'
+
+    volumes:
+      - ./simulation/src:/app/simulation/src
+
+    depends_on:
+      - backend

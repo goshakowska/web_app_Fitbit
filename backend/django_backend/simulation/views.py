@@ -7,7 +7,9 @@ import simulation.database as database
 
 @csrf_exempt
 def clients_list(request):
-    clients = database.get_all_clients()
+    data = json.loads(request.body.decode('utf-8'))
+    gym_id = data.get('gym_id')
+    clients = database.get_all_clients(gym_id)
     return JsonResponse({'clients': clients})
 
 @csrf_exempt
@@ -21,11 +23,12 @@ def exercises_list(request):
     return JsonResponse({'exercises': exercises})
 
 @csrf_exempt
-def trainers_list(request):
+def equipments_list(request):
     data = json.loads(request.body.decode('utf-8'))
     gym_id = data.get('gym_id')
-    trainers = database.get_trainers_by_gym(gym_id)
-    return JsonResponse({'trainers': trainers})
+    exercise_id = data.get('exercise_id')
+    equipments = database.get_equipments_by_gym_and_exercise(gym_id, exercise_id)
+    return JsonResponse({'equipments': equipments})
 
 
 @csrf_exempt
@@ -42,11 +45,11 @@ def insert_exercise_history(request):
     repetitions_number = data.get('repetitions_number')
     gym_id = data.get('gym_id')
     exercise_id = data.get('exercise_id')
-    trainer_id = data.get('trainer_id')
+    equipment_id = data.get('equipment_id')
     client_id = data.get('client_id')
     calories = data.get('calories')
     params = data.get('params')
-    exercise_history_id = database.insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, trainer_id, client_id, calories)
+    exercise_history_id = database.insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, equipment_id, client_id, calories)
     if params:
         database.insert_params_history(exercise_history_id, params)
     return JsonResponse({'message': "We are connected"})

@@ -29,7 +29,7 @@
   }
 
   .tableDesignWide{
-    width: 850px;
+    width: 950px;
     justify-content: center;
 }
 
@@ -40,8 +40,9 @@
     text-align: center;
   }
 
+
   .tableDesign td {
-    border: 2px solid rgba(237,222,164,1);
+    border: 2px solid  rgba(0,47,53,1);
     padding: 8px;
     text-align: center;
   }
@@ -49,6 +50,18 @@
   .cartStyle {
     background-color: rgba(237,222,164,1);
     border: 3px solid rgb(223, 115, 56);
+  }
+
+  .deleteStyle {
+    background-color: rgb(188, 9, 9);
+    border: 3px solid rgb(223, 115, 56);
+    margin-top: 15px;
+  }
+
+  .deleteStyle:hover {
+    background-color: rgb(155, 14, 14);
+    border: 3px solid rgb(223, 115, 56);
+    margin-top: 15px;
   }
 
   .cartStyle:hover {
@@ -118,3 +131,66 @@
     width: 140px;
     height: 50px;
   }
+
+  .smallHeader {
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 46px;
+    color: rgba(217,217,217,1);
+    margin-bottom: 40px;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .layout2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+  }
+
+  .buttonDecisionSite{
+    background-color: rgba(237,222,164,1);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    mix-blend-mode: normal;
+    border: 3px solid rgb(223, 115, 56);
+    border-radius: 50px;
+    width: 240px;
+    height: 50px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .textStyleBigger{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 24px;
+    color: black;
+  }
+
+  .textStyleBiggerWhite{
+    font-family: 'Inknut Antiqua';
+    text-align: center;
+    font-size: 24px;
+    justify-content: center;
+    color: rgba(249,247,243,1);
+  }
+
+  .marginBottom {
+    margin-bottom: 10px;
+  }
+
+  .sumStyle{
+    background-color: #D9D9D9;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    width: 160px;
+    height: 40px;
+
+    }

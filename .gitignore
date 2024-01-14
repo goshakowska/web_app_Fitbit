@@ -1,0 +1,16 @@
+/venv
+/.env
+backend/__pycache__/test_trial_file.cpython-39-pytest-7.1.1.pyc
+backend/__pycache__/trial_file.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/__init__.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/admin.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/apps.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/database.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/models.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/tests.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/urls.cpython-39.pyc
+backend/django_backend/simulation/__pycache__/views.cpython-39.pyc
+backend/django_backend/simulation/migrations/__pycache__/__init__.cpython-39.pyc
+simulation/__pycache__/backend_connection.cpython-39.pyc
+simulation/__pycache__/ui_dialog.cpython-39.pyc
+simulation/__pycache__/ui_simulation_window.cpython-39.pyc

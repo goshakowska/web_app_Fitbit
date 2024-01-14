@@ -51,14 +51,15 @@ function Trainings()
         <h className="textLogin"> Twoje dane z treningów </h>
 
         <div className="tablePos">
+        {trainings.length > 0 ? <div>
 <Table bordered hover responsive className="tableDesignWide tableDesign" >
   <thead>
     <tr>
       <th>
-        Start
+        Godzina wejścia na siłownię
       </th>
       <th>
-        Koniec
+        Godzina wyjścia z siłowni
       </th>
       <th>
         Czas trwania
@@ -72,18 +73,18 @@ function Trainings()
     </tr>
   </thead>
   <tbody>
-  {trainings.length > 0 && trainings.map((training, index) => (
+{ trainings.map((training, index) => (
                     <tr key={index}>
-                        <td>{moment(training[1]).format('DD.MM.YYYY, hh:mm:ss')}</td>
-                        <td> {moment(training[2]).format('DD.MM.YYYY, hh:mm:ss')} </td>
-                        <td>{secondsToHHMMSS(training[3])}</td>
-                        <td>{training[4]} kcal</td>
-                        <td> <Button type="button" className="cartStyle text-style" onClick={ (e) => {handleClick(training[0], moment(training[2]).format('DD.MM.YYYY'))}}
+                        <td>{training[1]} {training[2]}</td>
+                        <td> {training[3]} {training[4]} </td>
+                        <td>{secondsToHHMMSS(training[5])}</td>
+                        <td>{training[6]} kcal</td>
+                        <td> <Button type="button" className="cartStyle text-style" onClick={ (e) => {handleClick(training[0], training[1])}}
                         >Szczegóły </Button> </td>
                     </tr>
                 ))}
   </tbody>
-</Table> </div>
+</Table></div> : <label className="errorLabel">Nie odbyłeś jeszcze żadnych treningów.</label>} </div>
 </div>
     );
 

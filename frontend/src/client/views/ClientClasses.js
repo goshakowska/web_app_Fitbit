@@ -1,13 +1,18 @@
-import React, {useContext, useEffect, useState, useCallback} from 'react';
-import { Table } from 'reactstrap';
+import React, {useContext, useEffect, useState, useRef} from 'react';
+import { Table, Button } from 'reactstrap';
 import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import clientToken from '../ClientToken.js';
+import { useNavigate } from "react-router-dom";
+
 
 function ClientClasses () {
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const {userId} = clientToken();
     const [clientClasses, setClientClasses] = useState([])
+    const stateRef = useRef();
+    let navigate = useNavigate();
+
 
     const getClientClasses = async (e) => {
         try {
@@ -17,7 +22,7 @@ function ClientClasses () {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({ client_id: userId(),
-                                      start_date: formatDate(weekBoundaries.startOfWeek)}),
+                                      start_date: formatDate(stateRef.current)}),
 
             });
 
@@ -35,13 +40,19 @@ function ClientClasses () {
           }
         };
 
-        const fetchClientClasses = useCallback(async (e) => {
-            await getClientClasses();
-        }, [getClientClasses]);
+        stateRef.current = weekBoundaries.startOfWeek;
+
+        const handleClick = (class_id) => {
+          navigate('/szczegoly_zajec', {
+            state: {
+              classId: class_id
+            }
+          });
+        };
 
         useEffect(() => {
-            fetchClientClasses();
-          }, [weekBoundaries, fetchClientClasses]);
+            getClientClasses();
+          }, [stateRef.current]);
 
 return(
 <div className="clubsTable">
@@ -60,6 +71,9 @@ return(
       <th>
         Trener
       </th>
+      <th>
+        Zobacz szczegóły
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -68,6 +82,8 @@ return(
                         <th scope="row"> {clientClass[3]} </th>
                         <td> {clientClass[1]}, {clientClass[2]} </td>
                         <td> {clientClass[4]} {clientClass[5]} </td>
+                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0])}}
+                        >Szczegóły</Button> </td>
                     </tr>
                 ))}
   </tbody>

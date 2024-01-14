@@ -8,6 +8,8 @@ export default function clientToken() {
   const logout = () => {
     sessionStorage.removeItem('userId')
     sessionStorage.removeItem('userName')
+    sessionStorage.removeItem('trainingsCart');
+    sessionStorage.removeItem('ticketsCart');
   }
 
   const userName = () => {
