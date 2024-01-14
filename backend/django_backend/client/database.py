@@ -875,7 +875,7 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     print(fgc_date)
     details = get_week_schedule_details(fgc_id)
     print(details)
-    details.insert(6, fgc_date_str[:-6])
+    details.insert(6, fgc_date_str[:-5])
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
 
