@@ -1,4 +1,4 @@
-FROM  python:3.8.13-bullseye
+FROM python:3.8.13-bullseye
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -16,7 +16,6 @@ COPY .env .
 ENV DJANGO_SETTINGS_MODULE=django_backend.settings_test
 
 RUN python manage.py makemigrations database_models
-
 RUN python manage.py migrate
 
-CMD [ "python", "manage.py", "test", "--verbosity=2"]
+CMD ["sh", "-c", "coverage run --source=. --omit=*/__init__.py manage.py test --verbosity=2 && coverage report"]

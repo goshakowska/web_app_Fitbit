@@ -1,2 +1,4 @@
 venv
 Dockerfile
+client/__pycache__
+*.pyc
