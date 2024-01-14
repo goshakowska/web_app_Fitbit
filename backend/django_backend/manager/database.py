@@ -33,7 +33,6 @@ def ticket_popularity_week():
             purchase_date__gte = day,
             purchase_date__lte = last_day
         ).count()
-        print(count)
         # count = randint(20, 60)
         data_count.append(count)
 
@@ -209,12 +208,16 @@ def trainer_sessions(manager_id):
                          ).count()  # this is for one week
         ses_count = ses_count * weeks   # in month
 
-        ord_count = m.OrderedSchedule.objects.filter(
+        order = list(m.OrderedSchedule.objects.filter(
             week_schedule__trainer_id=trainer.employee_id,
             week_schedule__gym_classe__name="Trening indywidualny",
-            schedule_date__month=last_month,
-            schedule_date__year=last_month_year
-            ).count()
+            ))
+        ord_count = 0
+        for ord in order:
+            if (ord.schedule_date.month == last_month and
+            ord.schedule_date.year == last_month_year):
+                ord_count += 1
+
         sessions.append(ses_count)
         ordered.append(ord_count)
         # sessions.append(randint(20, 40))
@@ -280,7 +283,7 @@ def clients_by_week(manager_id):
             if client.entry_time.date() == day:
                 client_count+=1
 
-        client_count = randint(20, 50)
+        # client_count = randint(20, 50)
         dates.append(f"{day.strftime('%d-%m-%Y')}")
         counts.append(client_count)
         day += timedelta(days=1)
@@ -321,25 +324,24 @@ def clients_by_hour(manager_id):
     current_day = datetime.now().date()
     yesterday = current_day - timedelta(days=1)
     yesterday = yesterday.day
-    print(yesterday)
     entries = m.GymVisit.objects.filter(
             gym_gym=gym,
         ).order_by('entry_time')
     for entry in entries:
         if entry.entry_time.day == yesterday:
-            time = entry.entry_time.time().strftime('%H:%M')
+            time_zone = entry.entry_time + timedelta(hours=1)
+            time = time_zone.time().strftime('%H:%M')
             if time in data:
                 data[time] += 1
             else:
                 data[time] = 1
-    print(data)
-    data = {
-        '9:00': 7,
-        '10:00': 5,
-        '10:30': 6,
-        '11:00': 8,
-        '12:00': 9
-    }
+    # data = {
+    #     '9:00': 7,
+    #     '10:00': 5,
+    #     '10:30': 6,
+    #     '11:00': 8,
+    #     '12:00': 9
+    # }
 
     times = list(data.keys())
     counts = list(data.values())
@@ -348,7 +350,7 @@ def clients_by_hour(manager_id):
     matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
-    plt.plot(times, counts, marker='o', color='#3498db')
+    plt.bar(times, counts, color='#3498db')
 
     plt.ylim(bottom=0)
 
