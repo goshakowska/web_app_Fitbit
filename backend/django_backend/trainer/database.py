@@ -477,3 +477,18 @@ def delete_exercise(training_id, exercise_pos):
         return True
     except m.ExercisePlanPosition.DoesNotExist:
         return None
+
+
+def all_exercises():
+    result = []
+    exercises = m.Exercise.objects.all()
+    for exer in exercises:
+         result.append(
+                {
+                    'exercise_id': exer.exercise_id,
+                    'name': exer.name,
+                    'rep': exer.repetitions_number if exer.repetitions_number != 0 else None,
+                    'duration': exer.duration/60 if exer.repetitions_number == 0 else None
+                })
+
+    return result
