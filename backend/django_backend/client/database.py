@@ -362,7 +362,7 @@ def get_gym_ticket_client(client_id):
 
     Returns:
         list: A list of dictionaries containing information about the client's gym tickets.
-              Each dictionary includes id, ticket_name, type, duration, status, discount_name, discount, price.
+              Each dictionary includes id, ticket_name, type, duration, status, discount_name, discount, price, end_date.
     """
     tickets = models.GymTicketHistory.objects.filter(client_id=client_id)
     tickets_list = []
