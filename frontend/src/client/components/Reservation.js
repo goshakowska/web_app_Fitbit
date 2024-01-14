@@ -12,7 +12,7 @@ function Reservation() {
     const location = useLocation();
     const reservationList = location.state.reservationList;
 
-    const [countdownTime, setCountdownTime] = useState(2000);
+    const [countdownTime, setCountdownTime] = useState(600);
     const navigate = useNavigate();
 
     useEffect(() => {
