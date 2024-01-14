@@ -16,12 +16,12 @@ function ClassTypes () {
 
     return (
         <div>
-        <div className="layout smallHeader">
+        <div className="layout2 smallHeader">
             <div>Jakie zajęcia zamierzasz wykupić?</div>
-            <button className="button-style-header text-style" onClick={handleGroupClasses}>
+            <button className="buttonDecisionSite text-style" onClick={handleGroupClasses}>
                 Zajęcia grupowe
             </button>
-            <button className="button-style-header text-style" onClick={handleIndividualClasses}>
+            <button className="buttonDecisionSite text-style" onClick={handleIndividualClasses}>
                 Zajęcia indywidualne
             </button>
         </div></div>
