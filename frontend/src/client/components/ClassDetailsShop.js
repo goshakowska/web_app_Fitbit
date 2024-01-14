@@ -11,12 +11,15 @@ import CartToken from "../CartToken.js";
 export default function ClassDetailsShop() {
     const [details, setDetails] = useState([])
     const [collisionDetails, setCollisionDetails] = useState([])
-    const [cartCollisionId, setCartCollisionId] = useState(null)
+    const [cartCollisionId, setCartCollisionId] = useState()
+    const [rr, setrr] = useState(true)
+    const [error, setError] = useState();
     const location = useLocation();
     const classId = location.state.classId;
     const date = location.state.date;
     const collisionId = location.state.collisionId;
     const freePlaces = location.state.freePlaces;
+    const price = location.state.price;
     const {addTraining, getCart} = CartToken();
 
     const getCollisionDetails = async (event, collisionId) => {
@@ -30,15 +33,34 @@ export default function ClassDetailsShop() {
     }
 
     const checkCollision = async (event, classId, date, cart) => {
-        const id = await checkCartCollision(event, classId, date, cart);
-        console.log(id)
-        setCartCollisionId(id);
+        const data = await checkCartCollision(event, classId, date, cart);
+        setCartCollisionId(data);
     }
+
+    const getCartCollisionDetails = async (event, classId, date) => {
+      const details = await getCalendarClassDetails(event, classId, date);
+      setCollisionDetails(details);
+  }
+
+    const errorCheck = (e) => {
+      if (collisionId) {setError("Uwaga! Masz kolizję z poniższym terminem. Aby dodać ten termin do koszyka, anuluj swój udział w poniższych zajęciach.")}
+      else if(cartCollisionId) {
+        if (cartCollisionId["week_schedule_id"] === classId) {setError("Te zajęcia zostały już dodane do koszyka.")}
+        else setError("Aby dodać ten termin do koszyka, usuń kolidujący z nim termin z koszyka.")
+      }
+    }
+
+    const handleClick = (e, name, price, hour, schedule_date, week_schedule_id, free_places) => {
+        addTraining(name, price, hour, schedule_date, week_schedule_id, free_places);
+        alert('Pomyślnie dodano do koszyka.');
+        setrr(!rr)
+      }
 
     useEffect((e) => {getDetails(e, classId, date)}, [])
     useEffect((e) => {checkCollision(e, classId, date, getCart()[1])}, [])
     useEffect((e) => {if (collisionId) getCollisionDetails(e, collisionId)}, []);
-    useEffect((e) => {if (cartCollisionId) getCollisionDetails(e, cartCollisionId)}, []);
+    useEffect((e) => {if (cartCollisionId) getCartCollisionDetails(e, cartCollisionId["week_schedule_id"], cartCollisionId["schedule_date"])}, [cartCollisionId]);
+    useEffect((e) => {errorCheck(e)}, [collisionId, cartCollisionId, rr]); console.log(details)
 
     return(
         <div className="layout">
@@ -62,6 +84,9 @@ export default function ClassDetailsShop() {
       Termin
     </th>
     <th>
+      Cena
+    </th>
+    <th>
       Liczba wolnych miejsc
     </th>
   </tr>
@@ -72,6 +97,7 @@ export default function ClassDetailsShop() {
         <td> {details[1]} {details[2]} </td>
         <td>{details[3]}, {details[4]} {details[5]}</td>
         <td>{details[6]}, {details[7]}, {details[8]}</td>
+        <td>{price} zł</td>
         <td>{freePlaces}</td>
     </tr> }
 
@@ -79,10 +105,10 @@ export default function ClassDetailsShop() {
 </Table>
 </div>
 </div>
-            {(collisionId || cartCollisionId) ?
+            {((collisionId || cartCollisionId)) ? (collisionId || (cartCollisionId["week_schedule_id"] !== classId) ?
       <div>
       <div className="tablePos">
-        <label className="errorLabel"> Uwaga! Masz kolizję z poniższym terminem: </label>
+      <label className="errorLabel"> {error} </label>
 <Table bordered hover responsive className="tableDesign tableDesignWide" >
 <thead>
   <tr>
@@ -110,10 +136,9 @@ export default function ClassDetailsShop() {
 
 </tbody>
 </Table>
-{collisionId && <label className="errorLabel"> Aby dodać ten termin do koszyka, anuluj swój udział w powyższych zajęciach. </label>}
-{cartCollisionId && <label className="errorLabel"> Aby dodać ten termin do koszyka, usuń kolidujący z nim termin z koszyka. </label>}
+
 </div>
-</div> : <Button type="button" className="cartStyle text-style" onClick={(e) =>{addTraining(details[0], 100, details[7], details[6], classId, freePlaces)}}
+</div> : <label className="errorLabel"> {error} </label> ) : <Button type="button" className="cartStyle text-style" disabled={!rr || freePlaces===0} onClick={(e) =>{handleClick(e, details[0], price, details[7], details[6], classId, freePlaces)}}
                         >Dodaj zajęcia do koszyka</Button>}</div>
   );
 
