@@ -71,6 +71,9 @@ function ClientTickets()
         Status
       </th>
       <th>
+        Data ważności
+      </th>
+      <th>
         Zobacz szczegóły
       </th>
     </tr>
@@ -82,6 +85,7 @@ function ClientTickets()
                         {ticket["discount"] ? <td>{ticket["discount"]}% ({ticket["discount_name"]})</td> : <td> - </td>}
                         <td>{ticket["price"]} zł</td>
                         <td> {checkStatus(ticket["status"])}</td>
+                        {ticket["end_date"] ? <td> {ticket["end_date"]}</td> : <td> - </td>}
                         <td> <Button type="button" className="cartStyle text-style" onClick={ (e) => {handleClick(ticket["id"])}}
                         >Szczegóły </Button> </td>
                     </tr>
