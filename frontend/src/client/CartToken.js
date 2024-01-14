@@ -55,7 +55,12 @@ export const CartToken = () => {
         return [storedTicketsCart, storedTrainingsCart]
     }
 
-    return{addTraining, addTicket, deleteTicket, deleteTraining, getCart}
+    const emptyCart = () => {
+        sessionStorage.removeItem('trainingsCart');
+        sessionStorage.removeItem('ticketsCart');
+    }
+
+    return{addTraining, addTicket, deleteTicket, deleteTraining, getCart, emptyCart}
 }
 
 export default CartToken;
