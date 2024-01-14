@@ -27,18 +27,20 @@ function Cart () {
     const getDetails = async (event) => {
       for(let i=0; i<getCart()[1].length; i++) {
       const details = await getCalendarClassDetails(event, getCart()[1][i]["week_schedule_id"], getCart()[1][i]["schedule_date"]);
+      console.log(details)
       setFreePlaces(prevList => [...prevList, details[9]])};
   }
   useEffect((e) => {getDetails(e)}, [])
 
 
-    const handleClick = (class_id, date, collision_id, free_places) => {
+    const handleClick = (class_id, date, collision_id, free_places, price) => {
       navigate('/szczegoly_sklep', {
         state: {
           classId: class_id,
           date: date,
           collisionId: collision_id,
-          freePlaces: free_places
+          freePlaces: free_places,
+          price: price
         }
       });
     };
@@ -57,11 +59,13 @@ function Cart () {
     };
 
     return (
+      <div>
         <div className="ticketsShop">
             <h className="textLogin"> Twój koszyk </h>
         <div className="gridDesign">
       <div className="tablePos">
       <h className="textLogin2"> Karnety </h>
+      {getCart()[0].length > 0 ?
         <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
@@ -89,7 +93,7 @@ function Cart () {
     </tr>
   </thead>
   <tbody>
-  {getCart()[0].length > 0 && getCart()[0].map((ticket, index) => (
+  {getCart()[0].map((ticket, index) => (
                     <tr key={index}>
                         <th scope="row">{ticket["type"]}({ticket["durability"]})</th>
                         <td> {ticket["name"]} </td>
@@ -102,11 +106,13 @@ function Cart () {
                     </tr>
                 ))}
   </tbody>
-</Table>
+</Table> : <label className="errorLabel">Nie dodałeś do koszyka żadnych karnetów.</label>}
 </div>
+
 <div className="tablePos">
 <h className="textLogin2"> Zajęcia </h>
-        <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
+{getCart()[1].length > 0 ?
+        <Table bordered responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
       <th>
@@ -130,24 +136,25 @@ function Cart () {
     </tr>
   </thead>
   <tbody>
-  {getCart()[1].length > 0 && getCart()[1].map((training, index) => (
-                    <tr key={index}>
+  {getCart()[1].map((training, index) => (
+                    <tr key={index} className={freePlaces[index] === 0 && 'table-danger'}>
                         <th scope="row">{training["name"]}</th>
-                        <td> {training["price"]} </td>
+                        <td> {training["price"]} zł</td>
                         <td>{training['schedule_date']}, {training['hour']} </td>
-                        <td> {freePlaces[index]} </td>
-                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(training["week_schedule_id"], training["schedule_date"], null, training["freePlaces"])}}
+                        {freePlaces[index] !== 0 ? <td> {freePlaces[index]} </td>  : <td>Brak miejsc</td>}
+                        <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(training["week_schedule_id"], training["schedule_date"], null, training["freePlaces"], training["price"])}}
                         >Szczegóły</Button> </td>
                         <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTraining(index); stst(!st)}}
                         >Usuń z koszyka</Button> </td>
                     </tr>
                 ))}
   </tbody>
-</Table>
-</div></div>
-<div>Suma: {calculateTotal()} zł</div>
-<Button type="button" className="cartStyle" onClick={(e) =>{handleReservation(e, userId(), getCart()[1])}}
+</Table> : <label className="errorLabel"> Nie dodałeś do koszyka żadnych zajęć.</label>}
+<div className="text-style sumStyle layout marginBottom">Suma: {calculateTotal()} zł</div>
+<Button type="button" className="cartStyle text-style" disabled={calculateTotal() === 0} onClick={(e) =>{handleReservation(e, userId(), getCart()[1])}}
                         >Kupuję</Button></div>
+</div></div></div>
+
 )
 
 }
