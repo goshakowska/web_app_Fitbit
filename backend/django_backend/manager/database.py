@@ -34,7 +34,7 @@ def ticket_popularity_week():
             purchase_date__lte = last_day
         ).count()
         print(count)
-        count = randint(20, 60)
+        # count = randint(20, 60)
         data_count.append(count)
 
     # Create plot
@@ -89,7 +89,7 @@ def discount_popularity_week():
                           (Q(discount__stop_date__isnull=True) | Q(discount__stop_date__gte=last_day))
                           )
                  .count())
-        count = randint(1, 10)
+        # count = randint(1, 10)
         data_count.append(count)
 
 
@@ -213,10 +213,10 @@ def trainer_sessions(manager_id):
             schedule_date__month=last_month,
             schedule_date__year=last_month_year
             ).count()
-        # sessions.append(ses_count)
-        # ordered.append(ord_count)
-        sessions.append(randint(20, 40))
-        ordered.append(randint(1, 40))
+        sessions.append(ses_count)
+        ordered.append(ord_count)
+        # sessions.append(randint(20, 40))
+        # ordered.append(randint(1, 40))
 
 
     # Create plot
