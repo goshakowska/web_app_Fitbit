@@ -1,0 +1,92 @@
+.welcome-prompt {
+    color: #002f35;
+    font-family: 'Inknut Antiqua';
+    font-size: 64px;
+    text-align: center;
+    margin-bottom: 10px;
+    /* padding: 10px 20px; */
+}
+
+.default {
+    list-style-type: none;
+}
+
+.graph-panel {
+    padding: 20px;
+    /* width: auto; */
+    background-color: #f9f7f3;
+    border: 5px solid;
+    border-color: #f7a072;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    height: max-content;
+    /* position: absolute; */
+}
+
+.title-label {
+    text-align: center;
+    color: #002f35;
+    font-family: 'Inknut Antiqua';
+    font-size: 36px;
+}
+
+.up-label {
+    list-style-type: none; /* Remove bullets */
+    font-family: 'Inknut Antiqua';
+    font-size: 17px;
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #f9f7f3;
+    border-color: #eddea4;
+    border-radius: 10px;
+}
+
+.label {
+    font-family: 'Inknut Antiqua';
+    font-size: 20px;
+     margin-top: 5px;
+     padding: 10px 20px;
+     background-color: #f9f7f3;
+     border: 3px solid;
+     border-color: #b5e2fa;
+     border-radius: 10px;
+     cursor: pointer;
+}
+
+.sub-label {
+    font-family: 'Inknut Antiqua';
+    font-size: 15px;
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #f9f7f3;
+    border: 3px solid;
+    border-color: #b5e2fa;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.graph {
+    padding: 20px;
+    background-color: #f9f7f3;
+    border: 5px solid;
+    border-color: #f7a072;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Inknut Antiqua';
+    font-size: 15px;
+    text-align: center;
+    /* align-items: center;
+    justify-content: center;
+    flex-direction: column; */
+    width: fit-content;
+    height: max-content;
+    /* position: absolute; */
+}
+
+label:hover {
+    background-color: #d9d9d9;
+    border: 5px solid;
+    border-color: #b5e2fa;
+    border-radius: 10px;
+ }
