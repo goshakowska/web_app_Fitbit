@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 function GroupClassesShop () {
     const {userId} = clientToken();
     const [classes, setClasses] = useState([]);
-    const [gymId, setGymId] = useState([]);
+    const [gymId, setGymId] = useState(null);
     const [gyms, setGyms] = useState([]);
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const stateRef = useRef();
@@ -56,19 +56,23 @@ function GroupClassesShop () {
           }, [stateRef.current, gymId]);
           useEffect((e) => {getGyms(e)}, []);
 
-          const handleClick = (class_id, date, collision_id, free_places) => {
+          const handleClick = (class_id, date, collision_id, free_places, price) => {
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,
                 date: date,
                 collisionId: collision_id,
-                freePlaces: free_places
+                freePlaces: free_places,
+                price: price
               }
             });
           };
 
           return(
+            <div>
             <div className="clubsTable">
+            <h className="smallHeader"> Oferta zajęć grupowych</h>
+            <div className="labelsStyle marginBottom">Wybierz swoją siłownię:</div>
                   <InputGroup className="inputGroup">
               <Input className='centeredTextInput' type= "select" name="gym_id" value={gymId} onChange={e => setGymId(e.target.value)}>
                     <option value={null} >Wybierz siłownię</option>
@@ -78,9 +82,10 @@ function GroupClassesShop () {
                     </option>
                 ))} </Input>
           </InputGroup>
-                  <WeekSwitcher />
+          {gymId ? <>
+                  <div className="marginBottom"><WeekSwitcher /></div>
                   <div>
-                    {classes.length > 0 ? <Table bordered hover responsive className="tableDesign" >
+                    {classes.length > 0 ? <Table bordered responsive className="tableDesign" >
               <thead>
                 <tr>
                   <th>
@@ -96,24 +101,28 @@ function GroupClassesShop () {
                   Dostępne miejsca
                   </th>
                   <th>
+                  Cena
+                  </th>
+                  <th>
                   Szczegóły
                   </th>
                 </tr>
               </thead>
               <tbody>
               {classes.map((clientClass, index) => (
-                                <tr key={index}>
+                                <tr key={index} className={(clientClass[7] === 0 || clientClass[6]) && 'table-danger'}>
                                     <th scope="row"> {clientClass[1]} </th>
                                     <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
-                                    <td> {clientClass[7]}</td>
-                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7])}}
+                                    {clientClass[7] !== 0 ? <td>{clientClass[7]}</td> : <td>Brak miejsc</td>}
+                                    <td>{clientClass[8]} zł</td>
+                                    <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7], clientClass[8])}}
                         >Szczegóły</Button> </td>
                                 </tr>
                             ))}
               </tbody>
-            </Table> : <p className='errorLabel'>W tym tygodniu nie odbywają się żadne zajęcia grupowe.</p>} </div></div>
-                );
+            </Table> : <label className='errorLabel'>W tym tygodniu nie odbywają się żadne zajęcia grupowe.</label>} </div></> : <label className='errorLabel'>Aby wyświetlić zajęcia, wybierz siłownię.</label>}</div>
+            </div>);
 
 
 }

@@ -70,19 +70,24 @@ function IndvClassesShop () {
           useEffect((e) => {getGyms(e)}, []);
           useEffect((e) => {getTrainers(e, gymId)}, [gymId]);
 
-          const handleClick = (class_id, date, collision_id, free_places) => {
+          const handleClick = (class_id, date, collision_id, free_places, price) => {
+            console.log(price)
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,
                 date: date,
                 collisionId: collision_id,
-                freePlaces: free_places
+                freePlaces: free_places,
+                price: price
               }
             });
           };
 
           return(
+            <div>
             <div className="clubsTable">
+            <h className="smallHeader"> Oferta zajęć indywidualnych</h>
+            <div className="labelsStyle marginBottom">Wybierz swoją siłownię:</div>
                   <InputGroup className="inputGroup">
               <Input className='centeredTextInput' type= "select" name="gymId" value={gymId} onChange={e => setGymId(e.target.value)}>
                     <option value={null} >Wybierz siłownię</option>
@@ -92,6 +97,7 @@ function IndvClassesShop () {
                     </option>
                 ))} </Input>
           </InputGroup>
+          <div className="labelsStyle marginBottom">Wybierz swojego trenera:</div>
           <InputGroup className="inputGroup">
               <Input className='centeredTextInput' type= "select" name="trainerId" value={trainerId} onChange={e => setTrainerId(e.target.value)}>
                     <option value={null} >Wybierz trenera</option>
@@ -101,9 +107,10 @@ function IndvClassesShop () {
                     </option>
                 ))} </Input>
           </InputGroup>
-                  <WeekSwitcher />
+          {gymId && trainerId ? <>
+            <div className="marginBottom"><WeekSwitcher /></div>
                   <div>
-                    {classes ? <Table bordered hover responsive className="tableDesign" >
+                    {classes.length > 0 ? <Table bordered responsive className="tableDesign" >
               <thead>
                 <tr>
                   <th>
@@ -116,23 +123,31 @@ function IndvClassesShop () {
                   Data i godzina rozpoczęcia
                   </th>
                   <th>
+                    Dostępność
+                  </th>
+                  <th>
+                    Cena
+                  </th>
+                  <th>
                   Szczegóły
                   </th>
                 </tr>
               </thead>
               <tbody>
               {classes.map((clientClass, index) => (
-                                <tr key={index}>
+                                <tr key={index} className={(clientClass[7] === 0 || clientClass[6]) && 'table-danger'}>
                                     <th scope="row"> {clientClass[1]} </th>
                                     <td> {clientClass[2]} {clientClass[3]} </td>
                                     <td> {clientClass[4]} {clientClass[5]} </td>
-                                    <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7])}}
+                                    {clientClass[7] !== 0 ? <td>Termin dostępny</td> : <td>Termin zajęty</td>}
+                                    <td>{clientClass[8]} zł</td>
+                                    <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(clientClass[0], clientClass[4], clientClass[6], clientClass[7], clientClass[8])}}
                         >Szczegóły</Button> </td>
                                 </tr>
                             ))}
               </tbody>
-            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie prowadzi żadnych zajęć.</p>} </div></div>
-                );
+            </Table> : <p className='errorLabel'>W tym tygodniu podany trener nie prowadzi żadnych zajęć.</p>} </div></> : <p className='errorLabel'>Aby wyświetlić zajęcia, wybierz siłownię oraz trenera.</p>}</div>
+            </div>);
 
 
 }
