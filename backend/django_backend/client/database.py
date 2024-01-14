@@ -572,6 +572,8 @@ def get_free_items(start_date_str, week_classes, client_id):
     classes_list = []
     for week_classe in week_classes:
         week_classe_date = gym_classe_date(start_date, week_classe.week_day)
+        if week_classe_date < datetime.now(pytz.timezone('Europe/Warsaw')):
+            continue
         collision = check_collision(client_id, week_classe, dc.str_date(week_classe_date))
         free_places = get_free_places_gym_classe(week_classe_date, week_classe.week_schedule_id)
         item = [
