@@ -29,6 +29,22 @@ import ClassTypesView from "./client/views/ClassTypes";
 import PriceListView from "./client/views/PriceList";
 
 
+// employee
+
+import LoginEmployeeForm from "./employee/components/LoginEmployeeForm";
+// manager
+import FitnessClubStatistics from "./employee/manager/components/FitnessClubStatistics";
+
+// portier
+import SearchBar from "./employee/portier/components/SearchBar";
+import ClientInfo from "./employee/portier/components/ClientInfo";
+
+// trainer
+import Scheduler from "./employee/trainer/components/Scheduler";
+import TrainingCreator from "./employee/trainer/components/TrainingCreator";
+import ClientTrainingInfo from "./employee/trainer/components/ClientTrainingInfo";
+import GroupClassInfo from "./employee/trainer/components/GroupClassesInfo";
+
 function App() {
   return(
       <div className="App">
@@ -45,6 +61,11 @@ function App() {
               <Route exact path='/rejestracja' element={<Registration />} />
               <Route exact path='/sklep_karnetow' element={<TicketsShopView />} />
               <Route exact path='/kalendarz_klienta' element={<ClientClasses />} />
+              <Route exact path='/statystyki' element={<Trainings />} />
+              <Route exact path='/szczegoly_treningu' element={<TrainingDetails />} />
+              <Route exact path='/karnety_klienta' element={<ClientTickets />} />
+              <Route exact path='/szczegoly_karnetu' element={<ClientTicketDetails />} />
+              <Route exact path='/profil' element={<Profile />} />
               <Route exact path='/szczegoly_zajec' element={<ClassDetailsView />} />
               <Route exact path='/statystyki' element={<TrainingsView />} />
               <Route exact path='/szczegoly_treningu' element={<TrainingDetailsView />} />
@@ -58,6 +79,18 @@ function App() {
               <Route exact path='/koszyk' element={<CartView />} />
               <Route exact path='/platnosc' element={<ReservationView />} />
               <Route exact path='/cennik' element={<PriceListView />} />
+              {/* employee */}
+              <Route exact path='/login_pracowników' element={<LoginEmployeeForm />} />
+              {/* manager */}
+              <Route exact path='/menadżer/' element={<FitnessClubStatistics />} />
+              {/* portier */}
+              <Route exact path='/portier/' element={<SearchBar />} />
+              <Route exact path='/portier/clientinfo' element={<ClientInfo />} />
+              {/* trainer */}
+              <Route exact path='/trener/' element={<Scheduler />} />
+              <Route exact path='/trener/planer' element={<TrainingCreator />} />
+              <Route exact path='/trener/client_info' element={<ClientTrainingInfo />} />
+              <Route exact path='/trener/group_class_info' element={<GroupClassInfo />}/>
               </Routes>
 
               </WeekSwitcherProvider>

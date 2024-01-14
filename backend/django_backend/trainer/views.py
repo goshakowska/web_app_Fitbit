@@ -127,3 +127,10 @@ def delete_exercise_from_training(request):
         return JsonResponse({'message': "Exercise deleted"})
     else:
         return JsonResponse({'error': "Wrong position or training id"}, status=400)
+
+
+@csrf_exempt
+def all_exercises(request):
+    result = database.all_exercises()
+    return JsonResponse({'exercises': result})
+

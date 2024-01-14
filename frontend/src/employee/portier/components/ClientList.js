@@ -141,7 +141,7 @@ function ClientList(props) {
                             <StyledTableCell align="right">{client.surname}</StyledTableCell>
                             <StyledTableCell align="right">{client.name}</StyledTableCell>
                             <StyledTableCell align="right">{client.cardStatus ? 'Aktywny' : 'Nieaktywny'}</StyledTableCell>
-                            <StyledTableCell align="right"><Link className="link-button" to="/portier/clientinfo" state={{client}}>
+                            <StyledTableCell align="right"><Link className="link-button" to='/portier/clientinfo' state={{client}}>
                                 <ArrowForwardIcon/></Link></StyledTableCell>
                         </TableRow>
                     ))}

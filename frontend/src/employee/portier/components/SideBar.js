@@ -12,7 +12,7 @@ import "../styles/styles.css"
 import employeeToken from '../../EmployeeToken';
 
 
-function SideBarTrainer() {
+function SideBarPortier() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const {userName, logout} = employeeToken();
@@ -29,19 +29,9 @@ function SideBarTrainer() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className='sidebar-style dark-green' navbar>
             <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' href="/plan_tygodniowy">
-                Twój plan tygodniowy
+              <NavLink className='text-style-sidebar' href="/">
+                Wyświetl bazę danych klientów
                 </NavLink>
-            </NavItem>
-            <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' /*href="/profil_info"*/>
-                Wyświetl swój profil
-              </NavLink>
-            </NavItem>
-            <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' /*href="/wyplata"*/>
-                Monitoruj swoją wypłatę
-              </NavLink>
             </NavItem>
             <NavItem className='sidebar-pos-style' onClick={handleLogout}>
             <NavLink className='text-style-sidebar' href="/" >
@@ -55,4 +45,4 @@ function SideBarTrainer() {
   );
 }
 
-export default SideBarTrainer;
+export default SideBarPortier;

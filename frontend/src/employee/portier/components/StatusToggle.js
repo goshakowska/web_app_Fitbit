@@ -12,7 +12,7 @@ const StatusToggle = ({ initialStatus }) => {
       return (
         <div>
         <p>Status: {status ? 'Aktywny' : 'Nieaktywny'}</p>
-        <button onClick={handleActivate} disabled={status}>Activate</button>
+        <button  className='client-info' onClick={handleActivate} disabled={status}>Activate</button>
         </div>
       );
     };

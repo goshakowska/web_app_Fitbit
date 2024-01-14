@@ -3,17 +3,16 @@ import {
     Input,
     InputGroup,
     Button,
-    NavLink
   } from 'reactstrap';
   import '../styles/loginStyles.css'
-  import clientToken from "../ClientToken";
+  import employeeToken from "../EmployeeToken";
 
-function LoginForm ()
+function LoginEmployeeForm ()
 {
     const [userLoginInput, setUserLoginInput] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [loggingError, setLoggingError] = useState("")
-    const {login} = clientToken();
+    const {login} = employeeToken();
 
     const errorHandle = () =>
     {
@@ -32,7 +31,7 @@ function LoginForm ()
     {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:8000/client/client_login/', {
+            const response = await fetch('http://localhost:8000/employee/login/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -43,18 +42,19 @@ function LoginForm ()
             });
 
             if (response.status === 400) {
-                throw new Error('Incorrect user login.');
+                throw new Error('Incorrect employee login or password');
             }
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             const data = await response.json();
-            login(data.id, data.name);
-            window.location.href = '/'
+            login(data.id, data.name, data.type);
+            console.log(data.type);
+            window.location.href = '/' + data.type;
 
           } catch (error) {
-            if(error.message.includes('Incorrect user login')){
+            if(error.message.includes('Incorrect employee login or password')){
                 setLoggingError('Błędne dane logowania.');
             }
             else{
@@ -71,7 +71,7 @@ function LoginForm ()
 
     return(
     <div className="loginForm">
-        <h1 className="textLogin">Zaloguj się</h1>
+        <h1 className="textLogin">Logowanie pracowników</h1>
         <form>
             <InputGroup className="inputGroup">
                 <Input className='centeredTextInput' placeholder="login" onChange={ev => { setUserLoginInput(ev.target.value); setLoggingError("")}} />
@@ -88,16 +88,9 @@ function LoginForm ()
             ZALOGUJ SIĘ
             </Button>
         </div>
-        <div className="linkTextsGroup">
-            <NavLink href="./rejestracja" className="linkTexts">Nie masz jeszcze konta? Załóż je tutaj!
-            </NavLink>
-            <NavLink href="./login_pracowników" className="linkTexts">Jesteś pracownikiem? Zaloguj się tutaj!
-            </NavLink>
-        </div>
-
     </div>
     )
 
 }
 
-export default LoginForm;
+export default LoginEmployeeForm;
