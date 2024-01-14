@@ -1,15 +1,58 @@
-import React from 'react';
-import './Sidebar.css';
+import React, { useState } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
+import "../styles/styles.css"
+import employeeToken from '../../EmployeeToken';
 
-const Sidebar = () => {
-    return (
-        <div className="sidebar">
-            <img className="profile-picture" src="./user.png" alt="Profile Picture" />
-            <button className="sidebar-button">plan tygodniowy</button>
-            <button className="sidebar-button">wyświetl swój profil</button>
-            <button className="sidebar-button">monitoruj swoją wypłatę</button>
-        </div>
-    );
-};
 
-export default Sidebar;
+function SideBarTrainer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const {userName, logout} = employeeToken();
+
+  const handleLogout = () => {
+    logout();
+  }
+
+  return (
+    <div >
+      <Navbar>
+        <NavbarBrand href="/"></NavbarBrand>
+        <NavbarToggler className= 'user-circle-text-style' onClick={toggle} > <span>{userName()}</span> </NavbarToggler>
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className='sidebar-style dark-green' navbar>
+            <NavItem className='sidebar-pos-style'>
+              <NavLink className='text-style-sidebar' href="/plan_tygodniowy">
+                Twój plan tygodniowy
+                </NavLink>
+            </NavItem>
+            <NavItem className='sidebar-pos-style'>
+              <NavLink className='text-style-sidebar' /*href="/profil_info"*/>
+                Wyświetl swój profil
+              </NavLink>
+            </NavItem>
+            <NavItem className='sidebar-pos-style'>
+              <NavLink className='text-style-sidebar' /*href="/wyplata"*/>
+                Monitoruj swoją wypłatę
+              </NavLink>
+            </NavItem>
+            <NavItem className='sidebar-pos-style' onClick={handleLogout}>
+            <NavLink className='text-style-sidebar' href="/" >
+                Wyloguj się
+              </NavLink>
+              </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
+  );
+}
+
+export default SideBarTrainer;
