@@ -582,7 +582,8 @@ def get_free_items(start_date_str, week_classes, client_id):
             dc.str_date(week_classe_date),
             week_classe.start_time,
             collision,
-            free_places
+            free_places,
+            week_classe.gym_classe.price
             ]
         classes_list.append(item)
     return classes_list
