@@ -61,11 +61,11 @@ function App() {
               <Route exact path='/rejestracja' element={<Registration />} />
               <Route exact path='/sklep_karnetow' element={<TicketsShopView />} />
               <Route exact path='/kalendarz_klienta' element={<ClientClasses />} />
-              <Route exact path='/statystyki' element={<Trainings />} />
-              <Route exact path='/szczegoly_treningu' element={<TrainingDetails />} />
-              <Route exact path='/karnety_klienta' element={<ClientTickets />} />
-              <Route exact path='/szczegoly_karnetu' element={<ClientTicketDetails />} />
-              <Route exact path='/profil' element={<Profile />} />
+              <Route exact path='/statystyki' element={<TrainingsView />} />
+              <Route exact path='/szczegoly_treningu' element={<TrainingDetailsView />} />
+              <Route exact path='/karnety_klienta' element={<ClientTicketsView />} />
+              <Route exact path='/szczegoly_karnetu' element={<ClientTicketDetailsView />} />
+              <Route exact path='/profil' element={<ProfileView />} />
               <Route exact path='/szczegoly_zajec' element={<ClassDetailsView />} />
               <Route exact path='/statystyki' element={<TrainingsView />} />
               <Route exact path='/szczegoly_treningu' element={<TrainingDetailsView />} />
