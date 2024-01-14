@@ -624,7 +624,8 @@ def check_collision(client_id, week_classe: models.WeekSchedule, date_str):
     classes = models.OrderedSchedule.objects.filter(
         schedule_date__gt=classe_date_start,
         schedule_date__lt=classe_date_stop,
-        client_user__client_id=client_id
+        client_user__client_id=client_id,
+        payment_date__isnull=False
     )
     if not classes:
         return None
