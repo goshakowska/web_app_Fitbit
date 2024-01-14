@@ -204,7 +204,7 @@ def entry(client_id, portier_id):
     except m.Employee.DoesNotExist:
         return None
 
-    time = datetime.now()
+    time = timezone.now()
     m.GymVisit.objects.create(entry_time=time, gym_gym=gym, client_user_id=client_id)
     return time
 
@@ -239,7 +239,7 @@ def leave(client_id, portier_id):
         # no registered visit or registered visit from different day
         return None
 
-    time = datetime.now()
+    time = timezone.now()
     visit.departure_time = time
     visit.save()
 
