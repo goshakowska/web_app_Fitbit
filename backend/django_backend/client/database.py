@@ -13,7 +13,7 @@ TRAINING = 2
 def registration(login, password_hash, email, phone_number,
         name, surname, gender, height, birth_date, advancement, target_weight,
         training_frequency, training_time, training_goal_id, gym_id, current_weight):
-    '''
+    """
     Adds a new client.
 
     Args:
@@ -36,7 +36,7 @@ def registration(login, password_hash, email, phone_number,
 
     Returns:
         None
-    '''
+    """
     new_client = models.Client(
         login=login,
         password_hash=password_hash,
@@ -97,7 +97,7 @@ def is_busy_login(login):
         bool: True if the login is associated with an existing client, False otherwise.
     """
     try:
-        client = models.Client.objects.get(login=login)
+        models.Client.objects.get(login=login)
         return True
     except models.Client.DoesNotExist:
         return False
@@ -114,7 +114,7 @@ def is_busy_email(email):
     bool: True if the email is associated with an existing client, False otherwise.
     """
     try:
-        client = models.Client.objects.get(email=email)
+        models.Client.objects.get(email=email)
         return True
     except models.Client.DoesNotExist:
         return False
@@ -158,6 +158,7 @@ def gym_ticket_offer_with_discount():
     discounts = models.Discount.objects.all()
     tickets = []
     for discount in discounts:
+        # discount is not avaible yet or is no loger avaible
         if discount.start_date > datetime.now().date() or discount.stop_date and discount.stop_date < datetime.now().date():
             continue
         ticket = discount.gym_ticket_offer
@@ -903,7 +904,7 @@ def check_collision_in_basket(week_schedule_id, date_str, basket):
         basket_start = datetime.strptime(basket_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
         basket_stop = basket_start + timedelta(minutes=basket_week_schedule.gym_classe.duration)
         if not (gym_classe_start > basket_stop or basket_start > gym_classe_stop):
-            return basket_item['week_schedule_id']
+            return basket_item
     return None
 
 
