@@ -31,7 +31,7 @@ function Header() {
           </NavLink>
         </NavItem>
         <NavItem className='button-style-header'>
-          <NavLink href="./kontakt" className='text-style'>
+          <NavLink href="./cennik" className='text-style'>
             CENNIK
           </NavLink>
         </NavItem>
