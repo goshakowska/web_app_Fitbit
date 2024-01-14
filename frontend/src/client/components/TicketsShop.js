@@ -57,10 +57,13 @@ function TicketsShop()
     const handleClick = (e, ticket, type) => {
         if (userId()) {
           if (type === 'disc')
-          addTicket(ticket[3], ticket[8], ticket[2], ticket[4], ticket[5], ticket[6], ticket[7], ticket[1], ticket[0])
+            {addTicket(ticket[3], ticket[8], ticket[2], ticket[4], ticket[5], ticket[6], ticket[7], ticket[1], ticket[0]);
+            alert('Dodano do koszyka.')}
+          else
+            {addTicket('Standardowy', ticket[3], ticket[1], null, null, ticket[2], null, null, ticket[0])
+            alert('Dodano do koszyka.')}}
         else
-        addTicket('Standardowy', ticket[3], ticket[1], null, null, ticket[2], null, null, ticket[0])} else
-        {window.location.href = '/login'; alert("Aby dodać do koszyka musisz się najpierw zalogować.")}
+          {window.location.href = '/login'; alert("Aby dodać do koszyka musisz się najpierw zalogować.")}
     }
 
     return (
