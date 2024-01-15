@@ -8,9 +8,9 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import "../styles/styles.css"
-import employeeToken from '../../EmployeeToken';
 
+import employeeToken from '../../EmployeeToken';
+import '../../../client/styles/styles.css';
 
 function SideBarPortier() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +29,7 @@ function SideBarPortier() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className='sidebar-style dark-green' navbar>
             <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' href="/">
+              <NavLink className='text-style-sidebar' href="/portier/">
                 Wyświetl bazę danych klientów
                 </NavLink>
             </NavItem>

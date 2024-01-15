@@ -8,11 +8,11 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import "../styles/styles.css"
+import '../../../client/styles/styles.css';
 import employeeToken from '../../EmployeeToken';
 
 
-function SideBarManager() {
+function SideBarTrainer() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const {userName, logout} = employeeToken();
@@ -29,9 +29,19 @@ function SideBarManager() {
         <Collapse isOpen={isOpen} navbar>
           <Nav className='sidebar-style dark-green' navbar>
             <NavItem className='sidebar-pos-style'>
-              <NavLink className='text-style-sidebar' href="/kalendarz_klienta">
-                Wyświetl statystyki
+              <NavLink className='text-style-sidebar' href="/trener/">
+                Twój plan tygodniowy
                 </NavLink>
+            </NavItem>
+            <NavItem className='sidebar-pos-style'>
+              <NavLink className='text-style-sidebar' /*href="/profil_info"*/>
+                Wyświetl swój profil
+              </NavLink>
+            </NavItem>
+            <NavItem className='sidebar-pos-style'>
+              <NavLink className='text-style-sidebar' /*href="/wyplata"*/>
+                Monitoruj swoją wypłatę
+              </NavLink>
             </NavItem>
             <NavItem className='sidebar-pos-style' onClick={handleLogout}>
             <NavLink className='text-style-sidebar' href="/" >
@@ -45,4 +55,4 @@ function SideBarManager() {
   );
 }
 
-export default SideBarManager;
+export default SideBarTrainer;
