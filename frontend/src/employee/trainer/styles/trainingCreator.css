@@ -117,3 +117,9 @@
     margin-left: 10px;
     color: #155E63;;
 }
+
+.row-saver {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
