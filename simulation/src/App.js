@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 function App() {
   const [gyms, setGyms] = useState([]);
@@ -14,12 +13,12 @@ function App() {
   const [selectedParams, setSelectedParams] = useState([]);
 
   const [endTime, setEndTime] = useState(new Date());
-  const [duration, setDuration] = useState('');
-  const [repetitionsNumber, setRepetitionsNumber] = useState('');
-  const [calories, setCalories] = useState('');
-  const [weight, setWeight] = useState('');
-  const [distance, setDistance] = useState('');
-  const [height, setHeight] = useState('');
+  const [duration, setDuration] = useState(0);
+  const [repetitionsNumber, setRepetitionsNumber] = useState(0);
+  const [calories, setCalories] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [distance, setDistance] = useState(0);
+  const [height, setHeight] = useState(0);
 
 
 
@@ -216,12 +215,12 @@ function App() {
   };
 
   const clear = () => {
-    setDuration('');
-    setRepetitionsNumber('');
-    setCalories('');
-    setDistance('');
-    setWeight('');
-    setHeight('');
+    setDuration(0);
+    setRepetitionsNumber(0);
+    setCalories(0);
+    setDistance(0);
+    setWeight(0);
+    setHeight(0);
     setSelectedGym(null);
     setSelectedClient(null);
     setSelectedExercise(null);
@@ -312,7 +311,7 @@ function App() {
               pattern="[0-9]*"
               value={duration}
               onChange={(e) => {
-                if (isNaN(e.target.value)){setDuration(''); return}
+                if (isNaN(e.target.value)){setDuration(0); return}
                 setDuration(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded "
             />
@@ -327,7 +326,7 @@ function App() {
               pattern="[0-9]*"
               value={repetitionsNumber}
               onChange={(e) => {
-                if (isNaN(e.target.value)){setRepetitionsNumber(''); return}
+                if (isNaN(e.target.value)){setRepetitionsNumber(0); return}
                 setRepetitionsNumber(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
@@ -342,7 +341,7 @@ function App() {
               pattern="[0-9]*"
               value={calories}
               onChange={(e) => {
-                if (isNaN(e.target.value)){setCalories(''); return}
+                if (isNaN(e.target.value)){setCalories(0); return}
                 setCalories(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
@@ -357,7 +356,7 @@ function App() {
               pattern="[0-9]*"
               value={distance}
               onChange={(e) => {
-                if (isNaN(e.target.value)){setDistance(''); return}
+                if (isNaN(e.target.value)){setDistance(0); return}
                 setDistance(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
@@ -372,7 +371,7 @@ function App() {
               pattern="[0-9]*"
               value={weight}
               onChange={(e) => {
-                if (isNaN(e.target.value)){setWeight(''); return}
+                if (isNaN(e.target.value)){setWeight(0); return}
                 setWeight(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
@@ -387,7 +386,7 @@ function App() {
               pattern="[0-9]*"
               value={height}
               onChange={(e) =>
-                {if (isNaN(e.target.value)){setHeight(''); return}
+                {if (isNaN(e.target.value)){setHeight(0); return}
                 setHeight(Number(e.target.value))}}
               className="col-span-1 p-2 border rounded"
             />
