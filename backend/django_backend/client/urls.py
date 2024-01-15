@@ -32,5 +32,7 @@ urlpatterns = [
     path('free_gym_classe_details/', views.get_free_gym_classe_details),
     path('price_list/', views.get_price_list),
     path('is_collision_in_basket/', views.check_collision_in_busket),
-    path('describe_client_portier/', views.describe_client_portier)
+    path('describe_client_portier/', views.describe_client_portier),
+    path('not_active_list/', views.not_active_list),
+
 ]

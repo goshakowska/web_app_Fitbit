@@ -954,3 +954,19 @@ def describe_client_portier(client_id):
         result['visit_left'] = ticket_info['visit_to_end']
 
     return result
+
+
+def not_active_ticket(client_id):
+    try:
+        client = models.Client.objects.get(client_id=client_id)
+    except models.Client.DoesNotExist:
+        return None
+    tickets = get_gym_ticket_client(client_id)
+    notactive_ticket = [t for t in tickets if t.get('status') is None]
+    result = []
+    for ticket in notactive_ticket:
+        result.append({
+            'ticket_id': ticket['id'],
+            'ticket_name': f"{ticket['type']} {ticket['duration']}"
+        })
+    return result

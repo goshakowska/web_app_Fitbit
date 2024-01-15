@@ -582,3 +582,13 @@ def describe_client_portier(request):
         return JsonResponse({'description': result})
     else:
         return JsonResponse({'error': "This client doesn't exist"}, status=400)
+
+@csrf_exempt
+def not_active_list(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id= data.get('client_id')
+    result = database.not_active_ticket(client_id)
+    if result is None:
+        return JsonResponse({'error': "This client doesn't exist"}, status=400)
+    else:
+        return JsonResponse({'tickets': result})
