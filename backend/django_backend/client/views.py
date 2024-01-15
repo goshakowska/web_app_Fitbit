@@ -592,3 +592,13 @@ def not_active_list(request):
         return JsonResponse({'error': "This client doesn't exist"}, status=400)
     else:
         return JsonResponse({'tickets': result})
+
+@csrf_exempt
+def is_on_gym(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id= data.get('client_id')
+    result = database.is_on_gym(client_id)
+    if result is None:
+        return JsonResponse({'error': "This client doesn't exist"}, status=400)
+    else:
+        return JsonResponse({'is_on_gym': result})

@@ -970,3 +970,17 @@ def not_active_ticket(client_id):
             'ticket_name': f"{ticket['type']} {ticket['duration']}"
         })
     return result
+
+def is_on_gym(client_id):
+    try:
+        client = models.Client.objects.get(client_id=client_id)
+    except models.Client.DoesNotExist:
+        return None
+    visits = list(models.GymVisit.objects.all().filter(client_user_id=client_id, departure_time__isnull=True))
+    if not visits:
+        return False
+    current_day = datetime.now().date()
+    for v in visits:
+        if v.entry_time.date() == current_day:
+            return True
+        return False
