@@ -17,7 +17,6 @@ function ClientTrainingInfo(props) {
 
 
   const client_id = location.state?.chosenClient;
-
   const {userId} = employeeToken();
 
   const [clientData, setClientData] = useState({});
@@ -77,7 +76,7 @@ useEffect(() => {getClientDescription()}, []);
             <h3 className="title-label">Preferencje treningowe</h3>
             <p className="label">Czas pojedynczej sesji: {clientData.training_time}</p>
             <p className="label">Tygodniowa częstotliwość treningów: {clientData.training_frequency}</p>
-            <Button className='button'><Link className="link-button" to="/trener/planer" state={{client_id}} >Zaplanuj następny trening<ArrowForwardIcon /></Link></Button>
+            <Button className='button'>Zaplanuj następny trening<Link className="link-button" to="/trener/planer" state={{client_id}} ><ArrowForwardIcon /></Link></Button>
           </Grid>
           </Col>
           </Row>
