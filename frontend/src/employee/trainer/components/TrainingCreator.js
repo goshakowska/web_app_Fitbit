@@ -1,70 +1,21 @@
 import React, { useState, useEffect } from "react";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowBackwardIcon from '@mui/icons-material/ArrowDropUp';
 import '../styles/trainingCreator.css';
 import employeeToken from "../../EmployeeToken";
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function TrainingCreator() {
 
-  // const plannedExercises = [
-  //   {
-  //     exercise_id: 1,
-  //     position: 1,
-  //     name: "Pompki",
-  //     rep: 5,
-  //     duration: null,
-  //   },
-  //   {
-  //     exercise_id: 2,
-  //     position: 3,
-  //     name: "Plank",
-  //     rep: null,
-  //     duration: 30,
-  //   },
-  //   {
-  //     exercise_id: 3,
-  //     position: 2,
-  //     name: "Przysiady",
-  //     rep: 20,
-  //     duration: null,
-  //   },
-  // ];
-
-  // const allExercises = [
-  //   {
-  //     exercise_id: 1,
-  //     name: "Pompki",
-  //     rep: 5,
-  //     duration: null,
-  //   },
-  //   {
-  //     exercise_id: 2,
-  //     name: "Plank",
-  //     rep: null,
-  //     duration: 30,
-  //   },
-  //   {
-  //     exercise_id: 3,
-  //     name: "Przysiady",
-  //     rep: 20,
-  //     duration: null,
-  //   },
-  //   {
-  //     exercise_id: 4,
-  //     name: "Pull ups",
-  //     rep: 20,
-  //     duration: null,
-  //   },
-  // ]
-
-
-  //
   const {userId} = employeeToken();
   const location = useLocation();
   const client_id = location.state?.client_id;
+  const chosenClient = client_id;
   const [exercises, setExercises] = useState([]);
   const [allExercises, setAllExercises] = useState([]);
+  const [trainingId, setTrainingId ] = useState("");
 
   const getExercisesForTraining = async (event) =>
   {
@@ -85,6 +36,7 @@ export default function TrainingCreator() {
         console.log(data.training_id);
         console.log(data.exercises);
         setExercises(data.exercises);
+        setTrainingId(data.training_id);
 
       } catch (error) {
         console.error('Error:', error);
@@ -118,6 +70,8 @@ const getAllExercises = async (event) =>
 useEffect(() => {getAllExercises()}, []);
 
 
+
+
 const [selectedExerciseId, setSelectedExerciseId] = useState(null);
 const [repInput, setRepInput] = useState("");
 const [durationInput, setDurationInput] = useState("");
@@ -126,6 +80,26 @@ const [editingExerciseIndex, setEditingExerciseIndex] = useState(null);
 const [editingRepInput, setEditingRepInput] = useState("");
 const [editingDurationInput, setEditingDurationInput] = useState("");
 const [editingExercise, setEditingExercise] = useState(null);
+
+const handleSaveTraining = async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('http://localhost:8000/trainer/save_exercises/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            }, body: JSON.stringify({ training_id: trainingId,
+                                    exercise: exercises }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          alert('Trening został pomyślnie dodany.');
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
 const addExercise = () => {
   const selectedExercise = allExercises.find((exercise) => exercise.exercise_id === selectedExerciseId);
@@ -146,6 +120,7 @@ const addExercise = () => {
     } else {
       alert("Please provide either reps or duration, not both.");
     }
+    console.log(exercises);
   }
 };
 
@@ -335,6 +310,10 @@ return (
         ))}
       </tbody>
     </table>
+    <tr className="row-saver">
+        <button className="button-modifier" onClick={handleSaveTraining}>Zapisz trening!</button>
+        <button className="button-modifier">Wróć<Link className="link-button" to="/trener/client_info" state={{chosenClient}}><ArrowBackwardIcon /></Link></button>
+        </tr>
   </div>
 );
 }
