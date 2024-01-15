@@ -457,3 +457,200 @@ class ClientDataTestCase(TestCase):
         models.TrainingGoal.objects.all().delete()
         models.Client.objects.all().delete()
         models.ClientDataHistory.objects.all().delete()
+
+
+class TrainerFunctionsTestCase(TestCase):
+    def setUp(self):
+        # Set up necessary data for testing
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1')
+
+        trainer1 = models.Employee.objects.create(
+            employee_id=1, login='trainer1', password_hash='hashed_password', email='trainer@example.com', phone_number='123456789', name='John', surname='Doe', gender='M', type='trener', gym=gym
+
+        )
+
+        trainer2 = models.Employee.objects.create(
+            employee_id=2, login='trainer2', password_hash='hashed_password', email='trainer2@example.com', phone_number='123456729', name='John2', surname='Doe2', gender='M', type='trener', gym=gym
+
+        )
+
+    def test_get_trainer_by_gym(self):
+        # Call the function with the ID of the gym created in setUp
+        gym_id = 1
+        result = database.get_trainer_by_gym(gym_id)
+
+        # Check if the result is a list
+        self.assertIsInstance(result, list)
+
+        # Check if each element in the list is also a list with three elements (ID, name, surname)
+        for trainer in result:
+            self.assertIsInstance(trainer, list)
+            self.assertEqual(len(trainer), 3)
+            # Check if the ID is an integer
+            self.assertIsInstance(trainer[0], int)
+            # Check if name and surname are strings
+            self.assertIsInstance(trainer[1], str)
+            self.assertIsInstance(trainer[2], str)
+
+        # # Check if the expected trainers are present in the result
+        # expected_trainers = [
+        #     [1, 'John', 'Doe'],
+        #     [2, 'John2', 'Doe2'],
+        # ]
+        # self.assertEqual(result, expected_trainers)
+
+
+class GymClassesFunctionsTestCase(TestCase):
+    def setUp(self):
+        # Set up necessary data for testing
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+
+
+        trainer = models.Employee.objects.create(
+            employee_id=1, login='trainer1', password_hash='hashed_password', email='trainer@example.com', phone_number='123456789', name='John', surname='Doe', gender='M', type='Trainer', gym=gym
+
+        )
+
+        gym_class1 = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            # Add other necessary fields for GymClasse
+        )
+
+        gym_class2 = models.GymClasse.objects.create(
+            gym_classe_id=2,
+            name='Class 2',
+            price=25,
+            duration=45,
+            # Add other necessary fields for GymClasse
+        )
+
+        week_schedule1 = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='Monday',
+            start_time='10:00',
+            gym_classe=gym_class1,
+            trainer=trainer
+            # Add other necessary fields for WeekSchedule
+        )
+
+        week_schedule2 = models.WeekSchedule.objects.create(
+            week_schedule_id=2,
+            week_day='Wednesday',
+            start_time='15:00',
+            gym_classe=gym_class2,
+            trainer=trainer
+            # Add other necessary fields for WeekSchedule
+        )
+
+    def test_get_gym_classes(self):
+        # Call the function with the ID of the gym created in setUp
+        gym_id = 1
+        result = database.get_gym_classes(gym_id)
+
+        # Check if the result is a list
+        self.assertIsInstance(result, list)
+
+        # Check if each element in the list is also a list with two elements (ID, name)
+        for gym_class in result:
+            self.assertIsInstance(gym_class, list)
+            self.assertEqual(len(gym_class), 2)
+            # Check if the ID is an integer
+            self.assertIsInstance(gym_class[0], int)
+            # Check if name is a string
+            self.assertIsInstance(gym_class[1], str)
+
+        # Check if the expected gym classes are present in the result
+        expected_classes = [
+            [1, 'Class 1'],
+            [2, 'Class 2'],
+        ]
+        self.assertEqual(result, expected_classes)
+
+class FreeGymClassesFunctionsTestCase(TestCase):
+    def setUp(self):
+        # Set up necessary data for testing
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+
+
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+
+        )
+
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=2
+        )
+
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='Monday',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+            # Add other necessary fields for WeekSchedule
+        )
+
+    def test_get_free_trainings(self):
+        # Call the function with necessary parameters
+        trainer_id = 1
+        start_date = timezone.now().date()
+        client_id = 1  # Provide a valid client ID
+        result = database.get_free_trainings(trainer_id, str(start_date), client_id)
+
+        # Check if the result is a list
+        self.assertIsInstance(result, list)
+
+        # Check if each element in the list is also a list with the expected number of elements
+        for training in result:
+            self.assertIsInstance(training, list)
+            self.assertEqual(len(training), 9)  # Change the number based on the expected number of elements
+
+    def test_get_free_places_gym_classe(self):
+        # Call the function with necessary parameters
+        classe_date = timezone.now().date()
+        week_schedule_id = 1
+        result = database.get_free_places_gym_classe(classe_date, week_schedule_id)
+
+        # Check if the result is an integer
+        self.assertIsInstance(result, int)
