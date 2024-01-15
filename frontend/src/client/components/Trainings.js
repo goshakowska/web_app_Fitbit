@@ -62,7 +62,7 @@ function Trainings()
         Godzina wyjścia z siłowni
       </th>
       <th>
-        Czas trwania
+        Czas trwania treningu
       </th>
       <th>
         Spalone kalorie
