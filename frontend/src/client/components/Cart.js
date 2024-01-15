@@ -54,7 +54,7 @@ function Cart () {
           }
         })
       }
-      else if (response["error"]) {console.log(response["error"])}
+      else if (response["error"]) {alert('Usuń z koszyka zajęcia, na których nie ma już miejsc.')}
 
     };
 
