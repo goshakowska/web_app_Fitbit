@@ -944,7 +944,6 @@ def describe_client_portier(client_id):
         return result
     # ticket is active
     ticket_info = gym_ticket_details(active_ticket['id'])
-    result['daily'] = True if ticket_info['type'] == 'Dniowy' else False
     result['ticket_name'] = f"{ticket_info['type']} {ticket_info['duration']}"
     result['activation_date'] = ticket_info['activation_date']
     if ticket_info['type'] == 'Dniowy':
