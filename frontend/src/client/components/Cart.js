@@ -54,7 +54,7 @@ function Cart () {
           }
         })
       }
-      else if (response["error"]) {console.log(response["error"])}
+      else if (response["error"]) {alert('Usuń z koszyka zajęcia, na których nie ma już miejsc.')}
 
     };
 
@@ -142,7 +142,7 @@ function Cart () {
                         <td> {training["price"]} zł</td>
                         <td>{training['schedule_date']}, {training['hour']} </td>
                         {freePlaces[index] !== 0 ? <td> {freePlaces[index]} </td>  : <td>Brak miejsc</td>}
-                        <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(training["week_schedule_id"], training["schedule_date"], null, training["freePlaces"], training["price"])}}
+                        <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(training["week_schedule_id"], training["schedule_date"], null, freePlaces[index], training["price"])}}
                         >Szczegóły</Button> </td>
                         <td> <Button type="button" className="deleteStyle" onClick={(e) =>{deleteTraining(index); stst(!st)}}
                         >Usuń z koszyka</Button> </td>
