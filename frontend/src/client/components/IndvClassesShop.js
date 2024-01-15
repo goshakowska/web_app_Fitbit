@@ -110,7 +110,7 @@ function IndvClassesShop () {
           {gymId && trainerId ? <>
             <div className="marginBottom"><WeekSwitcher /></div>
                   <div>
-                    {classes.length > 0 ? <Table bordered responsive className="tableDesign" >
+                    {classes.length > 0 ? <Table bordered responsive className="tableDesign tableDesignWide" >
               <thead>
                 <tr>
                   <th>

@@ -59,7 +59,7 @@ return(
       <h className="textLogin"> Twoje zajęcia </h>
       <WeekSwitcher />
       <div>
-        {clientClasses.length > 0 ? <Table bordered hover responsive className="tableDesign" >
+        {clientClasses.length > 0 ? <Table bordered hover responsive className="tableDesign tableDesignNarrow" >
   <thead>
     <tr>
       <th>
@@ -82,7 +82,7 @@ return(
                         <th scope="row"> {clientClass[3]} </th>
                         <td> {clientClass[1]}, {clientClass[2]} </td>
                         <td> {clientClass[4]} {clientClass[5]} </td>
-                        <td> <Button type="button" className="cartStyle" onClick={(e) => {handleClick(clientClass[0])}}
+                        <td> <Button type="button" className="cartStyle text-style" onClick={(e) => {handleClick(clientClass[0])}}
                         >Szczegóły</Button> </td>
                     </tr>
                 ))}
