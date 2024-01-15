@@ -47,6 +47,20 @@
   width:100% !important;
 }
 
+.rbc-event-content {
+    font-family: 'Inknut Antiqua';
+    font-size: 12px;
+    text-align: center;
+    background-color: darkcyan;
+
+}
+
+.rbc-event-label {
+    font-family: 'Inknut Antiqua';
+    font-size: 10px;
+    text-align: center;
+}
+
 .rbc-time-view .rbc-row .rbc-time-content {
     display: flex;
     align-items: center;
