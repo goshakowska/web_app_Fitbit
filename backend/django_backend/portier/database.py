@@ -296,7 +296,7 @@ def assign_locker(client_id, portier_id):
     return locker.locker_number
 
 
-def activate_ticket(client_id):
+def activate_ticket(client_id, ticket_id):
     """
     Activates the gym ticket for a client if it is not already active.
 
@@ -314,13 +314,12 @@ def activate_ticket(client_id):
     ticket_to_activate = (m.GymTicketHistory.objects
                           .filter(
                               client_id=client_id,
-                              activation_date__isnull=True
-                              )
-                          .first())
+                              gym_ticket_history_id=ticket_id
+                              ))
     if not ticket_to_activate:
         # client doesn't have ticket
         return None
-
+    ticket_to_activate = ticket_to_activate[0]
     # activate ticket
     time = datetime.now().date()
     ticket_to_activate.activation_date = time

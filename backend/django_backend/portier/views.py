@@ -151,7 +151,8 @@ def activate_ticket(request):
     """
     data = json.loads(request.body.decode('utf-8'))
     client = data.get('client_id')
-    result = database.activate_ticket(client)
+    ticket = data.get('ticket_id')
+    result = database.activate_ticket(client, ticket)
 
     if result:
         return JsonResponse({'message': "Ticket activated"})
