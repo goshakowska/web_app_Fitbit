@@ -912,4 +912,46 @@ def check_collision_in_basket(week_schedule_id, date_str, basket):
     return None
 
 
+def nearest_training(client_id):
+    tr = []
+    current_day = datetime.now().date()
+    training = list(models.OrderedSchedule.objects.all().filter(client_user_id=client_id))
+    for train in training:
+        if train.schedule_date.date() >= current_day:
+            tr.append(train)
 
+    if not tr:
+        return None
+
+    tr_min = min(tr, key=lambda t: t.schedule_date)
+    return tr_min.week_schedule.gym_classe.name
+
+
+def describe_client_portier(client_id):
+    try:
+        client = models.Client.objects.get(client_id=client_id)
+    except models.Client.DoesNotExist:
+        return None
+
+    result = {}
+    result['email'] = client.email
+    result['phone'] = client.phone_number
+    result['training'] = nearest_training(client_id)
+    tickets = get_gym_ticket_client(client_id)
+    active_ticket = next((t for t in tickets if t.get('status')), None)
+    if not active_ticket:
+        result['active'] = False
+        return result
+    # ticket is active
+    ticket_info = gym_ticket_details(active_ticket['id'])
+    result['daily'] = True if ticket_info['type'] == 'Dniowy' else False
+    result['ticket_name'] = f"{ticket_info['type']} {ticket_info['duration']}"
+    result['activation_date'] = ticket_info['activation_date']
+    if ticket_info['type'] == 'Dniowy':
+        result['daily'] = True
+        result['end_date'] = ticket_info['end_date']
+    else:
+        result['daily'] = False
+        result['visit_left'] = ticket_info['visit_to_end']
+
+    return result

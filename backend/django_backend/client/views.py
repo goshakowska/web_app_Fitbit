@@ -571,3 +571,14 @@ def check_collision_in_busket(request):
     is_collision = database.check_collision_in_basket(week_schedule_id, date_str, basket)
     response_data = {'is_collision': is_collision }
     return JsonResponse(response_data)
+
+
+@csrf_exempt
+def describe_client_portier(request):
+    data = json.loads(request.body.decode('utf-8'))
+    client_id= data.get('client_id')
+    result = database.describe_client_portier(client_id)
+    if result:
+        return JsonResponse({'description': result})
+    else:
+        return JsonResponse({'error': "This client doesn't exist"}, status=400)
