@@ -1,4 +1,4 @@
-from django.db.models import Value, Count, Case, When, CharField, ExpressionWrapper, IntegerField, Q
+from django.db.models import Value, Count, Case, When, CharField, ExpressionWrapper, IntegerField, Q, Sum
 from django.db.models.functions import ExtractYear
 from django.utils import timezone
 import database_models.models as m
@@ -398,7 +398,9 @@ def equipment_usage(manager_id, equipment_name):
                 gym=gym,
                 gym_equipment=equipment,
                 exercise_date__date=day
-            ).count()
+            ).aggregate(Sum('duration'))['duration__sum']
+            if count is None:
+                count = 0
             usage['equipment'].append(f"{equipment.equipment.name} {equipment.gym_equipment_id}")
             usage['hours'].append(count/3600)   # in database stored in seconds
 
@@ -407,30 +409,30 @@ def equipment_usage(manager_id, equipment_name):
 
     print(data)
 
-    data = {
-    '01': {'hours': [8, 10, 15], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '02': {'hours': [9, 11, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '03': {'hours': [8, 12, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '04': {'hours': [10, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '05': {'hours': [9, 12, 16], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '06': {'hours': [8, 12, 17], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '07': {'hours': [7, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '08': {'hours': [9, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '09': {'hours': [9, 15, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '10': {'hours': [11, 12, 20], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '11': {'hours': [10, 14, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '12': {'hours': [9, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '13': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '14': {'hours': [7, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '15': {'hours': [7, 12, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-    '16': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-}
+#     data = {
+#     '01': {'hours': [8, 10, 15], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '02': {'hours': [9, 11, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '03': {'hours': [8, 12, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '04': {'hours': [10, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '05': {'hours': [9, 12, 16], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '06': {'hours': [8, 12, 17], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '07': {'hours': [7, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '08': {'hours': [9, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '09': {'hours': [9, 15, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '10': {'hours': [11, 12, 20], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '11': {'hours': [10, 14, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '12': {'hours': [9, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '13': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '14': {'hours': [7, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '15': {'hours': [7, 12, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+#     '16': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
+# }
 
 
     # Process data for plot
     dates = []
-    # equipment_names = [f"{equipment.equipment.name} {equipment.gym_equipment_id}" for equipment in equipments_id]
-    equipment_names = ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']
+    equipment_names = [f"{equipment.equipment.name} {equipment.gym_equipment_id}" for equipment in equipments_id]
+    # equipment_names = ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']
     daily_hours = {equip: [] for equip in equipment_names}
 
     for date, values in data.items():
