@@ -2,6 +2,7 @@
       color: #002f35;
       font-family: 'Inknut Antiqua';
       font-size: 64px;
+      margin-bottom: 20px;
    }
 
    .title-label {
@@ -32,23 +33,39 @@
    }
 
    .portier-client-info {
-      width: 50%;
+      margin-top: 10px;
+      padding-top: 20px;
+      padding-left: 20px;
+      width: 100%;
       color: #002f35;
       margin: auto;
       border-radius: 15px;
       border-color: #f7a072;
-      overflow: hidden;
-      border-collapse: collapse;
    }
 
    .client-info,
    .training-info,
    .client-card,
    .card-dates {
-      width: 100px;
-      height: 300px;
+      width: auto;
+      height: auto;
       padding: 20px;
       margin-top: 10px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      background-color: #f9f7f3;
+      border: 5px solid;
+      border-color: #f7a072;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .entrance-info {
+      width: auto;
+      height: auto;
+      padding: 20px;
+      margin-top: 30px;
       margin-bottom: 10px;
       margin-left: 10px;
       margin-right: 10px;
@@ -76,3 +93,34 @@
       border-color: #b5e2fa;
       border-radius: 10px;
    }
+
+
+   .activation-button {
+      align-items: center!important;
+      font-family: 'Inknut Antiqua'!important;
+      color: #002f35!important;
+      font-size: 20px!important;
+      margin-top: 10px!important;
+      padding: 10px 20px!important;
+      background-color: #f9f7f3!important;
+      border: 5px solid!important;
+      border-color: #b5e2fa!important;
+      border-radius: 10px!important;
+      cursor: pointer!important;
+   }
+  
+   .activation-button:hover {
+      background-color: #d9d9d9!important;
+      color: #002f35!important;
+      font-family: 'Inknut Antiqua'!important;
+      border: 5px solid !important;
+      border-color: #D9D9D9 !important;
+      border-radius: 10px !important;
+   }
+  
+   .activation-button:active:focus {
+      background-color: #155E63 !important;
+      border-color: #D9D9D9 !important;
+   }
+
+   

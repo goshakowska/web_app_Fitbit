@@ -87,6 +87,7 @@ def get_clients():
         result.append(
             {
                 'id': client.client_id,
+                'phone_number': client.phone_number,
                 'name': client.name,
                 'surname': client.surname,
                 'status': check_status_client(client.client_id)

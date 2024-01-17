@@ -76,6 +76,6 @@
  }
 
  .button:active:focus {
-    background-color: #155E63;
+    background-color: #155E63 !important;
     border-color: #D9D9D9;
  }
