@@ -954,7 +954,7 @@ def describe_client_portier(client_id):
         result['end_date'] = ticket_info['end_date']
     else:
         result['daily'] = False
-        result['visit_left'] = ticket_info['visit_to_end']
+        result['visit_left'] = ticket_info['visits_to_end']
 
     return result
 

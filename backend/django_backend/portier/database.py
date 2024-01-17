@@ -23,7 +23,7 @@ def check_status_client(client_id):
     # find nearest active ticket (can only by one active at a time)
     ticket_active = (m.GymTicketHistory.objects
               .filter(client_id=client_id, activation_date__isnull=False)
-              .order_by('purchase_date')
+              .order_by('-activation_date')
               .first()
               )
 
@@ -63,10 +63,16 @@ def check_if_ticket_active(ticket, client_id):
             return True
 
     else:
-        # ticket is for number of entries  CORRECT after activation count
-        entries = m.GymVisit.objects.filter(client_user=client_id).count()
+        # ticket is for number of entries
+        activation_date = ticket.activation_date
+        count = 0
+        entries = list(m.GymVisit.objects.filter(client_user=client_id))
+        for ent in entries:
+            if ent.entry_time.date() >= activation_date:
+                count += 1
+
         limit_entries = ticket.gym_ticket_offer.duration
-        if entries > limit_entries:     # CORRECT >=
+        if count >= limit_entries:
             # ticket has expired
             return False
         else:
@@ -207,7 +213,7 @@ def entry(client_id, portier_id):
 
     time = timezone.localtime(timezone.now())
     m.GymVisit.objects.create(entry_time=time, gym_gym=gym, client_user_id=client_id)
-    return time.strftime('%d-%m-%Y %H:%M')
+    return time.strftime('%H:%M %d-%m-%Y')
 
 
 def leave(client_id, portier_id):
@@ -251,7 +257,7 @@ def leave(client_id, portier_id):
     else:
         locker = None
 
-    return time.strftime('%d-%m-%Y %H:%M'), locker
+    return time.strftime('%H:%M %d-%m-%Y'), locker
 
 
 
