@@ -59,7 +59,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/ClientInfo.css';
 import { Grid, Button, Select, MenuItem } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import employeeToken from "../../EmployeeToken";
 
 function ClientInfo(props) {
@@ -68,11 +68,11 @@ function ClientInfo(props) {
   const {userId} = employeeToken();
 
   const [clientDescription, setClientDescription] = useState([]);
-  // const [notActiveTicketsList, setNotActiveTicketsList] = useState([]);
+  const [notActiveTicketsList, setNotActiveTicketsList] = useState([]);
   const [isCurrentlyOnGym, setIsCurrentlyOnGym] = useState(false);
 
 
-  // const [selectedTicket, setSelectedTicket] = useState('');
+  const [selectedTicket, setSelectedTicket] = useState('');
 
   const getClientDescription = async (event) => {
     try {
@@ -98,28 +98,28 @@ function ClientInfo(props) {
 
     useEffect((e) => {getClientDescription(e)}, []);
 
-    // const getNotActiveTicketsList = async (event) => {
-    //     try {
-    //         const response = await fetch('http://localhost:8000/client/not_active_list/', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },body: JSON.stringify({ client_id: client})});
+    const getNotActiveTicketsList = async (event) => {
+        try {
+            const response = await fetch('http://localhost:8000/client/not_active_list/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },body: JSON.stringify({ client_id: client})});
 
-    //         if (!response.ok) {
-    //           throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-    //         const data = await response.json();
-    //         console.log(data.tickets)
-    //         setNotActiveTicketsList(data.tickets);
+            const data = await response.json();
+            console.log(data.tickets)
+            setNotActiveTicketsList(data.tickets);
 
-    //       } catch (error) {
-    //         console.error('Error:', error);
-    //       };
-    //     }
+          } catch (error) {
+            console.error('Error:', error);
+          };
+        }
 
-    //     useEffect((e) => {getNotActiveTicketsList(e)}, []);
+        useEffect((e) => {getNotActiveTicketsList(e)}, []);
 
         const getIsOnGym = async (event) => {
             try {
@@ -174,7 +174,7 @@ function ClientInfo(props) {
               // console.log(client_id);
               console.log(client);
               console.log(clientDescription)
-              // console.log(notActiveTicketsList);
+              console.log(notActiveTicketsList);
               console.log(isCurrentlyOnGym)
 
             };
@@ -188,7 +188,7 @@ function ClientInfo(props) {
 
         const handleStartTraining = async (event) => {
             try {
-                const response = await fetch('http://localhost:8000/client/register_entry/', {
+                const response = await fetch('http://localhost:8000/portier/register_entry/', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -201,7 +201,6 @@ function ClientInfo(props) {
                 const data = await response.json();
                 console.log(data.time)
                 alert("Trening został rozpoczęty o godzinie: "+ data.time + ".");
-
               } catch (error) {
                 console.error('Error:', error);
               };
@@ -209,7 +208,7 @@ function ClientInfo(props) {
 
         const handleAssignLocker = async (event) => {
           try{
-            const response = await fetch('http://localhost:8000/client/assign_locker/', {
+            const response = await fetch('http://localhost:8000/portier/assign_locker/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -231,7 +230,7 @@ function ClientInfo(props) {
 
         const handleFinishTraining = async (event) => {
           try {
-            const response = await fetch('http://localhost:8000/client/register_leave/', {
+            const response = await fetch('http://localhost:8000/portier/register_leave/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -244,7 +243,13 @@ function ClientInfo(props) {
             const data = await response.json();
             console.log(data.time)
             console.log(data.locker)
-            alert("Trening został zakończony o godzinie: "+ data.time + ". Zwolniona została szafka nr. " + data.locker);
+            if (data.locker === null) {
+              alert("Trening został zakończony o godzinie: " + data.time + ". Żadna szafka nie została wcześniej przypisana.");
+            } else {
+              alert("Trening został zakończony o godzinie: " + data.time + ". Zwolniona została szafka nr. " + data.locker);
+            }
+            setIsCurrentlyOnGym(true)
+            window.location.reload(false)
 
           } catch (error) {
             console.error('Error:', error);
@@ -254,64 +259,80 @@ function ClientInfo(props) {
       return (
         <div>
           <Container className='portier-client-info'>
-            <Grid className="profile">
+            <Row className="profile">
               <img src={"../user.png"} alt="profile" />
               <h2 className="name-title-label"> {clientDescription.name} {clientDescription.surname}</h2>
-            </Grid>
-            <Grid className="all-info" container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} alignItems="center">
-              <Grid className="client-info" spacing={5} item xs={6}>
-            <h3 className="title-label">Dane klienta</h3>
-            <p className="labels">Email: {clientDescription.email}</p>
-            <p className="labels">Numer telefonu: {clientDescription.phone}</p>
-            <Button onClick={handleRequest}>sprawdź</Button>
-              </Grid>
-              <Grid className="client-card" spacing={5} item xs={6}>
-                {clientDescription.active_ticket ? (
-                  <div>
-                    <p className="labels">Ticket Type: {clientDescription.ticket_name}</p>
-                    {clientDescription.type === 'Dniowy' ? (
-                      <div>
-                        <p className="labels">Expiration Date: {clientDescription.end_date}</p>
-                      </div>
-                    ) : (
-                      <p className="labels">Entrances Left: {clientDescription.visit_left}</p>
-                    )}
-                  </div>
-                ) : (
-                  <div>
-                      <p className="labels">Musisz aktywować karnet</p>
-                    {/* <Select value={selectedTicket} onChange={handleTicketSelection}>
-                      {notActiveTicketsList.map((ticket) => (
-                        <MenuItem key={ticket.ticket_id} value={ticket.ticket_name}>
-                          {ticket.ticket_name}
-                        </MenuItem>
-                      ))}
-                    </Select> */}
-                    <Button onClick={handleTicketActivation}>Aktywuj!</Button>
-                  </div>
-                )}
-              </Grid>
+            </Row>
+
+            <Row className="portier-client-info" container rowSpacing={3} alignItems="center">
+            <Col xs={6} className="d-flex flex-fill">
+                <Grid className="client-info" container item xs={10}>
+                <h3 className="title-label">Dane klienta:</h3>
+                <p className="labels">Email: {clientDescription.email}</p>
+                <p className="labels">Numer telefonu: {clientDescription.phone}</p>
+                {/* <Button onClick={handleRequest}>sprawdź</Button> */}
+                </Grid>
+            </Col>
+            <Col xs={6} className="d-flex flex-fill">
+                <Grid className="client-card" container item xs={10} >
+                <h3 className="title-label">Dane karnetu:</h3>
+                  {clientDescription.active ? (
+                    <div>
+                      <p className="labels">Ticket Type: {clientDescription.ticket_name}</p>
+                      {clientDescription.daily ? (
+                        <div>
+                          <p className="labels">Expiration Date: {clientDescription.end_date}</p>
+                        </div>
+                      ) : (
+                        <p className="labels">Entrances Left: {clientDescription.visit_left}</p>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                        <p className="labels">Musisz aktywować karnet</p>
+                      <Select value={selectedTicket} onChange={(e) => setSelectedTicket(selectedTicket)}>
+                        {notActiveTicketsList.map((ticket) => (
+                          <MenuItem key={ticket.ticket_id} value={ticket.ticket_name}>
+                            {ticket.ticket_name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <Button onClick={handleTicketActivation}>Aktywuj karnet: {selectedTicket}!</Button>
+                    </div>
+                  )}
+                </Grid>
+            </Col>
+            </Row>
                 {clientDescription.active && !isCurrentlyOnGym ? (
                   <div>
-                    <Grid className="training-info" spacing={5} item xs={6}>
-                    <Button onClick={handleStartTraining} disabled={!clientDescription.isActive}>
+                    <Row className="entrance-info" container rowSpacing={3} alignItems="center">
+                      <Row className="justify-content-center">   
+                      <Col xs={6} className="text-start">                 
+                    <Button className="activation-button" onClick={handleStartTraining} disabled={!clientDescription.active}>
                       Rozpocznij trening!
                     </Button>
-                    <Button onClick={handleAssignLocker} disabled={!clientDescription.isActive}>
+                    </Col>
+                    <Col xs={6} className="text-end"> 
+                    <Button className="activation-button" onClick={handleAssignLocker} disabled={!clientDescription.active}>
                       Przydziel szafkę.
                     </Button>
-                    </Grid>
+                    </Col>
+                    </Row>
+
+                    <Button className="activation-close-button" onClick={() => window.location.reload(false)} disabled={!clientDescription.active}>
+                      Zamknij.
+                    </Button>
+                    </Row>
                   </div>
                 ) : isCurrentlyOnGym ? (
                   <div>
-                    <Grid className="training-info" spacing={5} item xs={6}>
-                    <Button onClick={handleFinishTraining} disabled={!clientDescription.isActive}>
+                    <Row className="entrance-info" container rowSpacing={3} alignItems="center">
+                    <Button className="activation-button" onClick={handleFinishTraining} disabled={!isCurrentlyOnGym}>
                       Zakończ trening.
                     </Button>
-                    </Grid>
+                    </Row>
                   </div>
                 ) : null}
-            </Grid>
           </Container>
         </div>
       );
