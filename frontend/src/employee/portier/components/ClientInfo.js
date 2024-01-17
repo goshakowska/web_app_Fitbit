@@ -72,7 +72,7 @@ function ClientInfo(props) {
   const [isCurrentlyOnGym, setIsCurrentlyOnGym] = useState(false);
 
 
-  const [selectedTicket, setSelectedTicket] = useState('');
+  const [selectedTicket, setSelectedTicket] = useState(null);
 
   const getClientDescription = async (event) => {
     try {
@@ -145,13 +145,15 @@ function ClientInfo(props) {
         useEffect((e) => {getIsOnGym(e)}, []);
 
         const handleTicketActivation = async (event) => {
+          console.log(client)
+          console.log(selectedTicket.ticket_id)
             try {
-                const response = await fetch('http://localhost:8000/client/activate_ticket/', {
+                const response = await fetch('http://localhost:8000/portier/activate_ticket/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ client_id: client }),
+                body: JSON.stringify({ client_id: client, ticket_id: selectedTicket.ticket_id }),
                 });
 
                 if (!response.ok) {
@@ -290,14 +292,14 @@ function ClientInfo(props) {
                   ) : (
                     <div>
                         <p className="labels">Musisz aktywować karnet</p>
-                      <Select value={selectedTicket} onChange={(e) => setSelectedTicket(selectedTicket)}>
-                        {notActiveTicketsList.map((ticket) => (
-                          <MenuItem key={ticket.ticket_id} value={ticket.ticket_name}>
-                            {ticket.ticket_name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                      <Button onClick={handleTicketActivation}>Aktywuj karnet: {selectedTicket}!</Button>
+                  <Select value={selectedTicket ? selectedTicket.ticket_name : ''} onChange={(e) => setSelectedTicket(notActiveTicketsList.find(ticket => ticket.ticket_name === e.target.value))}>
+                    {notActiveTicketsList.map((ticket) => (
+                      <MenuItem key={ticket.ticket_id} value={ticket.ticket_name}>
+                        {ticket.ticket_name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <Button onClick={() => handleTicketActivation(selectedTicket)}>Aktywuj karnet: {selectedTicket ? selectedTicket.ticket_name : ''}!</Button>
                     </div>
                   )}
                 </Grid>
