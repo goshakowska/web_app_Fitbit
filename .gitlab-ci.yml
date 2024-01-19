@@ -1,5 +1,6 @@
 stages:
   - test
+  - coverage
 
 variables:
   DJANGO_SETTINGS_MODULE: "django_backend.settings_test"
@@ -16,3 +17,18 @@ django-test-job:
     - python manage.py makemigrations database_models
     - python manage.py migrate
     - python manage.py test
+
+django-coverage-job:
+  stage: coverage
+  image: python:3.8.13-bullseye
+  script:
+    - cd backend/django_backend
+    - pip install --no-cache-dir -r requirements.txt
+    - export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+    - export DATABASE_PASSWORD='test'
+    - export EMAIL_HOST_PASSWORD='test'
+    - python manage.py makemigrations database_models
+    - python manage.py migrate
+    - python manage.py test
+    - coverage run --source=. --omit=*/__init__.py manage.py test
+    - coverage report
