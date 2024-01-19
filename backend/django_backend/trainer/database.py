@@ -308,6 +308,19 @@ def add_exercise(training_id, exercise_id, measured, position=None):
 
 
 def all_exercises():
+    """
+    Retrieves a list of all exercises with their details.
+
+    This function fetches all exercises from the database and constructs a list of dictionaries,
+    where each dictionary represents an exercise with the following details:
+    - 'exercise_id': The unique identifier for the exercise.
+    - 'name': The name of the exercise.
+    - 'rep': The number of repetitions for the exercise, or None if it is a duration-based exercise.
+    - 'duration': The duration of the exercise in seconds, or None if it is a repetition-based exercise.
+
+    Returns:
+        list: A list of dictionaries representing each exercise with its details.
+    """
     result = []
     exercises = m.Exercise.objects.all()
     for exer in exercises:
@@ -324,6 +337,24 @@ def all_exercises():
 
 
 def save_exercises(exercise_list, exercise_plan_id):
+    """
+    Save a list of exercises to an exercise plan.
+
+    This function takes a list of exercises with their details and saves them to the specified exercise plan.
+    It removes any existing data related to the given exercise plan and adds the new exercises to the plan.
+
+    Args:
+        exercise_list (list): A list of dictionaries representing each exercise with details.
+            Each dictionary should contain the following keys:
+            - 'exercise_id': The unique identifier for the exercise.
+            - 'rep': The number of repetitions for the exercise, or None if it is a duration-based exercise.
+            - 'duration': The duration of the exercise in seconds, or None if it is a repetition-based exercise.
+            - 'position': The position of the exercise in the exercise plan.
+        exercise_plan_id (int): The unique identifier for the exercise plan.
+
+    Returns:
+        bool or None: Returns True if the exercises are successfully saved, None if there is an error during the process.
+    """
     # remove old data for this training
     m.ExercisePlanPosition.objects.filter(exercise_plan_id=exercise_plan_id).delete()
     for exercise in exercise_list:

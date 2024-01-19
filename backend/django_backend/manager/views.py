@@ -55,6 +55,16 @@ def count_age_range(request):
 
 @csrf_exempt
 def sessions(request):
+    """
+    Retrieves trainer session data and generates a plot.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing either the generated plot or an error message.
+        If the manager with the specified ID doesn't exist, an error message is returned with a status code of 400.
+    """
     data = json.loads(request.body.decode('utf-8'))
     manager_id = data.get('manager_id')
     plot = database.trainer_sessions(manager_id)
@@ -65,6 +75,13 @@ def sessions(request):
 
 @csrf_exempt
 def clients_week(request):
+    """
+    Plots client entry data for a specified manager over a week.
+
+    Returns:
+        JsonResponse: A JSON response containing either the generated plot or an error message.
+        If the manager with the specified ID doesn't exist, an error message is returned with a status code of 400.
+    """
     data = json.loads(request.body.decode('utf-8'))
     manager_id = data.get('manager_id')
     plot = database.clients_by_week(manager_id)
@@ -76,6 +93,13 @@ def clients_week(request):
 
 @csrf_exempt
 def clients_hour(request):
+    """
+    Plots client entry data within the last 24 hours.
+
+    Returns:
+        JsonResponse: A JSON response containing either the generated plot or an error message.
+        If the manager with the specified ID doesn't exist, an error message is returned with a status code of 400.
+    """
     data = json.loads(request.body.decode('utf-8'))
     manager_id = data.get('manager_id')
     plot = database.clients_by_hour(manager_id)
@@ -88,6 +112,13 @@ def clients_hour(request):
 
 @csrf_exempt
 def equipment_usage(request):
+    """
+    Plots equipment usage data for a specified gym(where manager works) and equipment.
+
+    Returns:
+        JsonResponse: A JSON response containing either the generated plot or an error message.
+        If the manager with the specified ID doesn't exist, an error message is returned with a status code of 400.
+    """
     data = json.loads(request.body.decode('utf-8'))
     manager_id = data.get('manager_id')
     equipment_name = data.get('equipment_name')
@@ -100,6 +131,13 @@ def equipment_usage(request):
 
 @csrf_exempt
 def all_equipment(request):
+    """
+    Retrieves a list of equipment names associated with a gym where manager works.
+
+    Returns:
+        JsonResponse: A JSON response containing either the generated plot or an error message.
+        If the manager with the specified ID doesn't exist, an error message is returned with a status code of 400.
+    """
     data = json.loads(request.body.decode('utf-8'))
     manager_id = data.get('manager_id')
     name = database.all_equipment(manager_id)

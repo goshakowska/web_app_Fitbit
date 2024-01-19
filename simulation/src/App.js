@@ -193,15 +193,6 @@ function App() {
          }),
         headers: { 'Content-Type': 'application/json' }
       })
-      console.log("exercise_date", formattedDate)
-      console.log("duration", duration)
-      console.log("repetitions_number", repetitionsNumber)
-      console.log("gym_id", selectedGym)
-      console.log("exercise_id", selectedExercise)
-      console.log("equipment_id", selectedEquipment)
-      console.log("client_id", selectedClient)
-      console.log("calories", calories)
-      console.log("params", params)
 
       showDialog('Dodano ćwiczenie');
       clear();

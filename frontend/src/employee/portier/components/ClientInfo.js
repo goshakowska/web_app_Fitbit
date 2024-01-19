@@ -108,7 +108,7 @@ function ClientInfo(props) {
                 if (data === false) {
                   alert("Klient nie posiada biletów do aktywowania.");
               } else  {
-                  alert("Bilet został pomyślnie aktywowany.");
+                  alert("Karnet został pomyślnie aktywowany.");
               }
               window.location.reload(false)
               getClientDescription();
@@ -215,13 +215,13 @@ function ClientInfo(props) {
                 <h3 className="title-label">Dane karnetu:</h3>
                   {clientDescription.active ? (
                     <div>
-                      <p className="labels">Ticket Type: {clientDescription.ticket_name}</p>
+                      <p className="labels">Typ karnetu: {clientDescription.ticket_name}</p>
                       {clientDescription.daily ? (
                         <div>
-                          <p className="labels">Expiration Date: {clientDescription.end_date}</p>
+                          <p className="labels">Data ważności: {clientDescription.end_date}</p>
                         </div>
                       ) : (
-                        <p className="labels">Entrances Left: {clientDescription.visit_left}</p>
+                        <p className="labels">Liczba pozostałych wejść: {clientDescription.visit_left}</p>
                       )}
                     </div>
                   ) : (
