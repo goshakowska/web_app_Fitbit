@@ -1,13 +1,19 @@
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, override_settings, Client
+from django.core import mail
 import client.discount_calculate as dc
 from django.contrib.auth.hashers import make_password
 import client.database as database
+import client.views as views
 import database_models.models as models
 from datetime import datetime, timedelta
 from django.utils import timezone
 import pytz
+import json
+from freezegun import freeze_time
+import client.client_error as client_error
 
 class DiscountTest(SimpleTestCase):
+
     def test_calculate_price_after_discount_one_percent(self):
         self.assertEqual(dc.calculate_price_after_discount(100, 1), 99)
 
@@ -21,33 +27,32 @@ class DiscountTest(SimpleTestCase):
         self.assertEqual(dc.calculate_price_after_discount(99, 7), 92.07)
 
 class DateToString(SimpleTestCase):
+
     def test_str_date_valid_date(self):
-        # Test str_date with a valid date object
         date_obj = datetime(2022, 1, 15)
         formatted_date = dc.str_date(date_obj)
         self.assertEqual(formatted_date, "2022-01-15")
 
     def test_str_date_invalid_date(self):
-        # Test str_date with an invalid date object (None)
         formatted_date = dc.str_date(None)
         self.assertIsNone(formatted_date)
 
     def test_str_hour_valid_time(self):
-        # Test str_hour with a valid time object
         time_obj = datetime(1900, 1, 1, 14, 30, 0)
         formatted_time = dc.str_hour(time_obj)
         self.assertEqual(formatted_time, "14:30:00")
 
     def test_str_hour_invalid_time(self):
-        # Test str_hour with an invalid time object (None)
         formatted_time = dc.str_hour(None)
         self.assertIsNone(formatted_time)
 
 
 class RegistrationTestCase(TestCase):
+
     def setUp(self):
-        # Create necessary related objects before running the tests
-        # Ensure that valid data is used for foreign keys
+        super().setUp()
+        self.client = Client()
+
         models.TrainingGoal.objects.create(training_goal_id=1, name='Weight Loss')
         models.Gym.objects.create(
             gym_id=1,
@@ -59,12 +64,20 @@ class RegistrationTestCase(TestCase):
             county='County',
             zip_code='12-345'
         )
+        models.Client.objects.create(login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01')
 
     def test_registration(self):
+        # Test registration function
         database.registration(
-            login='testuser',
+            login='testuser2',
             password_hash=make_password('testpassword'),
-            email='testuser@example.com',
+            email='testuser2@example.com',
             phone_number='1234567890',
             name='John',
             surname='Doe',
@@ -79,143 +92,171 @@ class RegistrationTestCase(TestCase):
             gym_id=1,
             current_weight=75
         )
-        self.assertTrue(models.Client.objects.filter(login='testuser').exists())
-        self.assertTrue(models.ClientDataHistory.objects.filter(client__login='testuser', weight=75).exists())
+        self.assertTrue(models.Client.objects.filter(login='testuser2').exists())
+        self.assertTrue(models.ClientDataHistory.objects.filter(client__login='testuser2', weight=75).exists())
 
     def test_user_login(self):
-        database.registration(
-            login='testuser',
-            password_hash=make_password('testpassword'),
-            email='testuser@example.com',
-            phone_number='1234567890',
-            name='John',
-            surname='Doe',
-            gender='Male',
-            height=180,
-            birth_date='1990-01-01',
-            advancement='Beginner',
-            target_weight=70,
-            training_frequency=3,
-            training_time=60,
-            training_goal_id=1,
-            gym_id=1,
-            current_weight=75
-        )
+        # Test user_login function valid
         authenticated_client = database.user_login('testuser', 'testpassword')
         self.assertIsNotNone(authenticated_client)
 
     def test_user_login_invalid_credentials(self):
-        database.registration(
-            login='testuser',
-            password_hash=make_password('testpassword'),
-            email='testuser@example.com',
-            phone_number='1234567890',
-            name='John',
-            surname='Doe',
-            gender='Male',
-            height=180,
-            birth_date='1990-01-01',
-            advancement='Beginner',
-            target_weight=70,
-            training_frequency=3,
-            training_time=60,
-            training_goal_id=1,
-            gym_id=1,
-            current_weight=75
-        )
+        # Test user_login function invalid
         authenticated_client = database.user_login('testuser', 'wrongpassword')
         self.assertIsNone(authenticated_client)
 
     def test_is_busy_login(self):
-        database.registration(
-            login='testuser',
-            password_hash=make_password('testpassword'),
-            email='testuser@example.com',
-            phone_number='1234567890',
-            name='John',
-            surname='Doe',
-            gender='Male',
-            height=180,
-            birth_date='1990-01-01',
-            advancement='Beginner',
-            target_weight=70,
-            training_frequency=3,
-            training_time=60,
-            training_goal_id=1,
-            gym_id=1,
-            current_weight=75
-        )
+        # Test is_busy_login function
         self.assertTrue(database.is_busy_login('testuser'))
         self.assertFalse(database.is_busy_login('nonexistentuser'))
 
     def test_is_busy_email(self):
-        database.registration(
-            login='testuser',
-            password_hash=make_password('testpassword'),
-            email='testuser@example.com',
-            phone_number='1234567890',
-            name='John',
-            surname='Doe',
-            gender='Male',
-            height=180,
-            birth_date='1990-01-01',
-            advancement='Beginner',
-            target_weight=70,
-            training_frequency=3,
-            training_time=60,
-            training_goal_id=1,
-            gym_id=1,
-            current_weight=75
-        )
+        # Test is_busy_email function
         self.assertTrue(database.is_busy_email('testuser@example.com'))
         self.assertFalse(database.is_busy_email('nonexistent@example.com'))
 
+    def test_registration_success(self):
+        # Check if the view registration returns login
+        data = {
+            'login': 'testuser2',
+            'password_hash': 'testpassword',
+            'email': 'test2@example.com',
+            'phone_number': '1234567890',
+            'name': 'John',
+            'surname': 'Doe',
+            'gender': 'M',
+            'height': 180,
+            'birth_year': '1990-01-01',
+            'advancement': 'beginner',
+            'target_weight': 70,
+            'training_frequency': 3,
+            'training_time': 3,
+            'training_goal_id': 1,
+            'gym_id': 1,
+            'current_weight': 75,
+        }
+        response = self.client.post('/client/registration/', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content)
+        self.assertEqual(data['login'], 'testuser2')
+
+    def test_registration_invalid_method(self):
+        # Check if the view registration returns error
+        response = self.client.get('/client/registration/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('error', response.json())
+        self.assertEqual(response.json()['error'], 'Invalid request method')
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+    def test_send_email(self):
+        # Test send_email function
+        email_address = 'test@example.com'
+        views.send_email(email_address)
+        self.assertEqual(len(mail.outbox), 1)
+        sent_email = mail.outbox[0]
+        self.assertEqual(sent_email.subject, 'Rejestracja')
+        self.assertIn('Dzień dobry!', sent_email.body)
+        self.assertIn('Zespół FitBit', sent_email.body)
+        self.assertEqual(sent_email.to, [email_address])
+
+    def test_client_login_success(self):
+        # Check if the view returns that login and password are valid
+        valid_login_data = {
+            'login': 'testuser',
+            'password': 'testpassword'
+        }
+        response = self.client.post('/client/client_login/', json.dumps(valid_login_data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {'id': 1, 'name': 'John'})
+
+    def test_client_login_failure(self):
+        # Check if the view returns that login and password are invalid
+        invalid_login_data = {
+            'login': 'invalid_username',
+            'password': 'invalid_password'
+        }
+        response = self.client.post('/client/client_login/', json.dumps(invalid_login_data), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertJSONEqual(response.content, {'error': 'Incorrect user login!'})
+
+    def test_is_busy_login_true(self):
+        # Check if the view returns that login is busy
+        busy_login_data = { 'login': 'testuser' }
+        response = self.client.post('/client/is_busy_login/', json.dumps(busy_login_data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {'is_busy': True})
+
+    def test_is_busy_login_false(self):
+        # Check if the view returns that login is not busy
+        free_login_data = { 'login': 'new_username' }
+        response = self.client.post('/client/is_busy_login/', json.dumps(free_login_data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {'is_busy': False})
+
+    def test_is_busy_email_true(self):
+        # Check if the view returns that email is busy
+        data = {'email': 'testuser@example.com'}
+        response = self.client.post('/client/is_busy_email/', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertTrue(content['is_busy'])
+
+    def test_is_busy_email_false(self):
+        # Check if the view returns that email is not busy
+        data = {'email': 'new@example.com'}
+        response = self.client.post('/client/is_busy_email/', json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertFalse(content['is_busy'])
+
 
 class TrainingGoalsTestCase(TestCase):
+
     def setUp(self):
-        # Create instances of TrainingGoal for testing
+        super().setUp()
+        self.client = Client()
+
         models.TrainingGoal.objects.create(training_goal_id=1, name='Weight Loss')
         models.TrainingGoal.objects.create(training_goal_id=2, name='Muscle Gain')
 
     def test_training_goals(self):
-        # Test the training_goals function
+        # Test trainingg_goal function
         goals_list = database.training_goals()
-
-        # Ensure that the result is a list
         self.assertIsInstance(goals_list, list)
-
-        # Ensure that each item in the list is also a list with two elements
         for goal in goals_list:
             self.assertIsInstance(goal, list)
             self.assertEqual(len(goal), 2)
-
-        # Ensure that the expected goals are present in the result
         self.assertIn([1, 'Weight Loss'], goals_list)
         self.assertIn([2, 'Muscle Gain'], goals_list)
 
+    def test_training_goals(self):
+        # Check if the view returns a list of training goals
+        response = self.client.get('/client/training_goals/')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('goals', content)
+        self.assertIsInstance(content['goals'], list)
+
     def tearDown(self):
-        # Clean up after each test if necessary
         models.TrainingGoal.objects.all().delete()
 
 
 class GymTicketOfferTestCase(TestCase):
+
     def setUp(self):
-        # Create instances of GymTicketOffer for testing
+        super().setUp()
+        self.client = Client()
+
         models.GymTicketOffer.objects.create(gym_ticket_offer_id=1, name='Standard Ticket', duration=30, price=50, type='Standard')
         models.GymTicketOffer.objects.create(gym_ticket_offer_id=2, name='Premium Ticket', duration=60, price=100, type='Premium')
 
-        # Create instances of Discount for testing
         models.Discount.objects.create(discount_id=1, name='Discount 1', start_date=datetime.now().date(), stop_date=datetime.now().date() + timedelta(days=15), discount_percentages=10, gym_ticket_offer_id=1)
         models.Discount.objects.create(discount_id=2, name='Discount 2', start_date=datetime.now().date(), stop_date=datetime.now().date() + timedelta(days=20), discount_percentages=20, gym_ticket_offer_id=2)
 
     def test_standard_gym_ticket_offer(self):
         # Test standard_gym_ticket_offer function
         ticket_offers = database.standard_gym_ticket_offer()
-
-        # Ensure that the result is a list
         self.assertIsInstance(ticket_offers, list)
-
-        # Ensure that each item in the list is also a list with four elements
         for ticket_offer in ticket_offers:
             self.assertIsInstance(ticket_offer, list)
             self.assertEqual(len(ticket_offer), 4)
@@ -223,14 +264,26 @@ class GymTicketOfferTestCase(TestCase):
     def test_gym_ticket_offer_with_discount(self):
         # Test gym_ticket_offer_with_discount function
         tickets_with_discount = database.gym_ticket_offer_with_discount()
-
-        # Ensure that the result is a list
         self.assertIsInstance(tickets_with_discount, list)
-
-        # Ensure that each item in the list is also a list with eight elements
         for ticket_with_discount in tickets_with_discount:
             self.assertIsInstance(ticket_with_discount, list)
             self.assertEqual(len(ticket_with_discount), 9)
+
+    def test_standard_gym_ticket_offer(self):
+        # Check if the view returns a list of standard gym ticket offers
+        response = self.client.get('/client/standard_gym_ticket_offer/')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('tickets', content)
+        self.assertIsInstance(content['tickets'], list)
+
+    def test_discount_gym_ticket_offer(self):
+        # Check if the view returns a list of gym ticket offers with discount
+        response = self.client.get('/client/discount_gym_ticket_offer/')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('tickets', content)
+        self.assertIsInstance(content['tickets'], list)
 
     def tearDown(self):
         # Clean up after each test if necessary
@@ -239,7 +292,11 @@ class GymTicketOfferTestCase(TestCase):
 
 
 class GymFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Create instances of Gym for testing
         models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
         models.Gym.objects.create(gym_id=2, name='Gym 2', city='City 2', street='Street 2', house_number='456')
@@ -256,11 +313,7 @@ class GymFunctionsTestCase(TestCase):
     def test_get_gyms_list(self):
         # Test get_gyms_list function
         gyms_list = database.get_gyms_list()
-
-        # Ensure that the result is a list
         self.assertIsInstance(gyms_list, list)
-
-        # Ensure that each item in the list is also a list with five elements
         for gym_info in gyms_list:
             self.assertIsInstance(gym_info, list)
             self.assertEqual(len(gym_info), 5)
@@ -268,10 +321,25 @@ class GymFunctionsTestCase(TestCase):
     def test_change_default_gym_client(self):
         # Test change_default_gym_client function
         database.change_default_gym_client(client_id=1, gym_id=2)
-
-        # Retrieve the updated client and check if the default gym has been changed
         updated_client = models.Client.objects.get(client_id=1)
         self.assertEqual(updated_client.gym.gym_id, 2)
+
+    def test_gyms_list(self):
+        # Check if the view returns a list of gyms
+        response = self.client.get('/client/gyms_list/')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('gyms', content)
+        self.assertIsInstance(content['gyms'], list)
+
+    def test_change_default_gym_client(self):
+        # Check if the view works good
+        data = {'client_id': 1, 'gym_id': 1}
+        response = self.client.post('/client/change_default_gym/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('response', content)
+        self.assertEqual(content['response'], 'completed')
 
     def tearDown(self):
         # Clean up after each test if necessary
@@ -279,25 +347,23 @@ class GymFunctionsTestCase(TestCase):
         models.Client.objects.all().delete()
 
 class GymClassFunctionsTestCase(TestCase):
+
     def setUp(self):
-        # Create instances of Gym, Trainer, GymClass, Client for testing
+        super().setUp()
+        self.client = Client()
+
+        # Create instances of Gym, Trainer, GymClass, Client, OrederedSchedule for testing
         gym = models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
         trainer = models.Employee.objects.create(employee_id=1, login='trainer1', password_hash='hashed_password', email='trainer@example.com', phone_number='123456789', name='John', surname='Doe', gender='M', type='Trainer', gym=gym)
         gym_class = models.GymClasse.objects.create(gym_classe_id=1, name='Class 1', price=20, duration=60)
         week_schedule = models.WeekSchedule.objects.create(week_schedule_id=1, gym_classe=gym_class, trainer=trainer, start_time='10:00:00', week_day='Monday')
         client = models.Client.objects.create(login='testuser', password_hash=make_password('testpassword'), email='testuser@example.com', name='John', surname='Doe', gender='Male', birth_year='1990-01-01', gym=gym)
-
-        # Create instances of OrderedSchedule for testing
         models.OrderedSchedule.objects.create(ordered_schedule_id=1, client_user=client, week_schedule=week_schedule, schedule_date=datetime.now().date(), payment_date=datetime.now().date())
 
     def test_get_ordered_classes_client(self):
         # Test get_ordered_classes_client function
         classes_list = database.get_ordered_classes_client(client_id=1, start_date='2022-01-01')
-
-        # Ensure that the result is a list
         self.assertIsInstance(classes_list, list)
-
-        # Ensure that each item in the list is also a list with seven elements
         for gym_class_info in classes_list:
             self.assertIsInstance(gym_class_info, list)
             self.assertEqual(len(gym_class_info), 7)
@@ -305,22 +371,30 @@ class GymClassFunctionsTestCase(TestCase):
     def test_get_ordered_gym_classe_details(self):
         # Test get_ordered_gym_classe_details function
         details = database.get_ordered_gym_classe_details(classe_id=1)
-
-        # Ensure that the result is a list
         self.assertIsInstance(details, list)
-
-        # Ensure that the list has 10 elements
         self.assertEqual(len(details), 9)
 
     def test_get_week_schedule_details(self):
         # Test get_week_schedule_details function
         details = database.get_week_schedule_details(week_schedule_id=1)
-
-        # Ensure that the result is a list
         self.assertIsInstance(details, list)
-
-        # Ensure that the list has 8 elements
         self.assertEqual(len(details), 8)
+
+    def test_get_ordered_classes_client(self):
+         # Check if the view returns classes
+        data = {'client_id': 1, 'start_date': '2024-01-15'}
+        response = self.client.post('/client/ordered_classes/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('classes', content)
+
+    def test_get_ordered_gym_classe_details(self):
+        # Check if the view returns class' details
+        data = {'classe_id': 1}
+        response = self.client.post('/client/ordered_classe_details/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('details', content)
 
     def tearDown(self):
         # Clean up after each test if necessary
@@ -333,23 +407,22 @@ class GymClassFunctionsTestCase(TestCase):
 
 
 class TrainingFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Create a client and gym visit for testing
         gym = models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
         client = models.Client.objects.create(login='testuser', password_hash=make_password('testpassword'), email='testuser@example.com', name='John', surname='Doe', gender='Male', birth_year='1990-01-01', gym=gym)
         gym_visit = models.GymVisit.objects.create(gym_visit_id=1, client_user=client, entry_time=datetime.now(pytz.timezone('Europe/Warsaw')), gym_gym=gym)
-        # Create an exercise history entry for testing
         exercise = models.Exercise.objects.create(exercise_id=1, name='Exercise 1', type='type 1', calories=1, duration=12, advancement_level='Beginner', repetitions_number=0, description='abc')
         models.ExerciseHistory.objects.create(exercise_history_id=1, client=client, exercise=exercise, exercise_date=datetime.now(pytz.timezone('Europe/Warsaw')), duration=30, repetitions_number=10, calories=150, gym=gym)
 
     def test_get_training_history(self):
         # Test get_training_history function
         training_history = database.get_training_history(client_id=1)
-
-        # Ensure that the result is a list
         self.assertIsInstance(training_history, list)
-
-        # Ensure that each item in the list is also a list with seven elements
         for training_info in training_history:
             self.assertIsInstance(training_info, list)
             self.assertEqual(len(training_info), 7)
@@ -357,11 +430,7 @@ class TrainingFunctionsTestCase(TestCase):
     def test_get_training_details(self):
         # Test get_training_details function
         training_details = database.get_training_details(training_id=1)
-
-        # Ensure that the result is a list
         self.assertIsInstance(training_details, list)
-
-        # Ensure that each item in the list is a dictionary with the expected keys
         for exercise_info in training_details:
             self.assertIsInstance(exercise_info, dict)
             self.assertIn('name', exercise_info)
@@ -371,6 +440,22 @@ class TrainingFunctionsTestCase(TestCase):
             self.assertIn('repetitions_number', exercise_info)
             self.assertIn('calories', exercise_info)
 
+    def test_get_trainings_client(self):
+        # Check if the view returns trainings
+        data = {'client_id': 1}
+        response = self.client.post('/client/client_trenings/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('trenings', content)
+
+    def test_get_trening_details(self):
+        # Check if the view returns training's details
+        data = {'training_id': 1}
+        response = self.client.post('/client/trening_details/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('details', content)
+
     def tearDown(self):
         # Clean up after each test if necessary
         models.ExerciseHistory.objects.all().delete()
@@ -379,7 +464,11 @@ class TrainingFunctionsTestCase(TestCase):
         models.Exercise.objects.all().delete()
 
 class GymTicketFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Create sample instances for testing
         gym = models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
         client = models.Client.objects.create(login='testuser', password_hash=make_password('testpassword'), email='testuser@example.com', name='John', surname='Doe', gender='Male', birth_year='1990-01-01', gym=gym)
@@ -416,6 +505,22 @@ class GymTicketFunctionsTestCase(TestCase):
         self.assertIsNotNone(ticket_details['end_date'])
         self.assertIsNotNone(ticket_details['days_to_end'])
 
+    def test_get_gym_tickets_client_history(self):
+        # Check if the view returns client's gym tickets
+        data = {'client_id': 1}
+        response = self.client.post('/client/gym_tickets_history/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('tickets', content)
+
+    def test_get_gym_tickets_details(self):
+        # Check if the view returns client's gym ticket's details
+        data = {'ticket_id': 1}
+        response = self.client.post('/client/gym_tickets_details/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('details', content)
+
     def tearDown(self):
         # Clean up after each test if necessary
         models.Gym.objects.all().delete()
@@ -425,7 +530,11 @@ class GymTicketFunctionsTestCase(TestCase):
         models.GymTicketHistory.objects.all().delete()
 
 class ClientDataTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Create sample instances for testing
         gym = models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
         training_goal = models.TrainingGoal.objects.create(training_goal_id=1, name='Test Goal')
@@ -451,6 +560,14 @@ class ClientDataTestCase(TestCase):
         self.assertEqual(client_data['gym'], 'Gym 1')
         self.assertEqual(client_data['current_weight'], 70)
 
+    def test_get_client_data(self):
+        # Check if the view returns client's data
+        data = {'client_id': 1}
+        response = self.client.post('/client/client_data/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('client_data', content)
+
     def tearDown(self):
         # Clean up after each test if necessary
         models.Gym.objects.all().delete()
@@ -460,50 +577,72 @@ class ClientDataTestCase(TestCase):
 
 
 class TrainerFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Set up necessary data for testing
         gym = models.Gym.objects.create(
             gym_id=1,
-            name='Gym 1')
-
-        trainer1 = models.Employee.objects.create(
-            employee_id=1, login='trainer1', password_hash='hashed_password', email='trainer@example.com', phone_number='123456789', name='John', surname='Doe', gender='M', type='trener', gym=gym
-
+            name='Gym 1'
         )
-
+        trainer1 = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='trener',
+            gym=gym
+        )
         trainer2 = models.Employee.objects.create(
-            employee_id=2, login='trainer2', password_hash='hashed_password', email='trainer2@example.com', phone_number='123456729', name='John2', surname='Doe2', gender='M', type='trener', gym=gym
-
+            employee_id=2,
+            login='trainer2',
+            password_hash='hashed_password',
+            email='trainer2@example.com',
+            phone_number='123456729',
+            name='John2',
+            surname='Doe2',
+            gender='M',
+            type='trener',
+            gym=gym
         )
 
     def test_get_trainer_by_gym(self):
-        # Call the function with the ID of the gym created in setUp
+        # Test get_trainer_by_gym function
         gym_id = 1
         result = database.get_trainer_by_gym(gym_id)
-
-        # Check if the result is a list
         self.assertIsInstance(result, list)
-
-        # Check if each element in the list is also a list with three elements (ID, name, surname)
         for trainer in result:
             self.assertIsInstance(trainer, list)
             self.assertEqual(len(trainer), 3)
-            # Check if the ID is an integer
             self.assertIsInstance(trainer[0], int)
-            # Check if name and surname are strings
             self.assertIsInstance(trainer[1], str)
             self.assertIsInstance(trainer[2], str)
+        expected_trainers = [
+            [1, 'John', 'Doe'],
+            [2, 'John2', 'Doe2'],
+        ]
+        self.assertEqual(result, expected_trainers)
 
-        # # Check if the expected trainers are present in the result
-        # expected_trainers = [
-        #     [1, 'John', 'Doe'],
-        #     [2, 'John2', 'Doe2'],
-        # ]
-        # self.assertEqual(result, expected_trainers)
-
+    def test_get_trainer_by_gym(self):
+        # Check if the view returns list of trainers
+        data = {'gym_id': 1}
+        response = self.client.post('/client/gym_trainers/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('trainers', content)
 
 class GymClassesFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Set up necessary data for testing
         gym = models.Gym.objects.create(
             gym_id=1,
@@ -512,36 +651,36 @@ class GymClassesFunctionsTestCase(TestCase):
             street='Street 1',
             house_number='123'
         )
-
-
         trainer = models.Employee.objects.create(
-            employee_id=1, login='trainer1', password_hash='hashed_password', email='trainer@example.com', phone_number='123456789', name='John', surname='Doe', gender='M', type='Trainer', gym=gym
-
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
         )
-
         gym_class1 = models.GymClasse.objects.create(
             gym_classe_id=1,
             name='Class 1',
             price=20,
-            duration=60,
-            # Add other necessary fields for GymClasse
+            duration=60
         )
-
         gym_class2 = models.GymClasse.objects.create(
             gym_classe_id=2,
             name='Class 2',
             price=25,
-            duration=45,
-            # Add other necessary fields for GymClasse
+            duration=45
         )
-
         week_schedule1 = models.WeekSchedule.objects.create(
             week_schedule_id=1,
             week_day='Monday',
             start_time='10:00',
             gym_classe=gym_class1,
             trainer=trainer
-            # Add other necessary fields for WeekSchedule
         )
 
         week_schedule2 = models.WeekSchedule.objects.create(
@@ -550,35 +689,38 @@ class GymClassesFunctionsTestCase(TestCase):
             start_time='15:00',
             gym_classe=gym_class2,
             trainer=trainer
-            # Add other necessary fields for WeekSchedule
         )
 
     def test_get_gym_classes(self):
-        # Call the function with the ID of the gym created in setUp
+        # Test get_gym_classes function
         gym_id = 1
         result = database.get_gym_classes(gym_id)
-
-        # Check if the result is a list
         self.assertIsInstance(result, list)
-
-        # Check if each element in the list is also a list with two elements (ID, name)
         for gym_class in result:
             self.assertIsInstance(gym_class, list)
             self.assertEqual(len(gym_class), 2)
-            # Check if the ID is an integer
             self.assertIsInstance(gym_class[0], int)
-            # Check if name is a string
             self.assertIsInstance(gym_class[1], str)
-
-        # Check if the expected gym classes are present in the result
         expected_classes = [
             [1, 'Class 1'],
             [2, 'Class 2'],
         ]
         self.assertEqual(result, expected_classes)
 
+    def test_get_gym_classes(self):
+        # Check if the view returns gym classes
+        data = {'gym_id': 1}
+        response = self.client.post('/client/gym_classes/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        content = json.loads(response.content)
+        self.assertIn('classes', content)
+
 class FreeGymClassesFunctionsTestCase(TestCase):
+
     def setUp(self):
+        super().setUp()
+        self.client = Client()
+
         # Set up necessary data for testing
         gym = models.Gym.objects.create(
             gym_id=1,
@@ -598,8 +740,6 @@ class FreeGymClassesFunctionsTestCase(TestCase):
             gym=gym,
             phone_number='123123123'
         )
-
-
         trainer = models.Employee.objects.create(
             employee_id=1,
             login='trainer1',
@@ -611,9 +751,7 @@ class FreeGymClassesFunctionsTestCase(TestCase):
             gender='M',
             type='Trainer',
             gym=gym
-
         )
-
         gym_class = models.GymClasse.objects.create(
             gym_classe_id=1,
             name='Class 1',
@@ -621,36 +759,321 @@ class FreeGymClassesFunctionsTestCase(TestCase):
             duration=60,
             max_people=2
         )
-
+        gym_class2 = models.GymClasse.objects.create(
+            gym_classe_id=2,
+            name='Training',
+            price=20,
+            duration=60,
+            max_people=1
+        )
         week_schedule = models.WeekSchedule.objects.create(
             week_schedule_id=1,
-            week_day='Monday',
+            week_day='poniedziałek',
             start_time='10:00',
             gym_classe=gym_class,
             trainer=trainer
-            # Add other necessary fields for WeekSchedule
+        )
+        week_schedule2 = models.WeekSchedule.objects.create(
+            week_schedule_id=2,
+            week_day='poniedziałek',
+            start_time='12:00',
+            gym_classe=gym_class2,
+            trainer=trainer
+        )
+        models.OrderedSchedule.objects.create(
+            ordered_schedule_id=1,
+            client_user=client,
+            week_schedule=week_schedule,
+            schedule_date=datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            payment_date=datetime.now().date()
         )
 
-    def test_get_free_trainings(self):
-        # Call the function with necessary parameters
-        trainer_id = 1
-        start_date = timezone.now().date()
-        client_id = 1  # Provide a valid client ID
-        result = database.get_free_trainings(trainer_id, str(start_date), client_id)
-
-        # Check if the result is a list
-        self.assertIsInstance(result, list)
-
-        # Check if each element in the list is also a list with the expected number of elements
-        for training in result:
-            self.assertIsInstance(training, list)
-            self.assertEqual(len(training), 9)  # Change the number based on the expected number of elements
-
     def test_get_free_places_gym_classe(self):
-        # Call the function with necessary parameters
+        # Test get_free_places_gym_classe function
         classe_date = timezone.now().date()
         week_schedule_id = 1
         result = database.get_free_places_gym_classe(classe_date, week_schedule_id)
-
-        # Check if the result is an integer
         self.assertIsInstance(result, int)
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_get_free_gym_classes(self):
+        # Test get_free_gym_classes function
+        classes = database.get_free_gym_classes(1, '2024-01-14', 1)
+        self.assertIsInstance(classes, list)
+        self.assertEqual(len(classes), 1)
+        self.assertIsInstance(classes[0], list)
+        self.assertEqual(len(classes[0]), 9)
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_get_free_trainings(self):
+        # Test get_free_trainings function
+        trainings = database.get_free_trainings(1, '2024-01-14', 1)
+        self.assertIsInstance(trainings, list)
+        self.assertEqual(len(trainings), 1)
+        self.assertIsInstance(trainings[0], list)
+        self.assertEqual(len(trainings[0]), 9)
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_get_free_items(self):
+        # Test get_free_items function
+        items = database.get_free_items('2024-01-14', models.WeekSchedule.objects.all(), 1)
+        self.assertIsInstance(items, list)
+        self.assertEqual(len(items), 2)
+        self.assertIsInstance(items[0], list)
+        self.assertEqual(len(items[0]), 9)
+
+    def test_gym_classe_date(self):
+        # Test gym_classe_date function
+        input_date = datetime.strptime('2024-01-14', "%Y-%m-%d")
+        weekday = 'poniedziałek'
+        result_date = database.gym_classe_date(input_date, weekday)
+        self.assertEqual(result_date, datetime.strptime('2024-01-15', "%Y-%m-%d"))
+
+    def test_check_collision(self):
+        # Test gym_classe_date function
+        collision = database.check_collision(1, models.WeekSchedule.objects.get(week_schedule_id=1), '2024-01-15')
+        self.assertTrue(collision)
+
+    def test_check_collision(self):
+        # Test gym_classe_date function
+        collision = database.check_collision(1, models.WeekSchedule.objects.get(week_schedule_id=1), '2024-01-22')
+        self.assertFalse(collision)
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_get_free_trainings(self):
+        # Check if the view returns free trainings
+        trainer_id = 1
+        start_date = '2024-01-14'
+        client_id = 1
+        data = {
+            'trainer_id': trainer_id,
+            'start_date': start_date,
+            'client_id': client_id
+        }
+        response = self.client.post('/client/free_trainings/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('trainings', response.json())
+
+    def test_get_free_gym_classes(self):
+        # Check if the view returns free gym classes
+        gym_id = 1
+        start_date = '2024-01-14'
+        client_id = 1
+        data = {
+            'gym_id': gym_id,
+            'start_date': start_date,
+            'client_id': client_id
+        }
+        response = self.client.post('/client/free_gym_classes/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('classes', response.json())
+
+class GymOpeningHoursTestCase(TestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        # Set up necessary data for testing
+        models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            sunday_opening='09:00',
+            sunday_closing='17:00',
+            monday_opening='10:00',
+            monday_closing='18:00',
+            tuesday_opening='11:00',
+            tuesday_closing='19:00',
+            wednesday_opening='12:00',
+            wednesday_closing='20:00',
+            thursday_opening='13:00',
+            thursday_closing='21:00',
+            friday_opening='14:00',
+            friday_closing='22:00',
+            saturday_opening='15:00',
+            saturday_closing='23:00'
+        )
+
+    def test_get_gym_opening_hours_existing_gym(self):
+        # Test get_gym_opening_hours function
+        gym_id = 1
+        opening_hours = database.get_gym_opening_hours(gym_id)
+
+        expected_hours = [
+            '09:00-17:00',
+            '10:00-18:00',
+            '11:00-19:00',
+            '12:00-20:00',
+            '13:00-21:00',
+            '14:00-22:00',
+            '15:00-23:00'
+        ]
+
+        self.assertEqual(opening_hours, expected_hours)
+
+    def test_get_gym_opening_hours_nonexistent_gym(self):
+        # Test get_gym_opening_hours function
+        non_existing_gym_id = 999
+        opening_hours = database.get_gym_opening_hours(non_existing_gym_id)
+        self.assertIsNone(opening_hours)
+
+    def test_get_gym_opening_hours(self):
+        # Check if the view returns gym's opening hours
+        gym_id = 1
+        data = {
+            'gym_id': gym_id
+        }
+        response = self.client.post('/client/gym_opening_hours/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('opening_hours', response.json())
+        self.assertEqual(response.json()['opening_hours'], [
+            '09:00-17:00',
+            '10:00-18:00',
+            '11:00-19:00',
+            '12:00-20:00',
+            '13:00-21:00',
+            '14:00-22:00',
+            '15:00-23:00'
+        ])
+
+    def test_get_gym_opening_hours_nonexistent_gym(self):
+        # Check if the view does no return gym's opening hours
+        non_existing_gym_id = 999
+        data = {
+            'gym_id': non_existing_gym_id
+        }
+        response = self.client.post('/client/gym_opening_hours/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('opening_hours', response.json())
+        self.assertIsNone(response.json()['opening_hours'])
+
+class GymTicketDeletionTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        # Create a test gym ticket for the tests
+        gym = models.Gym.objects.create(gym_id=1, name='Gym 1', city='City 1', street='Street 1', house_number='123')
+        client = models.Client.objects.create(login='testuser', password_hash=make_password('testpassword'), email='testuser@example.com', name='John', surname='Doe', gender='Male', birth_year='1990-01-01', gym=gym)
+        gym_ticket_offer = models.GymTicketOffer.objects.create(gym_ticket_offer_id=1, name='Test Offer', duration=30, price=50, type='Dniowy')
+        discount = models.Discount.objects.create(discount_id=1, name='Test Discount', start_date=timezone.now().date(), stop_date=timezone.now().date() + timedelta(days=30), discount_percentages=10, gym_ticket_offer=gym_ticket_offer)
+        models.GymTicketHistory.objects.create(gym_ticket_history_id=1, purchase_date=timezone.now().date(), gym_ticket_offer=gym_ticket_offer, discount=discount, client=client)
+        models.GymTicketHistory.objects.create(gym_ticket_history_id=2, purchase_date=timezone.now().date(), activation_date=timezone.now().date(), gym_ticket_offer=gym_ticket_offer, discount=discount, client=client)
+
+    def test_delete_gym_ticket_success(self):
+        gym_ticket_id = 1
+        database.delete_gym_ticket(gym_ticket_id)
+        with self.assertRaises(models.GymTicketHistory.DoesNotExist):
+            models.GymTicketHistory.objects.get(gym_ticket_history_id=gym_ticket_id)
+
+    def test_delete_gym_ticket_activated(self):
+        gym_ticket_id = 2
+        with self.assertRaises(client_error.NotActivationDate):
+            database.delete_gym_ticket(gym_ticket_id)
+
+    def test_delete_gym_ticket_view_success(self):
+        gym_ticket_id = 1
+        data = {'gym_ticket_id': gym_ticket_id}
+        response = self.client.post('/client/delete_gym_ticket/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('result', response.json())
+        self.assertEqual(response.json()['result'], 'success')
+
+    def test_delete_gym_ticket_view_activated(self):
+        gym_ticket_id = 2
+        data = {'gym_ticket_id': gym_ticket_id}
+        response = self.client.post('/client/delete_gym_ticket/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('result', response.json())
+        self.assertEqual(response.json()['result'], 'error')
+        self.assertIn('message', response.json())
+        self.assertEqual(response.json()['message'], 'Cannot delete an activated gym ticket.')
+
+class GymClassCancellationTestCase(TestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+        )
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=2
+        )
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='poniedziałek',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+        )
+        models.OrderedSchedule.objects.create(
+            ordered_schedule_id=1,
+            client_user=client,
+            week_schedule=week_schedule,
+            schedule_date=datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            payment_date=datetime.now().date()
+        )
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_cancel_gym_class_success(self):
+        ordered_gym_class_id = 1
+        database.cancel_gym_classe(1)
+        with self.assertRaises(models.OrderedSchedule.DoesNotExist):
+            models.OrderedSchedule.objects.get(ordered_schedule_id=ordered_gym_class_id)
+
+    @freeze_time('2024-01-14 12:00:00')
+    def test_cancel_gym_class_less_than_24_hours(self):
+        with self.assertRaises(client_error.CannotCancelOrderedGymClasse):
+            database.cancel_gym_classe(1)
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_cancel_gym_class_view_success(self):
+        ordered_gym_class_id = 1
+        data = {'ordered_gym_classe_id': ordered_gym_class_id}
+        response = self.client.post('/client/cancel_ordered_gym_classe/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('result', response.json())
+        self.assertEqual(response.json()['result'], 'success')
+
+    @freeze_time('2024-01-14 12:00:00')
+    def test_cancel_gym_class_view_less_than_24_hours(self):
+        ordered_gym_class_id = 1
+        data = {'ordered_gym_classe_id': ordered_gym_class_id}
+        response = self.client.post('/client/cancel_ordered_gym_classe/', data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('error', response.json())

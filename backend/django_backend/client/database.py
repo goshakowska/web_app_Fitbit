@@ -671,27 +671,6 @@ def get_gym_opening_hours(gym_id):
         return None
 
 
-def check_client_can_buy_gym_ticket(client_id, ticket_type):
-    """
-    Check if a client is eligible to buy a specific type of gym ticket.
-
-    Args:
-        client_id (int): The ID of the client.
-        ticket_type (str): The type of gym ticket.
-
-    Returns:
-        bool: True if the client can buy the ticket, False otherwise.
-    """
-    try:
-        ticket = models.GymTicketHistory.objects.get(
-            client__client_id=client_id,
-            gym_ticket_offer__type=ticket_type,
-            activation_date=None)
-        return False
-    except:
-        return True
-
-
 def delete_gym_ticket(gym_ticket_id):
     """
     Delete a gym ticket by its ID, only if it has not been activated.
