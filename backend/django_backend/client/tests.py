@@ -1455,6 +1455,425 @@ class GetFreeGymClasseTestCase(TestCase):
         self.assertIn('details', response.json())
 
 
+class GetPriceListTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+        models.GymClasse.objects.create(
+            gym_classe_id=2,
+            name='Class 2',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+
+    def test_get_price_list(self):
+        price_list = database.get_price_list()
+        self.assertIsInstance(price_list, list)
+        self.assertEqual(len(price_list[0]), 2)
+
+
+class GetCheckCollisionInBasketTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+        )
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='poniedziałek',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+        )
+
+    def test_check_collision_in_basket_true(self):
+        basket = [{
+            'schedule_date': '2024-01-15',
+            'week_schedule_id': 1
+        }]
+        collision = database.check_collision_in_basket(1, '2024-01-15', basket)
+        self.assertIsNotNone(collision)
+
+    def test_check_collision_in_basket_false(self):
+        basket = []
+        collision = database.check_collision_in_basket(1, '2024-01-15', basket)
+        self.assertIsNone(collision)
+
+
+class NearestTrainigTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+        )
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='poniedziałek',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        models.OrderedSchedule.objects.create(
+            ordered_schedule_id=1,
+            client_user=client,
+            week_schedule=week_schedule,
+            schedule_date=datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            payment_date=datetime.now().date()
+        )
+
+    @freeze_time('2024-01-01 12:00:00')
+    def test_nearest_training(self):
+        nearest_training = database.nearest_training(1)
+        self.assertEqual(nearest_training, 'Class 1')
+
+    @freeze_time('2024-01-16 12:00:00')
+    def test_nearest_training_none(self):
+        nearest_training = database.nearest_training(1)
+        self.assertIsNone(nearest_training)
+
+class DescribeClientPortierTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+        )
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='poniedziałek',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        client2 = models.Client.objects.create(
+            login='testuser2',
+            password_hash=make_password('testpassword'),
+            email='testuser2@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        models.OrderedSchedule.objects.create(
+            ordered_schedule_id=1,
+            client_user=client,
+            week_schedule=week_schedule,
+            schedule_date=datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            payment_date=datetime.now().date()
+        )
+        gym_ticket_offer = models.GymTicketOffer.objects.create(
+            gym_ticket_offer_id=1,
+            name='Test Offer',
+            duration=30,
+            price=50,
+            type='Dniowy'
+        )
+        gym_ticket_offer2 = models.GymTicketOffer.objects.create(
+            gym_ticket_offer_id=2,
+            name='Test Offer2',
+            duration=1,
+            price=50,
+            type='Wejściowy'
+        )
+        discount = models.Discount.objects.create(
+            discount_id=1,
+            name='Test Discount',
+            start_date=timezone.now().date(),
+            stop_date=timezone.now().date() + timedelta(days=30),
+            discount_percentages=10,
+            gym_ticket_offer=gym_ticket_offer
+        )
+        gym_ticket_history = models.GymTicketHistory.objects.create(
+            gym_ticket_history_id=1,
+            purchase_date=timezone.now().date(),
+            activation_date=timezone.now().date(),
+            gym_ticket_offer=gym_ticket_offer,
+            discount=discount, client=client
+        )
+        gym_ticket_history2 = models.GymTicketHistory.objects.create(
+            gym_ticket_history_id=2,
+            purchase_date=timezone.now().date(),
+            activation_date=timezone.now().date(),
+            gym_ticket_offer=gym_ticket_offer2,
+            client=client2
+        )
+
+    def test_describe_client_portier(self):
+        result = database.describe_client_portier(1)
+        self.assertIsInstance(result, dict)
+
+    def test_describe_client_portier_false(self):
+        result = database.describe_client_portier(2)
+        self.assertIsInstance(result, dict)
+
+    def test_describe_client_portier_none(self):
+        result = database.describe_client_portier(99)
+        self.assertIsNone(result)
+
+class NotActiveTicketTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        gym_ticket_offer = models.GymTicketOffer.objects.create(
+            gym_ticket_offer_id=1,
+            name='Test Offer',
+            duration=30,
+            price=50,
+            type='Dniowy'
+        )
+        gym_ticket_offer2 = models.GymTicketOffer.objects.create(
+            gym_ticket_offer_id=2,
+            name='Test Offer2',
+            duration=1,
+            price=50,
+            type='Wejściowy'
+        )
+        discount = models.Discount.objects.create(
+            discount_id=1,
+            name='Test Discount',
+            start_date=timezone.now().date(),
+            stop_date=timezone.now().date() + timedelta(days=30),
+            discount_percentages=10,
+            gym_ticket_offer=gym_ticket_offer
+        )
+        gym_ticket_history = models.GymTicketHistory.objects.create(
+            gym_ticket_history_id=1,
+            purchase_date=timezone.now().date(),
+            activation_date=timezone.now().date(),
+            gym_ticket_offer=gym_ticket_offer,
+            discount=discount, client=client
+        )
+        gym_ticket_history2 = models.GymTicketHistory.objects.create(
+            gym_ticket_history_id=2,
+            purchase_date=timezone.now().date(),
+            gym_ticket_offer=gym_ticket_offer2,
+            client=client
+        )
+
+    def test_not_active_ticket(self):
+        result = database.not_active_ticket(1)
+        self.assertIsInstance(result, list)
+
+    def test_not_active_ticket_none(self):
+        result = database.not_active_ticket(99)
+        self.assertIsNone(result)
+
+
+class IsOnGymTestCase(TestCase):
+
+    @freeze_time('2024-01-01 12:00:00')
+    def setUp(self):
+        super().setUp()
+        self.client = Client()
+
+        gym = models.Gym.objects.create(
+            gym_id=1,
+            name='Gym 1',
+            city='City 1',
+            street='Street 1',
+            house_number='123'
+        )
+        trainer = models.Employee.objects.create(
+            employee_id=1,
+            login='trainer1',
+            password_hash='hashed_password',
+            email='trainer@example.com',
+            phone_number='123456789',
+            name='John',
+            surname='Doe',
+            gender='M',
+            type='Trainer',
+            gym=gym
+        )
+        gym_class = models.GymClasse.objects.create(
+            gym_classe_id=1,
+            name='Class 1',
+            price=20,
+            duration=60,
+            max_people=1
+        )
+        week_schedule = models.WeekSchedule.objects.create(
+            week_schedule_id=1,
+            week_day='poniedziałek',
+            start_time='10:00',
+            gym_classe=gym_class,
+            trainer=trainer
+        )
+        client = models.Client.objects.create(
+            login='testuser',
+            password_hash=make_password('testpassword'),
+            email='testuser@example.com',
+            name='John',
+            surname='Doe',
+            gender='Male',
+            birth_year='1990-01-01',
+            gym=gym,
+            phone_number='123123123'
+        )
+        models.OrderedSchedule.objects.create(
+            ordered_schedule_id=1,
+            client_user=client,
+            week_schedule=week_schedule,
+            schedule_date=datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            payment_date=datetime.now().date()
+        )
+        models.GymVisit.objects.create(
+            gym_visit_id = 1,
+            entry_time = datetime.strptime('2024-01-15 10:00', "%Y-%m-%d %H:%M"),
+            gym_gym=gym,
+            client_user=client
+        )
+
+    @freeze_time('2024-01-15 11:00')
+    def test_is_on_gym_true(self):
+        result = database.is_on_gym(1)
+        self.assertTrue(result)
+
+    @freeze_time('2024-01-17 11:00')
+    def test_is_on_gym_false(self):
+        result = database.is_on_gym(1)
+        self.assertFalse(result)
+
+    def test_is_on_gym(self):
+        result = database.is_on_gym(99)
+        self.assertIsNone(result)
+
+
 
 
 
