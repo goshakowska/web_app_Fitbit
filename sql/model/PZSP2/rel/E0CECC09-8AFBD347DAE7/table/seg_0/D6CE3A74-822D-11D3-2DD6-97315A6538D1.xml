@@ -19,17 +19,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="Created_date" id="47E9A7FF-C153-4B92-6CA2-19C86243AC14">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<generatorID>C5A42BEC-AB4F-1E12-81D3-70A21F327E63</generatorID>
-<ownerDesignName>PZSP2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT008</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="Done" id="D23654E9-4138-3FBD-5C80-C3CDB28C150A">
 <createdBy>Marysia</createdBy>
 <createdTime>2023-11-21 19:58:01 UTC</createdTime>
@@ -43,34 +32,17 @@
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="Trainer_id" id="AD1350FB-3988-8448-0031-0D9517F5AFCD">
+<Column name="Ordered_id" id="D54E53CC-51F1-B4D6-59C7-02F4367BC1A3">
 <createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<generatorID>A2B81C4A-0B8D-2B0A-CF96-CBBE69C302EE</generatorID>
+<createdTime>2024-01-19 19:31:30 UTC</createdTime>
 <ownerDesignName>PZSP2</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="3914E3EE-8681-DA01-8686-60CE0182F940" referredColumn="7697C6F0-3E5D-5B0B-08F7-164F96C1C4E2"/>
-</associations>
-</Column>
-<Column name="Client_id" id="CBECE9B6-C809-7D6B-8934-3C6EDA904820">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<generatorID>98E27D08-596E-ACE3-E4CF-BB9C220D04F3</generatorID>
-<ownerDesignName>PZSP2</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="EA17BCB0-D529-304C-C1EC-890E03AF702E" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
+<colAssociation fkAssociation="440AD632-945A-437A-EF7F-896797B4A281" referredColumn="18935B4D-5868-2A27-6EB5-50C312D900F5"/>
 </associations>
 </Column>
 </columns>
@@ -87,26 +59,14 @@
 <colUsage columnID="8F5D9112-65D6-EBE8-D4F0-9EF3BBD3628C"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="BFD39E80-1704-7928-AE68-EC65864C2683" name="Exercise_plan_Trainer_FK">
+<ind_PK_UK id="829A3271-FBD5-7DAE-9E68-C7B1151E7BDA" name="Exercise_plan_Ordered_schedule_FK">
 <createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<generatorID>0084F9AE-DB75-99C8-0D18-3D6D9C381442</generatorID>
+<createdTime>2024-01-19 19:31:30 UTC</createdTime>
 <ownerDesignName>PZSP2</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="AD1350FB-3988-8448-0031-0D9517F5AFCD"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="CCAB6BAB-20E8-7A2D-EC4C-1680BB85AB0D" name="Exercise_plan_Client_FK">
-<createdBy>Marysia</createdBy>
-<createdTime>2023-11-21 19:58:01 UTC</createdTime>
-<generatorID>F16D1178-8EE0-2BA3-EB63-BDC3756ECAD5</generatorID>
-<ownerDesignName>PZSP2</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="CBECE9B6-C809-7D6B-8934-3C6EDA904820"/>
+<colUsage columnID="D54E53CC-51F1-B4D6-59C7-02F4367BC1A3"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
