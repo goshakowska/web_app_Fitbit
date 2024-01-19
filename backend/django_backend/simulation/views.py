@@ -30,13 +30,6 @@ def equipments_list(request):
     equipments = database.get_equipments_by_gym_and_exercise(gym_id, exercise_id)
     return JsonResponse({'equipments': equipments})
 
-
-@csrf_exempt
-def test_connection(request):
-    data = json.loads(request.body.decode('utf-8'))
-    message = data.get('message')
-    return JsonResponse({'message': "We are connected"})
-
 @csrf_exempt
 def insert_exercise_history(request):
     data = json.loads(request.body.decode('utf-8'))
@@ -52,4 +45,4 @@ def insert_exercise_history(request):
     exercise_history_id = database.insert_exercise_history(exercise_date, duration, repetitions_number, gym_id, exercise_id, equipment_id, client_id, calories)
     if params:
         database.insert_params_history(exercise_history_id, params)
-    return JsonResponse({'message': "We are connected"})
+    return JsonResponse({'message': "Insert successful"})
