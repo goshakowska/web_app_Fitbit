@@ -11,13 +11,7 @@ import io
 import base64
 
 
-def ticket_popularity_week():
-    """
-    Generates a bar chart depicting the popularity of gym ticket types over the last week.
-
-    Returns:
-        str: Base64-encoded image of the bar chart.
-    """
+def count_ticket_popularity():
     ticket_offer = m.GymTicketOffer.objects.all()
     ticket_types = [f"{ticket.type} ({ticket.duration})" for ticket in ticket_offer]
 
@@ -29,12 +23,22 @@ def ticket_popularity_week():
 
     for ticket in ticket_offer:
         count = m.GymTicketHistory.objects.filter(
-            gym_ticket_offer = ticket,
-            purchase_date__gte = day,
-            purchase_date__lte = last_day
+            gym_ticket_offer=ticket,
+            purchase_date__gte=day,
+            purchase_date__lte=last_day
         ).count()
-        # count = randint(20, 60)
         data_count.append(count)
+    return data_count, ticket_types
+
+
+def ticket_popularity_month():
+    """
+    Generates a bar chart depicting the popularity of gym ticket types over the last month.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
+    data_count, ticket_types = count_ticket_popularity()
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
@@ -61,14 +65,7 @@ def ticket_popularity_week():
     return image_base64
 
 
-
-def discount_popularity_week():
-    """
-    Generates a bar chart depicting the popularity of gym ticket discounts over the last week.
-
-    Returns:
-        str: Base64-encoded image of the bar chart.
-    """
+def count_discount_popularity():
     # calculate last month
     current_date = datetime.now().date()
     last_day = current_date - timedelta(days=current_date.day)
@@ -88,8 +85,18 @@ def discount_popularity_week():
                           (Q(discount__stop_date__isnull=True) | Q(discount__stop_date__gte=last_day))
                           )
                  .count())
-        # count = randint(1, 10)
         data_count.append(count)
+    return data_count, discount_types
+
+
+def discount_popularity_month():
+    """
+    Generates a bar chart depicting the popularity of gym ticket discounts over the last week.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
+    data_count, discount_types = count_discount_popularity()
 
 
     # Create plot
@@ -116,14 +123,7 @@ def discount_popularity_week():
     return image_base64
 
 
-
-def age_range():
-    """
-    Generates a bar chart depicting the distribution of clients in different age ranges.
-
-    Returns:
-        str: Base64-encoded image of the bar chart.
-    """
+def count_age():
     age_ranges = [
         (0, 17, '<18'),
         (18, 24, '18-24'),
@@ -146,14 +146,25 @@ def age_range():
             output_field=CharField()
         )
     ).values('age_group').annotate(count_clients=Count('client_id')).order_by('age_group')
-
-    # Plot
-    matplotlib.use('Agg')   # non-interactive mode
     age = []
     count = []
     for row in age_counts:
         age.append(row['age_group'])
         count.append(row['count_clients'])
+    return age, count
+
+
+def age_range():
+    """
+    Generates a bar chart depicting the distribution of clients in different age ranges.
+
+    Returns:
+        str: Base64-encoded image of the bar chart.
+    """
+    age, count = count_age()
+
+    # Plot
+    matplotlib.use('Agg')   # non-interactive mode
     plt.figure(figsize=(10, 6))
 
     colors = ['#3498db', '#85c1e9', '#2ecc71', '#f39c12', '#fb6d4c', '#c0392b', '#1F618D']
@@ -176,9 +187,7 @@ def age_range():
     return image_base64
 
 
-
-
-def trainer_sessions(manager_id):
+def count_sessions(manager_id):
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
@@ -198,7 +207,6 @@ def trainer_sessions(manager_id):
     last_month = last.month
 
     weeks = 4   # there is around 4 weeks in month
-
 
     for trainer in trainers:
         trainers_name.append(f"{trainer.name} {trainer.surname}")
@@ -220,9 +228,11 @@ def trainer_sessions(manager_id):
 
         sessions.append(ses_count)
         ordered.append(ord_count)
-        # sessions.append(randint(20, 40))
-        # ordered.append(randint(1, 40))
+    return sessions, ordered, trainers_name
 
+
+def trainer_sessions(manager_id):
+    sessions, ordered, trainers_name = count_sessions(manager_id)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
@@ -257,9 +267,8 @@ def trainer_sessions(manager_id):
     return image_base64
 
 
-
-def clients_by_week(manager_id):
-     # find gym where manager works
+def count_clients_week(manager_id):
+    # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
         gym = portier.gym
@@ -283,10 +292,15 @@ def clients_by_week(manager_id):
             if client.entry_time.date() == day:
                 client_count+=1
 
-        # client_count = randint(20, 50)
         dates.append(f"{day.strftime('%d-%m-%Y')}")
         counts.append(client_count)
         day += timedelta(days=1)
+
+    return dates, counts
+
+
+def clients_by_week(manager_id):
+    dates, counts = count_clients_week(manager_id)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
@@ -311,8 +325,8 @@ def clients_by_week(manager_id):
     return image_base64
 
 
-def clients_by_hour(manager_id):
-     # find gym where manager works
+def count_clients_hour(manager_id):
+    # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
         gym = portier.gym
@@ -335,16 +349,14 @@ def clients_by_hour(manager_id):
                 data[time] += 1
             else:
                 data[time] = 1
-    # data = {
-    #     '9:00': 7,
-    #     '10:00': 5,
-    #     '10:30': 6,
-    #     '11:00': 8,
-    #     '12:00': 9
-    # }
 
     times = list(data.keys())
     counts = list(data.values())
+    return times, counts
+
+
+def clients_by_hour(manager_id):
+    times, counts = count_clients_hour(manager_id)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
@@ -369,9 +381,8 @@ def clients_by_hour(manager_id):
     return image_base64
 
 
-
-def equipment_usage(manager_id, equipment_name):
-     # find gym where manager works
+def count_usage(manager_id, equipment_name):
+    # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
         gym = portier.gym
@@ -407,38 +418,27 @@ def equipment_usage(manager_id, equipment_name):
         data[day.strftime('%d')] = usage
         day = day + timedelta(days=1)
 
-    print(data)
-
-#     data = {
-#     '01': {'hours': [8, 10, 15], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '02': {'hours': [9, 11, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '03': {'hours': [8, 12, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '04': {'hours': [10, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '05': {'hours': [9, 12, 16], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '06': {'hours': [8, 12, 17], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '07': {'hours': [7, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '08': {'hours': [9, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '09': {'hours': [9, 15, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '10': {'hours': [11, 12, 20], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '11': {'hours': [10, 14, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '12': {'hours': [9, 13, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '13': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '14': {'hours': [7, 15, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '15': {'hours': [7, 12, 19], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-#     '16': {'hours': [9, 13, 18], 'equipment': ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']},
-# }
-
-
     # Process data for plot
     dates = []
     equipment_names = [f"{equipment.equipment.name} {equipment.gym_equipment_id}" for equipment in equipments_id]
-    # equipment_names = ['Sprzęt A', 'Sprzęt B', 'Sprzęt C']
     daily_hours = {equip: [] for equip in equipment_names}
 
     for date, values in data.items():
         dates.append(date)
         for equip, hours in zip(values['equipment'], values['hours']):
             daily_hours[equip].append(hours)
+
+    return dates, equipment_names, daily_hours
+
+
+def equipment_usage(manager_id, equipment_name):
+
+    # calculate last month
+    current_date = datetime.now().date()
+    last_day = current_date - timedelta(days=current_date.day)
+    first_day = last_day.replace(day=1)
+
+    dates, equipment_names, daily_hours = count_usage(manager_id, equipment_name)
 
     # Create plot
     matplotlib.use('Agg')   # non-interactive mode
