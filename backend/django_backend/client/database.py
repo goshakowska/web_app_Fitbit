@@ -934,6 +934,8 @@ def describe_client_portier(client_id):
         return None
 
     result = {}
+    result['name'] = client.name
+    result['surname'] = client.surname
     result['email'] = client.email
     result['phone'] = client.phone_number
     result['training'] = nearest_training(client_id)
@@ -943,15 +945,16 @@ def describe_client_portier(client_id):
         result['active'] = False
         return result
     # ticket is active
+    result['active'] = True
     ticket_info = gym_ticket_details(active_ticket['id'])
-    result['ticket_name'] = f"{ticket_info['type']} {ticket_info['duration']}"
+    result['ticket_name'] = f"{ticket_info['type']}, {ticket_info['duration']}"
     result['activation_date'] = ticket_info['activation_date']
     if ticket_info['type'] == 'Dniowy':
         result['daily'] = True
         result['end_date'] = ticket_info['end_date']
     else:
         result['daily'] = False
-        result['visit_left'] = ticket_info['visit_to_end']
+        result['visit_left'] = ticket_info['visits_to_end']
 
     return result
 
