@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../styles/ClientTrainingInfo.css';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-// import StatusToggle from './StatusToggle';
-// import RegisterTrainingPopup from './RegisterTrainingPopup';
 import { Col, Image, Container, Row, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import employeeToken from "../../EmployeeToken";

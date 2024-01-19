@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/groupClassesInfo.css';
-// import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-// import StatusToggle from './StatusToggle';
-// import RegisterTrainingPopup from './RegisterTrainingPopup';
 import { Carousel, Col, Row } from "react-bootstrap";
 import employeeToken from "../../EmployeeToken";
-import Header from '../../../client/components/Header';
 import '../styles/groupClassesInfo.css';
 
 function GroupClassInfo(props) {

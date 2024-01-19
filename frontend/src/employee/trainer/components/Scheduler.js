@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import 'moment/locale/en-gb';
-// import events from "./SampleEvents";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../styles/scheduler.css";
 import { Row, Col } from "react-bootstrap";
-// import { Button, Row, Col, Popover, PopoverBody, PopoverHeader} from "react-bootstrap";
 import employeeToken from "../../EmployeeToken";
-// import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -52,22 +49,6 @@ export default function Scheduler() {
 
  useEffect(() => {getTrainerEvents()}, []);
 
-  // const handleSelect = ({ start, end }) => {
-  //   console.log(start);
-  //   console.log(end);
-  //   console.log(trainerEvents);
-  //   console.log(userId())
-  //   const title = window.prompt("Dodaj nowy trening do kalendarza");
-  //   if (title)
-  //       setTrainerEvents([
-  //       ...trainerEvents,
-  //       {
-  //         start,
-  //         end,
-  //         title
-  //       }
-  //     ]);
-  // };
   const handleCloseClick = event => {
 
     setIsShown(false);
@@ -86,7 +67,6 @@ export default function Scheduler() {
       setChosenClientId(event.data.training.client_id);
       setChosenTrainingName(event.data.training.title);
       setChosenClientName(event.data.training.client_name)
-      // setIsIndividualClass(false);
       console.log(event.data.training.client_id);
       console.log(chosenTrainingName);
       console.log(chosenClient);
@@ -123,8 +103,6 @@ export default function Scheduler() {
             defaultView="week"
             events={trainerEvents}
             style={{ height: "75vh", width: "75vh" }}
-            // onDoubleClickEvent={(event) => alert(event.title)}
-            // onSelectSlot={handleSelect}
             onSelectEvent={(event) => handleAdditionalComponentClick(event)}
           />
         </Col>
