@@ -126,6 +126,31 @@
 <colAssociation fkAssociation="1BC2E445-1E8A-98AE-8B9E-41F169B62E40" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
 </associations>
 </Column>
+<Column name="Calories" id="6A10622E-DAAD-83FD-4AA1-6F5E5CB4BE48">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 20:01:58 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gym_equipment_id" id="765D1C99-7B95-9A4D-47B8-DBDD3EC7F427">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 20:01:58 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A2F50770-EFF2-00A9-61EE-519CD6681DEB" referredColumn="07CC0764-9231-683B-20B7-19FC4F889FF2"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="D0D13C6D-D4F9-A072-DA10-57E48E0B0C3F" name="Exercise_history_PK">
@@ -182,6 +207,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="A790764C-CA64-6AE2-2B72-2F2B23978608"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5CBBFA33-6F8B-5A92-B569-699CC9FFCE8E" name="Exercise_history_Gym_equipment_FK">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 20:01:58 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="765D1C99-7B95-9A4D-47B8-DBDD3EC7F427"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

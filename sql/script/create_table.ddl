@@ -144,8 +144,9 @@ CREATE TABLE exercise_history (
     exercise_comment    CLOB,
     gym_id              INTEGER NOT NULL,
     exercise_id         INTEGER NOT NULL,
-    trainer_id          INTEGER,
-    client_id           INTEGER NOT NULL
+    calories            INTEGER,
+    client_id           INTEGER NOT NULL,
+    gym_equipment_id    INTEGER
 )
 LOGGING;
 
@@ -327,7 +328,8 @@ CREATE TABLE ordered_schedule (
     schedule_date       DATE NOT NULL,
     payment_date        DATE,
     week_schedule_id    INTEGER NOT NULL,
-    client_user_id      INTEGER NOT NULL
+    client_user_id      INTEGER NOT NULL,
+    reservation_date    DATE
 )
 LOGGING;
 
@@ -456,6 +458,10 @@ ALTER TABLE exercise_history
 ALTER TABLE exercise_history
     ADD CONSTRAINT exercise_history_exercise_fk FOREIGN KEY ( exercise_id )
         REFERENCES exercise ( exercise_id );
+        
+ALTER TABLE exercise_history
+    ADD CONSTRAINT exercise_history_equipment_fk FOREIGN KEY ( gym_equipment_id )
+        REFERENCES gym_equipment ( gym_equipment_id );
 
 ALTER TABLE exercise_history
     ADD CONSTRAINT exercise_history_gym_fk FOREIGN KEY ( gym_id )

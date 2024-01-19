@@ -134,6 +134,34 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="Calories" id="1A35381D-5223-90F0-6FC0-3E6CFFD9A67A">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 19:58:28 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Gym_equipment_id" id="F43F3D16-488E-722B-A7B1-92352D7DA7AD">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 19:59:43 UTC</createdTime>
+<generatorID>28AD9A71-BE81-A9EA-9AD7-039133686B96</generatorID>
+<ownerDesignName>PZSP2</ownerDesignName>
+<engineerTo>
+<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>AB9B143B-5554-74FF-92D5-F78383A097A6</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="6E8F9159-278C-08F6-566E-78D046FA738D" name="Exercise_history PK">
