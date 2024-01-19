@@ -72,6 +72,17 @@
 <colAssociation fkAssociation="8299E5F5-3323-CF64-BE6D-73812CE1CC47" referredColumn="3B377573-F4A1-B369-D2D5-3D42CFCC0FD2"/>
 </associations>
 </Column>
+<Column name="Reservation_date" id="44BF86CA-A44F-8732-4265-F6266C5B41F2">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 19:34:59 UTC</createdTime>
+<ownerDesignName>PZSP2</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="4A0A42D5-E9C2-A08F-34CB-EA5170DC6BFC" name="Ordered_schedule_PK">
