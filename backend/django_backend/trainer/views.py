@@ -116,6 +116,15 @@ def add_exercise_to_training(request):
 
 @csrf_exempt
 def all_exercises(request):
+    """
+    Retrieve a list of all exercises.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the list of exercises under the 'exercises' key.
+    """
     result = database.all_exercises()
     return JsonResponse({'exercises': result})
 
@@ -123,6 +132,15 @@ def all_exercises(request):
 
 @csrf_exempt
 def save_exercise_to_training(request):
+    """
+    Save exercises to a training plan.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing either a success message or an error message.
+    """
     data = json.loads(request.body.decode('utf-8'))
     training = data.get('training_id')
     exercise = data.get('exercise')

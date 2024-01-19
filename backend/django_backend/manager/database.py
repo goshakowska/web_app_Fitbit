@@ -12,6 +12,15 @@ import base64
 
 
 def count_ticket_popularity():
+    """
+    Count the popularity of gym ticket offers based on the number of purchases
+    in the last month.
+
+    Returns:
+        Tuple[List[int], List[str]]: A tuple containing two lists:
+            - List of purchase counts for each gym ticket offer.
+            - List of formatted ticket types (type and duration).
+    """
     ticket_offer = m.GymTicketOffer.objects.all()
     ticket_types = [f"{ticket.type} ({ticket.duration})" for ticket in ticket_offer]
 
@@ -66,6 +75,15 @@ def ticket_popularity_month():
 
 
 def count_discount_popularity():
+    """
+    Count the popularity of gym ticket discounts based on the number of purchases
+    in the last month.
+
+    Returns:
+        Tuple[List[int], List[str]]: A tuple containing two lists:
+            - List of purchase counts for each gym ticket discount.
+            - List of distinct discount names.
+    """
     # calculate last month
     current_date = datetime.now().date()
     last_day = current_date - timedelta(days=current_date.day)
@@ -124,6 +142,14 @@ def discount_popularity_month():
 
 
 def count_age():
+    """
+    Count the number of clients in different age ranges.
+
+    Returns:
+        Tuple[List[str], List[int]]: A tuple containing two lists:
+            - List of age ranges.
+            - List of corresponding counts of clients in each age range.
+    """
     age_ranges = [
         (0, 17, '<18'),
         (18, 24, '18-24'),
@@ -188,6 +214,21 @@ def age_range():
 
 
 def count_sessions(manager_id):
+    """
+    Count the number of gym sessions and ordered sessions for each trainer
+    in the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        Optional[Tuple[List[int], List[int], List[str]]]: A tuple containing three lists:
+            - List of total gym sessions for each trainer in the last month.
+            - List of ordered gym sessions for each trainer in the last month.
+            - List of trainer names.
+
+        Returns None if the manager with the specified ID does not exist.
+    """
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
@@ -232,6 +273,17 @@ def count_sessions(manager_id):
 
 
 def trainer_sessions(manager_id):
+    """
+    Generate a bar chart depicting the number of gym sessions and ordered sessions
+    for each trainer in the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        str: Base64 encoded image representation of the bar chart.
+            Returns None if the manager with the specified ID does not exist.
+    """
     sessions, ordered, trainers_name = count_sessions(manager_id)
 
     # Create plot
@@ -268,6 +320,20 @@ def trainer_sessions(manager_id):
 
 
 def count_clients_week(manager_id):
+    """
+    Count the number of gym visits for each day in the last week
+    for the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        Optional[Tuple[List[str], List[int]]]: A tuple containing two lists:
+            - List of dates for the current week.
+            - List of corresponding counts of gym visits for each day.
+
+        Returns None if the manager with the specified ID does not exist.
+    """
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
@@ -300,6 +366,17 @@ def count_clients_week(manager_id):
 
 
 def clients_by_week(manager_id):
+    """
+    Generate a line chart depicting the number of gym visits for each day in the last week
+    for the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        str: Base64 encoded image representation of the line chart.
+            Returns None if the manager with the specified ID does not exist.
+    """
     dates, counts = count_clients_week(manager_id)
 
     # Create plot
@@ -326,6 +403,20 @@ def clients_by_week(manager_id):
 
 
 def count_clients_hour(manager_id):
+    """
+    Count the number of gym visits for each hour on the previous day
+    for the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        Optional[Tuple[List[str], List[int]]]: A tuple containing two lists:
+            - List of hours during which gym visits occurred.
+            - List of corresponding counts of gym visits for each hour.
+
+        Returns None if the manager with the specified ID does not exist.
+    """
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
@@ -356,6 +447,17 @@ def count_clients_hour(manager_id):
 
 
 def clients_by_hour(manager_id):
+    """
+    Generate a bar chart depicting the number of gym visits for each hour on the previous day
+    for the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        str: Base64 encoded image representation of the bar chart.
+            Returns None if the manager with the specified ID does not exist.
+    """
     times, counts = count_clients_hour(manager_id)
 
     # Create plot
@@ -382,6 +484,22 @@ def clients_by_hour(manager_id):
 
 
 def count_usage(manager_id, equipment_name):
+    """
+    Count the usage of a specific gym equipment in hours for each day of the last month
+    at the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+        equipment_name (str): The name of the gym equipment.
+
+    Returns:
+        Optional[Tuple[List[str], List[str], dict]]: A tuple containing three elements:
+            - List of dates in the format '%d' representing each day of the last month.
+            - List of equipment names in the format 'equipment_name gym_equipment_id'.
+            - Dictionary containing daily usage in hours for each equipment.
+
+        Returns None if the manager with the specified ID does not exist.
+    """
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
@@ -432,6 +550,19 @@ def count_usage(manager_id, equipment_name):
 
 
 def equipment_usage(manager_id, equipment_name):
+    """
+    Generate a line plot showing the usage of a specific gym equipment over the last month
+    at the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+        equipment_name (str): The name of the gym equipment.
+
+    Returns:
+        str: A base64-encoded image of the generated plot.
+        Returns None if the manager with the specified ID does not exist
+        or if there is an issue generating the plot.
+    """
 
     # calculate last month
     current_date = datetime.now().date()
@@ -464,6 +595,16 @@ def equipment_usage(manager_id, equipment_name):
 
 
 def all_equipment(manager_id):
+    """
+    Retrieve a list of unique gym equipment names available at the gym where the manager works.
+
+    Args:
+        manager_id (int): The ID of the manager.
+
+    Returns:
+        List[str]: A list of unique gym equipment names.
+        Returns None if the manager with the specified ID does not exist or if there is an issue retrieving the data.
+    """
     # find gym where manager works
     try:
         portier = m.Employee.objects.get(employee_id=manager_id)
