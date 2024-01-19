@@ -1,59 +1,3 @@
-// import React, { Component, useState } from 'react';
-// import '../styles/ClientInfo.css';
-// import { Grid } from '@mui/material';
-// import { useLocation } from 'react-router-dom';
-// import StatusToggle from './StatusToggle';
-// import RegisterTrainingPopup from './RegisterTrainingPopup';
-// import { Container } from 'react-bootstrap';
-
-// function ClientInfo(props) {
-//   const location = useLocation();
-//   console.log(props, " props");
-//   console.log(location, " useLocation Hook");
-
-
-//   const client = location.state?.client;
-
-//  return (
-//   <div>
-//     <Container className='portier-client-info'>
-//     <Grid className="profile">
-//         <img src={"../user.png"} alt="profile" />
-//         <h2 className="name-title-label">  {client.name} {client.surname}</h2>
-//     </Grid>
-//     <Grid className="all-info"
-//           container
-//           rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-//           alignItems="center" >
-//       <Grid className="client-info" spacing={5} item xs={6}>
-//         <h3 className="title-label">Dane klienta</h3>
-//         <p className="labels">Email: {client.email}</p>
-//         <p className="labels">Numer telefonu: {client.phoneNumber}</p>
-//         <button className='button-client-info'>Show client's timetable</button>
-//       </Grid>
-//       <Grid className="client-card" spacing={5} item xs={6}>
-//         <h3 className="title-label">Karnet</h3>
-//         <p className="labels">Typ: {client.cardType}</p>
-//         <p className="labels"><StatusToggle initialStatus={client.cardStatus}/></p>
-//       </Grid>
-//       <Grid className="training-info" spacing={5} item xs={6}>
-//           <p className="labels">Najbliższy trening: {client.nextTraining}</p>
-//           <RegisterTrainingPopup/>
-//       </Grid>
-//       <Grid className="card-dates" spacing={5} item xs={6}>
-//         <p className="labels">Data aktywacji: {client.activationDate}</p>
-//         <p className="labels">Data ważności: {client.expirationDate}</p>
-//       </Grid>
-//     </Grid>
-//     </Container>
-// </div>
-//  );
-// };
-
-
-
-// export default ClientInfo;
-
 
 import React, { useState, useEffect } from 'react';
 import '../styles/ClientInfo.css';
@@ -70,7 +14,7 @@ function ClientInfo(props) {
   const [clientDescription, setClientDescription] = useState([]);
   const [notActiveTicketsList, setNotActiveTicketsList] = useState([]);
   const [isCurrentlyOnGym, setIsCurrentlyOnGym] = useState(false);
-
+  const [isTraining, setIsTraining] = useState(false);
 
   const [selectedTicket, setSelectedTicket] = useState(null);
 
@@ -166,27 +110,12 @@ function ClientInfo(props) {
               } else  {
                   alert("Bilet został pomyślnie aktywowany.");
               }
+              window.location.reload(false)
               getClientDescription();
             } catch (error) {
                 console.error('Error:', error);
             }
           };
-
-            const handleRequest = () => {
-              // console.log(client_id);
-              console.log(client);
-              console.log(clientDescription)
-              console.log(notActiveTicketsList);
-              console.log(isCurrentlyOnGym)
-
-            };
-
-          //   return (
-          //     <div>
-          //         <button onClick={handleRequest}></button>
-          //     </div>
-          //   );
-          // }
 
         const handleStartTraining = async (event) => {
             try {
@@ -203,31 +132,37 @@ function ClientInfo(props) {
                 const data = await response.json();
                 console.log(data.time)
                 alert("Trening został rozpoczęty o godzinie: "+ data.time + ".");
+                setIsTraining(true);
               } catch (error) {
                 console.error('Error:', error);
               };
             };
 
         const handleAssignLocker = async (event) => {
-          try{
-            const response = await fetch('http://localhost:8000/portier/assign_locker/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ client_id: client, portier_id: userId()})});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+          try {
+            if (isTraining) {
+              const response = await fetch('http://localhost:8000/portier/assign_locker/', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ client_id: client, portier_id: userId() }),
+              });
+        
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+        
+              const data = await response.json();
+              console.log(data.locker);
+              alert("Klientowi została przyznana szafka o numerze: " + data.locker + ".");
+            } else {
+              alert("Najpierw rozpocznij trening, aby przydzielić szafkę.");
             }
-
-            const data = await response.json();
-            console.log(data.locker)
-            alert("Klientowi została przyznana szafka o numerze: "+ data.locker + ".");
-
           } catch (error) {
             console.error('Error:', error);
-          };
-          };
+          }
+        };
 
 
         const handleFinishTraining = async (event) => {
@@ -250,7 +185,8 @@ function ClientInfo(props) {
             } else {
               alert("Trening został zakończony o godzinie: " + data.time + ". Zwolniona została szafka nr. " + data.locker);
             }
-            setIsCurrentlyOnGym(true)
+            setIsCurrentlyOnGym(false)
+            isTraining(false)
             window.location.reload(false)
 
           } catch (error) {
@@ -272,7 +208,6 @@ function ClientInfo(props) {
                 <h3 className="title-label">Dane klienta:</h3>
                 <p className="labels">Email: {clientDescription.email}</p>
                 <p className="labels">Numer telefonu: {clientDescription.phone}</p>
-                {/* <Button onClick={handleRequest}>sprawdź</Button> */}
                 </Grid>
             </Col>
             <Col xs={6} className="d-flex flex-fill">
@@ -292,14 +227,14 @@ function ClientInfo(props) {
                   ) : (
                     <div>
                         <p className="labels">Musisz aktywować karnet</p>
-                  <Select value={selectedTicket ? selectedTicket.ticket_name : ''} onChange={(e) => setSelectedTicket(notActiveTicketsList.find(ticket => ticket.ticket_name === e.target.value))}>
+                  <Select className="select" value={selectedTicket ? selectedTicket.ticket_name : ''} onChange={(e) => setSelectedTicket(notActiveTicketsList.find(ticket => ticket.ticket_name === e.target.value))}>
                     {notActiveTicketsList.map((ticket) => (
-                      <MenuItem key={ticket.ticket_id} value={ticket.ticket_name}>
+                      <MenuItem className="option" key={ticket.ticket_id} value={ticket.ticket_name}>
                         {ticket.ticket_name}
                       </MenuItem>
                     ))}
                   </Select>
-                  <Button onClick={() => handleTicketActivation(selectedTicket)}>Aktywuj karnet: {selectedTicket ? selectedTicket.ticket_name : ''}!</Button>
+                  <Button className="activation-button" onClick={() => handleTicketActivation(selectedTicket)}>Aktywuj karnet: {selectedTicket ? selectedTicket.ticket_name : ''}!</Button>
                     </div>
                   )}
                 </Grid>
@@ -315,13 +250,13 @@ function ClientInfo(props) {
                     </Button>
                     </Col>
                     <Col xs={6} className="text-end"> 
-                    <Button className="activation-button" onClick={handleAssignLocker} disabled={!clientDescription.active}>
+                    <Button className="activation-button" onClick={handleAssignLocker} disabled={!clientDescription.active && !isTraining}>
                       Przydziel szafkę.
                     </Button>
                     </Col>
                     </Row>
 
-                    <Button className="activation-close-button" onClick={() => window.location.reload(false)} disabled={!clientDescription.active}>
+                    <Button className="activation-button" onClick={() => window.location.reload(false)} disabled={!clientDescription.active}>
                       Zamknij.
                     </Button>
                     </Row>
