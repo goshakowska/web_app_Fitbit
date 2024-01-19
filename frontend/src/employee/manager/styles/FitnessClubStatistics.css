@@ -4,7 +4,6 @@
     font-size: 64px;
     text-align: center;
     margin-bottom: 10px;
-    /* padding: 10px 20px; */
 }
 
 .default {
@@ -13,7 +12,6 @@
 
 .graph-panel {
     padding: 20px;
-    /* width: auto; */
     background-color: #f9f7f3;
     border: 5px solid;
     border-color: #f7a072;
@@ -21,7 +19,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: fit-content;
     height: max-content;
-    /* position: absolute; */
 }
 
 .title-label {
@@ -32,7 +29,7 @@
 }
 
 .up-label {
-    list-style-type: none; /* Remove bullets */
+    list-style-type: none;
     font-family: 'Inknut Antiqua';
     font-size: 17px;
     margin-top: 5px;
@@ -76,12 +73,8 @@
     font-family: 'Inknut Antiqua';
     font-size: 15px;
     text-align: center;
-    /* align-items: center;
-    justify-content: center;
-    flex-direction: column; */
     width: fit-content;
     height: max-content;
-    /* position: absolute; */
 }
 
 label:hover {
