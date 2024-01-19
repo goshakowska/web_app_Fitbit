@@ -27,18 +27,6 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Created_date" id="C5A42BEC-AB4F-1E12-81D3-70A21F327E63">
-<createdBy>Marta</createdBy>
-<createdTime>2023-11-16 15:45:52 UTC</createdTime>
-<ownerDesignName>PZSP2</ownerDesignName>
-<engineerTo>
-<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT008</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="Done" id="EF774EC9-22D1-0AEB-BF91-B675D1277F60">
 <createdBy>Marta</createdBy>
 <createdTime>2023-11-16 15:47:03 UTC</createdTime>
@@ -53,29 +41,15 @@
 <dataTypeSize>1</dataTypeSize>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="User_id" id="A2B81C4A-0B8D-2B0A-CF96-CBBE69C302EE">
-<createdBy>Marta</createdBy>
-<createdTime>2023-11-16 15:38:01 UTC</createdTime>
-<generatorID>0084F9AE-DB75-99C8-0D18-3D6D9C381442</generatorID>
+<Attribute name="Ordered_schedule_id" id="86703F54-CC57-38C8-6C80-43B8604F4E67">
+<createdBy>Marysia</createdBy>
+<createdTime>2024-01-19 19:26:16 UTC</createdTime>
+<generatorID>7DBF4EFF-C32F-7592-2C68-365CA91F7866</generatorID>
 <ownerDesignName>PZSP2</ownerDesignName>
 <engineerTo>
 <item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
 </engineerTo>
-<referedAttribute>DA20190F-CAC2-77B3-B33C-986F60444614</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
-<Attribute name="User_id1" id="98E27D08-596E-ACE3-E4CF-BB9C220D04F3">
-<createdBy>Marta</createdBy>
-<createdTime>2023-11-16 15:39:38 UTC</createdTime>
-<generatorID>F16D1178-8EE0-2BA3-EB63-BDC3756ECAD5</generatorID>
-<ownerDesignName>PZSP2</ownerDesignName>
-<engineerTo>
-<item key="E0CECC09-FE98-621A-44B3-8AFBD347DAE7" value="true"/>
-</engineerTo>
-<referedAttribute>DA20190F-CAC2-77B3-B33C-986F60444614</referedAttribute>
+<referedAttribute>A4200C79-2900-0B7F-1ED0-2BC54D33F243</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

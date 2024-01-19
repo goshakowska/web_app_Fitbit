@@ -6,7 +6,7 @@ import manager.database as database
 
 
 @csrf_exempt
-def ticket_popularity_week(request):
+def ticket_popularity_month(request):
     """
     Retrieves the popularity of gym tickets for the past week and returns a plot.
 
@@ -16,13 +16,13 @@ def ticket_popularity_week(request):
     Returns:
         JsonResponse: A JSON response containing the plot data for ticket popularity in the past week.
     """
-    data = database.ticket_popularity_week()
+    data = database.ticket_popularity_month()
 
     return JsonResponse({'plot':data})
 
 
 @csrf_exempt
-def discount_popularity_week(request):
+def discount_popularity_month(request):
     """
     Retrieves the popularity of gym ticket discounts for the past week and returns a plot.
 
@@ -32,7 +32,7 @@ def discount_popularity_week(request):
     Returns:
         JsonResponse: A JSON response containing the plot data for discount popularity in the past week.
     """
-    data = database.discount_popularity_week()
+    data = database.discount_popularity_month()
 
     return JsonResponse({'plot':data})
 

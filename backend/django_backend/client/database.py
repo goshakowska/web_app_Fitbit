@@ -572,6 +572,20 @@ def get_free_gym_classes(gym_id, start_date_str, client_id):
 
 
 def get_free_items(start_date_str, week_classes, client_id):
+    """
+    Get a list of available gym classes starting from a specified date.
+
+    Args:
+        start_date_str (str): The starting date in the format '%Y-%m-%d'.
+        week_classes (list): List of gym classes for the week.
+        client_id (int): Unique identifier for the client.
+
+    Returns:
+        list: A list of available gym classes with relevant information.
+
+    Raises:
+        ValueError: If the start_date_str is not in the correct format.
+    """
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d').replace(tzinfo=pytz.timezone('Europe/Warsaw'))
     classes_list = []
     for week_classe in week_classes:
@@ -596,6 +610,19 @@ def get_free_items(start_date_str, week_classes, client_id):
 
 
 def gym_classe_date(input_date, weekday):
+    """
+    Calculate the date of the next occurrence of a specific weekday after the given date.
+
+    Args:
+        input_date (datetime): The reference date.
+        weekday (str): The desired weekday in Polish (e.g., 'poniedziałek', 'wtorek', etc.).
+
+    Returns:
+        datetime: The calculated date of the next occurrence of the specified weekday.
+
+    Raises:
+        ValueError: If the input weekday is not a valid Polish weekday name.
+    """
     day_delta = {
         'poniedziałek': 0,
         'wtorek': 1,
@@ -855,9 +882,7 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     week_schedule = models.WeekSchedule.objects.get(week_schedule_id=fgc_id)
     fgc_date_str += f' {week_schedule.start_time}'
     fgc_date = datetime.strptime(fgc_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
-    print(fgc_date)
     details = get_week_schedule_details(fgc_id)
-    print(details)
     details.insert(6, fgc_date_str[:-5])
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
@@ -877,6 +902,22 @@ def get_price_list():
 
 
 def check_collision_in_basket(week_schedule_id, date_str, basket):
+    """
+    Check for collision between a new gym class and existing items in the basket.
+
+    Args:
+        week_schedule_id (int): The unique identifier of the new gym class week schedule.
+        date_str (str): The date string of the new gym class in the format '%Y-%m-%d'.
+        basket (list): A list of items in the basket, each containing a week schedule ID and schedule date.
+
+    Returns:
+        dict or None: If there is a collision, return the colliding basket item as a dictionary.
+                     If no collision is found, return None.
+
+    Raises:
+        models.WeekSchedule.DoesNotExist: If the specified week_schedule_id does not exist in the database.
+        ValueError: If the date_str is not in the correct format.
+    """
     week_schedule = models.WeekSchedule.objects.get(week_schedule_id=week_schedule_id)
     date_str += f' {week_schedule.start_time}'
     gym_classe_start = datetime.strptime(date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
@@ -892,6 +933,19 @@ def check_collision_in_basket(week_schedule_id, date_str, basket):
 
 
 def nearest_training(client_id):
+    """
+    Find the name of the nearest gym class for a given client.
+
+    Args:
+        client_id (int): The unique identifier of the client.
+
+    Returns:
+        str or None: If there are scheduled gym classes, return the name of the nearest one.
+                     If no scheduled gym classes are found, return None.
+
+    Raises:
+        No specific exceptions are raised within this function.
+    """
     tr = []
     current_day = datetime.now().date()
     training = list(models.OrderedSchedule.objects.all().filter(client_user_id=client_id))
@@ -907,6 +961,18 @@ def nearest_training(client_id):
 
 
 def describe_client_portier(client_id):
+    """
+    Retrieve and describe information about a client for the portier.
+
+    Args:
+        client_id (int): The unique identifier of the client.
+
+    Returns:
+        dict or None: A dictionary containing client information or None if the client does not exist.
+
+    Raises:
+        No specific exceptions are raised within this function.
+    """
     try:
         client = models.Client.objects.get(client_id=client_id)
     except models.Client.DoesNotExist:
@@ -939,6 +1005,19 @@ def describe_client_portier(client_id):
 
 
 def not_active_ticket(client_id):
+    """
+    Retrieve information about inactive gym tickets for a client.
+
+    Args:
+        client_id (int): The unique identifier of the client.
+
+    Returns:
+        list or None: A list of dictionaries containing information about inactive gym tickets.
+                      Returns None if the client does not exist.
+
+    Raises:
+        No specific exceptions are raised within this function.
+    """
     try:
         client = models.Client.objects.get(client_id=client_id)
     except models.Client.DoesNotExist:
@@ -954,6 +1033,19 @@ def not_active_ticket(client_id):
     return result
 
 def is_on_gym(client_id):
+    """
+    Check if a client is currently present in the gym.
+
+    Args:
+        client_id (int): The unique identifier of the client.
+
+    Returns:
+        bool or None: True if the client is currently in the gym, False otherwise.
+                      Returns None if the client does not exist.
+
+    Raises:
+        No specific exceptions are raised within this function.
+    """
     try:
         client = models.Client.objects.get(client_id=client_id)
     except models.Client.DoesNotExist:

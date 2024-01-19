@@ -407,24 +407,6 @@ def get_gym_opening_hours(request):
     return JsonResponse({'opening_hours': opening_hours})
 
 @csrf_exempt
-def check_client_can_buy_gym_ticket(request):
-    """
-    Check if a client is eligible to buy a specific type of gym ticket.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response indicating whether the client can buy the ticket.
-                      {'can_buy': True} if eligible, {'can_buy': False} otherwise.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    client_id = data.get('client_id')
-    ticket_type = data.get('type')
-    can_buy = database.check_client_can_buy_gym_ticket(client_id, ticket_type)
-    return JsonResponse({'can_buy': can_buy})
-
-@csrf_exempt
 def delete_gym_ticket(request):
     """
     Delete a gym ticket by its ID, only if it has not been activated.
@@ -524,7 +506,7 @@ def buy_items(request):
         response_data = {'error': 'Too late to buy items.'}
     return JsonResponse(response_data)
 
-
+#
 @csrf_exempt
 def get_free_gym_classe_details(request):
     """
@@ -563,7 +545,20 @@ def get_price_list(request):
 
 
 @csrf_exempt
-def check_collision_in_busket(request):
+def check_collision_in_basket(request):
+    """
+    Check for collision in the basket for a new gym class.
+
+    This view handles a POST request containing data about a new gym class,
+    including the date, week schedule ID, and the current basket. It checks
+    if there is a collision between the new gym class and existing items in the basket.
+
+    Args:
+        request (HttpRequest): The HTTP request containing the data in the request body.
+
+    Returns:
+        JsonResponse: A JSON response indicating whether there is a collision or not.
+    """
     data = json.loads(request.body.decode('utf-8'))
     date_str = data.get('date')
     week_schedule_id = data.get('week_schedule_id')
@@ -575,6 +570,18 @@ def check_collision_in_busket(request):
 
 @csrf_exempt
 def describe_client_portier(request):
+    """
+    Retrieve and describe information about a client for the portier.
+
+    This view handles a POST request containing the client_id in the request body.
+    It retrieves information about the client and returns a JSON response with the description.
+
+    Args:
+        request (HttpRequest): The HTTP request containing the client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing either the client's description or an error message.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id= data.get('client_id')
     result = database.describe_client_portier(client_id)
@@ -585,6 +592,18 @@ def describe_client_portier(request):
 
 @csrf_exempt
 def not_active_list(request):
+    """
+    Retrieve information about inactive gym tickets for a client.
+
+    This view handles a POST request containing the client_id in the request body.
+    It retrieves information about inactive gym tickets for the client and returns a JSON response.
+
+    Args:
+        request (HttpRequest): The HTTP request containing the client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response containing either the list of inactive tickets or an error message.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id= data.get('client_id')
     result = database.not_active_ticket(client_id)
@@ -595,6 +614,18 @@ def not_active_list(request):
 
 @csrf_exempt
 def is_on_gym(request):
+    """
+    Check if a client is currently present in the gym.
+
+    This view handles a POST request containing the client_id in the request body.
+    It checks if the client is currently in the gym and returns a JSON response.
+
+    Args:
+        request (HttpRequest): The HTTP request containing the client_id in the request body.
+
+    Returns:
+        JsonResponse: A JSON response indicating whether the client is currently in the gym or an error message.
+    """
     data = json.loads(request.body.decode('utf-8'))
     client_id= data.get('client_id')
     result = database.is_on_gym(client_id)

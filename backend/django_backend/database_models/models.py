@@ -41,15 +41,6 @@ class ClientDataHistory(models.Model):
         db_table = 'client_data_history'
 
 
-class ClientIllness(models.Model):
-    illness = models.OneToOneField('Illness', models.DO_NOTHING, primary_key=True)  # The composite primary key (illness_id, client_id) found, that is not supported. The first column is selected.
-    client = models.ForeignKey(Client, models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'client_illness'
-        unique_together = (('illness', 'client'),)
-
-
 class Discount(models.Model):
     discount_id = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=40, blank=True, null=True)
@@ -129,15 +120,6 @@ class ExerciseHistoryParamValue(models.Model):
         db_table = 'exercise_history_param_value'
 
 
-class ExerciseIllness(models.Model):
-    exercise_exercise = models.OneToOneField(Exercise, models.DO_NOTHING, primary_key=True)  # The composite primary key (exercise_exercise_id, illness_illness_id) found, that is not supported. The first column is selected.
-    illness_illness = models.ForeignKey('Illness', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'exercise_illness'
-        unique_together = (('exercise_exercise', 'illness_illness'),)
-
-
 class ExercisePlan(models.Model):
     exercise_plan_id = models.BigIntegerField(primary_key=True)
     ordered = models.ForeignKey('OrderedSchedule', models.DO_NOTHING)
@@ -168,15 +150,6 @@ class ExercisePositionValue(models.Model):
 
     class Meta:
         db_table = 'exercise_position_value'
-
-
-class FavouriteExercises(models.Model):
-    exercise = models.OneToOneField(Exercise, models.DO_NOTHING, primary_key=True)  # The composite primary key (exercise_id, client_id) found, that is not supported. The first column is selected.
-    client = models.ForeignKey(Client, models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'favourite_exercises'
-        unique_together = (('exercise', 'client'),)
 
 
 class Gym(models.Model):
@@ -264,14 +237,6 @@ class GymVisit(models.Model):
         db_table = 'gym_visit'
 
 
-class Illness(models.Model):
-    illness_id = models.BigIntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        db_table = 'illness'
-
-
 class Locker(models.Model):
     locker_id = models.BigIntegerField(primary_key=True)
     locker_number = models.BigIntegerField()
@@ -280,13 +245,6 @@ class Locker(models.Model):
     class Meta:
         db_table = 'locker'
 
-
-class MuscleGroups(models.Model):
-    muscle_groups_id = models.BigIntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        db_table = 'muscle_groups'
 
 
 class OrderedSchedule(models.Model):
@@ -308,16 +266,6 @@ class Parameter(models.Model):
 
     class Meta:
         db_table = 'parameter'
-
-
-class Rating(models.Model):
-    rating_id = models.BigIntegerField(primary_key=True)
-    rating = models.BigIntegerField()
-    rate_comment = models.TextField(blank=True, null=True)
-    ordered_schedule = models.ForeignKey(OrderedSchedule, models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'rating'
 
 
 class StandardParameterValue(models.Model):
