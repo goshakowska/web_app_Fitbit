@@ -20,8 +20,6 @@ from views import test_message, modify_number, employee_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test1/', test_message),
-    path('modify_number/', modify_number, name='modify_number'),
     path('employee/login/', employee_login),
 
     path('client/', include('client.urls')),
