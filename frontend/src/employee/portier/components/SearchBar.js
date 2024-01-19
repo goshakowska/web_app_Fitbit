@@ -9,12 +9,9 @@ import { InputLabelProps } from '@mui/material';
 function SearchBar() {
 
   let theme = createTheme({
-    // Theme customization goes here as usual, including tonalOffset and/or
-    // contrastThreshold as the augmentColor() function relies on these
   });
 
   theme = createTheme(theme, {
-    // Custom colors created with augmentColor go here
     palette: {
       babyblue: theme.palette.augmentColor({
         color: {
@@ -63,10 +60,7 @@ function SearchBar() {
   });
   const [inputText, setInputText] = useState("");
   let inputHandler = (e) => {
-    //convert input text to lower case
     console.log("Value of yourVariable:", e.target.value);
-    // var lowerCase = e.target.value.toLowerCase();
-    // setInputText(lowerCase);
     setInputText(e.target.value);
   };
 

@@ -840,7 +840,7 @@ def delete_unpaid_orders():
         payment_date__isnull=True
     ).delete()
 
-
+#
 def get_free_gym_classe_details(fgc_date_str, fgc_id):
     """
     Get details and free places for a gym class on a specific date.
@@ -855,9 +855,7 @@ def get_free_gym_classe_details(fgc_date_str, fgc_id):
     week_schedule = models.WeekSchedule.objects.get(week_schedule_id=fgc_id)
     fgc_date_str += f' {week_schedule.start_time}'
     fgc_date = datetime.strptime(fgc_date_str, "%Y-%m-%d %H:%M").replace(tzinfo=pytz.timezone('Europe/Warsaw'))
-    print(fgc_date)
     details = get_week_schedule_details(fgc_id)
-    print(details)
     details.insert(6, fgc_date_str[:-5])
     details.append(get_free_places_gym_classe(fgc_date, fgc_id))
     return details
