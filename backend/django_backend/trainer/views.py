@@ -89,49 +89,6 @@ def incoming_training(request):
         return JsonResponse({'error': "No plan in database for this training"}, status=400)
 
 
-@csrf_exempt
-def exercise_measured_repetition_number(request):
-    """
-    Checks if the specified exercise is measured by repetition number.
-
-    Args:
-        request (HttpRequest): The HTTP request object (exercise_id).
-
-    Returns:
-        JsonResponse: A JSON response containing the answer indicating whether the exercise is measured by repetition number.
-                      If the exercise_id is invalid, returns an error response with a 400 status code.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    exercise = data.get('exercise_id')
-    answer = database.measured_by_repetition(exercise)
-
-    if answer is not None:
-        return JsonResponse({'answer':answer})
-    else:
-        return JsonResponse({'error': "Wrong exercise id"}, status=400)
-
-
-@csrf_exempt
-def exercise_measured_duration(request):
-    """
-    Checks if the specified exercise is measured by duration.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response containing the answer indicating whether the exercise is measured by duration.
-                      If the exercise_id is invalid, returns an error response with a 400 status code.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    exercise = data.get('exercise_id')
-    answer = database.measured_by_duration(exercise)
-
-    if answer is not None:
-        return JsonResponse({'answer':answer})
-    else:
-        return JsonResponse({'error': "Wrong exercise id"}, status=400)
-
 
 @csrf_exempt
 def add_exercise_to_training(request):
@@ -155,78 +112,6 @@ def add_exercise_to_training(request):
         return JsonResponse({'message': "Exercise added"})
     else:
         return JsonResponse({'error': "Error during adding exercise"}, status=400)
-
-
-@csrf_exempt
-def move_up_exercise(request):
-    """
-    Moves an exercise up within the order of exercises in a training session.
-
-    Args:
-        request (HttpRequest): The HTTP request object (training_id, position).
-
-    Returns:
-        JsonResponse: A JSON response indicating whether the exercise was successfully moved up.
-                      If the exercise is already at the top or there is an error during the process,
-                      returns an error response with a 400 status code.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    training = data.get('training_id')
-    exercise_pos = data.get('position')
-    result = database.move_up(training, exercise_pos)
-
-    if result:
-        return JsonResponse({'message': "Exercise moved"})
-    else:
-        return JsonResponse({'error': "Can't move exercise"}, status=400)
-
-
-@csrf_exempt
-def move_down_exercise(request):
-    """
-    Moves an exercise down within the order of exercises in a training session.
-
-    Args:
-        request (HttpRequest): The HTTP request object (training_id, position).
-
-    Returns:
-        JsonResponse: A JSON response indicating whether the exercise was successfully moved down.
-                      If the exercise is already at the bottom or there is an error during the process,
-                      returns an error response with a 400 status code.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    training = data.get('training_id')
-    exercise_pos = data.get('position')
-    result = database.move_down(training, exercise_pos)
-
-    if result:
-        return JsonResponse({'message': "Exercise moved"})
-    else:
-        return JsonResponse({'error': "Can't move exercise"}, status=400)
-
-
-@csrf_exempt
-def delete_exercise_from_training(request):
-    """
-    Deletes an exercise from a training session.
-
-    Args:
-        request (HttpRequest): The HTTP request object (training_id, position).
-
-    Returns:
-        JsonResponse: A JSON response indicating whether the exercise was successfully deleted.
-                      If there is an error during the process or the position or training id is incorrect,
-                      returns an error response with a 400 status code.
-    """
-    data = json.loads(request.body.decode('utf-8'))
-    training = data.get('training_id')
-    exercise_pos = data.get('position')
-    result = database.delete_exercise(training, exercise_pos)
-
-    if result:
-        return JsonResponse({'message': "Exercise deleted"})
-    else:
-        return JsonResponse({'error': "Wrong position or training id"}, status=400)
 
 
 @csrf_exempt

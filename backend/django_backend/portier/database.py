@@ -23,7 +23,7 @@ def check_status_client(client_id):
     # find nearest active ticket (can only by one active at a time)
     ticket_active = (m.GymTicketHistory.objects
               .filter(client_id=client_id, activation_date__isnull=False)
-              .order_by('purchase_date')
+              .order_by('-activation_date')
               .first()
               )
 
@@ -64,9 +64,15 @@ def check_if_ticket_active(ticket, client_id):
 
     else:
         # ticket is for number of entries
-        entries = m.GymVisit.objects.filter(client_user=client_id).count()
+        activation_date = ticket.activation_date
+        count = 0
+        entries = list(m.GymVisit.objects.filter(client_user=client_id))
+        for ent in entries:
+            if ent.entry_time.date() >= activation_date:
+                count += 1
+
         limit_entries = ticket.gym_ticket_offer.duration
-        if entries > limit_entries:
+        if count >= limit_entries:
             # ticket has expired
             return False
         else:
@@ -81,7 +87,7 @@ def get_clients():
     Returns:
         list: A list of dictionaries containing client details including 'id', 'name', 'surname', and 'status'.
     """
-    clients = m.Client.objects.all()
+    clients = m.Client.objects.all().filter().order_by('client_id')
     result = []
     for client in clients:
         result.append(
@@ -205,9 +211,9 @@ def entry(client_id, portier_id):
     except m.Employee.DoesNotExist:
         return None
 
-    time = timezone.now()
+    time = timezone.localtime(timezone.now())
     m.GymVisit.objects.create(entry_time=time, gym_gym=gym, client_user_id=client_id)
-    return time
+    return time.strftime('%H:%M %d-%m-%Y')
 
 
 def leave(client_id, portier_id):
@@ -227,7 +233,7 @@ def leave(client_id, portier_id):
         portier = m.Employee.objects.get(employee_id=portier_id)
         gym = portier.gym
     except m.Employee.DoesNotExist:
-        return None
+        return None, None
 
     # find entry
     visit = (m.GymVisit.objects
@@ -236,11 +242,11 @@ def leave(client_id, portier_id):
              .first()
              )
 
-    if not visit or visit.entry_time.date() != datetime.now().date():
+    if not visit or visit.entry_time.date() != timezone.now().date():
         # no registered visit or registered visit from different day
-        return None
+        return None, None
 
-    time = timezone.now()
+    time = timezone.localtime(timezone.now())
     visit.departure_time = time
     visit.save()
 
@@ -251,7 +257,7 @@ def leave(client_id, portier_id):
     else:
         locker = None
 
-    return time, locker
+    return time.strftime('%H:%M %d-%m-%Y'), locker
 
 
 
