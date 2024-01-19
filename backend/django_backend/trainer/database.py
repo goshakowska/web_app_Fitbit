@@ -66,12 +66,12 @@ def _convert_to_datetime(week, start_time):
     target_date = today + timedelta(days=day_difference)
 
     if current_week_range[0] <= target_date.date() <= current_week_range[1]:
-        # if desired week day is in future
+        # if desired week day is in future (looking from today)
         target_datetime_str = f'{target_date.strftime("%Y-%m-%d")} {start_time}'
         target_datetime = parse(target_datetime_str)
         return target_datetime
     else:
-        # if desired week day is in past
+        # if desired week day is in past (looking from today: for example it is Wednesday and we look for Monday)
         target_date = target_date - timedelta(days=7)
         target_datetime_str = f'{target_date.strftime("%Y-%m-%d")} {start_time}'
         target_datetime = parse(target_datetime_str)
@@ -113,9 +113,6 @@ def get_classes_for_trainer(trainer_id):
                     'id': week_schedule_class.gym_classe.gym_classe_id,
                     'title': week_schedule_class.gym_classe.name,
                     'class_day': week_schedule_class.week_day,
-                    'class_start': week_schedule_class.start_time,
-                    'class_stop': _add_minutes(week_schedule_class.start_time,
-                                                week_schedule_class.gym_classe.duration),
                     'client_id': ordered_schedule.client_user.client_id,
                     'client_name': ordered_schedule.client_user.name,
                     'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -132,9 +129,6 @@ def get_classes_for_trainer(trainer_id):
                     'id': week_schedule_class.gym_classe.gym_classe_id,
                     'title': week_schedule_class.gym_classe.name,
                     'class_day': week_schedule_class.week_day,
-                    'class_start': week_schedule_class.start_time,
-                    'class_stop': _add_minutes(week_schedule_class.start_time,
-                                                week_schedule_class.gym_classe.duration),
                     'client_id': None,
                     'client_name': None,
                     'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -152,9 +146,6 @@ def get_classes_for_trainer(trainer_id):
                 'id': week_schedule_class.gym_classe.gym_classe_id,
                 'title': week_schedule_class.gym_classe.name,
                 'class_day': week_schedule_class.week_day,
-                'class_start': week_schedule_class.start_time,
-                'class_stop': _add_minutes(week_schedule_class.start_time,
-                                            week_schedule_class.gym_classe.duration),
                 'client_id': None,
                 'client_name': None,
                 'start': start.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -248,68 +239,25 @@ def get_exercises_for_training(trainer_id, client_id):
         .order_by('schedule_date')
         .first()
     )
-    result = []
-    try:
-        exercise_plan_id = (m.ExercisePlan.objects
-                            .filter(ordered_id=ordered_schedule_training.ordered_schedule_id)
-                            .first())
-        positions = m.ExercisePlanPosition.objects.filter(exercise_plan=exercise_plan_id).order_by('position')
-        for position in positions:
-            result.append(
-                                {
-                    'exercise_id': position.exercise.exercise_id,
-                    'position': position.position,
-                    'name': position.exercise.name,
-                    'rep': position.repetitions_number if position.repetitions_number !=0 else None,
-                    'duration': position.duration if position.repetitions_number ==0 else None
-                }
-            )
-    except m.ExercisePlan.DoesNotExist:
+    if not ordered_schedule_training:
         return None, None
+    result = []
+    exercise_plan_id = (m.ExercisePlan.objects
+                        .filter(ordered_id=ordered_schedule_training.ordered_schedule_id)
+                        .first())
+    positions = m.ExercisePlanPosition.objects.filter(exercise_plan=exercise_plan_id).order_by('position')
+    for position in positions:
+        result.append(
+                            {
+                'exercise_id': position.exercise.exercise_id,
+                'position': position.position,
+                'name': position.exercise.name,
+                'rep': position.repetitions_number if position.repetitions_number !=0 else None,
+                'duration': position.duration if position.repetitions_number ==0 else None
+            }
+        )
 
     return result, exercise_plan_id.exercise_plan_id
-
-
-# def measured_by_repetition(exercise_id):
-#     """
-#     Checks if an exercise is measured by repetitions.
-
-#     Args:
-#         exercise_id (int): The unique identifier for the exercise.
-
-#     Returns:
-#         bool: True if the exercise is measured by repetitions, False otherwise.
-#               Returns None if the exercise is not found.
-#     """
-#     try:
-#         exercise = m.Exercise.objects.get(exercise_id=exercise_id)
-#         answer = False
-#         if exercise.repetitions_number != 0:
-#             answer = True
-#         return answer
-#     except m.Exercise.DoesNotExist:
-#         return None
-
-
-# def measured_by_duration(exercise_id):
-#     """
-#     Checks if an exercise is measured by duration.
-
-#     Args:
-#         exercise_id (int): The unique identifier for the exercise.
-
-#     Returns:
-#         bool: True if the exercise is measured by duration, False if measured by repetitions.
-#               Returns None if the exercise is not found.
-#     """
-#     try:
-#         exercise = m.Exercise.objects.get(exercise_id=exercise_id)
-#         answer = True
-#         if exercise.repetitions_number != 0:
-#             answer = False
-#         return answer
-#     except m.Exercise.DoesNotExist:
-#         return None
 
 
 def add_exercise(training_id, exercise_id, measured, position=None):
@@ -327,8 +275,11 @@ def add_exercise(training_id, exercise_id, measured, position=None):
     if not position:
         # find last position in this training
         last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
-        last_position = last_position.position
-        position = last_position + 1
+        if not last_position:
+            position = 1
+        else:
+            last_position = last_position.position
+            position = last_position + 1
     try:
         exercise = m.Exercise.objects.get(exercise_id=exercise_id)
         # measured by repetition number
@@ -356,139 +307,11 @@ def add_exercise(training_id, exercise_id, measured, position=None):
         return None
 
 
-# def can_move_up(pos):
-#     """Check if an element at a given position can be moved up on the list.
-
-#     Args:
-#         pos (int): The position of the element.
-
-#     Returns:
-#         bool: True if the element can move up, False otherwise.
-
-#     """
-#     if pos == 1:
-#         return False
-#     else:
-#         return True
-
-
-# def move_up(training_id, exercise_pos):
-#     """
-#     Moves the exercise at the given position up by one position within the Exercise Plan.
-
-
-#     Args:
-#         training_id (int): The unique identifier for the training plan.
-#         exercise_pos (int): The position of the exercise to be moved up.
-
-#     Returns:
-#         bool or None: Returns True if the move was successful, None if the exercise is already at the top
-#                       and cannot be moved up, or None if the specified exercise or its target position does not exist.
-#     """
-
-#     if not can_move_up(exercise_pos):
-#         # can't move, it is on top of the list
-#         return None
-
-#     try:
-#         exercise_up = m.ExercisePlanPosition.objects.get(position=exercise_pos-1, exercise_plan_id=training_id)
-#         exercise = m.ExercisePlanPosition.objects.get(position=exercise_pos, exercise_plan_id=training_id)
-
-#         # swap positions of exercises
-#         exercise_up.position = exercise_pos
-#         exercise.position = exercise_pos - 1
-#         exercise_up.save()
-#         exercise.save()
-
-#         return True
-#     except m.ExercisePlanPosition.DoesNotExist:
-#         return None
-
-
-# def can_move_down(pos, training_id):
-#     """
-#     Check if an exercise at a given position within the Exercise Plan can be moved down.
-
-#     Args:
-#         pos (int): The position of the exercise to be checked.
-#         training_id (int): The unique identifier for the Exercise Plan.
-
-#     Returns:
-#         bool: True if the exercise can be moved down (it is not already at the bottom of the list), False otherwise.
-#     """
-#     last_position = m.ExercisePlanPosition.objects.filter(exercise_plan=training_id).order_by('-position').first()
-#     if pos == last_position.position:
-#         return False
-#     else:
-#         return True
-
-
-# def move_down(training_id, exercise_pos):
-#     """
-#     Moves the exercise at the given position down by one position within the Exercise Plan.
-
-#     Args:
-#         training_id (int): The unique identifier for the training plan.
-#         exercise_pos (int): The position of the exercise to be moved down.
-
-
-#     Returns:
-#         bool or None: Returns True if the move was successful, None if the exercise is already at the bottom
-#                       and cannot be moved down, or None if the specified exercise or its target position does not exist.
-#     """
-#     if not can_move_down(exercise_pos, training_id):
-#         # can't move, it is on bottom of the list
-#         return None
-
-#     try:
-#         exercise_up = m.ExercisePlanPosition.objects.get(position=exercise_pos+1, exercise_plan_id=training_id)
-#         exercise = m.ExercisePlanPosition.objects.get(position=exercise_pos, exercise_plan_id=training_id)
-
-#         # swap positions of exercises
-#         exercise_up.position = exercise_pos
-#         exercise.position = exercise_pos + 1
-#         exercise_up.save()
-#         exercise.save()
-
-#         return True
-#     except m.ExercisePlanPosition.DoesNotExist:
-#         return None
-
-
-# def delete_exercise(training_id, exercise_pos):
-#     """
-#     Deletes the exercise at the specified position within the Exercise Plan.
-
-#     Args:
-#         training_id (int): The unique identifier for the training plan.
-#         exercise_pos (int): The position of the exercise to be deleted.
-
-#     Returns:
-#         bool or None: Returns True if the deletion was successful, or None if the specified exercise or its position does not exist.
-#     """
-#     try:
-#         # delete exercise
-#         exercise_delete = m.ExercisePlanPosition.objects.get(exercise_plan_id=training_id, position=exercise_pos)
-#         exercise_delete.delete()
-
-#         # find all exercises that have lower position
-#         exercises_down = (m.ExercisePlanPosition.objects
-#                         .filter(exercise_plan_id=training_id, position__gt=exercise_pos)
-#                         .order_by('position'))
-#         for exercise in exercises_down:
-#             # move every exercise up
-#             exercise.position = exercise.position - 1
-#             exercise.save()
-#         return True
-#     except m.ExercisePlanPosition.DoesNotExist:
-#         return None
-
-
 def all_exercises():
     result = []
     exercises = m.Exercise.objects.all()
     for exer in exercises:
-         result.append(
+        result.append(
                 {
                     'exercise_id': exer.exercise_id,
                     'name': exer.name,

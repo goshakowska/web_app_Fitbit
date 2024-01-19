@@ -123,4 +123,38 @@
       border-color: #D9D9D9 !important;
    }
 
+   .select {
+         background-color: #d9d9d9;
+         color: #002f35;
+         font-family: 'Inknut Antiqua';
+         border: 5px solid;
+         border-color: #D9D9D9;
+         border-radius: 8px;
+     }
+   .select:hover {
+      background-color: #d9d9d9;
+      color: #002f35;
+      font-family: 'Inknut Antiqua';
+      border: 5px solid;
+      border-color: #D9D9D9;
+      border-radius: 8px;
+   }
+   
+   .option {
+      background-color: #d9d9d9;
+      color: #002f35;
+      font-family: 'Inknut Antiqua';
+      border: 5px solid;
+      border-color: #D9D9D9;
+      border-radius: 8px;
+   }
+   
+   .option-to-choose {
+      background-color: #d9d9d9;
+      color: #002f35;
+      font-family: 'Inknut Antiqua';
+      border: 5px solid;
+      border-color: #D9D9D9;
+      border-radius: 8px;
+   }
    
