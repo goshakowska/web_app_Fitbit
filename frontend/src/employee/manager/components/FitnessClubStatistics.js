@@ -2,99 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import employeeToken from '../../EmployeeToken.js';
 import '../styles/FitnessClubStatistics.css';
+import allEquipment from "../functions/allEquipment.js";
+import chartImage from "../functions/chartImage.js";
+import chartImageWithProvidedData from "../functions/chartImageWithProvidedData.js";
+import chartImageWithProvidedDataName from "../functions/chartImageWithProvidedDataName.js";
 
 function FitnessClubStatistics()
 {
     const {userName} = employeeToken();
     const {userId} = employeeToken();
-    const [chartImage, setChartImage] = useState(null);
+    const [chosenChartImage, setChosenChartImage] = useState(null);
     const [selectedEquipment, setSelectedEquipment] = useState('');
-    const [allEquipment, setAllEquipment] = useState([]);
+    const [allPossibleEquipment, setAllPossibleEquipment] = useState([]);
     console.log(userName());
 
-    const getChartImage = async (url) => {
-        try {
-            const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            });
 
-            if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-            }
 
-            const data = await response.json();
-            setChartImage(data.plot)
-        } catch (error) {
-            alert('Wykryto błąd');
-            console.log(error);
-        }
+    const handleAllEquipment = async (manager_id) => {
+        const allFetchedEquipment = await allEquipment(manager_id);
+        setAllPossibleEquipment(allFetchedEquipment);
     }
 
-    const getChartImageWithProvidedData = async (url) => {
-        try {
-            const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },body: JSON.stringify({ manager_id: userId() })});
+    useEffect(() => {handleAllEquipment(userId())}, []);
 
-            if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setChartImage(data.plot)
-        } catch (error) {
-            alert('Wykryto błąd');
-            console.log(error);
-        }
+    const handleChartImage = async (url, manager_id) => {
+        const fetchedChartImage = await chartImage(url, manager_id);
+        setChosenChartImage(fetchedChartImage)
     }
 
-    const getChartImageWithProvidedDataName = async (url) => {
-        try {
-            const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },body: JSON.stringify({ manager_id: userId(), equipment_name: selectedEquipment })});
-
-            if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setChartImage(data.plot)
-        } catch (error) {
-            alert('Wykryto błąd');
-            console.log(error);
-        }
+    const handleChartImageWithProvidedData = async (url, manager_id) => {
+        const fetchedChartImage = await chartImageWithProvidedData(url, manager_id);
+        setChosenChartImage(fetchedChartImage)
     }
 
-    const getAllEquipment = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/manager/all_equipment/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },body: JSON.stringify({ manager_id: userId() })});
-
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-
-              const data = await response.json();
-              console.log(data.names);
-              setAllEquipment(data.names);
-
-            } catch (error) {
-              console.error('Error:', error);
-        }
+    const handleChartImageWithProvidedDataName = async (url, manager_id, equipment_name) => {
+        const fetchedChartImage = await chartImageWithProvidedDataName(url, manager_id, equipment_name);
+        setChosenChartImage(fetchedChartImage)
     }
-
-        useEffect(() => {getAllEquipment()}, []);
 
     return (
     <div>
@@ -104,42 +48,42 @@ function FitnessClubStatistics()
             <ul className='graph-panel'>
                 <p className='title-label'>Dostępne statystyki</p>
                 <li className='default'>
-                    <button className="label" onClick={() => getChartImage('http://localhost:8000/manager/ticket_popularity_week/')}>
+                    <button className="label" onClick={() => handleChartImage('http://localhost:8000/manager/ticket_popularity_week/')}>
                     Popularność karnetów
                     </button>
                 </li>
                 <li className='default'>
-                    <button className="label" onClick={() => getChartImage('http://localhost:8000/manager/discount_popularity_week/')}>
+                    <button className="label" onClick={() => handleChartImage('http://localhost:8000/manager/discount_popularity_week/')}>
                     Popularność promocji
                     </button>
                 </li>
                 <li className='default'>
-                    <button className="label" onClick={() => getChartImage('http://localhost:8000/manager/age_range/')}>
+                    <button className="label" onClick={() => handleChartImage('http://localhost:8000/manager/age_range/')}>
                     Przedziały wiekowe klientów
                     </button>
                 </li>
                 <li className="up-label">
                 Częstość przychodzenia klientów
                     <li>
-                        <button className="sub-label" onClick={() => getChartImageWithProvidedData('http://localhost:8000/manager/clients_week/')}>
+                        <button className="sub-label" onClick={() => handleChartImageWithProvidedData('http://localhost:8000/manager/clients_week/', userId())}>
                         1. tygodniowa
                         </button>
                     </li>
                     <li>
-                        <button className="sub-label" onClick={() => getChartImageWithProvidedData('http://localhost:8000/manager/clients_hour/')}>
+                        <button className="sub-label" onClick={() => handleChartImageWithProvidedData('http://localhost:8000/manager/clients_hour/', userId())}>
                         2. dzienna
                         </button>
                     </li>
                 </li>
                 <li className='default'>
-                    <button className="label" onClick={() => getChartImageWithProvidedData('http://localhost:8000/manager/sessions/')}>
+                    <button className="label" onClick={() => handleChartImageWithProvidedData('http://localhost:8000/manager/sessions/', userId())}>
                     Liczba zamówionych sesji u poszczególnych trenerów
                     </button>
                 </li>
                 <li className='default'>
                 <button
                                 className="label"
-                                onClick={() => getChartImageWithProvidedDataName('http://localhost:8000/manager/equipment_usage/')}
+                                onClick={() => handleChartImageWithProvidedDataName('http://localhost:8000/manager/equipment_usage/', userId(), selectedEquipment)}
                                 disabled={!selectedEquipment}
                             >
                                 Obciążenie sprzętu
@@ -152,7 +96,7 @@ function FitnessClubStatistics()
                                 <option value="" disabled>
                                     Wybierz sprzęt
                                 </option>
-                                {allEquipment.map((equipment, index) => (
+                                {allPossibleEquipment.map((equipment, index) => (
                                     <option key={index} value={equipment}>
                                         {equipment}
                                     </option>
@@ -163,7 +107,7 @@ function FitnessClubStatistics()
         </Col>
         <Col md={{ span: 5}}>
             <Card bordered hover responsive className='graph'>
-                <Card.Img src={`data:image/jpeg;base64,${chartImage}`} alt="W celu wyświetlenia statystyki wybierz ją z listy" />
+                <Card.Img src={`data:image/jpeg;base64,${chosenChartImage}`} alt="W celu wyświetlenia statystyki wybierz ją z listy" />
             </Card>
         </Col>
         </Row>
