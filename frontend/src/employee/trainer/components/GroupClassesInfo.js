@@ -3,7 +3,7 @@ import '../styles/groupClassesInfo.css';
 import { useLocation } from 'react-router-dom';
 import { Carousel, Col, Row } from "react-bootstrap";
 import employeeToken from "../../EmployeeToken";
-import '../styles/groupClassesInfo.css';
+import '../styles/GroupClassesInfo.css';
 
 function GroupClassInfo(props) {
   const location = useLocation();

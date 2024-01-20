@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowBackwardIcon from '@mui/icons-material/ArrowDropUp';
-import '../styles/trainingCreator.css';
+import '../styles/TrainingCreator.css';
 import employeeToken from "../../EmployeeToken";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';

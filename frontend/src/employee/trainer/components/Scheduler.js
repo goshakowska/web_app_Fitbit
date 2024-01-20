@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import 'moment/locale/en-gb';
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../styles/scheduler.css";
+import "../styles/Scheduler.css";
 import { Row, Col } from "react-bootstrap";
 import employeeToken from "../../EmployeeToken";
 import { Link } from 'react-router-dom';
