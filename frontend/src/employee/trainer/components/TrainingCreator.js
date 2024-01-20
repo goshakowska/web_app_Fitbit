@@ -132,7 +132,7 @@ const applyEditExercise = () => {
     return;
   }
 
-  const { rep, duration } = selectedExercise;
+  // const { rep, duration } = selectedExercise;
 
   if ((editingRepInput && !editingDurationInput) || (!editingRepInput && editingDurationInput)) {
     setExercises((prev) => {

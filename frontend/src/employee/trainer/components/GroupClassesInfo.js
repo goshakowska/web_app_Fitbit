@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/groupClassesInfo.css';
 import { useLocation } from 'react-router-dom';
 import { Carousel, Col, Row } from "react-bootstrap";
 import employeeToken from "../../EmployeeToken";

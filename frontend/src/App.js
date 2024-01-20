@@ -31,19 +31,19 @@ import PriceListView from "./client/views/PriceList";
 
 // employee
 
-import LoginEmployeeForm from "./employee/components/LoginEmployeeForm";
+import LoginEmployeeForm from "./employee/views/LoginEmployeeForm";
 // manager
-import FitnessClubStatistics from "./employee/manager/components/FitnessClubStatistics";
+import FitnessClubStatistics from "./employee/manager/views/FitnessClubStatistics";
 
 // portier
-import SearchBar from "./employee/portier/components/SearchBar";
-import ClientInfo from "./employee/portier/components/ClientInfo";
+import SearchBar from "./employee/portier/views/SearchBar";
+import ClientInfo from "./employee/portier/views/ClientInfo";
 
 // trainer
-import Scheduler from "./employee/trainer/components/Scheduler";
-import TrainingCreator from "./employee/trainer/components/TrainingCreator";
-import ClientTrainingInfo from "./employee/trainer/components/ClientTrainingInfo";
-import GroupClassInfo from "./employee/trainer/components/GroupClassesInfo";
+import Scheduler from "./employee/trainer/views/Scheduler";
+import TrainingCreator from "./employee/trainer/views/TrainingCreator";
+import ClientTrainingInfo from "./employee/trainer/views/ClientTrainingInfo";
+import GroupClassInfo from "./employee/trainer/views/GroupClassesInfo";
 
 function App() {
   return(
