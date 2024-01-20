@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input, InputGroup } from 'reactstrap';
-import buyCart from '../functions/BuyCart';
+import buyCart from '../functions/buyCart';
 import { useLocation, useNavigate } from "react-router-dom";
 import clientToken from '../ClientToken';
 import CartToken from '../CartToken';
