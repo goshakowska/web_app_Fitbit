@@ -3,8 +3,8 @@ import {Button, Table} from 'reactstrap';
 import "../styles/tablesStyle.css"
 import clientToken from '../ClientToken.js';
 import { useNavigate } from "react-router-dom";
-import moment from 'moment';
 import secondsToHHMMSS from "../functions/secondsToHHMMSS.js";
+import getTrainingsList from "../functions/GetTrainings.js";
 
 
 function Trainings()
@@ -15,29 +15,16 @@ function Trainings()
 
 
     const getTrainings = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/client_trenings/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ client_id: userId()})});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log(data.trenings);
+      // get trainings data
+            const data = await getTrainingsList(event, userId());
             setTrainings(data.trenings)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
     }
 
+    // get data on site render
     useEffect(() => {getTrainings()}, []);
 
     const handleClick = (training_id, date) => {
+      // redirect to details site
       navigate('/szczegoly_treningu', {
         state: {
           detailId: training_id,

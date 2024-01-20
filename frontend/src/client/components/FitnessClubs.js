@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {Table} from 'reactstrap';
+import getGymsList from "../functions/GymsList.js";
 import "../styles/tablesStyle.css"
 
 function FitnessClubs()
 {
+  // show all gyms and addresses
     const [gyms, setGyms] = useState([]);
     let navigate = useNavigate();
 
     const getGyms = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/gyms_list/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              }});
+      const gyms = await getGymsList(event);
+      setGyms(gyms);
+  }
 
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setGyms(data.gyms)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
-    }
-
+  // get data on site render
     useEffect(() => {getGyms()}, []);
 
     const handleClick = (club_id, club_name) => {
+      // redirect to fitness club's details site
       navigate('/szczegoly_silowni', {
         state: {
           clubId: club_id,

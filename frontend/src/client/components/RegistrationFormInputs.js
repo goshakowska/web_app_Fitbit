@@ -5,6 +5,7 @@ import RegistrationPreferences from "./RegistrationPreferences";
 import FormContext from '../context/RegistrationContext';
 
 function RegistrationFormInputs() {
+    // handle reistration form pagination
     const {page} = useContext(FormContext)
 
     const display = {

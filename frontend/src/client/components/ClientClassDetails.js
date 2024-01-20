@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import getClassDetails from "../functions/ClassDetails";
+import getCancelClass from "../functions/CancelClass";
 import {Button, Table} from 'reactstrap';
 import "../styles/tablesStyle.css";
 
 
-
-const ClassDetails = props => {
+const ClassDetails = () => {
+  // shows details site for already bought class
     const [details, setDetails] = useState([]);
     const [error, setError] = useState("")
     const location = useLocation();
@@ -14,31 +15,20 @@ const ClassDetails = props => {
     const class_id = location.state.classId;
 
     const getDetails = async (event) => {
+  // gets displayed class details
       const details = await getClassDetails(event, class_id);
       setDetails(details);
   }
 
-    const cancelClass = async (event, class_id) => {
-      try {
-          const response = await fetch('http://localhost:8000/client/cancel_ordered_gym_classe/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },body: JSON.stringify({ ordered_gym_classe_id: class_id})});
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-          const data = await response.json();
+    const handleCancel = async (event, class_id) => {
+      // cancels already bought class or displays error if too late to cancel
+          const data = await getCancelClass(event, class_id)
+          console.log(data)
           if(data.error){setError(data.error)}
-          if(data.result){navigate('/kalendarz_klienta')}
+          else if(data.result){navigate('/kalendarz_klienta')}
+      }
 
-        } catch (error) {
-          console.error('Error:', error);
-        };
-  }
-
+      // get data on site render
     useEffect((e) => {getDetails(e, class_id)}, []);
 
     return(
@@ -74,7 +64,7 @@ const ClassDetails = props => {
 </tbody>
 </Table>
 <div className="layout">
-<Button className="deleteStyle" onClick={e => cancelClass(e, class_id)} disabled={error}> Anuluj zajęcia </Button>
+<Button className="deleteStyle" onClick={e => handleCancel(e, class_id)} disabled={error}> Anuluj zajęcia </Button>
 <label className="errorLabel">{error}</label></div>
 </div>
 </div>

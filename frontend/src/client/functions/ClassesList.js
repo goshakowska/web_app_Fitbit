@@ -1,4 +1,5 @@
 const getClassesList = async (event, clubId) => {
+  // returns all classes that take place at given club
     try {
         const response = await fetch('http://localhost:8000/client/gym_classes/', {
           method: 'POST',

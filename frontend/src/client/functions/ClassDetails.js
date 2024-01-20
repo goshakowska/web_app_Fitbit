@@ -1,4 +1,5 @@
 const getClassDetails = async (event, class_id) => {
+  // returns client's ordered class details
     try {
         const response = await fetch('http://localhost:8000/client/ordered_classe_details/', {
           method: 'POST',

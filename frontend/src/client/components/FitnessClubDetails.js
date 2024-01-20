@@ -6,6 +6,7 @@ import getClassesList from '../functions/ClassesList';
 import '../styles/tablesStyle.css';
 
 function FitnessClubDetails () {
+    // show workers and classes for a particular fitness club
     const location = useLocation();
     const club_id = location.state.clubId;
     const club_name = location.state.clubName;
@@ -13,15 +14,18 @@ function FitnessClubDetails () {
     const [clubClasses, setClubClasses] = useState([])
 
     const getTrainers = async (event, club_id) => {
+    // get trainers working at the club
         const trainers = await getTrainersList(event, club_id);
         setClubTrainers(trainers);
     }
 
     const getClasses = async (event, club_id) => {
+    // get classes taking place at the fitness club
         const classes = await getClassesList(event, club_id);
         setClubClasses(classes);
     }
 
+    // get data on site render
     useEffect((e) => {getTrainers(e, club_id)}, []);
     useEffect((e) => {getClasses(e, club_id)}, []);
 

@@ -1,60 +1,37 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {Button, Table} from 'reactstrap';
 import "../styles/tablesStyle.css"
 import clientToken from '../ClientToken.js';
+import getDiscountTickets from "../functions/GetDiscountTickets.js";
+import getStandardTickets from "../functions/GetStandardTickets.js";
 import CartToken from "../CartToken.js";
 
 function TicketsShop()
 {
+  // shows ticket's shop
     const {userId} = clientToken();
     const {addTicket} = CartToken();
     const [discountTickets, setDiscountTickets] = useState([])
     const [standardTickets, setStandardTickets] = useState([])
 
-    const getDiscountTickets = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/discount_gym_ticket_offer/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              }});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+    const getDiscountTicketsList = async (event) => {
+      // get discount tickets data
+            const data = await getDiscountTickets(event);
             setDiscountTickets(data.tickets)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
     }
 
-    const getStandardTickets = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/standard_gym_ticket_offer/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              }});
+    const getStandardTicketsList = async (event) => {
+      // get standard tickets data
+      const data = await getStandardTickets(event);
+      setStandardTickets(data.tickets)
+}
 
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setStandardTickets(data.tickets)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
-    }
-
-    useEffect(() => {getDiscountTickets()}, []);
-    useEffect(() => {getStandardTickets()}, []);
+  // get data on site render
+    useEffect((e) => {getDiscountTicketsList(e)}, []);
+    useEffect((e) => {getStandardTicketsList(e)}, []);
 
     const handleClick = (e, ticket, type) => {
+      // handle adding tickets to cart or set error when user not logged in
         if (userId()) {
           if (type === 'disc')
             {addTicket(ticket[3], ticket[8], ticket[2], ticket[4], ticket[5], ticket[6], ticket[7], ticket[1], ticket[0]);

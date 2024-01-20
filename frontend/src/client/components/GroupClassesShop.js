@@ -4,10 +4,12 @@ import { Table, Input, InputGroup, Button } from 'reactstrap';
 import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import getGymsList from "../functions/GymsList.js";
+import getGroupClasses from "../functions/GroupClassesShopData.js";
 import { useNavigate } from "react-router-dom";
 
 
 function GroupClassesShop () {
+  // shows group classes shop
     const {userId} = clientToken();
     const [classes, setClasses] = useState([]);
     const [gymId, setGymId] = useState(null);
@@ -17,46 +19,31 @@ function GroupClassesShop () {
     const navigate = useNavigate();
 
 
-    const getGroupClasses = async (e) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/free_gym_classes/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({  gym_id: gymId,
-                                      client_id: userId(),
-                                      start_date: formatDate(stateRef.current)}),
-            });
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+    const groupClasses = async (e) => {
+    // get classes for given gym, userId and week
+            const data = await getGroupClasses(e, gymId, userId(), formatDate(stateRef.current));
+            console.log(data)
             setClasses(data.classes)
-            console.log(data.classes)
-
-
-          } catch (error) {
-            console.error('Error:', error);
-          }
         };
 
         const getGyms = async (event) => {
+    // get gyms for dropdown menu
             const gyms = await getGymsList(event);
             setGyms(gyms);
         }
 
         stateRef.current = weekBoundaries.startOfWeek;
 
+        // get data on site render
+        useEffect((e) => {getGyms(e)}, []);
 
+        // get updated data on every change in gym & data value
         useEffect(() => {
-            getGroupClasses();
+            groupClasses();
           }, [stateRef.current, gymId]);
-          useEffect((e) => {getGyms(e)}, []);
 
           const handleClick = (class_id, date, collision_id, free_places, price) => {
+            // redirect to class' details site
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,

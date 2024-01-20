@@ -1,39 +1,38 @@
 import CartToken from "../CartToken";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {Button, Table} from 'reactstrap';
 import { useNavigate } from "react-router-dom";
 import bookCart from "../functions/CartReservation";
-import Reservation from "./Reservation";
 import clientToken from "../ClientToken";
 import getCalendarClassDetails from "../functions/CalendarClassDetails";
 
 
 function Cart () {
+  // shows client's cart main view
     const {userId} = clientToken();
     const {getCart, deleteTicket, deleteTraining} = CartToken();
     const [st, stst] = useState(true);
-    const [reservation, setReservation] = useState()
     const navigate = useNavigate();
     const [freePlaces, setFreePlaces] = useState([]);
 
-
-
     const calculateTotal = () => {
+  // calculates cost of all items added to cart
     const ticketsTotal = getCart()[0].reduce((sum, {price}) => sum + price, 0);
     const trainingsTotal = getCart()[1].reduce((sum, {price}) => sum + price, 0);
     const total = trainingsTotal + ticketsTotal;
     return total};
 
     const getDetails = async (event) => {
+  // updates number of free places for very class in cart from database
       for(let i=0; i<getCart()[1].length; i++) {
       const details = await getCalendarClassDetails(event, getCart()[1][i]["week_schedule_id"], getCart()[1][i]["schedule_date"]);
       console.log(details)
       setFreePlaces(prevList => [...prevList, details[9]])};
   }
-  useEffect((e) => {getDetails(e)}, [])
 
 
     const handleClick = (class_id, date, collision_id, free_places, price) => {
+  // redirect to class details site
       navigate('/szczegoly_sklep', {
         state: {
           classId: class_id,
@@ -46,6 +45,7 @@ function Cart () {
     };
 
     const handleReservation = async (event, clientId, cartClasses) => {
+  // submit cart, add everything to reservation
       const response = await bookCart(event, clientId, cartClasses);
       if (response["reserved_id"]) {
         navigate('/platnosc', {
@@ -57,6 +57,8 @@ function Cart () {
       else if (response["error"]) {alert('Usuń z koszyka zajęcia, na których nie ma już miejsc.')}
 
     };
+    // render class details on every site render
+    useEffect((e) => {getDetails(e)}, [])
 
     return (
       <div>

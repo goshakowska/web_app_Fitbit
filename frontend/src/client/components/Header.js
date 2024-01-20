@@ -14,6 +14,7 @@ import SideBarManager from '../../employee/manager/components/SideBarManager.js'
 import SideBarTrainer from '../../employee/trainer/components/SideBarTrainer.js';
 
 function Header() {
+  // shows header 
   const {userId } = clientToken();
   const {userId: empUserId , userType } = employeeToken();
 

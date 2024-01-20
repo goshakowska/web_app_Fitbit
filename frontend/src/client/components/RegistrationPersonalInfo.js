@@ -8,10 +8,13 @@ import FormContext from '../context/RegistrationContext';
 
 
 function RegistrationPersonalInfo() {
+  // 2nd page of registration form: user personal informations
     const {formData, handleChange, handleNext, handlePrev, setFormData} = useContext(FormContext)
 
     const keysToCheck1 = ['nameState', 'surnameState', 'phoneState']
     const keysToCheck2 = ['sex', 'dateOfBirth']
+
+    // validation of input data
 
     const isValid = () => {
       if(keysToCheck1.every(key => formData.validate[key] === "has-success") &&

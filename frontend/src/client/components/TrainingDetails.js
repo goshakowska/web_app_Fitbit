@@ -2,36 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {Table} from 'reactstrap';
 import "../styles/tablesStyle.css";
+import getTrainingDetailsList from "../functions/GetTrainingDetails";
 import secondsToHHMMSS from "../functions/secondsToHHMMSS";
-import moment from 'moment';
 
 
 const TrainingDetails = props => {
+  // show client's training details
     const [details, setDetails] = useState([])
     const location = useLocation();
     const training_id = location.state.detailId;
     const training_date = location.state.detailDate
 
-    const getTrainingDetails = async (event, training_id) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/trening_details/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ training_id: training_id})});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+    const getTrainingDetails = async (event) => {
+      // get details
+            const data = await getTrainingDetailsList(event, training_id);
             setDetails(data.details);
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
     }
 
+    // get data on site render
     useEffect((e) => {getTrainingDetails(e, training_id)}, []);
 
     return(

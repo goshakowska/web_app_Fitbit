@@ -13,6 +13,7 @@ import clientToken from '../ClientToken';
 
 
 function SideBarClient() {
+  // shows client sidebar
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const {userName, logout} = clientToken();

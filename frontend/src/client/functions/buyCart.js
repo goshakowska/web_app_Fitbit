@@ -1,4 +1,5 @@
 const buyCart = async (event, client_id, reserved_gym_classes, gym_tickets) => {
+    // function buys all items in cart and adds them to the client's classes and the client's tickets
     try {
         const response = await fetch('http://localhost:8000/client/buy_items_from_busket/', {
           method: 'POST',

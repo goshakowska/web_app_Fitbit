@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
+import getPricesList from "../functions/GetPriceList";
 
 export default function PriceList () {
+  // shows classes prices
     const [prices, setPrices] = useState([])
 
     const getPrices = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/price_list/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              }});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setPrices(data.price_list)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
+        const data = await getPricesList(event);
+        setPrices(data.price_list)
     }
 
-    useEffect(() => {getPrices()}, []);
+   // get data on site render
+    useEffect((e) => {getPrices(e)}, []);
 
     return (
         <div className="clubsTable">

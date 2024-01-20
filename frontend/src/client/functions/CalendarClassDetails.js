@@ -1,4 +1,5 @@
 const getCalendarClassDetails = async (event, class_id, date) => {
+  // returns details for class in shop
     try {
         const response = await fetch('http://localhost:8000/client/free_gym_classe_details/', {
           method: 'POST',
