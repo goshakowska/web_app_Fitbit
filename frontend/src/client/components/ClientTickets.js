@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import {Button, Table} from 'reactstrap';
+import getClientTickets from "../functions/AllClientTickets.js";
 import "../styles/tablesStyle.css"
 import clientToken from '../ClientToken.js';
 import { useNavigate } from "react-router-dom";
@@ -8,30 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 function ClientTickets()
 {
+  // shows all client's tickets in a table
     const {userId} = clientToken();
-    const [clientTickets, setClientTickets] = useState([]);
+    const [clientTicketsData, setClientTicketsData] = useState([]);
     let navigate = useNavigate();
 
 
-    const getClientTickets = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/gym_tickets_history/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ client_id: userId()})});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log(data.tickets)
-            setClientTickets(data.tickets)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
+    const clientTickets = async (event) => {
+  // get all client's tickets
+      const data = await getClientTickets(event, userId())
+      setClientTicketsData(data.tickets)
     }
 
     const checkStatus = (status) => {
@@ -40,9 +27,11 @@ function ClientTickets()
         else {return "wygasły"}
     }
 
-    useEffect(() => {getClientTickets()}, []);
+    // get data on site render
+    useEffect(() => {clientTickets()}, []);
 
     const handleClick = (ticket_id) => {
+  // redirect to client's ticket details site
       navigate('/szczegoly_karnetu', {
         state: {
           ticketId: ticket_id,
@@ -79,7 +68,7 @@ function ClientTickets()
     </tr>
   </thead>
   <tbody>
-  {clientTickets.length > 0 && clientTickets.map((ticket, index) => (
+  {clientTicketsData.length > 0 && clientTicketsData.map((ticket, index) => (
                     <tr key={index}>
                         <th scope="row">{ticket["type"]}({ticket["duration"]})</th>
                         {ticket["discount"] ? <td>{ticket["discount"]}% ({ticket["discount_name"]})</td> : <td> - </td>}

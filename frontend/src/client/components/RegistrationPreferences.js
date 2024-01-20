@@ -9,10 +9,12 @@ import FormContext from '../context/RegistrationContext';
 
 
 function RegistrationPreferences() {
+  // 3rd page of registration form: user preferences
     const {formData, handleChange, handlePrev} = useContext(FormContext)
     const [goals, setGoals] = useState([])
 
     const getGoals = async (event) => {
+      // get goals from database
         try {
             const response = await fetch('http://localhost:8000/client/training_goals/', {
               method: 'POST',
@@ -33,6 +35,7 @@ function RegistrationPreferences() {
     }
 
     const handleSubmit = async (event) => {
+      // submit form & finish registration
         event.preventDefault();
         try {
           const response = await fetch('http://localhost:8000/client/registration/', {
@@ -68,6 +71,7 @@ function RegistrationPreferences() {
         }
       };
 
+      // get on site render
       useEffect(() => {getGoals()}, []);
 
     return(

@@ -3,7 +3,7 @@ import React, {createContext, useState} from "react";
 const FormContext = createContext({})
 
 export const FormProvider = ({ children }) => {
-
+  // create context for multi-page user registration
     const title = {
         0: 'User Data',
         1: 'Personal Info',
@@ -49,6 +49,7 @@ export const FormProvider = ({ children }) => {
         }));
       };
 
+      // changing pages
       const handlePrev = () => setPage(prev => prev - 1);
       const handleNext = () => setPage(prev => prev + 1);
 

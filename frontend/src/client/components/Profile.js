@@ -1,34 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import clientToken from '../ClientToken.js';
+import getClientData from '../functions/ClientProfileData.js';
 import '../styles/profileStyles.css'
 import moment from 'moment';
 
 function Profile() {
-
+    // shows user profile
     const {userId} = clientToken();
     const [clientData, setClientData] = useState([])
 
-    const getClientData = async (event) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/client_data/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ client_id: userId()})});
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+    const clientProfileData = async (event) => {
+        // get client data
+            const data = await getClientData(event, userId());
             setClientData(data.client_data)
-
-          } catch (error) {
-            console.error('Error:', error);
-          };
     }
-
-    useEffect(() => {getClientData()}, []);
+    
+    // get data on site render
+    useEffect(() => {clientProfileData()}, []);
 
     return (
         <div className="ticketsShop">

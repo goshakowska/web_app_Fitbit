@@ -9,6 +9,7 @@ import CartToken from "../CartToken.js";
 
 
 export default function ClassDetailsShop() {
+  // shows class details (& collisions) in the classes shop
     const [details, setDetails] = useState([])
     const [collisionDetails, setCollisionDetails] = useState([])
     const [cartCollisionId, setCartCollisionId] = useState()
@@ -23,26 +24,31 @@ export default function ClassDetailsShop() {
     const {addTraining, getCart} = CartToken();
 
     const getCollisionDetails = async (event, collisionId) => {
+  // get collision details from client's already bought classes
         const details = await getClassDetails(event, collisionId);
         setCollisionDetails(details);
     }
 
     const getDetails = async (event, classId, date) => {
+  // get class details
         const details = await getCalendarClassDetails(event, classId, date);
         setDetails(details);
     }
 
     const checkCollision = async (event, classId, date, cart) => {
+  // check if class has collision with any class in cart
         const data = await checkCartCollision(event, classId, date, cart);
         setCartCollisionId(data);
     }
 
     const getCartCollisionDetails = async (event, classId, date) => {
+  // returns details collision about a class in a user's cart
       const details = await getCalendarClassDetails(event, classId, date);
       setCollisionDetails(details);
   }
 
     const errorCheck = (e) => {
+  // sets correct error to display for client
       if (collisionId) {setError("Uwaga! Masz kolizję z poniższym terminem. Aby dodać ten termin do koszyka, anuluj swój udział w poniższych zajęciach.")}
       else if(cartCollisionId) {
         if (cartCollisionId["week_schedule_id"] === classId) {setError("Te zajęcia zostały już dodane do koszyka.")}
@@ -51,16 +57,20 @@ export default function ClassDetailsShop() {
     }
 
     const handleClick = (e, name, price, hour, schedule_date, week_schedule_id, free_places) => {
+  // handles adding class to cart
         addTraining(name, price, hour, schedule_date, week_schedule_id, free_places);
         alert('Pomyślnie dodano do koszyka.');
         setrr(!rr)
       }
 
+    // get data on site render
     useEffect((e) => {getDetails(e, classId, date)}, [])
     useEffect((e) => {checkCollision(e, classId, date, getCart()[1])}, [])
     useEffect((e) => {if (collisionId) getCollisionDetails(e, collisionId)}, []);
+    // get updated data when collision changes
     useEffect((e) => {if (cartCollisionId) getCartCollisionDetails(e, cartCollisionId["week_schedule_id"], cartCollisionId["schedule_date"])}, [cartCollisionId]);
-    useEffect((e) => {errorCheck(e)}, [collisionId, cartCollisionId, rr]); console.log(details)
+    // get updated data on every site rerender
+    useEffect((e) => {errorCheck(e)}, [collisionId, cartCollisionId, rr]);
 
     return(
         <div className="layout">

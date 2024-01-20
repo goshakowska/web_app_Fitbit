@@ -5,12 +5,12 @@ import WeekSwitcher from '../components/WeekSwitcher';
 import WeekSwitcherContext from '../context/WeekSwitcherContext.js';
 import getGymsList from "../functions/GymsList.js";
 import getTrainersList from "../functions/TrainersList.js";
+import getIndvClasses from "../functions/IndvClassesShopData.js";
 import { useNavigate } from "react-router-dom";
-import CartToken from "../CartToken.js";
-
 
 
 function IndvClassesShop () {
+  // shows individual classes shop
     const {userId} = clientToken();
     const [classes, setClasses] = useState([]);
     const [gymId, setGymId] = useState();
@@ -20,58 +20,38 @@ function IndvClassesShop () {
     const {weekBoundaries, formatDate} = useContext(WeekSwitcherContext);
     const stateRef = useRef();
     const navigate = useNavigate();
-    const {addTraining} = CartToken();
 
-
-
-    const getIndvClasses = async (e) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/free_trainings/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({  trainer_id: trainerId,
-                start_date: formatDate(stateRef.current),
-                                      client_id: userId(),
-                                      }),
-            });
-
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+    const indvClasses = async (e) => {
+      // gets classes data for given trainer, week and user
+            const data = await getIndvClasses(e, trainerId, formatDate(stateRef.current), userId())
             setClasses(data.trainings)
-            console.log(data.trainings)
-
-
-          } catch (error) {
-            console.error('Error:', error);
-          }
         };
 
         const getGyms = async (event) => {
+      // get gyms for dropdown menu
             const gyms = await getGymsList(event);
             setGyms(gyms);
         }
 
         const getTrainers = async (event, club_id) => {
+      // get trainers for given gym for dropdown menu
             const trainers = await getTrainersList(event, club_id);
             setClubTrainers(trainers);
         }
 
         stateRef.current = weekBoundaries.startOfWeek;
 
-
+      // get data on site render
+        useEffect((e) => {getGyms(e)}, []);
+      // get updated data on every change in gym value
+        useEffect((e) => {getTrainers(e, gymId)}, [gymId]);
+      // get updated data on every change in trainer & data value
         useEffect(() => {
-            getIndvClasses();
+            indvClasses();
           }, [stateRef.current, trainerId]);
-          useEffect((e) => {getGyms(e)}, []);
-          useEffect((e) => {getTrainers(e, gymId)}, [gymId]);
 
           const handleClick = (class_id, date, collision_id, free_places, price) => {
-            console.log(price)
+            // redirect to class' details site
             navigate('/szczegoly_sklep', {
               state: {
                 classId: class_id,

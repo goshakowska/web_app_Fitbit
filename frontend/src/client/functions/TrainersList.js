@@ -1,4 +1,5 @@
 const getTrainersList = async (event, clubId) => {
+  // returns all trainers who work at given club
     try {
         const response = await fetch('http://localhost:8000/client/gym_trainers/', {
           method: 'POST',

@@ -1,55 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import getTicketDetails from "../functions/ticketDetails";
+import deleteTicket from "../functions/DeleteTicket";
 import {Table, Button} from 'reactstrap';
 import "../styles/tablesStyle.css";
 
 
 
 const ClientTicketDetails = props => {
+  // shows details about client's ordered ticket
     const [details, setDetails] = useState([])
     const location = useLocation();
     const navigate = useNavigate();
     const ticket_id = location.state.ticketId;
 
-    const getTicketDetails = async (event, ticket_id) => {
-        try {
-            const response = await fetch('http://localhost:8000/client/gym_tickets_details/', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },body: JSON.stringify({ ticket_id: ticket_id})});
 
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    const ticketDetails = async (event) => {
+      // shows ticket's details
+          const data = await getTicketDetails(event, ticket_id)
+          console.log(data)
+          setDetails(data.details)
+      }
 
-            const data = await response.json();
-            console.log(data.details)
-            setDetails(data.details);
+      const handleDeleteTicket = async (event, ticket_id) => {
+  // deletes unactivated client's ticket
+        deleteTicket(event, ticket_id);
+        navigate('/karnety_klienta');
+      }
 
-          } catch (error) {
-            console.error('Error:', error);
-          };
-    }
-
-    const deleteTicket = async (event, ticket_id) => {
-      try {
-          const response = await fetch('http://localhost:8000/client/delete_gym_ticket/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },body: JSON.stringify({ gym_ticket_id: ticket_id})});
-            navigate('/karnety_klienta')
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-
-        } catch (error) {
-          console.error('Error:', error);
-        };
-  }
-
-    useEffect((e) => {getTicketDetails(e, ticket_id)}, []);
+      // get data on site render
+    useEffect((e) => {ticketDetails(e, ticket_id)}, []);
 
     return(
       <div className="clubsTable">
@@ -103,7 +83,7 @@ const ClientTicketDetails = props => {
         <div className="expiredTicket text-style">Karnet wygasł. </div> : <></>}
 <div>
 {details["status"]=== null ?
-        <Button className="deleteStyle text-style" onClick={(e) => {deleteTicket(e, ticket_id)}}> Anuluj zakup karnetu </Button> : <></>}
+        <Button className="deleteStyle text-style" onClick={(e) => {handleDeleteTicket(e, ticket_id)}}> Anuluj zakup karnetu </Button> : <></>}
         </div> </div>
 </div>
   );

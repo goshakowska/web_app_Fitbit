@@ -4,6 +4,7 @@ import WeekSwitcherContext from "../context/WeekSwitcherContext";
 
 
 function WeekSwitcher () {
+    // create week switcher component for simple week changing in shops & client's classes
     const {weekBoundaries, handleNext, handlePrev} = useContext(WeekSwitcherContext)
     return (
         <div className="weekSwitchLayout">

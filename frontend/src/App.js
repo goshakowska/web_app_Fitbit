@@ -7,6 +7,7 @@ import { WeekSwitcherProvider } from "./client/context/WeekSwitcherContext";
 
 import Header from "./client/components/Header";
 
+// client
 import GroupClassesShopView from "./client/views/GroupClassesShop";
 import IndvClassesShopView from "./client/views/IndvClassesShop";
 import ClassDetailsView from "./client/views/ClientClassDetails";
@@ -54,6 +55,7 @@ function App() {
               <Header />
 
               <Routes>
+                {/* client */}
               <Route exact path="/" element={<StartPageView />} />
               <Route exact path='/silownie' element={<FitnessClubsView />} />
               <Route exact path='/szczegoly_silowni' element={<FitnessClubDetailsView />} />

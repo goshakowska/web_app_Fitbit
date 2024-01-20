@@ -7,6 +7,7 @@ import CartToken from '../CartToken';
 import secondsToHHMMSS from '../functions/secondsToHHMMSS';
 
 function Reservation() {
+  // shows confirmation site after clicking 'buy cart' in Cart component
     const {userId} = clientToken();
     const {getCart, emptyCart} = CartToken();
     const location = useLocation();
@@ -15,6 +16,7 @@ function Reservation() {
     const [countdownTime, setCountdownTime] = useState(600);
     const navigate = useNavigate();
 
+    // counting down time
     useEffect(() => {
       const odlicz = setInterval(() => {
         setCountdownTime(prevCzas => prevCzas - 1);
@@ -29,6 +31,7 @@ function Reservation() {
 
 
     const handleBuyCart = async (event, client_id, reserved_gym_classes, gym_tickets) => {
+      // buy all items from cart
         await buyCart(event, client_id, reserved_gym_classes, gym_tickets);
         emptyCart();
         alert('Potwierdzenie zakupu.')

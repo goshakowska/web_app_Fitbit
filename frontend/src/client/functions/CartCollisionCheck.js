@@ -1,4 +1,5 @@
 const checkCartCollision = async (event, week_schedule_id, date, cart) => {
+  // checks if class in shop has any collision with items in the cart
     try {
         const response = await fetch('http://localhost:8000/client/is_collision_in_basket/', {
           method: 'POST',

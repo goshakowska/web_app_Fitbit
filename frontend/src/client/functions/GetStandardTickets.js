@@ -1,22 +1,23 @@
-const bookCart = async (event, client_id, cartClasses) => {
-  // books classes from cart 
+
+const getStandardTickets = async (event) => {
+  // returns all standard tickets
     try {
-        const response = await fetch('http://localhost:8000/client/reserve_gym_classes/', {
+        const response = await fetch('http://localhost:8000/client/standard_gym_ticket_offer/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-          },body: JSON.stringify({ client_id: client_id, gym_classes: cartClasses} )});
+          }});
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        return data;
+        return data
 
       } catch (error) {
         console.error('Error:', error);
       };
 }
 
-export default bookCart
+export default getStandardTickets

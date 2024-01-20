@@ -9,14 +9,14 @@ import {
   import clientToken from "../ClientToken";
 
 function LoginForm ()
-{
+{// shows login form
     const [userLoginInput, setUserLoginInput] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [loggingError, setLoggingError] = useState("")
     const {login} = clientToken();
 
     const errorHandle = () =>
-    {
+    {//set appropriate errors
         if ("" === userLoginInput) {
             setLoggingError("Wprowadź swój login.");
             return true
@@ -62,8 +62,8 @@ function LoginForm ()
           }}
         };
 
-
         const handleLogin = (event) =>{
+            // login user on click
             if(errorHandle() === true) {return};
             Login(event);
         }

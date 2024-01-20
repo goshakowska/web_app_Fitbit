@@ -10,10 +10,12 @@ import FormContext from '../context/RegistrationContext';
 
 
 function RegistrationUserData() {
+  // 1st page of registration form: user data
     const {formData, setFormData, handleChange, handleNext} = useContext(FormContext)
     const [loginError, setLoginError] = useState("")
 
     const isLoginTaken = async (event, login) => {
+      // check if login is taken
       try {
           const response = await fetch('http://localhost:8000/client/is_busy_login/', {
             method: 'POST',
@@ -37,6 +39,7 @@ function RegistrationUserData() {
         };
       };
 
+        // input validation
       const keysToCheck = ['loginState', 'emailState', 'passwordState', 'repeatedPasswordState']
 
       const isValid = () => {
